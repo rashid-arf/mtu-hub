@@ -231,6 +231,14 @@
             border-bottom: 1px solid #f3f4f6;
         }
 
+        .calc-facade-note {
+            display: block;
+            font-size: 11px;
+            color: #555;
+            margin-top: 2px;
+        }
+
+
         @media (max-width: 900px) {
             #mtu-calculator .calc-layout {
                 grid-template-columns: 1fr;
@@ -956,7 +964,7 @@
             <h2 class="section__title">Фасади та корпусні матеріали</h2>
             <p class="section__subtitle">
                 Ми працюємо з преміальними фасадами Cleaf / Saib та підбираємо під них корпусні ДСП
-                Egger, Kronospan та Swiss Krono. Для алюмінієвих систем використовуємо Volpato та Trial.
+                Egger, Kronospan та Swiss Krono. Для гардеробних алюмінієвих систем використовуємо Volpato, Trial, Mixal, Mixer.
             </p>
 
             <div class="card-grid">
@@ -974,7 +982,7 @@
 
                 <article class="card">
                     <div class="card-tag"><span class="card-tag-dot"></span>Алюміній</div>
-                    <h3>Volpato та Trial</h3>
+                    <h3>Volpato, Trial, Mixal, Mixer</h3>
                     <p>Системи для кухонь та гардеробів: ручки Gola, алюмінієві рамки, гардеробні системи та комплектуючі.</p>
                 </article>
             </div>
@@ -982,15 +990,17 @@
             <div class="section-box">
                 <strong style="font-size:14px;">Прайси та бланки замовлень</strong>
                 <p style="font-size:13px; color:var(--mt-muted); margin:6px 0 10px;">
-                    Ви можете скористатися базовими прайсами MT та стандартним бланком замовлення для плитних матеріалів.
+                    Ви можете скористатися базовими прайсами MTУ та стандартним бланком замовлення для плитних матеріалів.
                 </p>
                 <div class="section-box-actions">
-                    <a href="https://mt.ua/storage/editor/files/blank-zamovlennya-plitnikh-materialiv-na-MT%20Україна-20-07-22_1658326561.xls"
+                    <a href="https://mt.ua/storage/editor/files/blank-zamovlennya-plitnikh-materialiv-na-mtu-20-07-22_1658326561.xls"
                        class="btn btn-outline" target="_blank">
-                        Бланк замовлення (Excel)
+                        Форма замовлення плитних матеріалів                   </a>
+                    <a href="https://mt.ua/storage/editor/files/poslugi-obrobki-plitnikh-materialiv.pdf" class="btn btn-outline" target="_blank">
+                        Прайс послуг обробки плитних матеріалів
                     </a>
-                    <a href="https://mt.ua/uslugi" class="btn btn-outline" target="_blank">
-                        Прайс послуг MT (сайт mt.ua)
+                    <a href="https://mt.ua/storage/editor/files/poslugi-alyuminievoi-dilyanki.pdf" class="btn btn-outline" target="_blank">
+                        Прайс послуг алюмінієвої ділянки
                     </a>
                 </div>
             </div>
@@ -1027,7 +1037,7 @@
             <h2 class="section__title">Проєкти з використанням MT Hub</h2>
             <p class="section__subtitle">
                 Тут будуть приклади реалізованих об’єктів: кухні, гардеробні, HoReCa та комерційні інтер’єри,
-                де застосовані фасади Cleaf, системи Volpato, Trial та сервіс MT.
+                де застосовані фасади Cleaf, системи Volpato, Trial, Mixal, Mixer та сервіс MT.
             </p>
 
             <div class="card-grid">
@@ -1050,248 +1060,899 @@
         <section class="section section--tight" id="calculator-kitchen">
                         <div class="section-box">
                 <!-- PAGE 4 — Калькулятор -->
-                <section class="section section--tight" id="mtu-calculator">
-                    <div class="section__eyebrow">Онлайн-калькулятор</div>
-                    <h2 class="section__title">Калькулятор послуг MTU</h2>
-                    <p class="section__subtitle">
-                        Оберіть фасад Cleaf / Saib, матеріал корпусу Egger U788, тип модуля та опції — система
-                        покаже орієнтовну вартість матеріалів, послуг і залишку ДСП та фасадів.
-                    </p>
+                            <!-- КАЛЬКУЛЯТОР MTU -->
+                            <section class="page" id="mtu-calculator">
+                                <h2 class="title-lg">Калькулятор модулів з ДСП та послуг</h2>
+                                <p>
+                                    Оберіть фасад Cleaf / Saib, матеріал корпусу Egger U788, тип модуля та опції —
+                                    система покаже орієнтовну вартість матеріалів, послуг і залишку ДСП та фасадів.
+                                </p>
 
-                    <div class="calc-layout">
-                        <!-- ЛІВА ЧАСТИНА -->
-                        <div class="calc-card">
-                            <div class="calc-title">Параметри модуля</div>
+                                <div class="calc-layout">
+                                    <!-- ЛІВА ЧАСТИНА -->
+                                    <div class="calc-card">
+                                        <div class="calc-title">Параметри модуля</div>
 
-                            <div class="calc-field">
-                                <div class="calc-label">Фасад Cleaf / Saib</div>
-                                <select class="calc-select" id="hub_facadeType">
-                                    <option value="none">Без фасаду (тільки корпус)</option>
-                                    <option value="cleaf_lr22">Cleaf LR22 Sable</option>
-                                    <option value="cleaf_s158">Cleaf S158 Okobo</option>
-                                    <option value="saib_3005">Saib 3005 Aguarama</option>
-                                    <option value="saib_1985">Saib 1985 Root</option>
-                                </select>
-                                <div class="calc-hint">
-                                    Для прикладу: 1 фасад на модуль (2 для гардеробу).
+                                        <div class="calc-field">
+                                            <div class="calc-label">Фасад Cleaf / Saib</div>
+                                            <select class="calc-select" id="hub_facadeType">
+                                                <option value="none">Без фасаду (тільки корпус)</option>
+                                                <option value="cleaf_lr22">Cleaf LR22 Sable</option>
+                                                <option value="cleaf_s158">Cleaf S158 Okobo</option>
+                                                <option value="saib_3005">Saib 3005 Aguarama</option>
+                                                <option value="saib_1985">Saib 1985 Root</option>
+                                            </select>
+                                            <div class="calc-hint">
+                                                Для прикладу: 1 фасад на модуль (2 для гардеробу).
+                                            </div>
+                                        </div>
+
+                                        <div class="calc-field">
+                                            <div class="calc-label">Тип модуля</div>
+                                            <select class="calc-select" id="hub_moduleType">
+                                                <option value="lower600">Нижній корпус кухні</option>
+                                                <option value="upper600">Верхній модуль кухні</option>
+                                                <option value="wardrobe1m">Гардеробний проліт</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="calc-field">
+                                            <div class="calc-label">Ширина модуля, мм</div>
+                                            <select class="calc-select" id="hub_moduleWidth">
+                                                <option value="600" selected>600</option>
+                                                <option value="1000">1000</option>
+                                            </select>
+                                            <div class="calc-hint">
+                                                Площа масштабується пропорційно ширині від базового модуля.
+                                            </div>
+                                        </div>
+
+                                        <div class="calc-field">
+                                            <div class="calc-label">Кількість модулів</div>
+                                            <input class="calc-input" id="hub_qty" type="number" min="1" value="1" />
+                                        </div>
+
+                                        <div class="calc-field">
+                                            <div class="calc-label">Матеріал корпусу</div>
+                                            <select class="calc-select" id="hub_materialType">
+                                                <option value="egger_u788">Egger U788 ST9 Арктика сіра</option>
+                                            </select>
+                                            <div class="calc-hint">
+                                                Ціна корпусу розрахована від прайса (лист 2800×2070) ≈
+                                                <strong>535 грн/м²</strong>.
+                                            </div>
+                                        </div>
+
+                                        <div class="calc-field">
+                                            <div class="calc-label">Пакет послуг MTU</div>
+                                            <select class="calc-select" id="hub_servicePack">
+                                                <option value="full">Розкрій + кромка + присадка (повний пакет)</option>
+                                                <option value="cut_edge">Розкрій + кромка</option>
+                                                <option value="cut_only">Лише розкрій</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="calc-field">
+                                            <div class="calc-label">Опції</div>
+                                            <div class="calc-checkbox-row">
+                                                <input type="checkbox" id="hub_optBack10" />
+                                                <label for="hub_optBack10">Задня стінка з ДСП 10 мм (замість HDF 3 мм)</label>
+                                            </div>
+                                            <div class="calc-checkbox-row">
+                                                <input type="checkbox" id="hub_optBlum" checked />
+                                                <label for="hub_optBlum">Комплект Blum (петлі / кріплення)</label>
+                                            </div>
+                                            <div class="calc-checkbox-row">
+                                                <input type="checkbox" id="hub_optAssembly" />
+                                                <label for="hub_optAssembly">Збірка / півзбірка корпусу</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="calc-buttons">
+                                            <span class="btn btn--primary" onclick="hubRecalcModule()">Розрахувати модуль</span>
+                                            <span class="btn btn--secondary" onclick="hubAddModuleToOrder()">Додати модуль до замовлення</span>
+                                        </div>
+                                        <div class="calc-hint" style="margin-top: 6px">
+                                            Важливо: це орієнтовний прорахунок. Точні суми фіксуються у технічному замовленні MTU.
+                                        </div>
+                                    </div>
+
+                                    <!-- ПРАВА ЧАСТИНА -->
+                                    <div class="calc-card calc-card--summary">
+                                        <div class="calc-title">Підсумок розрахунку (1 позиція)</div>
+
+                                        <table class="calc-table calc-table--compact">
+                                            <thead>
+                                            <tr>
+                                                <th>Стаття</th>
+                                                <th style="width: 110px">Сума, грн</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td id="hub_rowMaterialName">ДСП Egger (корпус)</td>
+                                                <td id="hub_rowMaterialPrice">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="hub_rowBackName">Задня стінка (HDF / ДСП)</td>
+                                                <td id="hub_rowBackPrice">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="hub_rowServicesName">Послуги MTU (деталізація нижче)</td>
+                                                <td id="hub_rowServicesPrice">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="hub_rowFacadeName">Фасад Cleaf / Saib</td>
+                                                <td id="hub_rowFacadePrice">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="hub_rowBlumName">Комплект Blum</td>
+                                                <td id="hub_rowBlumPrice">0</td>
+                                            </tr>
+                                            <tr>
+                                                <td id="hub_rowAssemblyName">Збірка корпусу</td>
+                                                <td id="hub_rowAssemblyPrice">0</td>
+                                            </tr>
+                                            <tr class="calc-table-total">
+                                                <td>Разом за модуль</td>
+                                                <td id="hub_rowModuleTotal">0</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="calc-title" style="margin-top: 14px">Розшифровка послуг MTU (1 модуль)</div>
+
+                                        <table class="calc-table calc-table--services">
+                                            <thead>
+                                            <tr>
+                                                <th>Послуга</th>
+                                                <th>Код</th>
+                                                <th>Од. вим.</th>
+                                                <th>Обсяг</th>
+                                                <th>Тариф, грн</th>
+                                                <th>Сума, грн</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="hub_servicesDetailsBody"></tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="5">Разом послуги по модулю</td>
+                                                <td id="hub_servicesDetailsTotal">0</td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+
+                                        <p class="calc-note" id="hub_leftoverNote">
+                                            Оберіть параметри модуля і натисніть «Розрахувати модуль», щоб побачити деталі:
+                                            площу корпусу, кількість листів та залишок ДСП і фасадів.
+                                        </p>
+
+                                        <div class="calc-divider"></div>
+
+                                        <div class="calc-title" style="margin-top: 10px">Замовлення MTU (накопичувально)</div>
+
+                                        <table class="calc-table calc-table--order">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Модуль</th>
+                                                <th>К-сть</th>
+                                                <th>Матеріал</th>
+                                                <th>Площа корпуса, м²</th>
+                                                <th>Сума, грн</th>
+                                                <th></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="hub_orderBody"></tbody>
+                                            <tfoot>
+                                            <tr>
+                                                <td colspan="4">Разом по замовленню (чиста площа корпусу)</td>
+                                                <td id="hub_orderTotalArea">0,00</td>
+                                                <td id="hub_orderTotalSum">0</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">Листів ДСП</td>
+                                                <td id="hub_orderTotalSheets">0</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">Залишок ДСП</td>
+                                                <td id="hub_orderLeftoverArea">0,00</td>
+                                                <td id="hub_orderLeftoverCost">0</td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">Листів фасаду CLEAF/SAIB</td>
+                                                <td id="hub_orderFacadeSheets">0</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">Залишок фасаду</td>
+                                                <td id="hub_orderFacadeLeftoverArea">0,00</td>
+                                                <td id="hub_orderFacadeLeftoverCost">0</td>
+                                                <td></td>
+                                            </tr>
+                                            </tfoot>
+                                        </table>
+
+                                        <p id="hub_orderSheetsNote" style="font-size: 12px; margin-top: 6px">
+                                            Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.
+                                        </p>
+
+                                        <div class="calc-buttons">
+                                            <span class="btn btn--secondary" onclick="hubClearOrder()">Очистити замовлення</span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="calc-field">
-                                <div class="calc-label">Тип модуля</div>
-                                <select class="calc-select" id="hub_moduleType">
-                                    <option value="lower600">Нижній корпус кухні</option>
-                                    <option value="upper600">Верхній модуль кухні</option>
-                                    <option value="wardrobe1m">Гардеробний проліт</option>
-                                </select>
-                            </div>
+                                <p class="modularity-note">
+                                    <strong>Примітка.</strong> MTU закуповує листи ДСП і фасадів під ваш проєкт.
+                                    Залишок матеріалу після розкрою (м² та гривня) показується окремо — це чесно демонструє,
+                                    скільки матеріалу фактично пішло на проєкт і хто його оплачує.
+                                </p>
+                            </section>
 
-                            <div class="calc-field">
-                                <div class="calc-label">Ширина модуля, мм</div>
-                                <select class="calc-select" id="hub_moduleWidth">
-                                    <option value="600" selected>600</option>
-                                    <option value="1000">1000</option>
-                                </select>
-                                <div class="calc-hint">
-                                    Площа масштабується пропорційно ширині від базового модуля.
-                                </div>
-                            </div>
+                            <script>
 
-                            <div class="calc-field">
-                                <div class="calc-label">Кількість модулів</div>
-                                <input class="calc-input" id="hub_qty" type="number" min="1" value="1" />
-                            </div>
+                                    // ---- КОНСТАНТИ ----
+                                    const HUB_SHEET_WIDTH = 2.8;
+                                    const HUB_SHEET_HEIGHT = 2.07;
+                                    const HUB_SHEET_AREA_M2 = HUB_SHEET_WIDTH * HUB_SHEET_HEIGHT;
+                                    const HUB_GROSS_FACTOR = 1.25; // 25% відходів
+                                    const EDGE_WASTE_FACTOR = 1.1; // +10% по кромці фасадів
 
-                            <div class="calc-field">
-                                <div class="calc-label">Матеріал корпусу</div>
-                                <select class="calc-select" id="hub_materialType">
-                                    <option value="egger_u788">Egger U788 ST9 Арктика сіра</option>
-                                </select>
-                                <div class="calc-hint">
-                                    Ціна корпусу розрахована від прайса (лист 2800×2070) ≈
-                                    <strong>535 грн/м²</strong>.
-                                </div>
-                            </div>
+                                    const HUB_MATERIALS = {
+                                    egger_u788: {
+                                    name: "ДСП Egger U788 ST9 Арктика сіра",
+                                    pricePerM2: 535,
+                                },
+                                };
 
-                            <div class="calc-field">
-                                <div class="calc-label">Пакет послуг MTU</div>
-                                <select class="calc-select" id="hub_servicePack">
-                                    <option value="full">Розкрій + кромка + присадка (повний пакет)</option>
-                                    <option value="cut_edge">Розкрій + кромка</option>
-                                    <option value="cut_only">Лише розкрій</option>
-                                </select>
-                            </div>
+                                    const HUB_FACADES = {
+                                    none: {
+                                    name: "Без фасаду",
+                                    sheetPrice: 0,
+                                    pricePerM2: 0,
+                                    edgePricePerM: 0,
+                                },
+                                    cleaf_lr22: {
+                                    name: "Cleaf LR22 Sable",
+                                    sheetPrice: 9394.3,
+                                    pricePerM2: 9394.3 / HUB_SHEET_AREA_M2,
+                                    edgePricePerM: 65.6,
+                                },
+                                    cleaf_s158: {
+                                    name: "Cleaf S158 Okobo",
+                                    sheetPrice: 12263,
+                                    pricePerM2: 12263 / HUB_SHEET_AREA_M2,
+                                    edgePricePerM: 65.6,
+                                },
+                                    saib_3005: {
+                                    name: "Saib 3005 Aguarama",
+                                    sheetPrice: 7418.9,
+                                    pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
+                                    edgePricePerM: 65.6,
+                                },
+                                    saib_1985: {
+                                    name: "Saib 1985 Root",
+                                    sheetPrice: 7418.9,
+                                    pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
+                                    edgePricePerM: 65.6,
+                                },
+                                };
 
-                            <div class="calc-field">
-                                <div class="calc-label">Опції</div>
-                                <div class="calc-checkbox-row">
-                                    <input type="checkbox" id="hub_optBack10" />
-                                    <label for="hub_optBack10">Задня стінка з ДСП 10 мм (замість HDF 3 мм)</label>
-                                </div>
-                                <div class="calc-checkbox-row">
-                                    <input type="checkbox" id="hub_optBlum" checked />
-                                    <label for="hub_optBlum">Комплект Blum (петлі / кріплення)</label>
-                                </div>
-                                <div class="calc-checkbox-row">
-                                    <input type="checkbox" id="hub_optAssembly" />
-                                    <label for="hub_optAssembly">Збірка / півзбірка корпусу</label>
-                                </div>
-                            </div>
+                                    const HUB_BACK_HDF = {
+                                    name: "HDF Kronospan білий 3 мм",
+                                    pricePerM2: 567 / HUB_SHEET_AREA_M2,
+                                };
 
-                            <div class="calc-buttons">
-                                <button class="btn btn--primary" type="button" onclick="hubRecalcModule()">Розрахувати модуль</button>
-                                <button class="btn btn--secondary" type="button" onclick="hubAddModuleToOrder()">Додати модуль до замовлення</button>
-                            </div>
-                            <div class="calc-hint" style="margin-top: 6px">
-                                Важливо: це орієнтовний прорахунок. Точні суми фіксуються у технічному замовленні MTU.
-                            </div>
+                                    const HUB_BACK_DSP10 = {
+                                    name: "ДСП 10 мм (задня стінка)",
+                                    pricePerM2: 300,
+                                };
+
+                                    const HUB_MODULES = {
+                                    lower600: {
+                                    name: "Нижній корпус кухні",
+                                    baseWidth: 600,
+                                    baseAreaNetDSP: 1.6,
+                                    blum: 350,
+                                    assembly: 300,
+                                    facadeHeightM: 0.72,
+                                    backAreaM2: 0.4,
+                                },
+                                    upper600: {
+                                    name: "Верхній модуль кухні",
+                                    baseWidth: 600,
+                                    baseAreaNetDSP: 1.2,
+                                    blum: 350,
+                                    assembly: 260,
+                                    facadeHeightM: 0.72,
+                                    backAreaM2: 0.3,
+                                },
+                                    wardrobe1m: {
+                                    name: "Гардеробний проліт",
+                                    baseWidth: 1000,
+                                    baseAreaNetDSP: 1.8,
+                                    blum: 1400,
+                                    assembly: 380,
+                                    facadeHeightM: 2.4,
+                                    backAreaM2: 1.44,
+                                },
+                                };
+
+                                    // Норми по корпусу (порізка, кромка корпуса, вибірка, отвори)
+                                    const HUB_SERVICE_TARIFFS = {
+                                    cut:      {code: "044261", name: "Порізка ДСП",                        unit: "м.п.", price: 20},
+                                    edgeCorp: {code: "044278", name: "Кромкування ДСП 8–25 мм EVA",        unit: "м.п.", price: 40},
+                                    rebate:   {code: "044275", name: "Вибірка чверті під ДВП / ДСП 10 мм", unit: "м.п.", price: 50},
+                                    holes:    {code: "044299", name: "Свердління отворів (полиці / стяжки)",unit: "шт.", price: 6},
+                                    hinges:   {code: "044300", name: "Поглиблення під петлі Ø35",          unit: "шт.", price: 18},
+                                    edgeFront:{code: "086618", name: "Кромкування фасадів CLEAF/SAIB PUR", unit: "м.п.", price: 60},
+                                };
+
+                                    const HUB_SERVICE_NORMS = {
+                                    lower600: {
+                                    cut_mp: 10.8,
+                                    edgeCorp_mp: 9.6,
+                                    rebate_mp: 1.8,
+                                    holesCount: 12,
+                                },
+                                    upper600: {
+                                    cut_mp: 8.4,
+                                    edgeCorp_mp: 7.2,
+                                    rebate_mp: 1.8,
+                                    holesCount: 16,
+                                },
+                                    wardrobe1m: {
+                                    cut_mp: 14.4,
+                                    edgeCorp_mp: 12.0,
+                                    rebate_mp: 2.4,
+                                    holesCount: 24,
+                                },
+                                };
+
+                                    // логіка дверей
+                                    function hubGetDoorsCount(moduleKey, widthMm) {
+                                    if (moduleKey === "wardrobe1m") return 2;          // гардероб завжди 2 двері
+                                    return widthMm > 700 ? 2 : 1;                      // кухня: до 700 – 1, від 800 – 2
+                                }
+
+                                    function hubGetHingesPerDoor(moduleKey) {
+                                    if (moduleKey === "wardrobe1m") return 4;          // високі двері
+                                    return 2;                                          // кухонний фасад
+                                }
+
+                                    let hubLastCalc = null;
+                                    let hubOrderLines = [];
+
+                                    function hubResetModuleUI() {
+                                    hubLastCalc = null;
+
+                                    // Верхня таблиця
+                                    document.getElementById("hub_rowMaterialName").textContent = "ДСП Egger (корпус)";
+                                    document.getElementById("hub_rowMaterialPrice").textContent = "0";
+
+                                    document.getElementById("hub_rowBackName").textContent = "Задня стінка (HDF / ДСП)";
+                                    document.getElementById("hub_rowBackPrice").textContent = "0";
+
+                                    document.getElementById("hub_rowServicesName").textContent = "Послуги MTU (деталізація нижче)";
+                                    document.getElementById("hub_rowServicesPrice").textContent = "0";
+
+                                    document.getElementById("hub_rowFacadeName").textContent = "Фасад Cleaf / Saib";
+                                    document.getElementById("hub_rowFacadePrice").textContent = "0";
+
+                                    document.getElementById("hub_rowBlumName").textContent = "Комплект Blum";
+                                    document.getElementById("hub_rowBlumPrice").textContent = "0";
+
+                                    document.getElementById("hub_rowAssemblyName").textContent = "Збірка корпусу";
+                                    document.getElementById("hub_rowAssemblyPrice").textContent = "0";
+
+                                    document.getElementById("hub_rowModuleTotal").textContent = "0";
+
+                                    // Таблиця послуг
+                                    document.getElementById("hub_servicesDetailsBody").innerHTML = "";
+                                    document.getElementById("hub_servicesDetailsTotal").textContent = "0";
+
+                                    document.getElementById("hub_leftoverNote").textContent =
+                                    "Оберіть параметри модуля і натисніть «Розрахувати модуль», щоб побачити деталі: площу корпусу, кількість листів та залишок ДСП і фасадів.";
+                                }
+
+                                    function hubGetSelectedValues() {
+                                    const moduleKey   = document.getElementById("hub_moduleType").value;
+                                    const width       = parseInt(document.getElementById("hub_moduleWidth").value, 10);
+                                    let   qty         = parseInt(document.getElementById("hub_qty").value, 10);
+                                    if (!Number.isFinite(qty) || qty < 1) qty = 1;
+                                    document.getElementById("hub_qty").value = qty;
+
+                                    const materialKey = document.getElementById("hub_materialType").value;
+                                    const pack        = document.getElementById("hub_servicePack").value;
+                                    const facadeKey   = document.getElementById("hub_facadeType").value;
+                                    const useBack10   = document.getElementById("hub_optBack10").checked;
+                                    const optBlum     = document.getElementById("hub_optBlum").checked;
+                                    const optAssembly = document.getElementById("hub_optAssembly").checked;
+
+                                    return {
+                                    moduleKey,
+                                    width,
+                                    qty,
+                                    materialKey,
+                                    pack,
+                                    facadeKey,
+                                    useBack10,
+                                    optBlum,
+                                    optAssembly,
+                                };
+                                }
+
+                                    function hubRecalcModule() {
+                                    const {
+                                    moduleKey,
+                                    width,
+                                    qty,
+                                    materialKey,
+                                    pack,
+                                    facadeKey,
+                                    useBack10,
+                                    optBlum,
+                                    optAssembly,
+                                } = hubGetSelectedValues();
+
+                                    const mod   = HUB_MODULES[moduleKey];
+                                    const mat   = HUB_MATERIALS[materialKey];
+                                    const fac   = HUB_FACADES[facadeKey];
+                                    const norms = HUB_SERVICE_NORMS[moduleKey];
+
+                                    if (!mod || !mat) return;
+
+                                    const widthFactor = width / mod.baseWidth;
+
+                                    // --- корпус ДСП ---
+                                    const netAreaOneDSP   = mod.baseAreaNetDSP * widthFactor;
+                                    const grossAreaOneDSP = netAreaOneDSP * HUB_GROSS_FACTOR;
+                                    const materialCostOne = Math.round(netAreaOneDSP * mat.pricePerM2);
+
+                                    // --- задня стінка ---
+                                    const backAreaOne  = mod.backAreaM2 * widthFactor;
+                                    const backMaterial = useBack10 ? HUB_BACK_DSP10 : HUB_BACK_HDF;
+                                    const backCostOne  = Math.round(backAreaOne * backMaterial.pricePerM2);
+
+                                    // --- фасади: геометрія ---
+                                    let facadeCostOne        = 0;
+                                    let facadeName           = "Фасад (не вибрано)";
+                                    let netFacadeAreaOneM2   = 0;
+                                    let grossFacadeAreaOneM2 = 0;
+                                    let perimeterM           = 0;
+                                    let facadeOrderText      = "";
+
+                                    const doors = hubGetDoorsCount(moduleKey, width);
+                                    const widthM = width / 1000;
+                                    const heightM = mod.facadeHeightM;
+                                    const widthDoorM = doors > 0 ? widthM / doors : widthM;
+                                    const widthDoorMm = Math.round(widthDoorM * 1000);
+                                    const heightMm = Math.round(heightM * 1000);
+
+                                    if (facadeKey !== "none") {
+                                    const areaFacadeOneM2 = widthDoorM * heightM * doors;
+                                    netFacadeAreaOneM2   = areaFacadeOneM2;
+                                    grossFacadeAreaOneM2 = areaFacadeOneM2 * HUB_GROSS_FACTOR;
+
+                                    perimeterM = 2 * (widthDoorM + heightM) * doors;
+                                    const facadeMaterialCost = areaFacadeOneM2 * fac.pricePerM2;
+                                    const facadeEdgeCost     = perimeterM * EDGE_WASTE_FACTOR * fac.edgePricePerM;
+
+                                    facadeCostOne = Math.round(facadeMaterialCost + facadeEdgeCost);
+
+                                    const doorsText = doors === 1
+                                    ? "1 фас."
+                                    : `${doors} фас. по ~${widthDoorMm}×${heightMm} мм`;
+
+                                    facadeName =
+                                    `${fac.name}, ${doorsText} (≈${areaFacadeOneM2.toFixed(2)} м², кромка ≈${(perimeterM * EDGE_WASTE_FACTOR).toFixed(2)} м)`;
+
+                                    facadeOrderText = facadeName; // цей текст піде в нижню таблицю
+                                }
+
+                                    // --- Blum / збірка ---
+                                    const blumCostOne     = optBlum ? mod.blum : 0;
+                                    const assemblyCostOne = optAssembly ? mod.assembly : 0;
+
+                                    // --- послуги ---
+                                    let serviceLines     = [];
+                                    let serviceCostTotal = 0;
+
+                                    if (norms) {
+                                    const cutMpOne      = norms.cut_mp * widthFactor;
+                                    const edgeCorpMpOne = norms.edgeCorp_mp * widthFactor;
+                                    const rebateMpOne   = norms.rebate_mp * widthFactor;
+                                    const holesOne      = norms.holesCount || 0;
+
+                                    const cutMp      = cutMpOne      * qty;
+                                    const edgeCorpMp = edgeCorpMpOne * qty;
+                                    const rebateMp   = rebateMpOne   * qty;
+                                    const holesQty   = holesOne      * qty;
+
+                                    const edgeFrontMpOne = facadeKey !== "none"
+                                    ? perimeterM * EDGE_WASTE_FACTOR
+                                    : 0;
+                                    const edgeFrontMp = edgeFrontMpOne * qty;
+
+                                    const hingesPerDoor = hubGetHingesPerDoor(moduleKey);
+                                    const hingesFrontOne = facadeKey !== "none"
+                                    ? hingesPerDoor * doors
+                                    : 0;
+                                    const hingesQty = hingesFrontOne * qty;
+
+                                    const isCutOnly = pack === "cut_only";
+                                    const isCutEdge = pack === "cut_edge";
+                                    const isFull    = pack === "full";
+
+                                    if (cutMp > 0) {
+                                    const sum = Math.round(cutMp * HUB_SERVICE_TARIFFS.cut.price);
+                                    serviceLines.push({...HUB_SERVICE_TARIFFS.cut, volume: cutMp, sum});
+                                    serviceCostTotal += sum;
+                                }
+
+                                    if (!isCutOnly && edgeCorpMp > 0) {
+                                    const sum = Math.round(edgeCorpMp * HUB_SERVICE_TARIFFS.edgeCorp.price);
+                                    serviceLines.push({...HUB_SERVICE_TARIFFS.edgeCorp, volume: edgeCorpMp, sum});
+                                    serviceCostTotal += sum;
+                                }
+
+                                    if (isFull && useBack10 && rebateMp > 0) {
+                                    const sum = Math.round(rebateMp * HUB_SERVICE_TARIFFS.rebate.price);
+                                    serviceLines.push({...HUB_SERVICE_TARIFFS.rebate, volume: rebateMp, sum});
+                                    serviceCostTotal += sum;
+                                }
+
+                                    if (facadeKey !== "none" && edgeFrontMp > 0 && !isCutOnly) {
+                                    const sum = Math.round(edgeFrontMp * HUB_SERVICE_TARIFFS.edgeFront.price);
+                                    serviceLines.push({...HUB_SERVICE_TARIFFS.edgeFront, volume: edgeFrontMp, sum});
+                                    serviceCostTotal += sum;
+                                }
+
+                                    if (holesQty > 0 && isFull) {
+                                    const sum = Math.round(holesQty * HUB_SERVICE_TARIFFS.holes.price);
+                                    serviceLines.push({...HUB_SERVICE_TARIFFS.holes, volume: holesQty, sum});
+                                    serviceCostTotal += sum;
+                                }
+
+                                    if (hingesQty > 0 && isFull) {
+                                    const sum = Math.round(hingesQty * HUB_SERVICE_TARIFFS.hinges.price);
+                                    serviceLines.push({...HUB_SERVICE_TARIFFS.hinges, volume: hingesQty, sum});
+                                    serviceCostTotal += sum;
+                                }
+                                }
+
+                                    const materialCostTotal = materialCostOne * qty;
+                                    const backCostTotal     = backCostOne     * qty;
+                                    const blumCostTotal     = blumCostOne     * qty;
+                                    const assemblyCostTotal = assemblyCostOne * qty;
+                                    const facadeCostTotal   = facadeCostOne   * qty;
+
+                                    const moduleTotal =
+                                    materialCostTotal +
+                                    backCostTotal +
+                                    serviceCostTotal +
+                                    blumCostTotal +
+                                    assemblyCostTotal +
+                                    facadeCostTotal;
+
+                                    // --- верхня таблиця ---
+                                    document.getElementById("hub_rowMaterialName").textContent =
+                                    `${mod.name} (${mat.name}), ≈${netAreaOneDSP.toFixed(2)} м² × ${qty} мод.`;
+                                    document.getElementById("hub_rowMaterialPrice").textContent =
+                                    materialCostTotal.toLocaleString("uk-UA");
+
+                                    document.getElementById("hub_rowBackName").textContent =
+                                    `${backMaterial.name} (≈${backAreaOne.toFixed(2)} м² × ${qty} мод.)`;
+                                    document.getElementById("hub_rowBackPrice").textContent =
+                                    backCostTotal.toLocaleString("uk-UA");
+
+                                    document.getElementById("hub_rowServicesName").textContent =
+                                    "Послуги MTU (деталізація нижче)";
+                                    document.getElementById("hub_rowServicesPrice").textContent =
+                                    serviceCostTotal.toLocaleString("uk-UA");
+
+                                    document.getElementById("hub_rowFacadeName").textContent =
+                                    facadeKey === "none"
+                                    ? "Фасад (не вибрано)"
+                                    : facadeName + (qty > 1 ? ` × ${qty} мод.` : "");
+                                    document.getElementById("hub_rowFacadePrice").textContent =
+                                    facadeCostTotal ? facadeCostTotal.toLocaleString("uk-UA") : "0";
+
+                                    const hasBlumForModule = mod.blum > 0;
+                                    if (!hasBlumForModule) {
+                                    document.getElementById("hub_rowBlumName").textContent =
+                                    "Комплект Blum (не застосовується до цього модуля)";
+                                    document.getElementById("hub_rowBlumPrice").textContent = "—";
+                                } else {
+                                    document.getElementById("hub_rowBlumName").textContent =
+                                    optBlum ? `Комплект Blum × ${qty} шт.` : "Комплект Blum (не вибрано)";
+                                    document.getElementById("hub_rowBlumPrice").textContent =
+                                    blumCostTotal ? blumCostTotal.toLocaleString("uk-UA") : "0";
+                                }
+
+                                    document.getElementById("hub_rowAssemblyName").textContent =
+                                    optAssembly ? `Збірка / півзбірка корпусу × ${qty} мод.` : "Збірка корпусу (не вибрано)";
+                                    document.getElementById("hub_rowAssemblyPrice").textContent =
+                                    assemblyCostTotal ? assemblyCostTotal.toLocaleString("uk-UA") : "0";
+
+                                    document.getElementById("hub_rowModuleTotal").textContent =
+                                    moduleTotal.toLocaleString("uk-UA");
+
+                                    // --- таблиця послуг ---
+                                    const tbodyServices = document.getElementById("hub_servicesDetailsBody");
+                                    const totalServicesCell = document.getElementById("hub_servicesDetailsTotal");
+                                    tbodyServices.innerHTML = "";
+                                    serviceLines.forEach((line) => {
+                                    const tr = document.createElement("tr");
+                                    const vol = line.unit === "шт."
+                                    ? line.volume.toFixed(0)
+                                    : line.volume.toFixed(2);
+                                    tr.innerHTML = `
+                <td>${line.name}</td>
+                <td>${line.code}</td>
+                <td>${line.unit}</td>
+                <td>${vol}</td>
+                <td>${line.price}</td>
+                <td>${line.sum.toLocaleString("uk-UA")}</td>`;
+                                    tbodyServices.appendChild(tr);
+                                });
+                                    totalServicesCell.textContent = serviceCostTotal.toLocaleString("uk-UA");
+
+                                    // --- листи + залишок ДСП по модулю ---
+                                    const totalNetArea   = netAreaOneDSP   * qty;
+                                    const totalGrossArea = grossAreaOneDSP * qty;
+
+                                    const sheetsNeeded   = Math.max(1, Math.ceil(totalGrossArea / HUB_SHEET_AREA_M2));
+                                    const totalSheetArea = sheetsNeeded * HUB_SHEET_AREA_M2;
+                                    const leftoverArea   = totalSheetArea - totalGrossArea;
+                                    const leftoverCost   = Math.round(leftoverArea * mat.pricePerM2);
+
+                                    // --- листи + залишок фасаду по модулю ---
+                                    let facadeLeftText = "";
+                                    if (facadeKey !== "none" && netFacadeAreaOneM2 > 0) {
+                                    const netFacadeArea   = netFacadeAreaOneM2   * qty;
+                                    const grossFacadeArea = grossFacadeAreaOneM2 * qty;
+                                    const facadeSheets    = Math.max(1, Math.ceil(grossFacadeArea / HUB_SHEET_AREA_M2));
+                                    const facadeSheetsArea   = facadeSheets * HUB_SHEET_AREA_M2;
+                                    const facadeLeftoverArea = facadeSheetsArea - grossFacadeArea;
+                                    const facadeLeftoverCost = Math.round(facadeLeftoverArea * fac.pricePerM2);
+
+                                    facadeLeftText =
+                                    ` Фасади ${fac.name}: потрібно ${facadeSheets} лист(и) ` +
+                                    `(${facadeSheetsArea.toFixed(2)} м²), чиста площа фасадів: ${netFacadeArea.toFixed(2)} м², ` +
+                                    `з відходами 25%: ${grossFacadeArea.toFixed(2)} м². Залишок фасаду ≈ ${facadeLeftoverArea.toFixed(2)} м² ` +
+                                    `(~${facadeLeftoverCost.toLocaleString("uk-UA")} грн).`;
+                                }
+
+                                    const noteText = leftoverArea > 0.01
+                                    ? `Для цього модуля (×${qty}) потрібно ${sheetsNeeded} лист(и) ${mat.name} ` +
+                                    `(${totalSheetArea.toFixed(2)} м² з урахуванням відходів). Чиста площа корпусу: ${totalNetArea.toFixed(2)} м², ` +
+                                    `з відходами 25%: ${totalGrossArea.toFixed(2)} м². Залишок ДСП ≈ ${leftoverArea.toFixed(2)} м² ` +
+                                    `(~${leftoverCost.toLocaleString("uk-UA")} грн).` +
+                                    facadeLeftText
+                                    : "Площа модулів практично дорівнює площі листів — залишок мінімальний.";
+                                    document.getElementById("hub_leftoverNote").textContent = noteText;
+
+                                    hubLastCalc = {
+                                    moduleKey,
+                                    width,
+                                    qty,
+                                    materialKey,
+                                    facadeKey,
+                                    pack,
+                                    useBack10,
+                                    optBlum,
+                                    optAssembly,
+                                    netAreaOneDSP,
+                                    grossAreaOneDSP,
+                                    netFacadeAreaOneM2,
+                                    grossFacadeAreaOneM2,
+                                    moduleTotal,
+                                    materialCostTotal,
+                                    backCostTotal,
+                                    serviceCostTotal,
+                                    blumCostTotal,
+                                    assemblyCostTotal,
+                                    facadeCostTotal,
+                                    facadeOrderText,
+                                };
+                                }
+
+                                    function hubAddModuleToOrder() {
+                                    if (!hubLastCalc) hubRecalcModule();
+                                    if (!hubLastCalc) return;
+                                    hubOrderLines.push({...hubLastCalc});
+                                    hubRenderOrderSummary();
+                                }
+
+                                    function hubDeleteOrderLine(index) {
+                                    hubOrderLines.splice(index, 1);
+                                    hubRenderOrderSummary();
+                                }
+
+                                    function hubClearOrder() {
+                                    hubOrderLines = [];
+                                    hubLastCalc = null;
+
+                                    // дефолтні значення в лівій частині
+                                    document.getElementById("hub_facadeType").value = "cleaf_lr22";
+                                    document.getElementById("hub_moduleType").value = "lower600";
+                                    document.getElementById("hub_moduleWidth").value = "600";
+                                    document.getElementById("hub_qty").value = "1";
+                                    document.getElementById("hub_materialType").value = "egger_u788";
+                                    document.getElementById("hub_servicePack").value = "full";
+
+                                    document.getElementById("hub_optBack10").checked = false;
+                                    document.getElementById("hub_optBlum").checked = true;
+                                    document.getElementById("hub_optAssembly").checked = false;
+
+                                    hubResetModuleUI();
+                                    hubRenderOrderSummary();
+                                }
+
+                                    function hubRenderOrderSummary() {
+                                    const tbody = document.getElementById("hub_orderBody");
+                                    const totalAreaCell = document.getElementById("hub_orderTotalArea");
+                                    const totalSumCell = document.getElementById("hub_orderTotalSum");
+                                    const totalSheetsEl = document.getElementById("hub_orderTotalSheets");
+                                    const leftAreaEl = document.getElementById("hub_orderLeftoverArea");
+                                    const leftCostEl = document.getElementById("hub_orderLeftoverCost");
+
+                                    const facadeSheetsEl = document.getElementById("hub_orderFacadeSheets");
+                                    const facadeLeftAreaEl = document.getElementById("hub_orderFacadeLeftoverArea");
+                                    const facadeLeftCostEl = document.getElementById("hub_orderFacadeLeftoverCost");
+
+                                    let totalNetArea = 0;
+                                    let totalSum = 0;
+                                    const materialGroups = {};
+                                    const facadeGroups = {};
+                                    let rowsHtml = "";
+
+                                    hubOrderLines.forEach((line, idx) => {
+                                    const mod = HUB_MODULES[line.moduleKey];
+                                    const mat = HUB_MATERIALS[line.materialKey];
+
+                                    const areaNet = line.netAreaOneDSP * line.qty;
+                                    const areaGross = line.grossAreaOneDSP * line.qty;
+
+                                    totalNetArea += areaNet;
+                                    totalSum += line.moduleTotal;
+
+                                    // групування по корпусних матеріалах
+                                    if (!materialGroups[line.materialKey]) {
+                                    materialGroups[line.materialKey] = {
+                                    name: mat.name,
+                                    grossArea: 0,
+                                    pricePerM2: mat.pricePerM2,
+                                };
+                                }
+                                    materialGroups[line.materialKey].grossArea += areaGross;
+
+                                    // групування по фасадах
+                                    const netFacadeArea = (line.netFacadeAreaOneM2 || 0) * line.qty;
+                                    const grossFacadeArea = (line.grossFacadeAreaOneM2 || 0) * line.qty;
+
+                                    if (grossFacadeArea > 0 && line.facadeKey && line.facadeKey !== "none") {
+                                    const fac = HUB_FACADES[line.facadeKey];
+                                    if (!facadeGroups[line.facadeKey]) {
+                                    facadeGroups[line.facadeKey] = {
+                                    name: fac.name,
+                                    grossArea: 0,
+                                    pricePerM2: fac.pricePerM2,
+                                };
+                                }
+                                    facadeGroups[line.facadeKey].grossArea += grossFacadeArea;
+                                }
+
+                                    // колонка «Матеріал»: корпус + фасад з розмірами
+                                    let materialCell = mat.name;
+                                    if (line.facadeKey && line.facadeKey !== "none" && line.facadeOrderText) {
+                                    materialCell =
+                                    `${mat.name}<span class="calc-facade-note">${line.facadeOrderText}</span>`;
+                                }
+
+                                    rowsHtml += `
+            <tr>
+                <td>${idx + 1}</td>
+                <td>${mod.name}</td>
+                <td>${line.qty}</td>
+                <td>${materialCell}</td>
+                <td>${areaNet.toFixed(2)}</td>
+                <td>${line.moduleTotal.toLocaleString("uk-UA")}</td>
+                <td><button type="button" class="link-button"
+                    onclick="hubDeleteOrderLine(${idx})">видалити</button></td>
+            </tr>`;
+                                });
+
+                                    tbody.innerHTML = rowsHtml;
+
+                                    // підсумок по листам ДСП
+                                    let totalSheets = 0;
+                                    let totalLeftoverM2 = 0;
+                                    let totalLeftoverUah = 0;
+
+                                    Object.values(materialGroups).forEach((group) => {
+                                    const areaGross = group.grossArea;
+                                    const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
+                                    const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
+                                    const leftoverArea = sheetAreaTotal - areaGross;
+                                    const leftoverCost = leftoverArea * group.pricePerM2;
+
+                                    totalSheets += sheets;
+                                    totalLeftoverM2 += leftoverArea;
+                                    totalLeftoverUah += leftoverCost;
+                                });
+
+                                    // підсумок по фасадах
+                                    let totalFacadeSheets = 0;
+                                    let totalFacadeLeftoverM2 = 0;
+                                    let totalFacadeLeftoverUah = 0;
+
+                                    Object.values(facadeGroups).forEach((group) => {
+                                    const areaGross = group.grossArea;
+                                    const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
+                                    const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
+                                    const leftoverArea = sheetAreaTotal - areaGross;
+                                    const leftoverCost = leftoverArea * group.pricePerM2;
+
+                                    totalFacadeSheets += sheets;
+                                    totalFacadeLeftoverM2 += leftoverArea;
+                                    totalFacadeLeftoverUah += leftoverCost;
+                                });
+
+                                    totalAreaCell.textContent = totalNetArea.toFixed(2);
+                                    totalSumCell.textContent = totalSum.toLocaleString("uk-UA");
+                                    totalSheetsEl.textContent = totalSheets.toString();
+                                    leftAreaEl.textContent = totalLeftoverM2.toFixed(2);
+                                    leftCostEl.textContent = Math.round(totalLeftoverUah).toLocaleString("uk-UA");
+
+                                    facadeSheetsEl.textContent = totalFacadeSheets.toString();
+                                    facadeLeftAreaEl.textContent = totalFacadeLeftoverM2.toFixed(2);
+                                    facadeLeftCostEl.textContent = Math.round(totalFacadeLeftoverUah).toLocaleString("uk-UA");
+
+                                    const noteEl = document.getElementById("hub_orderSheetsNote");
+                                    if (hubOrderLines.length === 0) {
+                                    noteEl.textContent =
+                                    "Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.";
+                                } else {
+                                    noteEl.textContent =
+                                    "Розрахунок виконується укрупнено: площа всіх модулів по матеріалах і фасадах, листи з відходами 25%, залишок ДСП та фасадів показано окремо (м² та орієнтовна вартість).";
+                                }
+                                }
+
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                    [
+                                        "hub_facadeType",
+                                        "hub_moduleType",
+                                        "hub_moduleWidth",
+                                        "hub_qty",
+                                        "hub_materialType",
+                                        "hub_servicePack",
+                                        "hub_optBack10",
+                                        "hub_optBlum",
+                                        "hub_optAssembly",
+                                    ].forEach((id) => {
+                                        const el = document.getElementById(id);
+                                        if (!el) return;
+                                        el.addEventListener("change", hubRecalcModule);
+                                        el.addEventListener("input", hubRecalcModule);
+                                    });
+
+                                    hubRenderOrderSummary();
+                                    hubRecalcModule();
+                                });
+
+
+                            </script>
+
+
                         </div>
-
-                        <!-- ПРАВА ЧАСТИНА -->
-                        <div class="calc-card calc-card--summary">
-                            <div class="calc-title">Підсумок розрахунку (1 позиція)</div>
-
-                            <table class="calc-table calc-table--compact">
-                                <thead>
-                                <tr>
-                                    <th>Стаття</th>
-                                    <th style="width: 110px">Сума, грн</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td id="hub_rowMaterialName">ДСП Egger (корпус)</td>
-                                    <td id="hub_rowMaterialPrice">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="hub_rowBackName">Задня стінка (HDF / ДСП)</td>
-                                    <td id="hub_rowBackPrice">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="hub_rowServicesName">Послуги MTU (деталізація нижче)</td>
-                                    <td id="hub_rowServicesPrice">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="hub_rowFacadeName">Фасад Cleaf / Saib</td>
-                                    <td id="hub_rowFacadePrice">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="hub_rowBlumName">Комплект Blum</td>
-                                    <td id="hub_rowBlumPrice">0</td>
-                                </tr>
-                                <tr>
-                                    <td id="hub_rowAssemblyName">Збірка корпусу</td>
-                                    <td id="hub_rowAssemblyPrice">0</td>
-                                </tr>
-                                <tr class="calc-table-total">
-                                    <td>Разом за модуль</td>
-                                    <td id="hub_rowModuleTotal">0</td>
-                                </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="calc-title" style="margin-top: 14px">Розшифровка послуг MTU (1 модуль)</div>
-
-                            <table class="calc-table calc-table--services">
-                                <thead>
-                                <tr>
-                                    <th>Послуга</th>
-                                    <th>Код</th>
-                                    <th>Од. вим.</th>
-                                    <th>Обсяг</th>
-                                    <th>Тариф, грн</th>
-                                    <th>Сума, грн</th>
-                                </tr>
-                                </thead>
-                                <tbody id="hub_servicesDetailsBody"></tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="5">Разом послуги по модулю</td>
-                                    <td id="hub_servicesDetailsTotal">0</td>
-                                </tr>
-                                </tfoot>
-                            </table>
-
-                            <p class="calc-note" id="hub_leftoverNote">
-                                Оберіть параметри модуля і натисніть «Розрахувати модуль», щоб побачити деталі:
-                                площу корпусу, кількість листів та залишок ДСП і фасадів.
-                            </p>
-
-                            <div class="calc-divider"></div>
-
-                            <div class="calc-title" style="margin-top: 10px">Замовлення MTU (накопичувально)</div>
-
-                            <table class="calc-table calc-table--order">
-                                <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Модуль</th>
-                                    <th>К-сть</th>
-                                    <th>Матеріал корпусу</th>
-                                    <th>Площа, м²</th>
-                                    <th>Сума, грн</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody id="hub_orderBody"></tbody>
-                                <tfoot>
-                                <tr>
-                                    <td colspan="4">Разом по замовленню (чиста площа корпусів)</td>
-                                    <td id="hub_orderTotalArea">0,00</td>
-                                    <td id="hub_orderTotalSum">0</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">Листів ДСП</td>
-                                    <td id="hub_orderTotalSheets">0</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">Залишок ДСП</td>
-                                    <td id="hub_orderLeftoverArea">0,00</td>
-                                    <td id="hub_orderLeftoverCost">0</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">Листів фасаду CLEAF/SAIB</td>
-                                    <td id="hub_orderFacadeSheets">0</td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4">Залишок фасаду</td>
-                                    <td id="hub_orderFacadeLeftoverArea">0,00</td>
-                                    <td id="hub_orderFacadeLeftoverCost">0</td>
-                                    <td></td>
-                                </tr>
-                                </tfoot>
-                            </table>
-
-                            <p id="hub_orderSheetsNote" style="font-size: 12px; margin-top: 6px">
-                                Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.
-                            </p>
-
-                            <div class="calc-buttons">
-                                <button class="btn btn--secondary" type="button" onclick="hubClearOrder()">Очистити замовлення</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <p class="modularity-note">
-                        <strong>Примітка.</strong> MTU закуповує листи ДСП і фасадів під ваш проєкт.
-                        Залишок матеріалу після розкрою (м² та гривня) показується окремо — це чесно демонструє,
-                        скільки матеріалу фактично пішло на проєкт і хто його оплачує.
-                    </p>
-                </section>
-
-
-                <p style="margin:0; font-size:13px; color:var(--mt-muted);">
-                    <strong>Технічна примітка:</strong> на цьому місці ви можете вставити весь HTML-код калькулятора
-                    (форму, таблиці, скрипти). Стилі зверху вже налаштовані так, щоб блок органічно вписувався в сторінку.
-
-                </p>
-            </div>
             <script>
                 // Акордеон
                 document.querySelectorAll(".accordion-toggle").forEach((btn) => {
@@ -1309,607 +1970,16 @@
                             e.preventDefault();
                             const target = document.querySelector(id);
                             if (target) {
-                                target.scrollIntoView({ behavior: "smooth" });
+                                target.scrollIntoView({behavior: "smooth"});
                             }
                         }
                     });
                 });
 
-                // ---- КАЛЬКУЛЯТОР MTU HUB ----
-                const HUB_SHEET_WIDTH = 2.8;
-                const HUB_SHEET_HEIGHT = 2.07;
-                const HUB_SHEET_AREA_M2 = HUB_SHEET_WIDTH * HUB_SHEET_HEIGHT;
-                const HUB_GROSS_FACTOR = 1.25; // 25% відходів
 
-                const HUB_MATERIALS = {
-                    egger_u788: {
-                        name: "ДСП Egger U788 ST9 Арктика сіра",
-                        pricePerM2: 535,
-                    },
-                };
-
-                const HUB_FACADES = {
-                    none: {
-                        name: "Без фасаду",
-                        pricePerM2: 0,
-                        edgePricePerM: 0,
-                        hingePricePerDoor: 0,
-                    },
-                    cleaf_lr22: {
-                        name: "Cleaf LR22 Sable",
-                        sheetPrice: 9394.3,
-                        pricePerM2: 9394.3 / HUB_SHEET_AREA_M2,
-                        edgePricePerM: 65.6,
-                        hingePricePerDoor: 0, // петлі тепер у блоці Blum
-                    },
-                    cleaf_s158: {
-                        name: "Cleaf S158 Okobo",
-                        sheetPrice: 12263,
-                        pricePerM2: 12263 / HUB_SHEET_AREA_M2,
-                        edgePricePerM: 65.6,
-                        hingePricePerDoor: 0,
-                    },
-                    saib_3005: {
-                        name: "Saib 3005 Aguarama",
-                        sheetPrice: 7418.9,
-                        pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
-                        edgePricePerM: 65.6,
-                        hingePricePerDoor: 0,
-                    },
-                    saib_1985: {
-                        name: "Saib 1985 Root",
-                        sheetPrice: 7418.9,
-                        pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
-                        edgePricePerM: 65.6,
-                        hingePricePerDoor: 0,
-                    },
-                };
-
-                const HUB_BACK_HDF = {
-                    name: "HDF Kronospan білий 3 мм",
-                    pricePerM2: 567 / HUB_SHEET_AREA_M2,
-                };
-
-                const HUB_BACK_DSP10 = {
-                    name: "ДСП 10 мм (задня стінка)",
-                    pricePerM2: 300,
-                };
-
-                const HUB_MODULES = {
-                    lower600: {
-                        name: "Нижній корпус кухні",
-                        baseWidth: 600,
-                        baseAreaNetDSP: 1.6,
-                        blum: 350, // 2 петлі Blum
-                        assembly: 300,
-                        facadeHeightM: 0.72,
-                        backAreaM2: 0.4,
-                    },
-                    upper600: {
-                        name: "Верхній модуль кухні",
-                        baseWidth: 600,
-                        baseAreaNetDSP: 1.2,
-                        blum: 350,
-                        assembly: 260,
-                        facadeHeightM: 0.72,
-                        backAreaM2: 0.3,
-                    },
-                    wardrobe1m: {
-                        name: "Гардеробний проліт",
-                        baseWidth: 1000,
-                        baseAreaNetDSP: 1.8,
-                        blum: 1400, // 8 петель × 175
-                        assembly: 380,
-                        facadeHeightM: 2.4,
-                        backAreaM2: 1.44,
-                    },
-                };
-
-                const HUB_SERVICE_TARIFFS = {
-                    cut: {
-                        code: "044261",
-                        name: "Порізка ДСП",
-                        unit: "м.п.",
-                        price: 20,
-                    },
-                    edgeCorp: {
-                        code: "044278",
-                        name: "Кромкування ДСП 8–25 мм EVA",
-                        unit: "м.п.",
-                        price: 40,
-                    },
-                    rebate: {
-                        code: "044275",
-                        name: "Вибірка чверті під ДВП / ДСП 10 мм",
-                        unit: "м.п.",
-                        price: 50,
-                    },
-                    holes: {
-                        code: "044299",
-                        name: "Свердління отворів (полиці / стяжки)",
-                        unit: "шт.",
-                        price: 6,
-                    },
-                    hinges: {
-                        code: "044300",
-                        name: "Поглиблення під петлі Ø35",
-                        unit: "шт.",
-                        price: 18,
-                    },
-                    edgeFront: {
-                        code: "086618",
-                        name: "Кромкування фасадів CLEAF/SAIB PUR",
-                        unit: "м.п.",
-                        price: 60, // як у твоєму прайсі
-                    },
-                };
-
-                const HUB_SERVICE_NORMS = {
-                    lower600: {
-                        cut_mp: 10.8,
-                        edgeCorp_mp: 9.6,
-                        rebate_mp: 1.8,
-                        edgeFront_mp: 2.9,
-                        hingesFront: 2,
-                        holesCount: 12,
-                    },
-                    upper600: {
-                        cut_mp: 8.4,
-                        edgeCorp_mp: 7.2,
-                        rebate_mp: 1.8,
-                        edgeFront_mp: 2.9,
-                        hingesFront: 2,
-                        holesCount: 16,
-                    },
-                    wardrobe1m: {
-                        cut_mp: 14.4,
-                        edgeCorp_mp: 12.0,
-                        rebate_mp: 2.4,
-                        edgeFront_mp: 11.9,
-                        hingesFront: 8,
-                        holesCount: 24,
-                    },
-                };
-
-                let hubLastCalc = null;
-                let hubOrderLines = [];
-
-                function hubGetSelectedValues() {
-                    const moduleKey = document.getElementById("hub_moduleType").value;
-                    const width = parseInt(document.getElementById("hub_moduleWidth").value, 10);
-                    const qty = parseInt(document.getElementById("hub_qty").value, 10) || 1;
-                    const materialKey = document.getElementById("hub_materialType").value;
-                    const pack = document.getElementById("hub_servicePack").value;
-                    const facadeKey = document.getElementById("hub_facadeType").value;
-                    const useBack10 = document.getElementById("hub_optBack10").checked;
-                    const optBlum = document.getElementById("hub_optBlum").checked;
-                    const optAssembly = document.getElementById("hub_optAssembly").checked;
-
-                    return {
-                        moduleKey,
-                        width,
-                        qty,
-                        materialKey,
-                        pack,
-                        facadeKey,
-                        useBack10,
-                        optBlum,
-                        optAssembly,
-                    };
-                }
-
-                function hubRecalcModule() {
-                    const {
-                        moduleKey,
-                        width,
-                        qty,
-                        materialKey,
-                        pack,
-                        facadeKey,
-                        useBack10,
-                        optBlum,
-                        optAssembly,
-                    } = hubGetSelectedValues();
-
-                    const mod = HUB_MODULES[moduleKey];
-                    const mat = HUB_MATERIALS[materialKey];
-                    const fac = HUB_FACADES[facadeKey];
-                    const norms = HUB_SERVICE_NORMS[moduleKey];
-
-                    if (!mod || !mat) return;
-
-                    const widthFactor = width / mod.baseWidth;
-
-                    // Матеріал корпусу
-                    const netAreaOneDSP = mod.baseAreaNetDSP * widthFactor;
-                    const grossAreaOneDSP = netAreaOneDSP * HUB_GROSS_FACTOR;
-                    const materialCostOne = Math.round(netAreaOneDSP * mat.pricePerM2);
-
-                    // Задня стінка
-                    const backAreaOne = mod.backAreaM2 * widthFactor;
-                    const backMaterial = useBack10 ? HUB_BACK_DSP10 : HUB_BACK_HDF;
-                    const backCostOne = Math.round(backAreaOne * backMaterial.pricePerM2);
-
-                    // Фасад
-                    let facadeCostOne = 0;
-                    let facadeName = "Фасад (не вибрано)";
-                    const doors = moduleKey === "wardrobe1m" ? 2 : 1;
-                    let netFacadeAreaOneM2 = 0;
-                    let grossFacadeAreaOneM2 = 0;
-
-                    if (facadeKey !== "none") {
-                        const widthM = width / 1000;
-                        const heightM = mod.facadeHeightM;
-                        const areaFacadeOneM2 = widthM * heightM * doors;
-
-                        netFacadeAreaOneM2 = areaFacadeOneM2;
-                        grossFacadeAreaOneM2 = areaFacadeOneM2 * HUB_GROSS_FACTOR;
-
-                        const perimeterM = 2 * (widthM + heightM) * doors;
-                        const hingeCost = fac.hingePricePerDoor * doors; // зараз 0
-                        const facadeMaterialCost = areaFacadeOneM2 * fac.pricePerM2;
-                        const facadeEdgeCost = perimeterM * fac.edgePricePerM;
-
-                        facadeCostOne = Math.round(facadeMaterialCost + facadeEdgeCost + hingeCost);
-                        facadeName =
-                            `${fac.name}, ${doors} фас. (≈${areaFacadeOneM2.toFixed(2)} м², ` +
-                            `кромка ≈${perimeterM.toFixed(2)} м)`;
-                    }
-
-                    const blumCostOne = optBlum ? mod.blum : 0;
-                    const assemblyCostOne = optAssembly ? mod.assembly : 0;
-
-                    // Послуги
-                    let serviceLines = [];
-                    let serviceCostTotal = 0;
-
-                    if (norms) {
-                        const cutMpOne = norms.cut_mp * widthFactor;
-                        const edgeCorpMpOne = norms.edgeCorp_mp * widthFactor;
-                        const rebateMpOne = norms.rebate_mp * widthFactor;
-                        const edgeFrontMpOne = norms.edgeFront_mp * widthFactor;
-                        const hingesFrontOne = norms.hingesFront;
-                        const holesOne = norms.holesCount || 0;
-
-                        const cutMp = cutMpOne * qty;
-                        const edgeCorpMp = edgeCorpMpOne * qty;
-                        const rebateMp = rebateMpOne * qty;
-                        const edgeFrontMp = facadeKey !== "none" ? edgeFrontMpOne * qty : 0;
-                        const hingesQty = facadeKey !== "none" ? hingesFrontOne * qty : 0;
-                        const holesQty = holesOne * qty;
-
-                        const isCutOnly = pack === "cut_only";
-                        const isCutEdge = pack === "cut_edge";
-                        const isFull = pack === "full";
-
-                        if (cutMp > 0) {
-                            const sum = Math.round(cutMp * HUB_SERVICE_TARIFFS.cut.price);
-                            serviceLines.push({ ...HUB_SERVICE_TARIFFS.cut, volume: cutMp, sum });
-                            serviceCostTotal += sum;
-                        }
-
-                        if (!isCutOnly && edgeCorpMp > 0) {
-                            const sum = Math.round(edgeCorpMp * HUB_SERVICE_TARIFFS.edgeCorp.price);
-                            serviceLines.push({ ...HUB_SERVICE_TARIFFS.edgeCorp, volume: edgeCorpMp, sum });
-                            serviceCostTotal += sum;
-                        }
-
-                        if (isFull && useBack10 && rebateMp > 0) {
-                            const sum = Math.round(rebateMp * HUB_SERVICE_TARIFFS.rebate.price);
-                            serviceLines.push({ ...HUB_SERVICE_TARIFFS.rebate, volume: rebateMp, sum });
-                            serviceCostTotal += sum;
-                        }
-
-                        if (facadeKey !== "none" && edgeFrontMp > 0 && !isCutOnly) {
-                            const sum = Math.round(edgeFrontMp * HUB_SERVICE_TARIFFS.edgeFront.price);
-                            serviceLines.push({ ...HUB_SERVICE_TARIFFS.edgeFront, volume: edgeFrontMp, sum });
-                            serviceCostTotal += sum;
-                        }
-
-                        if (holesQty > 0 && isFull) {
-                            const sum = Math.round(holesQty * HUB_SERVICE_TARIFFS.holes.price);
-                            serviceLines.push({ ...HUB_SERVICE_TARIFFS.holes, volume: holesQty, sum });
-                            serviceCostTotal += sum;
-                        }
-
-                        if (facadeKey !== "none" && hingesQty > 0 && isFull) {
-                            const sum = Math.round(hingesQty * HUB_SERVICE_TARIFFS.hinges.price);
-                            serviceLines.push({ ...HUB_SERVICE_TARIFFS.hinges, volume: hingesQty, sum });
-                            serviceCostTotal += sum;
-                        }
-                    }
-
-                    const materialCostTotal = materialCostOne * qty;
-                    const backCostTotal = backCostOne * qty;
-                    const blumCostTotal = blumCostOne * qty;
-                    const assemblyCostTotal = assemblyCostOne * qty;
-                    const facadeCostTotal = facadeCostOne * qty;
-
-                    const moduleTotal =
-                        materialCostTotal +
-                        backCostTotal +
-                        serviceCostTotal +
-                        blumCostTotal +
-                        assemblyCostTotal +
-                        facadeCostTotal;
-
-                    // Верхня таблиця
-                    document.getElementById("hub_rowMaterialName").textContent =
-                        `${mod.name} (${mat.name}), ≈${netAreaOneDSP.toFixed(2)} м² × ${qty} мод.`;
-                    document.getElementById("hub_rowMaterialPrice").textContent =
-                        materialCostTotal.toLocaleString("uk-UA");
-
-                    document.getElementById("hub_rowBackName").textContent =
-                        `${backMaterial.name} (≈${backAreaOne.toFixed(2)} м² × ${qty} мод.)`;
-                    document.getElementById("hub_rowBackPrice").textContent =
-                        backCostTotal.toLocaleString("uk-UA");
-
-                    document.getElementById("hub_rowServicesName").textContent =
-                        "Послуги MTU (деталізація нижче)";
-                    document.getElementById("hub_rowServicesPrice").textContent =
-                        serviceCostTotal.toLocaleString("uk-UA");
-
-                    document.getElementById("hub_rowFacadeName").textContent =
-                        facadeName + (qty > 1 ? ` × ${qty} мод.` : "");
-                    document.getElementById("hub_rowFacadePrice").textContent =
-                        facadeCostTotal ? facadeCostTotal.toLocaleString("uk-UA") : "0";
-
-                    const hasBlumForModule = mod.blum > 0;
-                    if (!hasBlumForModule) {
-                        document.getElementById("hub_rowBlumName").textContent =
-                            "Комплект Blum (не застосовується до цього модуля)";
-                        document.getElementById("hub_rowBlumPrice").textContent = "—";
-                    } else {
-                        document.getElementById("hub_rowBlumName").textContent =
-                            optBlum ? `Комплект Blum × ${qty} шт.` : "Комплект Blum (не вибрано)";
-                        document.getElementById("hub_rowBlumPrice").textContent =
-                            blumCostTotal ? blumCostTotal.toLocaleString("uk-UA") : "0";
-                    }
-
-                    document.getElementById("hub_rowAssemblyName").textContent =
-                        optAssembly ? `Збірка / півзбірка корпусу × ${qty} мод.` : "Збірка корпусу (не вибрано)";
-                    document.getElementById("hub_rowAssemblyPrice").textContent =
-                        assemblyCostTotal ? assemblyCostTotal.toLocaleString("uk-UA") : "0";
-
-                    document.getElementById("hub_rowModuleTotal").textContent =
-                        moduleTotal.toLocaleString("uk-UA");
-
-                    // Таблиця послуг
-                    const tbodyServices = document.getElementById("hub_servicesDetailsBody");
-                    const totalServicesCell = document.getElementById("hub_servicesDetailsTotal");
-                    tbodyServices.innerHTML = "";
-                    serviceLines.forEach((line) => {
-                        const tr = document.createElement("tr");
-                        const vol = line.unit === "шт."
-                            ? line.volume.toFixed(0)
-                            : line.volume.toFixed(2);
-                        tr.innerHTML = `
-                <td>${line.name}</td>
-                <td>${line.code}</td>
-                <td>${line.unit}</td>
-                <td>${vol}</td>
-                <td>${line.price}</td>
-                <td>${line.sum.toLocaleString("uk-UA")}</td>`;
-                        tbodyServices.appendChild(tr);
-                    });
-                    totalServicesCell.textContent = serviceCostTotal.toLocaleString("uk-UA");
-
-                    // Листи + залишок ДСП
-                    const totalNetArea = netAreaOneDSP * qty;
-                    const totalGrossArea = grossAreaOneDSP * qty;
-                    const sheetsNeeded = Math.max(1, Math.ceil(totalGrossArea / HUB_SHEET_AREA_M2));
-                    const totalSheetArea = sheetsNeeded * HUB_SHEET_AREA_M2;
-                    const leftoverArea = totalSheetArea - totalGrossArea;
-                    const leftoverCost = Math.round(leftoverArea * mat.pricePerM2);
-
-                    // Листи + залишок фасадів по модулю
-                    let facadeLeftText = "";
-                    if (facadeKey !== "none" && netFacadeAreaOneM2 > 0) {
-                        const netFacadeArea = netFacadeAreaOneM2 * qty;
-                        const grossFacadeArea = grossFacadeAreaOneM2 * qty;
-                        const facadeSheets = Math.max(1, Math.ceil(grossFacadeArea / HUB_SHEET_AREA_M2));
-                        const facadeSheetsArea = facadeSheets * HUB_SHEET_AREA_M2;
-                        const facadeLeftoverArea = facadeSheetsArea - grossFacadeArea;
-                        const facadeLeftoverCost = Math.round(facadeLeftoverArea * fac.pricePerM2);
-
-                        facadeLeftText =
-                            ` Фасади ${fac.name}: потрібно ${facadeSheets} лист(и) ` +
-                            `(${facadeSheetsArea.toFixed(2)} м²), чиста площа фасадів: ${netFacadeArea.toFixed(2)} м², ` +
-                            `з відходами 25%: ${grossFacadeArea.toFixed(2)} м². Залишок фасаду ≈ ${facadeLeftoverArea.toFixed(2)} м² ` +
-                            `(~${facadeLeftoverCost.toLocaleString("uk-UA")} грн).`;
-                    }
-
-                    const noteText = leftoverArea > 0.01
-                        ? `Для цього модуля (×${qty}) потрібно ${sheetsNeeded} лист(и) ${mat.name} ` +
-                        `(${totalSheetArea.toFixed(2)} м² з урахуванням відходів). Чиста площа корпусу: ${totalNetArea.toFixed(2)} м², ` +
-                        `з відходами 25%: ${totalGrossArea.toFixed(2)} м². Залишок ДСП ≈ ${leftoverArea.toFixed(2)} м² ` +
-                        `(~${leftoverCost.toLocaleString("uk-UA")} грн).` +
-                        facadeLeftText
-                        : "Площа модулів практично дорівнює площі листів — залишок мінімальний.";
-                    document.getElementById("hub_leftoverNote").textContent = noteText;
-
-                    hubLastCalc = {
-                        moduleKey,
-                        width,
-                        qty,
-                        materialKey,
-                        facadeKey,
-                        pack,
-                        useBack10,
-                        optBlum,
-                        optAssembly,
-                        netAreaOneDSP,
-                        grossAreaOneDSP,
-                        netFacadeAreaOneM2,
-                        grossFacadeAreaOneM2,
-                        moduleTotal,
-                        materialCostTotal,
-                        backCostTotal,
-                        serviceCostTotal,
-                        blumCostTotal,
-                        assemblyCostTotal,
-                        facadeCostTotal,
-                    };
-                }
-
-                function hubAddModuleToOrder() {
-                    if (!hubLastCalc) hubRecalcModule();
-                    if (!hubLastCalc) return;
-                    hubOrderLines.push({ ...hubLastCalc });
-                    hubRenderOrderSummary();
-                }
-
-                function hubDeleteOrderLine(index) {
-                    hubOrderLines.splice(index, 1);
-                    hubRenderOrderSummary();
-                }
-
-                function hubClearOrder() {
-                    hubOrderLines = [];
-                    hubRenderOrderSummary();
-                }
-
-                function hubRenderOrderSummary() {
-                    const tbody = document.getElementById("hub_orderBody");
-                    const totalAreaCell = document.getElementById("hub_orderTotalArea");
-                    const totalSumCell = document.getElementById("hub_orderTotalSum");
-                    const totalSheetsEl = document.getElementById("hub_orderTotalSheets");
-                    const leftAreaEl = document.getElementById("hub_orderLeftoverArea");
-                    const leftCostEl = document.getElementById("hub_orderLeftoverCost");
-
-                    const facadeSheetsEl = document.getElementById("hub_orderFacadeSheets");
-                    const facadeLeftAreaEl = document.getElementById("hub_orderFacadeLeftoverArea");
-                    const facadeLeftCostEl = document.getElementById("hub_orderFacadeLeftoverCost");
-
-                    let totalNetArea = 0;
-                    let totalSum = 0;
-                    const materialGroups = {};
-                    const facadeGroups = {};
-                    let rowsHtml = "";
-
-                    hubOrderLines.forEach((line, idx) => {
-                        const mod = HUB_MODULES[line.moduleKey];
-                        const mat = HUB_MATERIALS[line.materialKey];
-
-                        const areaNet = line.netAreaOneDSP * line.qty;
-                        const areaGross = line.grossAreaOneDSP * line.qty;
-
-                        totalNetArea += areaNet;
-                        totalSum += line.moduleTotal;
-
-                        if (!materialGroups[line.materialKey]) {
-                            materialGroups[line.materialKey] = {
-                                name: mat.name,
-                                grossArea: 0,
-                                pricePerM2: mat.pricePerM2,
-                            };
-                        }
-                        materialGroups[line.materialKey].grossArea += areaGross;
-
-                        const netFacadeArea = (line.netFacadeAreaOneM2 || 0) * line.qty;
-                        const grossFacadeArea = (line.grossFacadeAreaOneM2 || 0) * line.qty;
-
-                        if (grossFacadeArea > 0 && line.facadeKey && line.facadeKey !== "none") {
-                            const fac = HUB_FACADES[line.facadeKey];
-                            if (!facadeGroups[line.facadeKey]) {
-                                facadeGroups[line.facadeKey] = {
-                                    name: fac.name,
-                                    grossArea: 0,
-                                    pricePerM2: fac.pricePerM2,
-                                };
-                            }
-                            facadeGroups[line.facadeKey].grossArea += grossFacadeArea;
-                        }
-
-                        rowsHtml += `
-                <tr>
-                    <td>${idx + 1}</td>
-                    <td>${mod.name}</td>
-                    <td>${line.qty}</td>
-                    <td>${mat.name}</td>
-                    <td>${areaNet.toFixed(2)}</td>
-                    <td>${line.moduleTotal.toLocaleString("uk-UA")}</td>
-                    <td><button type="button" class="link-button"
-                        onclick="hubDeleteOrderLine(${idx})">видалити</button></td>
-                </tr>`;
-                    });
-
-                    tbody.innerHTML = rowsHtml;
-
-                    let totalSheets = 0;
-                    let totalLeftoverM2 = 0;
-                    let totalLeftoverUah = 0;
-
-                    Object.values(materialGroups).forEach((group) => {
-                        const areaGross = group.grossArea;
-                        const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
-                        const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
-                        const leftoverArea = sheetAreaTotal - areaGross;
-                        const leftoverCost = leftoverArea * group.pricePerM2;
-
-                        totalSheets += sheets;
-                        totalLeftoverM2 += leftoverArea;
-                        totalLeftoverUah += leftoverCost;
-                    });
-
-                    let totalFacadeSheets = 0;
-                    let totalFacadeLeftoverM2 = 0;
-                    let totalFacadeLeftoverUah = 0;
-
-                    Object.values(facadeGroups).forEach((group) => {
-                        const areaGross = group.grossArea;
-                        const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
-                        const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
-                        const leftoverArea = sheetAreaTotal - areaGross;
-                        const leftoverCost = leftoverArea * group.pricePerM2;
-
-                        totalFacadeSheets += sheets;
-                        totalFacadeLeftoverM2 += leftoverArea;
-                        totalFacadeLeftoverUah += leftoverCost;
-                    });
-
-                    totalAreaCell.textContent = totalNetArea.toFixed(2);
-                    totalSumCell.textContent = totalSum.toLocaleString("uk-UA");
-                    totalSheetsEl.textContent = totalSheets.toString();
-                    leftAreaEl.textContent = totalLeftoverM2.toFixed(2);
-                    leftCostEl.textContent = Math.round(totalLeftoverUah).toLocaleString("uk-UA");
-
-                    facadeSheetsEl.textContent = totalFacadeSheets.toString();
-                    facadeLeftAreaEl.textContent = totalFacadeLeftoverM2.toFixed(2);
-                    facadeLeftCostEl.textContent = Math.round(totalFacadeLeftoverUah).toLocaleString("uk-UA");
-
-                    const noteEl = document.getElementById("hub_orderSheetsNote");
-                    if (hubOrderLines.length === 0) {
-                        noteEl.textContent =
-                            "Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.";
-                    } else {
-                        noteEl.textContent =
-                            "Розрахунок виконується укрупнено: площа всіх модулів по матеріалах і фасадах, листи з відходами 25%, залишок ДСП та фасадів показано окремо (м² та орієнтовна вартість).";
-                    }
-                }
-
-                document.addEventListener("DOMContentLoaded", () => {
-                    [
-                        "hub_facadeType",
-                        "hub_moduleType",
-                        "hub_moduleWidth",
-                        "hub_qty",
-                        "hub_materialType",
-                        "hub_servicePack",
-                        "hub_optBack10",
-                        "hub_optBlum",
-                        "hub_optAssembly",
-                    ].forEach((id) => {
-                        const el = document.getElementById(id);
-                        if (!el) return;
-                        el.addEventListener("change", hubRecalcModule);
-                        el.addEventListener("input", hubRecalcModule);
-                    });
-
-                    hubRenderOrderSummary();
-                });
             </script>
         </section>
+
 
         <!-- CTA + contacts -->
         <section class="cta" id="contacts">
@@ -1931,9 +2001,9 @@
             </div>
             <div class="cta-contacts" id="contacts-card">
                 <h3>Контакти MT Hub</h3>
-                <p><strong>Офіс / виробництво:</strong><br />м. Київ, вул. Кирилівська, 102</p>
-                <p><strong>Телефон виробництва:</strong><br />+38 (044) 369-31-89</p>
-                <p><strong>Email:</strong><br /><a href="mailto:info@mt.ua">info@mt.ua</a></p>
+                <p><strong>Офіс / виробництво:</strong><br/>м. Київ, вул. Кирилівська, 102</p>
+                <p><strong>Телефон виробництва:</strong><br/>+38 (044) 369-31-89</p>
+                <p><strong>Email:</strong><br/><a href="mailto:info@mt.ua">info@mt.ua</a></p>
                 <p style="margin-top:8px;">
                     Для питань по MT Hub та калькуляторам — напишіть, і ми організуємо консультацію для вашої команди.
                 </p>
@@ -1951,623 +2021,6 @@
     </footer>
 
 </div>
-<script>
-    // Акордеон (если вдруг используешь внутри #mtu-calculator)
-    document.querySelectorAll("#mtu-calculator .accordion-toggle").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const content = btn.nextElementSibling;
-            content.classList.toggle("open");
-        });
-    });
-
-    // Плавний скрол по якорях (опционально, можно убрать если уже есть)
-    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-            const id = this.getAttribute("href");
-            if (id.length > 1) {
-                const target = document.querySelector(id);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            }
-        });
-    });
-
-    // ---- КАЛЬКУЛЯТОР MTU HUB ----
-    const HUB_SHEET_WIDTH = 2.8;
-    const HUB_SHEET_HEIGHT = 2.07;
-    const HUB_SHEET_AREA_M2 = HUB_SHEET_WIDTH * HUB_SHEET_HEIGHT;
-    const HUB_GROSS_FACTOR = 1.25; // 25% відходів
-
-    const HUB_MATERIALS = {
-        egger_u788: {
-            name: "ДСП Egger U788 ST9 Арктика сіра",
-            pricePerM2: 535,
-        },
-    };
-
-    const HUB_FACADES = {
-        none: {
-            name: "Без фасаду",
-            pricePerM2: 0,
-            edgePricePerM: 0,
-            hingePricePerDoor: 0,
-        },
-        cleaf_lr22: {
-            name: "Cleaf LR22 Sable",
-            sheetPrice: 9394.3,
-            pricePerM2: 9394.3 / HUB_SHEET_AREA_M2,
-            edgePricePerM: 65.6,
-            hingePricePerDoor: 0, // петлі тепер у блоці Blum
-        },
-        cleaf_s158: {
-            name: "Cleaf S158 Okobo",
-            sheetPrice: 12263,
-            pricePerM2: 12263 / HUB_SHEET_AREA_M2,
-            edgePricePerM: 65.6,
-            hingePricePerDoor: 0,
-        },
-        saib_3005: {
-            name: "Saib 3005 Aguarama",
-            sheetPrice: 7418.9,
-            pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
-            edgePricePerM: 65.6,
-            hingePricePerDoor: 0,
-        },
-        saib_1985: {
-            name: "Saib 1985 Root",
-            sheetPrice: 7418.9,
-            pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
-            edgePricePerM: 65.6,
-            hingePricePerDoor: 0,
-        },
-    };
-
-    const HUB_BACK_HDF = {
-        name: "HDF Kronospan білий 3 мм",
-        pricePerM2: 567 / HUB_SHEET_AREA_M2,
-    };
-
-    const HUB_BACK_DSP10 = {
-        name: "ДСП 10 мм (задня стінка)",
-        pricePerM2: 300,
-    };
-
-    const HUB_MODULES = {
-        lower600: {
-            name: "Нижній корпус кухні",
-            baseWidth: 600,
-            baseAreaNetDSP: 1.6,
-            blum: 350, // 2 петлі Blum
-            assembly: 300,
-            facadeHeightM: 0.72,
-            backAreaM2: 0.4,
-        },
-        upper600: {
-            name: "Верхній модуль кухні",
-            baseWidth: 600,
-            baseAreaNetDSP: 1.2,
-            blum: 350,
-            assembly: 260,
-            facadeHeightM: 0.72,
-            backAreaM2: 0.3,
-        },
-        wardrobe1m: {
-            name: "Гардеробний проліт",
-            baseWidth: 1000,
-            baseAreaNetDSP: 1.8,
-            blum: 1400, // 8 петель × 175
-            assembly: 380,
-            facadeHeightM: 2.4,
-            backAreaM2: 1.44,
-        },
-    };
-
-    const HUB_SERVICE_TARIFFS = {
-        cut: {
-            code: "044261",
-            name: "Порізка ДСП",
-            unit: "м.п.",
-            price: 20,
-        },
-        edgeCorp: {
-            code: "044278",
-            name: "Кромкування ДСП 8–25 мм EVA",
-            unit: "м.п.",
-            price: 40,
-        },
-        rebate: {
-            code: "044275",
-            name: "Вибірка чверті під ДВП / ДСП 10 мм",
-            unit: "м.п.",
-            price: 50,
-        },
-        holes: {
-            code: "044299",
-            name: "Свердління отворів (полиці / стяжки)",
-            unit: "шт.",
-            price: 6,
-        },
-        hinges: {
-            code: "044300",
-            name: "Поглиблення під петлі Ø35",
-            unit: "шт.",
-            price: 18,
-        },
-        edgeFront: {
-            code: "086618",
-            name: "Кромкування фасадів CLEAF/SAIB PUR",
-            unit: "м.п.",
-            price: 60, // як у твоєму прайсі
-        },
-    };
-
-    const HUB_SERVICE_NORMS = {
-        lower600: {
-            cut_mp: 10.8,
-            edgeCorp_mp: 9.6,
-            rebate_mp: 1.8,
-            edgeFront_mp: 2.9,
-            hingesFront: 2,
-            holesCount: 12,
-        },
-        upper600: {
-            cut_mp: 8.4,
-            edgeCorp_mp: 7.2,
-            rebate_mp: 1.8,
-            edgeFront_mp: 2.9,
-            hingesFront: 2,
-            holesCount: 16,
-        },
-        wardrobe1m: {
-            cut_mp: 14.4,
-            edgeCorp_mp: 12.0,
-            rebate_mp: 2.4,
-            edgeFront_mp: 11.9,
-            hingesFront: 8,
-            holesCount: 24,
-        },
-    };
-
-    let hubLastCalc = null;
-    let hubOrderLines = [];
-
-    function hubGetSelectedValues() {
-        const moduleKey = document.getElementById("hub_moduleType").value;
-        const width = parseInt(document.getElementById("hub_moduleWidth").value, 10);
-        const qty = parseInt(document.getElementById("hub_qty").value, 10) || 1;
-        const materialKey = document.getElementById("hub_materialType").value;
-        const pack = document.getElementById("hub_servicePack").value;
-        const facadeKey = document.getElementById("hub_facadeType").value;
-        const useBack10 = document.getElementById("hub_optBack10").checked;
-        const optBlum = document.getElementById("hub_optBlum").checked;
-        const optAssembly = document.getElementById("hub_optAssembly").checked;
-
-        return {
-            moduleKey,
-            width,
-            qty,
-            materialKey,
-            pack,
-            facadeKey,
-            useBack10,
-            optBlum,
-            optAssembly,
-        };
-    }
-
-    function hubRecalcModule() {
-        const {
-            moduleKey,
-            width,
-            qty,
-            materialKey,
-            pack,
-            facadeKey,
-            useBack10,
-            optBlum,
-            optAssembly,
-        } = hubGetSelectedValues();
-
-        const mod = HUB_MODULES[moduleKey];
-        const mat = HUB_MATERIALS[materialKey];
-        const fac = HUB_FACADES[facadeKey];
-        const norms = HUB_SERVICE_NORMS[moduleKey];
-
-        if (!mod || !mat) return;
-
-        const widthFactor = width / mod.baseWidth;
-
-        // Матеріал корпусу
-        const netAreaOneDSP = mod.baseAreaNetDSP * widthFactor;
-        const grossAreaOneDSP = netAreaOneDSP * HUB_GROSS_FACTOR;
-        const materialCostOne = Math.round(netAreaOneDSP * mat.pricePerM2);
-
-        // Задня стінка
-        const backAreaOne = mod.backAreaM2 * widthFactor;
-        const backMaterial = useBack10 ? HUB_BACK_DSP10 : HUB_BACK_HDF;
-        const backCostOne = Math.round(backAreaOne * backMaterial.pricePerM2);
-
-        // Фасад
-        let facadeCostOne = 0;
-        let facadeName = "Фасад (не вибрано)";
-        const doors = moduleKey === "wardrobe1m" ? 2 : 1;
-        let netFacadeAreaOneM2 = 0;
-        let grossFacadeAreaOneM2 = 0;
-
-        if (facadeKey !== "none") {
-            const widthM = width / 1000;
-            const heightM = mod.facadeHeightM;
-            const areaFacadeOneM2 = widthM * heightM * doors;
-
-            netFacadeAreaOneM2 = areaFacadeOneM2;
-            grossFacadeAreaOneM2 = areaFacadeOneM2 * HUB_GROSS_FACTOR;
-
-            const perimeterM = 2 * (widthM + heightM) * doors;
-            const hingeCost = fac.hingePricePerDoor * doors; // зараз 0
-            const facadeMaterialCost = areaFacadeOneM2 * fac.pricePerM2;
-            const facadeEdgeCost = perimeterM * fac.edgePricePerM;
-
-            facadeCostOne = Math.round(facadeMaterialCost + facadeEdgeCost + hingeCost);
-            facadeName =
-                `${fac.name}, ${doors} фас. (≈${areaFacadeOneM2.toFixed(2)} м², ` +
-                `кромка ≈${perimeterM.toFixed(2)} м)`;
-        }
-
-        const blumCostOne = optBlum ? mod.blum : 0;
-        const assemblyCostOne = optAssembly ? mod.assembly : 0;
-
-        // Послуги
-        let serviceLines = [];
-        let serviceCostTotal = 0;
-
-        if (norms) {
-            const cutMpOne = norms.cut_mp * widthFactor;
-            const edgeCorpMpOne = norms.edgeCorp_mp * widthFactor;
-            const rebateMpOne = norms.rebate_mp * widthFactor;
-            const edgeFrontMpOne = norms.edgeFront_mp * widthFactor;
-            const hingesFrontOne = norms.hingesFront;
-            const holesOne = norms.holesCount || 0;
-
-            const cutMp = cutMpOne * qty;
-            const edgeCorpMp = edgeCorpMpOne * qty;
-            const rebateMp = rebateMpOne * qty;
-            const edgeFrontMp = facadeKey !== "none" ? edgeFrontMpOne * qty : 0;
-            const hingesQty = facadeKey !== "none" ? hingesFrontOne * qty : 0;
-            const holesQty = holesOne * qty;
-
-            const isCutOnly = pack === "cut_only";
-            const isCutEdge = pack === "cut_edge";
-            const isFull = pack === "full";
-
-            if (cutMp > 0) {
-                const sum = Math.round(cutMp * HUB_SERVICE_TARIFFS.cut.price);
-                serviceLines.push({ ...HUB_SERVICE_TARIFFS.cut, volume: cutMp, sum });
-                serviceCostTotal += sum;
-            }
-
-            if (!isCutOnly && edgeCorpMp > 0) {
-                const sum = Math.round(edgeCorpMp * HUB_SERVICE_TARIFFS.edgeCorp.price);
-                serviceLines.push({ ...HUB_SERVICE_TARIFFS.edgeCorp, volume: edgeCorpMp, sum });
-                serviceCostTotal += sum;
-            }
-
-            if (isFull && useBack10 && rebateMp > 0) {
-                const sum = Math.round(rebateMp * HUB_SERVICE_TARIFFS.rebate.price);
-                serviceLines.push({ ...HUB_SERVICE_TARIFFS.rebate, volume: rebateMp, sum });
-                serviceCostTotal += sum;
-            }
-
-            if (facadeKey !== "none" && edgeFrontMp > 0 && !isCutOnly) {
-                const sum = Math.round(edgeFrontMp * HUB_SERVICE_TARIFFS.edgeFront.price);
-                serviceLines.push({ ...HUB_SERVICE_TARIFFS.edgeFront, volume: edgeFrontMp, sum });
-                serviceCostTotal += sum;
-            }
-
-            if (holesQty > 0 && isFull) {
-                const sum = Math.round(holesQty * HUB_SERVICE_TARIFFS.holes.price);
-                serviceLines.push({ ...HUB_SERVICE_TARIFFS.holes, volume: holesQty, sum });
-                serviceCostTotal += sum;
-            }
-
-            if (facadeKey !== "none" && hingesQty > 0 && isFull) {
-                const sum = Math.round(hingesQty * HUB_SERVICE_TARIFFS.hinges.price);
-                serviceLines.push({ ...HUB_SERVICE_TARIFFS.hinges, volume: hingesQty, sum });
-                serviceCostTotal += sum;
-            }
-        }
-
-        const materialCostTotal = materialCostOne * qty;
-        const backCostTotal = backCostOne * qty;
-        const blumCostTotal = blumCostOne * qty;
-        const assemblyCostTotal = assemblyCostOne * qty;
-        const facadeCostTotal = facadeCostOne * qty;
-
-        const moduleTotal =
-            materialCostTotal +
-            backCostTotal +
-            serviceCostTotal +
-            blumCostTotal +
-            assemblyCostTotal +
-            facadeCostTotal;
-
-        // Верхня таблиця
-        document.getElementById("hub_rowMaterialName").textContent =
-            `${mod.name} (${mat.name}), ≈${netAreaOneDSP.toFixed(2)} м² × ${qty} мод.`;
-        document.getElementById("hub_rowMaterialPrice").textContent =
-            materialCostTotal.toLocaleString("uk-UA");
-
-        document.getElementById("hub_rowBackName").textContent =
-            `${backMaterial.name} (≈${backAreaOne.toFixed(2)} м² × ${qty} мод.)`;
-        document.getElementById("hub_rowBackPrice").textContent =
-            backCostTotal.toLocaleString("uk-UA");
-
-        document.getElementById("hub_rowServicesName").textContent =
-            "Послуги MTU (деталізація нижче)";
-        document.getElementById("hub_rowServicesPrice").textContent =
-            serviceCostTotal.toLocaleString("uk-UA");
-
-        document.getElementById("hub_rowFacadeName").textContent =
-            facadeName + (qty > 1 ? ` × ${qty} мод.` : "");
-        document.getElementById("hub_rowFacadePrice").textContent =
-            facadeCostTotal ? facadeCostTotal.toLocaleString("uk-UA") : "0";
-
-        const hasBlumForModule = mod.blum > 0;
-        if (!hasBlumForModule) {
-            document.getElementById("hub_rowBlumName").textContent =
-                "Комплект Blum (не застосовується до цього модуля)";
-            document.getElementById("hub_rowBlumPrice").textContent = "—";
-        } else {
-            document.getElementById("hub_rowBlumName").textContent =
-                optBlum ? `Комплект Blum × ${qty} шт.` : "Комплект Blum (не вибрано)";
-            document.getElementById("hub_rowBlumPrice").textContent =
-                blumCostTotal ? blumCostTotal.toLocaleString("uk-UA") : "0";
-        }
-
-        document.getElementById("hub_rowAssemblyName").textContent =
-            optAssembly ? `Збірка / півзбірка корпусу × ${qty} мод.` : "Збірка корпусу (не вибрано)";
-        document.getElementById("hub_rowAssemblyPrice").textContent =
-            assemblyCostTotal ? assemblyCostTotal.toLocaleString("uk-UA") : "0";
-
-        document.getElementById("hub_rowModuleTotal").textContent =
-            moduleTotal.toLocaleString("uk-UA");
-
-        // Таблиця послуг
-        const tbodyServices = document.getElementById("hub_servicesDetailsBody");
-        const totalServicesCell = document.getElementById("hub_servicesDetailsTotal");
-        tbodyServices.innerHTML = "";
-        serviceLines.forEach((line) => {
-            const tr = document.createElement("tr");
-            const vol = line.unit === "шт."
-                ? line.volume.toFixed(0)
-                : line.volume.toFixed(2);
-            tr.innerHTML = `
-        <td>${line.name}</td>
-        <td>${line.code}</td>
-        <td>${line.unit}</td>
-        <td>${vol}</td>
-        <td>${line.price}</td>
-        <td>${line.sum.toLocaleString("uk-UA")}</td>`;
-            tbodyServices.appendChild(tr);
-        });
-        totalServicesCell.textContent = serviceCostTotal.toLocaleString("uk-UA");
-
-        // Листи + залишок ДСП
-        const totalNetArea = netAreaOneDSP * qty;
-        const totalGrossArea = grossAreaOneDSP * qty;
-        const sheetsNeeded = Math.max(1, Math.ceil(totalGrossArea / HUB_SHEET_AREA_M2));
-        const totalSheetArea = sheetsNeeded * HUB_SHEET_AREA_M2;
-        const leftoverArea = totalSheetArea - totalGrossArea;
-        const leftoverCost = Math.round(leftoverArea * mat.pricePerM2);
-
-        // Листи + залишок фасадів по модулю
-        let facadeLeftText = "";
-        if (facadeKey !== "none" && netFacadeAreaOneM2 > 0) {
-            const netFacadeArea = netFacadeAreaOneM2 * qty;
-            const grossFacadeArea = grossFacadeAreaOneM2 * qty;
-            const facadeSheets = Math.max(1, Math.ceil(grossFacadeArea / HUB_SHEET_AREA_M2));
-            const facadeSheetsArea = facadeSheets * HUB_SHEET_AREA_M2;
-            const facadeLeftoverArea = facadeSheetsArea - grossFacadeArea;
-            const facadeLeftoverCost = Math.round(facadeLeftoverArea * fac.pricePerM2);
-
-            facadeLeftText =
-                ` Фасади ${fac.name}: потрібно ${facadeSheets} лист(и) ` +
-                `(${facadeSheetsArea.toFixed(2)} м²), чиста площа фасадів: ${netFacadeArea.toFixed(2)} м², ` +
-                `з відходами 25%: ${grossFacadeArea.toFixed(2)} м². Залишок фасаду ≈ ${facadeLeftoverArea.toFixed(2)} м² ` +
-                `(~${facadeLeftoverCost.toLocaleString("uk-UA")} грн).`;
-        }
-
-        const noteText = leftoverArea > 0.01
-            ? `Для цього модуля (×${qty}) потрібно ${sheetsNeeded} лист(и) ${mat.name} ` +
-            `(${totalSheetArea.toFixed(2)} м² з урахуванням відходів). Чиста площа корпусу: ${totalNetArea.toFixed(2)} м², ` +
-            `з відходами 25%: ${totalGrossArea.toFixed(2)} м². Залишок ДСП ≈ ${leftoverArea.toFixed(2)} м² ` +
-            `(~${leftoverCost.toLocaleString("uk-UA")} грн).` +
-            facadeLeftText
-            : "Площа модулів практично дорівнює площі листів — залишок мінімальний.";
-        document.getElementById("hub_leftoverNote").textContent = noteText;
-
-        hubLastCalc = {
-            moduleKey,
-            width,
-            qty,
-            materialKey,
-            facadeKey,
-            pack,
-            useBack10,
-            optBlum,
-            optAssembly,
-            netAreaOneDSP,
-            grossAreaOneDSP,
-            netFacadeAreaOneM2,
-            grossFacadeAreaOneM2,
-            moduleTotal,
-            materialCostTotal,
-            backCostTotal,
-            serviceCostTotal,
-            blumCostTotal,
-            assemblyCostTotal,
-            facadeCostTotal,
-        };
-    }
-
-    function hubAddModuleToOrder() {
-        if (!hubLastCalc) hubRecalcModule();
-        if (!hubLastCalc) return;
-        hubOrderLines.push({ ...hubLastCalc });
-        hubRenderOrderSummary();
-    }
-
-    function hubDeleteOrderLine(index) {
-        hubOrderLines.splice(index, 1);
-        hubRenderOrderSummary();
-    }
-
-    function hubClearOrder() {
-        hubOrderLines = [];
-        hubRenderOrderSummary();
-    }
-
-    function hubRenderOrderSummary() {
-        const tbody = document.getElementById("hub_orderBody");
-        const totalAreaCell = document.getElementById("hub_orderTotalArea");
-        const totalSumCell = document.getElementById("hub_orderTotalSum");
-        const totalSheetsEl = document.getElementById("hub_orderTotalSheets");
-        const leftAreaEl = document.getElementById("hub_orderLeftoverArea");
-        const leftCostEl = document.getElementById("hub_orderLeftoverCost");
-
-        const facadeSheetsEl = document.getElementById("hub_orderFacadeSheets");
-        const facadeLeftAreaEl = document.getElementById("hub_orderFacadeLeftoverArea");
-        const facadeLeftCostEl = document.getElementById("hub_orderFacadeLeftoverCost");
-
-        let totalNetArea = 0;
-        let totalSum = 0;
-        const materialGroups = {};
-        const facadeGroups = {};
-        let rowsHtml = "";
-
-        hubOrderLines.forEach((line, idx) => {
-            const mod = HUB_MODULES[line.moduleKey];
-            const mat = HUB_MATERIALS[line.materialKey];
-
-            const areaNet = line.netAreaOneDSP * line.qty;
-            const areaGross = line.grossAreaOneDSP * line.qty;
-
-            totalNetArea += areaNet;
-            totalSum += line.moduleTotal;
-
-            if (!materialGroups[line.materialKey]) {
-                materialGroups[line.materialKey] = {
-                    name: mat.name,
-                    grossArea: 0,
-                    pricePerM2: mat.pricePerM2,
-                };
-            }
-            materialGroups[line.materialKey].grossArea += areaGross;
-
-            const netFacadeArea = (line.netFacadeAreaOneM2 || 0) * line.qty;
-            const grossFacadeArea = (line.grossFacadeAreaOneM2 || 0) * line.qty;
-
-            if (grossFacadeArea > 0 && line.facadeKey && line.facadeKey !== "none") {
-                const fac = HUB_FACADES[line.facadeKey];
-                if (!facadeGroups[line.facadeKey]) {
-                    facadeGroups[line.facadeKey] = {
-                        name: fac.name,
-                        grossArea: 0,
-                        pricePerM2: fac.pricePerM2,
-                    };
-                }
-                facadeGroups[line.facadeKey].grossArea += grossFacadeArea;
-            }
-
-            rowsHtml += `
-        <tr>
-          <td>${idx + 1}</td>
-          <td>${mod.name}</td>
-          <td>${line.qty}</td>
-          <td>${mat.name}</td>
-          <td>${areaNet.toFixed(2)}</td>
-          <td>${line.moduleTotal.toLocaleString("uk-UA")}</td>
-          <td><button type="button" class="link-button"
-              onclick="hubDeleteOrderLine(${idx})">видалити</button></td>
-        </tr>`;
-        });
-
-        tbody.innerHTML = rowsHtml;
-
-        let totalSheets = 0;
-        let totalLeftoverM2 = 0;
-        let totalLeftoverUah = 0;
-
-        Object.values(materialGroups).forEach((group) => {
-            const areaGross = group.grossArea;
-            const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
-            const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
-            const leftoverArea = sheetAreaTotal - areaGross;
-            const leftoverCost = leftoverArea * group.pricePerM2;
-
-            totalSheets += sheets;
-            totalLeftoverM2 += leftoverArea;
-            totalLeftoverUah += leftoverCost;
-        });
-
-        let totalFacadeSheets = 0;
-        let totalFacadeLeftoverM2 = 0;
-        let totalFacadeLeftoverUah = 0;
-
-        Object.values(facadeGroups).forEach((group) => {
-            const areaGross = group.grossArea;
-            const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
-            const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
-            const leftoverArea = sheetAreaTotal - areaGross;
-            const leftoverCost = leftoverArea * group.pricePerM2;
-
-            totalFacadeSheets += sheets;
-            totalFacadeLeftoverM2 += leftoverArea;
-            totalFacadeLeftoverUah += leftoverCost;
-        });
-
-        totalAreaCell.textContent = totalNetArea.toFixed(2);
-        totalSumCell.textContent = totalSum.toLocaleString("uk-UA");
-        totalSheetsEl.textContent = totalSheets.toString();
-        leftAreaEl.textContent = totalLeftoverM2.toFixed(2);
-        leftCostEl.textContent = Math.round(totalLeftoverUah).toLocaleString("uk-UA");
-
-        facadeSheetsEl.textContent = totalFacadeSheets.toString();
-        facadeLeftAreaEl.textContent = totalFacadeLeftoverM2.toFixed(2);
-        facadeLeftCostEl.textContent = Math.round(totalFacadeLeftoverUah).toLocaleString("uk-UA");
-
-        const noteEl = document.getElementById("hub_orderSheetsNote");
-        if (hubOrderLines.length === 0) {
-            noteEl.textContent =
-                "Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.";
-        } else {
-            noteEl.textContent =
-                "Розрахунок виконується укрупнено: площа всіх модулів по матеріалах і фасадах, листи з відходами 25%, залишок ДСП та фасадів показано окремо (м² та орієнтовна вартість).";
-        }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        [
-            "hub_facadeType",
-            "hub_moduleType",
-            "hub_moduleWidth",
-            "hub_qty",
-            "hub_materialType",
-            "hub_servicePack",
-            "hub_optBack10",
-            "hub_optBlum",
-            "hub_optAssembly",
-        ].forEach((id) => {
-            const el = document.getElementById(id);
-            if (!el) return;
-            el.addEventListener("change", hubRecalcModule);
-            el.addEventListener("input", hubRecalcModule);
-        });
-
-        hubRenderOrderSummary();
-    });
-</script>
 
 </body>
 </html>
