@@ -7,6 +7,12 @@
     <style>
         /* ===== Калькулятор MTU Hub (локальные стили) ===== */
 
+        /* Підсвічування активного декору в прайсі Egger */
+        #eggerPriceTable tr.is-highlight {
+            background: #fff4d6;
+            font-weight: 600;
+        }
+
         #mtu-calculator {
             margin-top: 24px;
         }
@@ -1155,35 +1161,58 @@
                                         <div class="calc-hint" style="margin-top: 6px">
                                             Важливо: це орієнтовний прорахунок. Точні суми фіксуються у технічному замовленні MTU.
                                         </div>
-                                        <!-- Акордеон з прайсом Egger -->
-                                        <div class="accordion">
-                                            <button class="accordion-toggle">
-                                                📄 Прайс ДСП TOP корпуси (Egger)
-                                            </button>
-                                            <div class="accordion-content">
-                                                <table class="price-table">
-                                                    <thead>
-                                                    <tr>
-                                                        <th>№</th>
-                                                        <th>Назва товару</th>
-                                                        <th>Од.</th>
-                                                        <th>Прайс для клієнта, грн</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <tr><td>1</td><td>ДСП EGGER W1000 ST9 Білий Преміум 2800×2070×18 мм</td><td>шт.</td><td>2906,18</td></tr>
-                                                    <tr><td>2</td><td>ДСП EGGER U104 ST9 Алебастр Білий 2800×2070×18 мм</td><td>шт.</td><td>2615,52</td></tr>
-                                                    <tr><td>3</td><td>ДСП EGGER U705 ST9 Ангора Сірий 2800×2070×18 мм</td><td>шт.</td><td>3099,94</td></tr>
-                                                    <tr><td>4</td><td>ДСП EGGER U788 ST9 Арктика Сірий 2800×2070×18 мм</td><td>шт.</td><td>3099,94</td></tr>
-                                                    <tr><td>5</td><td>ДСП EGGER U963 ST9 Діамант Сірий 2800×2070×18 мм</td><td>шт.</td><td>2906,18</td></tr>
-                                                    <tr><td>6</td><td>ДСП EGGER U961 ST7 Графіт Чорний 2800×2070×18 мм</td><td>шт.</td><td>2615,52</td></tr>
-                                                    <tr><td>7</td><td>ДСП EGGER H1277 ST9 Акація Лейкленд Світла 2800×2070×18 мм</td><td>шт.</td><td>2906,18</td></tr>
-                                                    <tr><td>8</td><td>ДСП EGGER H1710 ST10 Каштан Кентуккі Пісочний 2800×2070×18 мм</td><td>шт.</td><td>3495,55</td></tr>
-                                                    <tr><td>9</td><td>ДСП EGGER H3156 ST12 Дуб Корбрідж Сірий 2800×2070×18 мм</td><td>шт.</td><td>3099,94</td></tr>
-                                                    </tbody>
-                                                </table>
+                                        <!-- Прайс ДСП Egger (ТОП корпуси) -->
+                                        <section class="page" id="mtu-egger-price">
+                                            <div class="accordion" id="eggerPriceAccordion">
+                                                <button class="accordion-toggle" type="button">
+                                                    Прайс ДСП ТОП корпусів (Egger) — прив’язано до вибору матеріалу корпусу
+                                                </button>
+                                                <div class="accordion-content">
+                                                    <table class="price-table" id="eggerPriceTable">
+                                                        <thead>
+                                                        <tr>
+                                                            <th style="width: 40px;">№</th>
+                                                            <th>Назва товару</th>
+                                                            <th style="width: 60px;">Од.</th>
+                                                            <th style="width: 110px;">Прайс для клієнта, грн</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <!-- приклад: U788 (той, що вибраний у калькуляторі) -->
+                                                        <tr data-material="egger_u788">
+                                                            <td>1</td>
+                                                            <td>
+                                                                ДСП EGGER U788 ST9 Арктика сіра<br>
+                                                                2800×2070×18 мм
+                                                            </td>
+                                                            <td>шт.</td>
+                                                            <td>3099,94</td>
+                                                        </tr>
+
+                                                        <!-- решта декорів — без прив’язки, просто прайс -->
+                                                        <tr>
+                                                            <td>2</td>
+                                                            <td>ДСП EGGER W1000 ST9 Білий Преміум 2800×2070×18 мм</td>
+                                                            <td>шт.</td>
+                                                            <td>2906,18</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>3</td>
+                                                            <td>ДСП EGGER U104 ST9 Альбафрост білий 2800×2070×18 мм</td>
+                                                            <td>шт.</td>
+                                                            <td>2615,52</td>
+                                                        </tr>
+                                                        <!-- додай сюди інші позиції так, як були в старому прайсі -->
+                                                        </tbody>
+                                                    </table>
+                                                    <p style="font-size: 12px; margin-top: 6px;">
+                                                        Після вибору матеріалу корпусу у калькуляторі відповідний декор у прайсі автоматично
+                                                        підсвічується. Прайс наведено для орієнтовного розуміння вартості цілого листа.
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </section>
+
                                     </div>
 
                                     <!-- ПРАВА ЧАСТИНА -->
@@ -1825,6 +1854,38 @@
                                     hubRenderOrderSummary();
                                 }
 
+                                    // === ПРИВ'ЯЗКА ПРАЙСУ ДСП EGGER ДО ВИБОРУ МАТЕРІАЛУ ===
+
+                                    function hubHighlightEggerPrice(materialKey) {
+                                        const table = document.getElementById("eggerPriceTable");
+                                        const accordion = document.getElementById("eggerPriceAccordion");
+                                        if (!table || !accordion) return;
+
+                                        // зняти підсвітку зі всіх рядків
+                                        table.querySelectorAll("tbody tr").forEach((tr) => {
+                                            tr.classList.remove("is-highlight");
+                                        });
+
+                                        // знайти рядок з потрібним data-material
+                                        const targetRow = table.querySelector(`tbody tr[data-material="${materialKey}"]`);
+                                        if (!targetRow) return;
+
+                                        // увімкнути підсвітку
+                                        targetRow.classList.add("is-highlight");
+
+                                        // розкрити акордеон, якщо він закритий
+                                        const content = accordion.querySelector(".accordion-content");
+                                        if (content && !content.classList.contains("open")) {
+                                            content.classList.add("open");
+                                        }
+
+                                        // акуратний скрол до виділеного рядка (тільки якщо користувач вже трохи проскролив сторінку)
+                                        setTimeout(() => {
+                                            targetRow.scrollIntoView({ behavior: "smooth", block: "center" });
+                                        }, 150);
+                                    }
+
+
                                     function hubRenderOrderSummary() {
                                     const tbody = document.getElementById("hub_orderBody");
                                     const totalAreaCell = document.getElementById("hub_orderTotalArea");
@@ -1956,26 +2017,44 @@
                                 }
 
                                     document.addEventListener("DOMContentLoaded", () => {
-                                    [
-                                        "hub_facadeType",
-                                        "hub_moduleType",
-                                        "hub_moduleWidth",
-                                        "hub_qty",
-                                        "hub_materialType",
-                                        "hub_servicePack",
-                                        "hub_optBack10",
-                                        "hub_optBlum",
-                                        "hub_optAssembly",
-                                    ].forEach((id) => {
-                                        const el = document.getElementById(id);
-                                        if (!el) return;
-                                        el.addEventListener("change", hubRecalcModule);
-                                        el.addEventListener("input", hubRecalcModule);
+                                        const ids = [
+                                            "hub_facadeType",
+                                            "hub_moduleType",
+                                            "hub_moduleWidth",
+                                            "hub_qty",
+                                            "hub_materialType",
+                                            "hub_servicePack",
+                                            "hub_optBack10",
+                                            "hub_optBlum",
+                                            "hub_optAssembly",
+                                        ];
+
+                                        ids.forEach((id) => {
+                                            const el = document.getElementById(id);
+                                            if (!el) return;
+
+                                            // стандартна реакція калькулятора
+                                            el.addEventListener("change", hubRecalcModule);
+                                            el.addEventListener("input", hubRecalcModule);
+
+                                            // додаткова логіка саме для матеріалу корпусу
+                                            if (id === "hub_materialType") {
+                                                el.addEventListener("change", function () {
+                                                    hubHighlightEggerPrice(this.value);
+                                                });
+                                            }
+                                        });
+
+                                        // початковий рендер замовлення
+                                        hubRenderOrderSummary();
+
+                                        // початкова підсвітка (на стартовий матеріал)
+                                        const materialSelect = document.getElementById("hub_materialType");
+                                        if (materialSelect) {
+                                            hubHighlightEggerPrice(materialSelect.value);
+                                        }
                                     });
 
-                                    hubRenderOrderSummary();
-                                    hubRecalcModule();
-                                });
 
 
                             </script>
