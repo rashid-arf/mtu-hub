@@ -3322,7 +3322,7 @@
 </script>
 <script>
     // 🔐 тот же секрет, что TELEGRAM_FORM_SECRET в Next.js (.env)
-    const TELEGRAM_FORM_SECRET = "MT_SYSTEMS"; // подставь ровно ту строку, что в .env
+    const TELEGRAM_FORM_SECRET = "mtx-volpato-2025"; // подставь ровно ту строку, что в .env
 
     // Поточний режим з калькулятора (currentMode вже є у коді вище)
     function getCurrentModeLabel() {
@@ -3441,7 +3441,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    secret: MT_SYSTEMS,
+                    secret: "mtx-volpato-2025",
                     text: textSummary
                 })
             });
@@ -3458,7 +3458,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    secret: MT_SYSTEMS,
+                    secret: "mtx-volpato-2025",
                     text: textCsv
                 })
             });
