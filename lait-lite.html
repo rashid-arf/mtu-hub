@@ -2,64 +2,93 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8" />
-    <title>Калькулятор полиць LAIT (Lite)</title>
+    <title>Полиці LAIT (Lite) — MT × Systems</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Спільні стилі MTU hub -->
+    <link rel="stylesheet" href="mtu-hub.css/" />
+
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background: #050505;
-            color: #f5f5f5;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        /* =========================
+           1. Блок детального калькулятора (старий engine)
+           ========================= */
+
+        .lait-root {
+            margin-top: 24px;
+            border-radius: 26px;
+            padding: 22px 22px 26px;
+            background: radial-gradient(circle at top left, #020617, #020617 55%);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.75);
+            color: #e5e7eb;
         }
-        .root {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 24px 16px 40px;
-        }
-        h1.title {
-            font-size: 24px;
+
+        .lait-root-title {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin: 0 0 12px;
+            color: #f9fafb;
         }
-        .card {
-            background: #141414;
-            border-radius: 16px;
+
+        .lait-grid-main {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
+            gap: 18px;
+        }
+
+        .lait-form-card {
+            background: rgba(15, 23, 42, 0.96);
+            border-radius: 18px;
             padding: 16px 18px 18px;
-            border: 1px solid #2a2a2a;
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
-            margin-bottom: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            box-shadow: 0 14px 35px rgba(0,0,0,0.8);
         }
-        .grid {
+
+        .lait-results-wrapper {
+            display: none;
+        }
+
+        .lait-results-wrapper.active {
+            display: block;
+        }
+
+        /* Сітка полів */
+        .lait-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 12px 16px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
+
         .field {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
+
         .field label {
             font-size: 12px;
-            color: #bbbbbb;
+            color: #cbd5f5;
         }
+
         .field input,
         .field select {
-            background: #111111;
+            background: rgba(15, 23, 42, 0.85);
             border-radius: 10px;
-            border: 1px solid #333333;
+            border: 1px solid rgba(148, 163, 184, 0.7);
             padding: 6px 8px;
             font-size: 13px;
             color: #f5f5f5;
             outline: none;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
+
         .field input:focus,
         .field select:focus {
-            border-color: #ffffff;
-            box-shadow: 0 0 0 1px #ffffff11;
+            border-color: #22c55e;
+            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.55);
         }
+
         .button {
             display: inline-flex;
             align-items: center;
@@ -67,307 +96,423 @@
             padding: 8px 18px;
             border-radius: 999px;
             border: none;
-            background: linear-gradient(135deg, #ffffff, #bbbbbb);
+            background: linear-gradient(135deg, #ffffff, #d1d5db);
             color: #000000;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
             transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
         }
+
         .button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 8px 18px rgba(15,23,42,0.55);
         }
+
         .button:active {
             transform: translateY(0);
             box-shadow: none;
             opacity: 0.9;
         }
+
+        /* Результати (3 колонки з картками hub) */
         .results {
             display: grid;
-            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(0, 1.4fr);
-            gap: 12px;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+            gap: 16px;
         }
-        .section {
-            margin-top: 6px;
-        }
-        .section h3 {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: #e0e0e0;
-        }
-        .block {
-            padding: 4px 0;
-            border-bottom: 1px dashed #2e2e2e;
-        }
-        .block:last-child {
-            border-bottom: none;
-        }
+
         .row {
             display: flex;
             justify-content: space-between;
             font-size: 13px;
         }
+
         .rowSmall {
             font-size: 12px;
             color: #d0d0d0;
             margin-top: 2px;
         }
+
         .rowStrong {
             font-size: 13px;
             font-weight: 600;
             margin-top: 6px;
         }
+
+
         @media (max-width: 900px) {
             .results {
                 grid-template-columns: 1fr;
             }
         }
+
+        /* =========================
+           2. Вітрина LAIT
+           ========================= */
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 16px 64px;
+        }
+
+        .lait-intro {
+            margin-bottom: 24px;
+        }
+
+        .lait-intro p {
+            margin: 0 0 6px;
+        }
+
+        .lait-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+
+        /* ===== LAIT (Lite) — новый лэйаут калькулятора ===== */
+
+        /* контейнер всех 4 карточек калькулятора */
+        .lait-calc-grid {
+            display: grid;
+            /*grid-template-columns: repeat(3, minmax(0, 1fr)); !* три колонки снизу *!*/
+            gap: 18px;
+        }
+
+        /* верхняя карточка с формой — во всю ширину */
+        .lait-panel--inputs {
+            grid-column: 1 / -1; /* растягиваем на все 3 колонки */
+        }
+
+        /* базовый вид карточек (если уже есть, оставь как есть) */
+        .lait-panel {
+            border-radius: 20px;
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
+            padding: 18px 20px;
+        }
+
+        /* адаптив — на планшетах/мобиле все карточки в колонку */
+        @media (max-width: 1024px) {
+            .lait-calc-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .lait-panel--inputs {
+                grid-column: auto;
+            }
+        }
+
+
+        .lait-bullets {
+            padding-left: 18px;
+            margin: 6px 0 0;
+            font-size: 13px;
+        }
+
+        .lait-bullets li {
+            margin-bottom: 4px;
+        }
+
+        .lait-note-card {
+            margin-top: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding-inline: 12px;
+            }
+
+            .lait-grid-2,
+            .lait-grid-3 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
     </style>
 </head>
 <body>
+<div class="page">
 
-<!-- ВІТРИНА LAIT (Lite) -->
-<section id="lait-lite-showcase" class="section">
-    <div class="section-header">
-        <h2 class="section-headline">Полиці LAIT (Lite)</h2>
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-logo">
+                <img src="/images/MT_logo_ua_Kubik.jpg" alt="MT logo">
+            </div>
+            <div>
+                <div class="topbar-title">MT Україна</div>
+                <div class="topbar-sub">Полиці LAIT (Lite) · калькулятор + вітрина</div>
+            </div>
+        </div>
+
+        <div class="theme-toggle">
+            <button id="themeToggle"><span></span> Темна тема</button>
+        </div>
+    </header>
+
+    <!-- ВІТРИНА LAIT (Lite) -->
+    <section id="lait-lite-showcase">
+        <h1 class="section-headline">Полиці LAIT (Lite)</h1>
+        <div class="section-lead lait-intro">
+            <p>Легка система скляних полиць з інтегрованим світлом: профілі LA-1048 / LA-1049, кронштейни LA-B, LED Domus APEX SHE та конвертери 24V.</p>
+            <p>Готове рішення для гардеробних, вітрин і ніш. Працює як доповнення до TRIAL / eTSecutive або як окрема полиця.</p>
+        </div>
+
+        <div class="lait-grid-2">
+            <!-- Де застосовувати -->
+            <div class="card">
+                <div class="card-title">Де застосовувати</div>
+                <div class="card-body">
+                    <ul class="lait-bullets">
+                        <li>Гардеробні та шафи-купе.</li>
+                        <li>Ніші у спальнях та вітальнях.</li>
+                        <li>Зони продажу та вітрини в магазинах.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Конструкція полиці -->
+            <div class="card">
+                <div class="card-title">Конструкція полиці</div>
+                <div class="card-body">
+                    <ul class="lait-bullets">
+                        <li>Рамка з алюмінієвих профілів <strong>LA-1048</strong> (фронт під світло) та <strong>LA-1049</strong> (бокові/задня частина).</li>
+                        <li>Наповнення — скло 4–6 мм (гартоване) або ДСП 18 мм з вибіркою чверті.</li>
+                        <li>Кронштейни <strong>LA-B</strong> підбираються під довжину полиці.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="lait-grid-2" style="margin-top:18px;">
+            <!-- Скло / ДСП -->
+            <div class="card">
+                <div class="card-title">Скло / ДСП та обробка</div>
+                <div class="card-body">
+                    <ul class="lait-bullets">
+                        <li>Скло гартоване за прайсом Busel (Float, Extra-clear, Dark Grey, Satin) з поліруванням кромок.</li>
+                        <li>Розрахунок площі та вартості — через методику Busel GLASS engine.</li>
+                        <li>ДСП 18 мм без кромки, з чвертю під профіль LA-1048/1049.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- LED-версія -->
+            <div class="card">
+                <div class="card-title">LED-версія</div>
+                <div class="card-body">
+                    <ul class="lait-bullets">
+                        <li>У профіль LA-1048 вбудовується LED-стрічка Domus APEX SHE 24V.</li>
+                        <li>Калькулятор рахує довжину LED-стрічки та підбирає конвертер 24V.</li>
+                        <li>Можливі варіанти: лише полиця, полиця + LED, полиця + LED + монтаж.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Як працювати з MTU -->
+        <section style="margin-top:32px;">
+            <h2 class="section-headline">Як працювати з MTU по LAIT</h2>
+            <p class="section-lead">
+                Ви можете замовити повний комплект LAIT: профіль, скло, LED та роботи в одному місці. Ми робимо різку, збірку,
+                поклейку скла та готуємо полиці до монтажу.
+            </p>
+
+            <div class="card lait-note-card">
+                <div class="card-body">
+                    <ul class="lait-bullets">
+                        <li><strong>Комплект «під ключ»</strong> зі складу MTU: профіль, скло, LED, конвертер, роботи.</li>
+                        <li><strong>Варіант «тільки профіль + сервіс»</strong> — скло від вашого постачальника, ми робимо розкрій і підготовку профілю.</li>
+                        <li><strong>Підтримка менеджера MTU</strong> на етапі проєктування полиць, перевірка навантажень та вузлів.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- КАЛЬКУЛЯТОР LAIT (Lite) -->
+    <section id="lait-lite-calculator" style="margin-top:40px;">
+        <h2 class="section-headline">Калькулятор полиць LAIT (Lite)</h2>
         <p class="section-lead">
-            Легка система скляних полиць з інтегрованим світлом:
-            профілі LA-1048 / LA-1049, кронштейни LA-B, LED Domus APEX SHE та
-            конвертери 24V. Готове рішення для гардеробних, вітрин і ніш.
+            Вкажіть параметри полиць. Калькулятор дає детальний розрахунок профілю, скла / ДСП, LED, конвертерів та послуг MTU.
+            Менеджер MTU перевіряє результат перед виставленням рахунку.
         </p>
-    </div>
 
-    <div class="cards-grid">
-        <article class="info-card">
-            <h3>Де застосовувати</h3>
-            <p>
-                Гардеробні системи, нішеві полиці у спальні, шоуруми, магазини.
-                LAIT працює як самостійна полиця або доповнення до TRIAL / eTSecutive.
-            </p>
-            <ul>
-                <li>Гардеробні та шафи-купе</li>
-                <li>Ніші в спальнях та вітальнях</li>
-                <li>Зони продажу та вітрини</li>
-            </ul>
-        </article>
+        <div class="lait-root">
+            <h3 class="lait-root-title">Вхідні дані</h3>
 
-        <article class="info-card">
-            <h3>Конструкція полиці</h3>
-            <p>
-                Рамка з алюмінієвих профілів LA-1048 (фронт під світло) та
-                LA-1049 (бокові/задня частина), наповнення — скло або ДСП 18 мм
-                з четвертю, кронштейни LA-B.
-            </p>
-            <ul>
-                <li>Довжина полиці: 600–1200 мм</li>
-                <li>Глибина: зазвичай 300–400 мм (можна змінювати)</li>
-                <li>Кронштейни: 2&nbsp;шт до 900 мм, 3&nbsp;шт від 900 до 1200 мм</li>
-            </ul>
-        </article>
+            <div class="lait-calc-grid">
+                <!-- Ліва частина — форма -->
+                <div class="lait-panel lait-panel--inputs">
+                    <div class="lait-grid">
+                        <div class="field">
+                            <label for="eurRate">Курс EUR, грн</label>
+                            <input id="eurRate" type="number" value="49.5" step="0.01" />
+                        </div>
+                        <div class="field">
+                            <label for="lengthMm">Довжина полиці, мм</label>
+                            <input id="lengthMm" type="number" value="900" />
+                        </div>
+                        <div class="field">
+                            <label for="depthMm">Глибина полиці, мм</label>
+                            <input id="depthMm" type="number" value="600" />
+                        </div>
+                        <div class="field">
+                            <label for="quantity">Кількість полиць</label>
+                            <input id="quantity" type="number" value="2" min="1" />
+                        </div>
 
-        <article class="info-card">
-            <h3>Скло / ДСП та обробка</h3>
-            <p>
-                Скло гартоване за прайсом Busel (Float, Extra-clear, Dark Grey, Satin),
-                з поліруванням кромок. Альтернатива — ДСП 18 мм з вибіркою четверті.
-            </p>
-            <ul>
-                <li>Скло 4–6 мм, тільки гартоване</li>
-                <li>Розрахунок площі та вартості — через Busel GLASS engine</li>
-                <li>ДСП 18 мм без кромки, з четвертю під профіль</li>
-            </ul>
-        </article>
+                        <div class="field">
+                            <label for="finishId">Оздоблення профілю</label>
+                            <select id="finishId">
+                                <option value="black">Чорний мат</option>
+                                <option value="bronze_cartier">Бронза Карт’є</option>
+                                <option value="bronze_armani">Бронза Armani</option>
+                            </select>
+                        </div>
 
-        <article class="info-card">
-            <h3>LED-версія</h3>
-            <p>
-                У профіль LA-1048 вбудовується LED-стрічка Domus APEX SHE 24V
-                або LED-розсіювач 2800&nbsp;мм. Калькулятор рахує довжину стрічки,
-                потужність та підбирає конвертер.
-            </p>
-            <ul>
-                <li>Domus APEX SHE 24V, розрахунок W/м</li>
-                <li>Автоматичний підбір конвертера (30 / 60 / 90 / 150 W)</li>
-                <li>Конектори живлення OL-CONN-N по кількості полиць</li>
-            </ul>
-        </article>
+                        <div class="field">
+                            <label for="infillType">Наповнення</label>
+                            <select id="infillType">
+                                <option value="glass">Скло</option>
+                                <option value="board">ДСП 18 мм (під четверть)</option>
+                            </select>
+                        </div>
 
-        <article class="info-card">
-            <h3>Що дає калькулятор</h3>
-            <p>
-                Калькулятор LAIT (Lite) розбиває проєкт на матеріали та послуги:
-                профіль, скло/ДСП, кронштейни, конектори, LED, конвертер та роботи
-                (різка профілю, збірка, поклейка скла, вибірка четверті, монтаж LED).
-            </p>
-            <ul>
-                <li>Чітке ТЗ для виробника або монтажної бригади</li>
-                <li>Прозора собівартість по кожній полиці</li>
-                <li>Готовий текст для комерційної пропозиції клієнту</li>
-            </ul>
-        </article>
+                        <div class="field" id="glassField">
+                            <label for="glassId">Тип скла</label>
+                            <select id="glassId">
+                                <option value="float_clear_4">Скло Float прозоре 4 мм</option>
+                                <option value="float_clear_5" selected>Скло Float прозоре 5 мм</option>
+                                <option value="float_clear_6">Скло Float прозоре 6 мм</option>
 
-        <article class="info-card">
-            <h3>Як працювати з MTU</h3>
-            <p>
-                Ви можете замовити повний комплект LAIT:
-                профіль, скло, LED та послуги в одному місці.
-                Ми робимо різку, збірку, поклейку та готуємо полиці до монтажу.
-            </p>
-            <ul>
-                <li>Комплект «під ключ» з нашого складу</li>
-                <li>Варіант: тільки профіль + послуги, скло — вашого постачальника</li>
-                <li>Підтримка менеджера MTU на етапі проєктування</li>
-            </ul>
-        </article>
-    </div>
-</section>
+                                <option value="extra_clear_4">Скло Extra-clear 4 мм (Діамант / low-iron)</option>
+                                <option value="extra_clear_5">Скло Extra-clear 5 мм (Діамант / low-iron)</option>
+                                <option value="extra_clear_6">Скло Extra-clear 6 мм (Діамант / low-iron)</option>
 
-<div class="root">
-    <h1 class="title">Калькулятор полиць LAIT (Lite)</h1>
+                                <option value="dark_grey_4">Скло Dark Grey 4 мм (тоноване)</option>
+                                <option value="dark_grey_6">Скло Dark Grey 6 мм (тоноване)</option>
 
-    <!-- Вхідні дані -->
-    <div class="card">
-        <div class="grid">
-            <div class="field">
-                <label for="eurRate">Курс EUR, грн</label>
-                <input id="eurRate" type="number" value="49.5" step="0.01" />
-            </div>
-            <div class="field">
-                <label for="lengthMm">Довжина полиці, мм</label>
-                <input id="lengthMm" type="number" value="900" />
-            </div>
-            <div class="field">
-                <label for="depthMm">Глибина полиці, мм</label>
-                <input id="depthMm" type="number" value="600" />
-            </div>
-            <div class="field">
-                <label for="quantity">Кількість полиць</label>
-                <input id="quantity" type="number" value="2" min="1" />
-            </div>
+                                <option value="satin_extra_clear_4">Скло Satin Extra Clear 4 мм (матове)</option>
+                                <option value="satin_extra_clear_6">Скло Satin Extra Clear 6 мм (матове)</option>
+                            </select>
+                        </div>
 
-            <div class="field">
-                <label for="finishId">Оздоблення профілю</label>
-                <select id="finishId">
-                    <option value="black">Чорний мат</option>
-                    <option value="bronze_cartier">Бронза Карт’є</option>
-                    <option value="bronze_armani">Бронза Armani</option>
-                </select>
-            </div>
+                        <div class="field">
+                            <label for="ledType">LED-підсвітка</label>
+                            <select id="ledType">
+                                <option value="none">Без LED</option>
+                                <option value="led_domus_apex_she" selected>Domus Apex SHE 24V</option>
+                                <option value="led_diffuser_2800">LED розсіювач 2800 мм</option>
+                            </select>
+                        </div>
+                    </div>
 
-            <div class="field">
-                <label for="infillType">Наповнення</label>
-                <select id="infillType">
-                    <option value="glass">Скло</option>
-                    <option value="board">ДСП 18 мм (під четверть)</option>
-                </select>
-            </div>
-
-            <div class="field" id="glassField">
-                <label for="glassId">Тип скла</label>
-                <select id="glassId">
-                    <option value="float_clear_4">Скло Float прозоре 4 мм</option>
-                    <option value="float_clear_5" selected>Скло Float прозоре 5 мм</option>
-                    <option value="float_clear_6">Скло Float прозоре 6 мм</option>
-
-                    <option value="extra_clear_4">Скло Extra-clear 4 мм (Діамант / low-iron)</option>
-                    <option value="extra_clear_5">Скло Extra-clear 5 мм (Діамант / low-iron)</option>
-                    <option value="extra_clear_6">Скло Extra-clear 6 мм (Діамант / low-iron)</option>
-
-                    <option value="dark_grey_4">Скло Dark Grey 4 мм (тоноване)</option>
-                    <option value="dark_grey_6">Скло Dark Grey 6 мм (тоноване)</option>
-
-                    <option value="satin_extra_clear_4">Скло Satin Extra Clear 4 мм (матове)</option>
-                    <option value="satin_extra_clear_6">Скло Satin Extra Clear 6 мм (матове)</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label for="ledType">LED-підсвітка</label>
-                <select id="ledType">
-                    <option value="none">Без LED</option>
-                    <option value="led_domus_apex_she" selected>Domus Apex SHE 24V</option>
-                    <option value="led_diffuser_2800">LED розсіювач 2800 мм</option>
-                </select>
-            </div>
-        </div>
-
-        <button id="calcBtn" class="button">Розрахувати</button>
-    </div>
-
-    <!-- Результати -->
-    <div id="resultsContainer" style="display:none;">
-        <div class="results">
-            <div class="card">
-                <h2>Підсумок по полиці</h2>
-                <div id="shelvesSummary"></div>
-            </div>
-
-            <div class="card">
-                <h2>Матеріали</h2>
-
-                <div class="section">
-                    <h3>Профілі (факт / до оплати)</h3>
-                    <div id="profilesSummary"></div>
+                    <button id="calcBtn" class="button" type="button">Розрахувати</button>
                 </div>
 
-                <div class="section">
-                    <h3>Скло</h3>
-                    <div id="glassSummary"></div>
-                </div>
+                <!-- Права частина — результати (3 картки hub) -->
+                <div class="lait-results-wrapper" id="resultsContainer">
+                    <div class="results">
+                        <div class="lait-panel">
+                            <h3 class="card-title">Підсумок по полиці</h3>
+                            <div id="shelvesSummary"></div>
+                        </div>
 
-                <div class="section">
-                    <h3>ДСП</h3>
-                    <div id="boardsSummary"></div>
-                </div>
+                        <div class="lait-panel">
+                            <h3 class="card-title">Матеріали</h3>
 
-                <div class="section">
-                    <h3>Кронштейни</h3>
-                    <div id="bracketsSummary"></div>
-                </div>
+                            <div class="section">
+                                <h3>Профілі (факт / до оплати)</h3>
+                                <div id="profilesSummary"></div>
+                            </div>
 
-                <div class="section">
-                    <h3>Конектори рамки</h3>
-                    <div id="connectorsSummary"></div>
-                </div>
+                            <div class="section">
+                                <h3>Скло</h3>
+                                <div id="glassSummary"></div>
+                            </div>
 
-                <div class="section">
-                    <h3>LED</h3>
-                    <div id="ledSummary"></div>
-                </div>
+                            <div class="section">
+                                <h3>ДСП</h3>
+                                <div id="boardsSummary"></div>
+                            </div>
 
-                <div class="section">
-                    <h3>Живлення (конвертер + конектор живлення)</h3>
-                    <div id="powerSummary"></div>
-                </div>
-            </div>
+                            <div class="section">
+                                <h3>Кронштейни</h3>
+                                <div id="bracketsSummary"></div>
+                            </div>
 
-            <div class="card">
-                <h2>Послуги та суми</h2>
+                            <div class="section">
+                                <h3>Конектори рамки</h3>
+                                <div id="connectorsSummary"></div>
+                            </div>
 
-                <div class="section">
-                    <h3>Послуги</h3>
-                    <div id="servicesSummary"></div>
-                </div>
+                            <div class="section">
+                                <h3>LED</h3>
+                                <div id="ledSummary"></div>
+                            </div>
 
-                <div class="section">
-                    <div class="rowSmall" id="materialsTotal"></div>
-                    <div class="rowSmall" id="servicesTotal"></div>
-                    <div class="rowStrong" id="grandTotal"></div>
-                </div>
+                            <div class="section">
+                                <h3>Живлення (конвертер + конектор живлення)</h3>
+                                <div id="powerSummary"></div>
+                            </div>
+                        </div>
 
-                <div class="section">
-                    <h3>Пояснення для менеджера</h3>
-                    <div id="explainManager"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+                        <div class="lait-panel">
+                            <h3 class="card-title">Послуги та загальні суми</h3>
+
+                            <div class="section">
+                                <h3>Послуги</h3>
+                                <div id="servicesSummary"></div>
+                            </div>
+
+                            <div class="section">
+                                <div class="rowSmall" id="materialsTotal"></div>
+                                <div class="rowSmall" id="servicesTotal"></div>
+                                <div class="rowStrong" id="grandTotal"></div>
+                            </div>
+
+                            <div class="section">
+                                <h3>Пояснення для менеджера</h3>
+                                <div id="explainManager"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /resultsContainer -->
+            </div> <!-- /lait-grid-main -->
+        </div> <!-- /lait-root -->
+    </section>
 </div>
 
 <script>
-    // ===== ДОВІДНИКИ =====
+    // ========= ТЕМА (як у головному hub) =========
+    const bodyEl = document.body;
+    const themeBtn = document.getElementById('themeToggle');
+
+    function applyTheme(mode) {
+        const isDark = mode === 'dark';
+        if (isDark) {
+            bodyEl.classList.add('dark-theme');
+            themeBtn.innerHTML = '<span></span> Світла тема';
+        } else {
+            bodyEl.classList.remove('dark-theme');
+            themeBtn.innerHTML = '<span></span> Темна тема';
+        }
+    }
+
+    const savedTheme = localStorage.getItem('mtHubTheme') || 'light';
+    applyTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+        const newTheme = bodyEl.classList.contains('dark-theme') ? 'light' : 'dark';
+        localStorage.setItem('mtHubTheme', newTheme);
+        applyTheme(newTheme);
+    });
+
+    // ========= ДАНІ ДЛЯ LAIT (довідники + engine) =========
+
     const refData = {
         profilesLait: [
             {
@@ -394,105 +539,17 @@
             }
         ],
 
-        // ==== ВСІ ВАРІАНТИ СКЛА ДЛЯ LAIT ====
         glassLait: [
-            // FLOAT
-            {
-                id: 'float_clear_4',
-                name: 'Скло Float прозоре 4 мм (гарт.)',
-                thicknessMm: 4,
-                pricePerM2: 507.90,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-FLOAT-4'
-            },
-            {
-                id: 'float_clear_5',
-                name: 'Скло Float прозоре 5 мм (гарт.)',
-                thicknessMm: 5,
-                pricePerM2: 725.22,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-FLOAT-5'
-            },
-            {
-                id: 'float_clear_6',
-                name: 'Скло Float прозоре 6 мм (гарт.)',
-                thicknessMm: 6,
-                pricePerM2: 996.90,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-FLOAT-6'
-            },
-
-            // EXTRA CLEAR (Діамант / low-iron)
-            {
-                id: 'extra_clear_4',
-                name: 'Скло Extra-clear 4 мм (Діамант / low-iron, гарт.)',
-                thicknessMm: 4,
-                pricePerM2: 879.30,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-EXTRA-4'
-            },
-            {
-                id: 'extra_clear_5',
-                name: 'Скло Extra-clear 5 мм (Діамант / low-iron, гарт.)',
-                thicknessMm: 5,
-                pricePerM2: 1203.48,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-EXTRA-5'
-            },
-            {
-                id: 'extra_clear_6',
-                name: 'Скло Extra-clear 6 мм (Діамант / low-iron, гарт.)',
-                thicknessMm: 6,
-                pricePerM2: 1403.4,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-EXTRA-6'
-            },
-
-            // DARK GREY
-            {
-                id: 'dark_grey_4',
-                name: 'Скло Dark Grey 4 мм (тоноване, гарт.)',
-                thicknessMm: 4,
-                pricePerM2: 1683,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-GREY-4'
-            },
-            {
-                id: 'dark_grey_6',
-                name: 'Скло Dark Grey 6 мм (тоноване, гарт.)',
-                thicknessMm: 6,
-                pricePerM2: 2863.08,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-GREY-6'
-            },
-
-            // SATIN EXTRA CLEAR
-            {
-                id: 'satin_extra_clear_4',
-                name: 'Скло Satin Extra Clear 4 мм (матове, гарт.)',
-                thicknessMm: 4,
-                pricePerM2: 1306.26,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-SATIN-4'
-            },
-            {
-                id: 'satin_extra_clear_6',
-                name: 'Скло Satin Extra Clear 6 мм (матове, гарт.)',
-                thicknessMm: 6,
-                pricePerM2: 1918.62,
-                currency: 'UAH',
-                tempered: true,
-                article: 'GL-SATIN-6'
-            }
+            { id: 'float_clear_4',       name: 'Скло Float прозоре 4 мм (гарт.)',              thicknessMm: 4, pricePerM2: 507.90,  currency: 'UAH', tempered: true, article: 'GL-FLOAT-4' },
+            { id: 'float_clear_5',       name: 'Скло Float прозоре 5 мм (гарт.)',              thicknessMm: 5, pricePerM2: 725.22,  currency: 'UAH', tempered: true, article: 'GL-FLOAT-5' },
+            { id: 'float_clear_6',       name: 'Скло Float прозоре 6 мм (гарт.)',              thicknessMm: 6, pricePerM2: 996.90,  currency: 'UAH', tempered: true, article: 'GL-FLOAT-6' },
+            { id: 'extra_clear_4',       name: 'Скло Extra-clear 4 мм (Діамант / low-iron)',   thicknessMm: 4, pricePerM2: 879.30,  currency: 'UAH', tempered: true, article: 'GL-EXTRA-4' },
+            { id: 'extra_clear_5',       name: 'Скло Extra-clear 5 мм (Діамант / low-iron)',   thicknessMm: 5, pricePerM2: 1203.48, currency: 'UAH', tempered: true, article: 'GL-EXTRA-5' },
+            { id: 'extra_clear_6',       name: 'Скло Extra-clear 6 мм (Діамант / low-iron)',   thicknessMm: 6, pricePerM2: 1403.4,  currency: 'UAH', tempered: true, article: 'GL-EXTRA-6' },
+            { id: 'dark_grey_4',         name: 'Скло Dark Grey 4 мм (тоноване, гарт.)',        thicknessMm: 4, pricePerM2: 1683,    currency: 'UAH', tempered: true, article: 'GL-GREY-4' },
+            { id: 'dark_grey_6',         name: 'Скло Dark Grey 6 мм (тоноване, гарт.)',        thicknessMm: 6, pricePerM2: 2863.08, currency: 'UAH', tempered: true, article: 'GL-GREY-6' },
+            { id: 'satin_extra_clear_4', name: 'Скло Satin Extra Clear 4 мм (матове, гарт.)',  thicknessMm: 4, pricePerM2: 1306.26, currency: 'UAH', tempered: true, article: 'GL-SATIN-4' },
+            { id: 'satin_extra_clear_6', name: 'Скло Satin Extra Clear 6 мм (матове, гарт.)',  thicknessMm: 6, pricePerM2: 1918.62, currency: 'UAH', tempered: true, article: 'GL-SATIN-6' }
         ],
 
         boardLait: [
@@ -508,7 +565,6 @@
             }
         ],
 
-        // LED-варіанти
         ledLait: [
             {
                 id: 'led_domus_apex_she',
@@ -539,7 +595,7 @@
                 id: 'holder_LA_B',
                 name: 'Тримач полиці LA-B (4 шт/комплект)',
                 mountType: 'side_panel',
-                pricePerPc: 7.42 / 4, // EUR за 1 шт
+                pricePerPc: 7.42 / 4,
                 currency: 'EUR',
                 minQtyPerShelfUpToMm: 900,
                 minQtyBelowOrEqualSpan: 2,
@@ -560,43 +616,13 @@
             }
         ],
 
-        // Конвертери 24V
         convertersLait: [
-            {
-                id: 'conv30',
-                name: 'Конвертер 24V 30W',
-                powerW: 30,
-                priceUah: 1150,
-                currency: 'UAH',
-                article: 'DL-CONV-30'
-            },
-            {
-                id: 'conv60',
-                name: 'Конвертер 24V 60W',
-                powerW: 60,
-                priceUah: 1800,
-                currency: 'UAH',
-                article: 'DL-CONV-60'
-            },
-            {
-                id: 'conv90',
-                name: 'Конвертер 24V 90W',
-                powerW: 90,
-                priceUah: 3000,
-                currency: 'UAH',
-                article: 'DL-CONV-90'
-            },
-            {
-                id: 'conv150',
-                name: 'Конвертер 24V 150W',
-                powerW: 150,
-                priceUah: 3500,
-                currency: 'UAH',
-                article: 'DL-CONV-150'
-            }
+            { id: 'conv30',  name: 'Конвертер 24V 30W',  powerW: 30,  priceUah: 1150, currency: 'UAH', article: 'DL-CONV-30' },
+            { id: 'conv60',  name: 'Конвертер 24V 60W',  powerW: 60,  priceUah: 1800, currency: 'UAH', article: 'DL-CONV-60' },
+            { id: 'conv90',  name: 'Конвертер 24V 90W',  powerW: 90,  priceUah: 3000, currency: 'UAH', article: 'DL-CONV-90' },
+            { id: 'conv150', name: 'Конвертер 24V 150W', powerW: 150, priceUah: 3500, currency: 'UAH', article: 'DL-CONV-150' }
         ],
 
-        // Конектор живлення OL-CONN-N
         powerConnectorLait: {
             id: 'ol_conn_n',
             name: 'Конектор живлення OL-CONN-N (Domus Line)',
@@ -606,46 +632,11 @@
         },
 
         servicesLait: [
-            {
-                id: 'srv_cut_profile_lait',
-                name: 'Порізка та свердлівка профілю на одну полицю (087366)',
-                unit: 'shelf',
-                pricePerUnit: 1150.00,
-                currency: 'UAH',
-                article: '087366'
-            },
-            {
-                id: 'srv_assemble_frame_lait',
-                name: 'Збірка полиці LAIT (без приклеювання скла) (116357)',
-                unit: 'shelf',
-                pricePerUnit: 675.00,
-                currency: 'UAH',
-                article: '116357'
-            },
-            {
-                id: 'srv_install_glass_lait',
-                name: 'Поклейка скла на профіль LAIT (до 1 м²) (123125)',
-                unit: 'm2',
-                pricePerUnit: 600,
-                currency: 'UAH',
-                article: '123125'
-            },
-            {
-                id: 'srv_quarter_board_lait',
-                name: 'Вибірка четверті під ДВП, ДСП (044275)',
-                unit: 'm',
-                pricePerUnit: 50.00,
-                currency: 'UAH',
-                article: '044275'
-            },
-            {
-                id: 'srv_install_led_lait',
-                name: 'Монтаж LED-підсвітки в полицю LAIT',
-                unit: 'shelf',
-                pricePerUnit: 15,
-                currency: 'UAH',
-                article: '102907'
-            }
+            { id: 'srv_cut_profile_lait',     name: 'Порізка та свердлівка профілю на одну полицю (087366)',       unit: 'shelf', pricePerUnit: 1150.00, currency: 'UAH', article: '087366' },
+            { id: 'srv_assemble_frame_lait',  name: 'Збірка полиці LAIT (без приклеювання скла) (116357)',         unit: 'shelf', pricePerUnit: 675.00,  currency: 'UAH', article: '116357' },
+            { id: 'srv_install_glass_lait',   name: 'Поклейка скла на профіль LAIT (до 1 м²) (123125)',            unit: 'm2',    pricePerUnit: 600,     currency: 'UAH', article: '123125' },
+            { id: 'srv_quarter_board_lait',   name: 'Вибірка четверті під ДВП, ДСП (044275)',                      unit: 'm',     pricePerUnit: 50.00,   currency: 'UAH', article: '044275' },
+            { id: 'srv_install_led_lait',     name: 'Монтаж LED-підсвітки в полицю LAIT (102907)',                 unit: 'shelf', pricePerUnit: 15,      currency: 'UAH', article: '102907' }
         ],
 
         constantsLait: {
@@ -658,7 +649,6 @@
         return currency === 'EUR' ? value * eurRate : value;
     }
 
-    // ===== Busel GLASS ENGINE =====
     function calcBuselGlassForLait({ widthMm, heightMm, pricePerM2, edgePolishPerM }) {
         const rawArea = (widthMm * heightMm) / 1_000_000;
         const billingArea = Math.max(rawArea, 0.25);
@@ -690,7 +680,6 @@
         };
     }
 
-    // ===== Billing rule для профілю (0.5 / 1 / 1.5 / ... барів) =====
     function computeBillingBars(usedLengthMm, barLenMm) {
         if (usedLengthMm <= 0) return 0;
         const ratio = usedLengthMm / barLenMm;
@@ -730,7 +719,7 @@
         function getLed(id)     { return ref.ledLait.find(l => l.id === id); }
         function getConnector() { return ref.connectorsLait[0]; }
         function getService(id) { return ref.servicesLait.find(s => s.id === id); }
-        function getConverters() { return ref.convertersLait || []; }
+        function getConverters(){ return ref.convertersLait || []; }
         function getPowerConnectorLait() { return ref.powerConnectorLait; }
 
         function addService(key, line) {
@@ -764,7 +753,6 @@
 
             let infillName = '';
 
-            // === Наповнення: скло / ДСП ===
             if (infillType === 'glass') {
                 const gl = getGlass(infillId);
                 infillName = gl ? gl.name : 'Скло (не знайдено)';
@@ -854,7 +842,6 @@
                 }
             }
 
-            // === Профілі ===
             const profFront    = getProfile('LA1048');
             const profSideBack = getProfile('LA1049');
             const finishFront  = profFront.finishes.find(f => f.id === profileFinishId);
@@ -900,7 +887,6 @@
             updateProfile(profFront, finishFront, totalFrontLenMm);
             updateProfile(profSideBack, finishSB, totalBackSideLenMm);
 
-            // === Кронштейни ===
             const bracket = getBracket(bracketId);
             if (bracket) {
                 const bracketsPerShelf =
@@ -925,7 +911,6 @@
                 }
             }
 
-            // === Конектори рамки ===
             const connectorKit = getConnector();
             const kits = quantity;
             const pcsTotal = kits * connectorKit.pcsPerKit;
@@ -947,7 +932,6 @@
                 exConn.subtotal += connSub;
             }
 
-            // === LED ===
             let ledLengthMPerShelf = 0;
             if (ledId && ledId !== 'none') {
                 const led = getLed(ledId);
@@ -1010,7 +994,6 @@
                 }
             }
 
-            // === Послуги порізки/збірки (на полицю) ===
             const srvCut = getService('srv_cut_profile_lait');
             const srvAssy = getService('srv_assemble_frame_lait');
 
@@ -1062,7 +1045,6 @@
             });
         });
 
-        // === ЖИВЛЕННЯ: конвертер + OL-CONN-N (тільки якщо є LED з потребою в драйвері) ===
         let powerInfo = {
             totalLedPowerW,
             totalLedLengthM,
@@ -1161,7 +1143,8 @@
         };
     }
 
-    // ===== UI =====
+    // ===== UI binding =====
+
     const infillTypeEl = document.getElementById('infillType');
     const glassFieldEl = document.getElementById('glassField');
 
@@ -1191,18 +1174,18 @@
         }
 
         const inputProject = {
-            eurRate: eurRate,
+            eurRate,
             shelves: [
                 {
                     shelfId: 'S1',
                     label: 'Полиця ' + lengthMm + '×' + depthMm,
-                    quantity: quantity,
-                    lengthMm: lengthMm,
-                    depthMm: depthMm,
-                    infillType: infillType,
-                    infillId: infillId,
+                    quantity,
+                    lengthMm,
+                    depthMm,
+                    infillType,
+                    infillId,
                     profileFinishId: finishId,
-                    ledId: ledId,
+                    ledId,
                     bracketId: 'holder_LA_B'
                 }
             ]
@@ -1217,7 +1200,8 @@
     }
 
     function renderResult(result, eurRate) {
-        document.getElementById('resultsContainer').style.display = 'block';
+        const container = document.getElementById('resultsContainer');
+        container.classList.add('active');
 
         const shelvesSummary    = document.getElementById('shelvesSummary');
         const profilesSummary   = document.getElementById('profilesSummary');
@@ -1241,27 +1225,25 @@
         clearElement(servicesSummary);
         clearElement(explainManagerEl);
 
-        // Полиці
         result.shelves.forEach(s => {
             const div = document.createElement('div');
             div.className = 'block';
             div.innerHTML = `
-        <div class="row">
-          <span>${s.label}</span>
-          <span>× ${s.quantity} шт</span>
-        </div>
-        <div class="rowSmall">
-          Наповнення: ${s.infillName} (${s.infillSize.lengthMm}×${s.infillSize.depthMm} мм, ${s.infillSize.areaM2.toFixed(3)} м²)
-        </div>
-        <div class="rowSmall">
-          Кронштейнів: ${s.bracketsQty} шт · Конекторів рамки: ${s.connectorsKits} компл
-        </div>
-        ${s.ledLengthM > 0 ? `<div class="rowSmall">LED: ${s.ledLengthM.toFixed(2)} м</div>` : ''}
-      `;
+                <div class="row">
+                    <span>${s.label}</span>
+                    <span>× ${s.quantity} шт</span>
+                </div>
+                <div class="rowSmall">
+                    Наповнення: ${s.infillName} (${s.infillSize.lengthMm}×${s.infillSize.depthMm} мм, ${s.infillSize.areaM2.toFixed(3)} м²)
+                </div>
+                <div class="rowSmall">
+                    Кронштейнів: ${s.bracketsQty} шт · Конекторів рамки: ${s.connectorsKits} компл
+                </div>
+                ${s.ledLengthM > 0 ? `<div class="rowSmall">LED: ${s.ledLengthM.toFixed(2)} м</div>` : ''}
+            `;
             shelvesSummary.appendChild(div);
         });
 
-        // Профілі
         if (result.materials.profiles.length === 0) {
             profilesSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1276,7 +1258,6 @@
             });
         }
 
-        // Скло
         if (result.materials.glass.length === 0) {
             glassSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1289,7 +1270,6 @@
             });
         }
 
-        // ДСП
         if (result.materials.boards.length === 0) {
             boardsSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1302,7 +1282,6 @@
             });
         }
 
-        // Кронштейни
         if (result.materials.brackets.length === 0) {
             bracketsSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1314,7 +1293,6 @@
             });
         }
 
-        // Конектори рамки
         if (result.materials.connectors.length === 0) {
             connectorsSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1326,7 +1304,6 @@
             });
         }
 
-        // LED
         if (result.materials.leds.length === 0) {
             ledSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1339,7 +1316,6 @@
             });
         }
 
-        // Живлення (конвертер + OL-CONN-N)
         if (
             (result.materials.powerConverters.length === 0) &&
             (result.materials.powerConnectors.length === 0)
@@ -1363,7 +1339,6 @@
             });
         }
 
-        // Послуги
         if (result.services.length === 0) {
             servicesSummary.innerHTML = '<div class="rowSmall">—</div>';
         } else {
@@ -1376,7 +1351,6 @@
             });
         }
 
-        // Підсумки
         document.getElementById('materialsTotal').textContent =
             'Матеріали (UAH): ' + result.totals.materials.toFixed(2);
         document.getElementById('servicesTotal').textContent =
@@ -1384,7 +1358,6 @@
         document.getElementById('grandTotal').textContent =
             'Разом (UAH): ' + result.totals.grandTotal.toFixed(2);
 
-        // ===== Пояснення для менеджера =====
         let profUAH = 0, glassUAH = 0, boardsUAH = 0, brUAH = 0, connUAH = 0, ledUAH = 0;
         let powerConvUAH = 0, powerConnUAH = 0;
         let physBarsTotal = 0, billBarsTotal = 0;
@@ -1394,11 +1367,11 @@
             physBarsTotal += p.barsPhysical;
             billBarsTotal += p.billingBars;
         });
-        result.materials.glass.forEach(g   => glassUAH += toUAH(g.subtotal, g.currency, eurRate));
+        result.materials.glass.forEach(g   => glassUAH  += toUAH(g.subtotal, g.currency, eurRate));
         result.materials.boards.forEach(b  => boardsUAH += toUAH(b.subtotal, b.currency, eurRate));
-        result.materials.brackets.forEach(b=> brUAH += toUAH(b.subtotal, b.currency, eurRate));
+        result.materials.brackets.forEach(b=> brUAH     += toUAH(b.subtotal, b.currency, eurRate));
         result.materials.connectors.forEach(c=> connUAH += toUAH(c.subtotal, c.currency, eurRate));
-        result.materials.leds.forEach(l    => ledUAH += toUAH(l.subtotal, l.currency, eurRate));
+        result.materials.leds.forEach(l    => ledUAH    += toUAH(l.subtotal, l.currency, eurRate));
         result.materials.powerConverters.forEach(pc => powerConvUAH += toUAH(pc.subtotal, pc.currency, eurRate));
         result.materials.powerConnectors.forEach(pc => powerConnUAH += toUAH(pc.subtotal, pc.currency, eurRate));
 
@@ -1425,7 +1398,7 @@
         }
         if (glassUAH > 0 && result.materials.glass.length > 0) {
             const g = result.materials.glass[0];
-            addLine(`Скло (Busel): ${glassUAH.toFixed(2)} грн — ${g.quantitySheets} шт ${g.name}, сумарна площа ${g.areaM2.toFixed(3)} м², ціна розрахована за прайс Busel (м² + поліровка, −15% +30%).`);
+            addLine(`Скло (Busel): ${glassUAH.toFixed(2)} грн — ${g.quantitySheets} шт ${g.name}, сумарна площа ${g.areaM2.toFixed(3)} м² (м² + поліровка, −15% +30%).`);
         }
         if (boardsUAH > 0) {
             addLine(`ДСП: ${boardsUAH.toFixed(2)} грн (без кромки, з вибіркою четверті).`);
@@ -1435,7 +1408,7 @@
                 `Фурнітура та живлення: кронштейни ${brUAH.toFixed(2)} грн, ` +
                 `конектори рамки ${connUAH.toFixed(2)} грн, ` +
                 `LED ${ledUAH.toFixed(2)} грн, ` +
-                `конвертер(и) живлення ${powerConvUAH.toFixed(2)} грн, ` +
+                `конвертер(и) ${powerConvUAH.toFixed(2)} грн, ` +
                 `конектори живлення ${powerConnUAH.toFixed(2)} грн.`
             );
         }
@@ -1452,8 +1425,7 @@
         if (result.power && result.power.totalLedPowerW > 0 && result.power.converter) {
             addLine(
                 `LED-живлення: сумарна довжина LED ${result.power.totalLedLengthM.toFixed(2)} м, ` +
-                `потужність ${result.power.totalLedPowerW.toFixed(1)} W; ` +
-                `для роботи потрібен конвертер не менше ${result.power.requiredWithReserveW.toFixed(1)} W (з запасом), ` +
+                `потужність ${result.power.totalLedPowerW.toFixed(1)} W; потрібно ~${result.power.requiredWithReserveW.toFixed(1)} W з запасом, ` +
                 `обрано ${result.power.converter.powerW} W (${result.power.converter.name}).`
             );
         }
