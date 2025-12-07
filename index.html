@@ -2,2133 +2,939 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MT Hub — виробничий хаб MT Україна</title>
-    <style>
-        /* ===== Калькулятор MTU Hub (локальные стили) ===== */
-
-        /* Підсвічування активного декору в прайсі Egger */
-        #eggerPriceTable tr.is-highlight {
-            background: #fff4d6;
-            font-weight: 600;
-        }
-
-        #mtu-calculator {
-            margin-top: 24px;
-        }
-
-        #mtu-calculator .calc-layout {
-            display: grid;
-            grid-template-columns: 1.05fr 1.4fr;
-            grid-gap: 16px;
-            margin-top: 14px;
-        }
-
-        #mtu-calculator .calc-card {
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            border-radius: 12px;
-            padding: 12px 12px 14px;
-            background: #f9fafb;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
-        }
-
-        #mtu-calculator .calc-card--summary {
-            background: #ffffff;
-        }
-
-        #mtu-calculator .calc-title {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--mt-dark, #111827);
-        }
-
-        #mtu-calculator .calc-field {
-            margin-bottom: 8px;
-        }
-
-        #mtu-calculator .calc-label {
-            font-size: 12px;
-            margin-bottom: 2px;
-            font-weight: 600;
-            color: var(--mt-dark, #111827);
-        }
-
-        #mtu-calculator .calc-input,
-        #mtu-calculator .calc-select {
-            width: 100%;
-            padding: 6px 7px;
-            border-radius: 6px;
-            border: 1px solid #d1d5db;
-            font-size: 13px;
-            background: #ffffff;
-        }
-
-        #mtu-calculator .calc-input:focus,
-        #mtu-calculator .calc-select:focus {
-            outline: none;
-            border-color: var(--mt-red, #e31e24);
-            box-shadow: 0 0 0 1px rgba(227, 30, 36, 0.15);
-        }
-
-        #mtu-calculator .calc-hint {
-            font-size: 11px;
-            color: #6b7280;
-            margin-top: 2px;
-        }
-
-        #mtu-calculator .calc-checkbox-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            margin-top: 2px;
-        }
-
-        #mtu-calculator .calc-checkbox-row input[type="checkbox"] {
-            margin: 0;
-        }
-
-        #mtu-calculator .calc-buttons {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        /* Используем общий .btn с сайта, а здесь только модификаторы */
-        #mtu-calculator .btn--primary {
-            background: var(--mt-red, #e31e24);
-            color: #fff;
-            border-color: var(--mt-red, #e31e24);
-        }
-
-        #mtu-calculator .btn--primary:hover {
-            background: #c7191f;
-        }
-
-        #mtu-calculator .btn--secondary {
-            background: #f3f4f6;
-            color: #111827;
-            border-color: #e5e7eb;
-        }
-
-        #mtu-calculator .btn--secondary:hover {
-            background: #e5e7eb;
-        }
-
-        #mtu-calculator .calc-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 6px;
-            font-size: 12px;
-        }
-
-        #mtu-calculator .calc-table th,
-        #mtu-calculator .calc-table td {
-            border-bottom: 1px solid #edf1f5;
-            padding: 4px 6px;
-            text-align: left;
-        }
-
-        #mtu-calculator .calc-table th {
-            background: #f3f4f6;
-            font-weight: 600;
-            color: #374151;
-        }
-
-        #mtu-calculator .calc-table-total td {
-            font-weight: 700;
-            border-top: 1px solid #cbd5e1;
-        }
-
-        #mtu-calculator .calc-table--services td:nth-child(4),
-        #mtu-calculator .calc-table--services td:nth-child(5),
-        #mtu-calculator .calc-table--services td:nth-child(6) {
-            text-align: right;
-        }
-
-        #mtu-calculator .calc-table--order td:nth-child(1),
-        #mtu-calculator .calc-table--order td:nth-child(3),
-        #mtu-calculator .calc-table--order td:nth-child(5),
-        #mtu-calculator .calc-table--order td:nth-child(6) {
-            text-align: right;
-        }
-
-        #mtu-calculator .calc-note {
-            font-size: 12px;
-            margin-top: 8px;
-            color: #4b5563;
-        }
-
-        #mtu-calculator .calc-divider {
-            margin: 10px 0;
-            border-top: 1px dashed #d1d5db;
-        }
-
-        #mtu-calculator .link-button {
-            border: none;
-            background: none;
-            padding: 0;
-            color: var(--mt-red, #e31e24);
-            cursor: pointer;
-            font-size: 12px;
-            text-decoration: underline;
-        }
-
-        #mtu-calculator .modularity-note {
-            font-size: 12px;
-            margin-top: 10px;
-            color: #4b5563;
-            max-width: 720px;
-        }
-
-        /* Акордеон (если будет нужен внизу страницы) */
-
-        #mtu-calculator .accordion {
-            margin-top: 14px;
-            border-radius: 8px;
-            border: 1px solid #e5e7eb;
-            background: #f9fafb;
-        }
-
-        #mtu-calculator .accordion-toggle {
-            width: 100%;
-            text-align: left;
-            padding: 10px 14px;
-            font-size: 14px;
-            background: #eef2f7;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        #mtu-calculator .accordion-toggle:hover {
-            background: #e2e8f0;
-        }
-
-        #mtu-calculator .accordion-content {
-            display: none;
-            padding: 10px 14px 14px;
-            background: #fff;
-            border-top: 1px solid #e5e7eb;
-        }
-
-        #mtu-calculator .accordion-content.open {
-            display: block;
-        }
-
-        #mtu-calculator .price-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 6px;
-            font-size: 13px;
-        }
-
-        #mtu-calculator .price-table th {
-            background: #f3f4f6;
-            padding: 6px 6px;
-            border-bottom: 1px solid #e5e7eb;
-            text-align: left;
-        }
-
-        #mtu-calculator .price-table td {
-            padding: 6px 6px;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .calc-facade-note {
-            display: block;
-            font-size: 11px;
-            color: #555;
-            margin-top: 2px;
-        }
-
-
-        @media (max-width: 900px) {
-            #mtu-calculator .calc-layout {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>MT × Systems — Виробничий центр</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         :root {
-            --mt-red: #e31e24;
-            --mt-dark: #1f252a;
-            --mt-text: #333;
-            --mt-muted: #6b7280;
-            --mt-bg: #f4f5f7;
-            --mt-border: #e5e7eb;
-            --mt-card-bg: #ffffff;
-            --radius-card: 14px;
-            --shadow-soft: 0 8px 24px rgba(15, 23, 42, 0.06);
+            --bg: #f4f5fb;
+            --bg-elevated: #ffffff;
+            --bg-hero: #f9fafb;
+            --text: #020617;
+            --text-main: #141414;
+            --text-muted: #555;
+            --accent: #16a34a;
+            --accent-soft: rgba(22, 163, 74, 0.08);
+            --border: rgba(148, 163, 184, 0.4);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+            --radius-lg: 22px;
         }
 
-        * {
-            box-sizing: border-box;
+        .dark-theme {
+            --bg: #020617;
+            --bg-elevated: #020617;
+            --bg-hero: #020617;
+            --text: #e5e7eb;
+            --text-main: #ffffff;
+            --text-muted: #cfcfcf;
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.12);
+            --border: rgba(148, 163, 184, 0.25);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #ffffff;
-            color: var(--mt-text);
-            line-height: 1.5;
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        img {
-            max-width: 100%;
-            display: block;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+            "Segoe UI", sans-serif;
+            background:
+                    radial-gradient(circle at top left, #e0f2fe 0, transparent 40%),
+                    radial-gradient(circle at bottom right, #dcfce7 0, transparent 45%),
+                    var(--bg);
+            color: var(--text);
+            min-height: 100vh;
         }
 
         .page {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Header / nav */
-
-        header {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            backdrop-filter: blur(14px);
-            background: rgba(255, 255, 255, 0.9);
-            border-bottom: 1px solid rgba(229, 231, 235, 0.8);
-        }
-
-        .nav-inner {
-            max-width: 1160px;
+            max-width: 1120px;
             margin: 0 auto;
-            padding: 10px 20px;
+            padding: 32px 16px 64px;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
+            padding: 14px 20px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            backdrop-filter: blur(10px);
+            margin-bottom: 28px;
+        }
+        .dark-theme .topbar {
+            background: rgba(15, 23, 42, 0.92);
+            border-color: rgba(148, 163, 184, 0.35);
         }
 
-        .logo-wrap {
+        .topbar-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            color: var(--mt-dark);
-            font-size: 15px;
+            gap: 14px;
         }
 
-        .logo-box {
-            width: 32px;
-            height: 32px;
-            border-radius: 6px;
-            background: var(--mt-red);
+        .topbar-logo {
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            background: #ef4444;
+        }
+
+        .topbar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .topbar-title {
             font-size: 18px;
             font-weight: 700;
+            color: var(--text-main);
         }
 
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-            font-size: 14px;
+        .topbar-sub {
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
-        nav a {
-            color: var(--mt-muted);
-            padding: 6px 0;
-            border-bottom: 2px solid transparent;
-            transition: color 0.15s ease, border-color 0.15s ease;
-            white-space: nowrap;
-        }
-
-        nav a:hover {
-            color: var(--mt-dark);
-            border-color: rgba(227, 30, 36, 0.35);
-        }
-
-        .nav-cta {
+        .theme-toggle button {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            padding: 8px 14px;
+            font-size: 13px;
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--text);
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 8px 16px;
-            border-radius: 999px;
-            background: var(--mt-red);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 600;
-            border: none;
+            gap: 8px;
             cursor: pointer;
-            box-shadow: 0 8px 16px rgba(227, 30, 36, 0.35);
-            transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
         }
 
-        .nav-cta:hover {
-            transform: translateY(-1px);
-            background: #c7191f;
-            box-shadow: 0 10px 24px rgba(227, 30, 36, 0.4);
+        .theme-toggle button span {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
         }
 
-        /* Layout basics */
-
-        main {
-            flex: 1;
-        }
-
-        .section {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 40px 20px 32px;
-        }
-
-        .section--tight {
-            padding-top: 28px;
-        }
-
-        .section__eyebrow {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--mt-muted);
-            margin-bottom: 6px;
-        }
-
-        .section__title {
-            font-size: 26px;
-            font-weight: 700;
-            color: var(--mt-dark);
-            margin: 0 0 8px;
-        }
-
-        .section__subtitle {
-            font-size: 14px;
-            color: var(--mt-muted);
-            max-width: 640px;
-            margin: 0 0 20px;
-        }
-
-        /* Hero */
+        /* HERO */
 
         .hero {
-            max-width: 1160px;
-            margin: 0 auto;
-            padding: 32px 20px 28px;
-            display: grid;
-            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-            gap: 28px;
+            display: flex;
             align-items: center;
+            justify-content: space-between;
+            padding: 48px 40px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .dark-theme .hero {
+            background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.7);
         }
 
-        .hero-left h1 {
-            font-size: 30px;
-            line-height: 1.1;
-            margin: 0 0 12px;
-            color: var(--mt-dark);
+        .hero-content {
+            max-width: 56%;
         }
 
-        .hero-highlight {
-            color: var(--mt-red);
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 12px;
         }
 
-        .hero-left p {
-            margin: 0 0 16px;
-            font-size: 14px;
-            color: var(--mt-muted);
-            max-width: 560px;
+        .hero-title {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+        .dark-theme .hero-title { color: #f9fafb; }
+
+        .hero-sub {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+        }
+        .dark-theme .hero-sub { color: #e5e7eb; }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
-        .hero-bullets {
-            margin: 0 0 16px;
-            padding-left: 18px;
-            font-size: 14px;
-            color: var(--mt-text);
+        .hero-tags span {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: #f0f2f5;
+            border: 1px solid rgba(148,163,184,0.5);
         }
-
-        .hero-bullets li {
-            margin-bottom: 4px;
+        .dark-theme .hero-tags span {
+            background: rgba(15,23,42,0.5);
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.7);
         }
 
         .hero-actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 6px;
         }
 
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .btn-green {
+            padding: 11px 20px;
+            background: #00b05a;
+            color: #ffffff;
             border-radius: 999px;
-            padding: 10px 20px;
-            border: 1px solid transparent;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, transform 0.12s ease;
+            font-weight: 600;
             text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
         }
-
-        .btn-primary {
-            background: var(--mt-red);
-            color: #fff;
-            border-color: var(--mt-red);
-            box-shadow: 0 10px 20px rgba(227, 30, 36, 0.4);
-        }
-
-        .btn-primary:hover {
-            background: #c7191f;
+        .btn-green:hover {
             transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(34,197,94,0.45);
         }
 
-        .btn-outline {
-            background: #fff;
-            color: var(--mt-text);
-            border-color: var(--mt-border);
+        .btn-white {
+            padding: 11px 18px;
+            background: #ffffff;
+            border-radius: 999px;
+            border: 1px solid #dce0e5;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
         }
-
-        .btn-outline:hover {
-            border-color: #cbd5f5;
-            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
-            transform: translateY(-1px);
+        .btn-white:hover {
+            background: rgba(255,255,255,0.9);
         }
-
-        .hero-tagline {
-            margin-top: 10px;
-            font-size: 12px;
-            color: var(--mt-muted);
+        .dark-theme .btn-white {
+            background: rgba(15,23,42,0.95);
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.6);
         }
-
-        .hero-right {
-            position: relative;
+        .dark-theme .btn-white:hover {
+            background: rgba(15,23,42,1);
         }
 
         .hero-image {
-            border-radius: 16px;
+            position: relative;
             overflow: hidden;
-            box-shadow: var(--shadow-soft);
-            background: #000;
-            min-height: 220px;
+            border-radius: 24px;
+            max-width: 360px;
+            flex: 0 0 auto;
         }
 
         .hero-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease, opacity 0.45s ease;
+            transform-origin: center;
+            border-radius: 24px;
+            box-shadow: 0 10px 28px rgba(15,23,42,0.3);
         }
 
-        .hero-badge {
-            position: absolute;
-            right: 16px;
-            bottom: -12px;
-            background: #fff;
-            padding: 10px 12px;
-            border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 10px 26px rgba(15, 23, 42, 0.25);
-            font-size: 12px;
-            color: var(--mt-muted);
+        .hero-image:hover img {
+            transform: scale(1.05);
+            opacity: 0.96;
         }
 
-        .hero-badge-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #22c55e;
+        /* ALT SECTION BACKGROUND (2-й фон) */
+
+        .section-alt-wrap {
+            margin: 40px -16px 56px;
         }
 
-        /* Cards & grids */
+        .section-alt-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 28px 24px 30px;
+            border-radius: 28px;
+            background: radial-gradient(circle at top left, #e0f2fe 0, #0f172a 65%);
+            color: #e5e7eb;
+            box-shadow: 0 18px 40px rgba(15,23,42,0.45);
+        }
+        .dark-theme .section-alt-inner {
+            background: radial-gradient(circle at top left, #22c55e 0, #022c22 60%);
+        }
 
-        .card-grid {
+        /* SECTIONS / TYPOGRAPHY */
+
+        section {
+            margin-bottom: 48px;
+        }
+
+        .section-headline {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .section-lead {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            max-width: 720px;
+        }
+
+        .section-alt-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .section-alt-sub {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 18px;
+            max-width: 720px;
+        }
+
+        /* GRID / CARDS */
+
+        .three-cols {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-            margin-top: 20px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
         }
 
         .card {
-            background: var(--mt-card-bg);
-            border-radius: var(--radius-card);
+            border-radius: 18px;
             padding: 16px 16px 14px;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-            border: 1px solid rgba(226, 232, 240, 0.9);
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: 0 10px 24px rgba(15,23,42,0.06);
+        }
+        .dark-theme .card {
+            background: rgba(15, 23, 42, 0.96);
+            border-color: rgba(148,163,184,0.5);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.7);
         }
 
-        .card h3 {
-            margin: 0 0 6px;
+        .card-title {
             font-size: 15px;
-            color: var(--mt-dark);
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .card p {
-            margin: 0;
+        .card-body {
             font-size: 13px;
-            color: var(--mt-muted);
+            color: var(--text-muted);
         }
 
-        .card-tag {
+        .pill {
             display: inline-flex;
             align-items: center;
             gap: 6px;
             font-size: 11px;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--mt-muted);
-            margin-bottom: 4px;
-        }
-
-        .card-tag-dot {
-            width: 10px;
-            height: 10px;
+            padding: 4px 9px;
             border-radius: 999px;
-            background: rgba(227, 30, 36, 0.12);
-            border: 1px solid rgba(227, 30, 36, 0.5);
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 10px;
         }
 
-        /* Light boxed section */
+        .check-list {
+            padding-left: 16px;
+            margin: 8px 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .check-list li { margin-bottom: 4px; }
 
-        .section-box {
-            background: var(--mt-bg);
-            border-radius: 16px;
-            padding: 20px 18px 18px;
-            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.04);
-            border: 1px solid rgba(226, 232, 240, 0.9);
-            margin-top: 18px;
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
         }
 
-        .section-box-actions {
+        /* CALCULATOR CARDS */
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .calc-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 170px;
+        }
+
+        .calc-card-header {
+            margin-bottom: 10px;
+        }
+
+        .calc-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .calc-card-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .calc-card-footer {
+            margin-top: 10px;
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 8px;
         }
 
-        /* Steps */
+        .btn-outline {
+            padding: 7px 13px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.7);
+            background: transparent;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+        .btn-outline:hover {
+            background: rgba(148,163,184,0.08);
+        }
 
-        .steps-row {
+        /* STEPS */
+
+        .steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 16px;
-            margin-top: 16px;
         }
 
-        .step {
-            background: #fff;
-            border-radius: 14px;
-            padding: 14px 14px 12px;
-            border: 1px solid rgba(226, 232, 240, 0.9);
-        }
-
-        .step-number {
+        .step-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--mt-muted);
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .step-title {
             font-size: 14px;
             font-weight: 600;
-            color: var(--mt-dark);
             margin-bottom: 4px;
+            color: var(--text-main);
         }
 
-        .step p {
-            margin: 0;
+        .step-text {
             font-size: 13px;
-            color: var(--mt-muted);
+            color: var(--text-muted);
         }
 
-        /* CTA */
+        /* FINAL CTA */
 
-        .cta {
-            max-width: 1160px;
-            margin: 0 auto 48px;
-            padding: 24px 20px 26px;
-            border-radius: 18px;
-            background: linear-gradient(135deg, #fdf4f4, #f4f6fb);
-            display: grid;
-            grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
-            gap: 20px;
-            align-items: center;
-            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+        .hub-cta {
+            margin-top: 36px;
         }
 
-        .cta-main-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--mt-dark);
-            margin: 0 0 8px;
-        }
-
-        .cta-main-text {
-            font-size: 14px;
-            color: var(--mt-text);
-            margin: 0 0 12px;
-        }
-
-        .cta-note {
-            font-size: 12px;
-            color: var(--mt-muted);
-        }
-
-        .cta-contacts {
-            background: #fff;
-            border-radius: 14px;
-            padding: 14px 16px;
-            border: 1px solid rgba(226, 232, 240, 0.95);
-            box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
-            font-size: 13px;
-        }
-
-        .cta-contacts h3 {
-            margin: 0 0 6px;
-            font-size: 14px;
-            color: var(--mt-dark);
-        }
-
-        .cta-contacts p {
-            margin: 0 0 4px;
-            color: var(--mt-muted);
-        }
-
-        .cta-contacts strong {
-            color: var(--mt-dark);
-        }
-
-        /* Footer */
-
-        footer {
-            border-top: 1px solid rgba(226, 232, 240, 0.9);
-            padding: 16px 20px;
-            font-size: 12px;
-            color: var(--mt-muted);
-        }
-
-        .footer-inner {
-            max-width: 1160px;
-            margin: 0 auto;
+        .hub-cta-inner {
             display: flex;
-            justify-content: space-between;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 24px 28px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            box-shadow: 0 22px 40px rgba(22, 163, 74, 0.45);
+            color: #f9fafb;
         }
 
-        /* Responsive */
+        .hub-cta-left {
+            flex: 1 1 260px;
+            min-width: 260px;
+            max-width: 520px;
+        }
 
-        @media (max-width: 900px) {
+        .hub-cta-title {
+            margin: 0 0 8px;
+            font-size: 22px;
+            line-height: 1.25;
+        }
+
+        .hub-cta-text {
+            margin: 0 0 18px;
+            font-size: 14px;
+            opacity: 0.96;
+        }
+
+        .hub-cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hub-cta-btn {
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .hub-cta-btn--primary {
+            background: #f9fafb;
+            color: #15803d;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+        }
+
+        .hub-cta-btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 35px rgba(15, 23, 42, 0.26);
+        }
+
+        .hub-cta-btn--ghost {
+            background: rgba(15, 23, 42, 0.08);
+            color: #ecfdf5;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .hub-cta-btn--ghost:hover {
+            background: rgba(15, 23, 42, 0.16);
+        }
+
+        .hub-cta-contacts {
+            flex: 0 0 280px;
+            max-width: 320px;
+            padding: 16px 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #0f172a;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            font-size: 13px;
+        }
+
+        .hub-cta-row + .hub-cta-row { margin-top: 8px; }
+
+        .hub-cta-label {
+            opacity: 0.7;
+            margin-bottom: 1px;
+            font-size: 12px;
+        }
+
+        .hub-cta-value {
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 960px) {
             .hero {
-                grid-template-columns: 1fr;
-                padding-top: 20px;
+                flex-direction: column-reverse;
+                text-align: left;
+                padding: 32px 20px;
             }
-
-            .cta {
-                grid-template-columns: 1fr;
-                margin-bottom: 32px;
+            .hero-content {
+                max-width: 100%;
             }
-
-            nav {
-                display: none; /* на першому етапі можна без мобільного меню */
+            .hero-image {
+                max-width: 100%;
+                align-self: stretch;
             }
-
-            .nav-cta {
-                margin-left: auto;
+            .three-cols,
+            .calc-grid,
+            .steps {
+                grid-template-columns: minmax(0, 1fr);
             }
         }
 
-        @media (max-width: 640px) {
-            .hero-left h1 {
-                font-size: 24px;
+        @media (max-width: 768px) {
+            .page { padding-inline: 12px; }
+            .hub-cta-inner {
+                padding: 20px 18px;
+                flex-direction: column;
+                align-items: flex-start;
             }
+            .hub-cta-contacts {
+                width: 100%;
+                max-width: none;
+            }
+        }
 
-            .section__title {
-                font-size: 22px;
-            }
-
-            .section {
-                padding-top: 32px;
-                padding-bottom: 26px;
-            }
+        @media (max-width: 480px) {
+            .hero-title { font-size: 30px; }
         }
     </style>
 </head>
 <body>
 <div class="page">
 
-    <!-- Header -->
-    <header>
-        <div class="nav-inner">
-            <div class="logo-wrap">
-                <div class="logo-box">МТ</div>
-                <div>
-                    <div style="font-size:13px;">MT Hub</div>
-                    <div style="font-size:11px; color:var(--mt-muted);">
-                        Виробничий хаб MT Україна
-                    </div>
-                </div>
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="topbar-left">
+            <div class="topbar-logo">
+                <!-- логотип MT -->
+                <img src="/images/MT_logo_ua_Kubik.jpg" alt="MT logo">
             </div>
+            <div>
+                <div class="topbar-title">MT × Systems</div>
+                <div class="topbar-sub">Виробничий центр · калькулятори Volpato / TRIAL / LAIT / фасади / скло</div>
+            </div>
+        </div>
 
-            <nav>
-                <a href="#services">Послуги</a>
-                <a href="#calculators">Калькулятори</a>
-                <a href="#materials">Матеріали</a>
-                <a href="#learning">Навчання</a>
-                <a href="#projects">Проєкти</a>
-                <a href="#contacts">Контакти</a>
-            </nav>
-
-            <a href="#calculators" class="nav-cta">Запустити MT Hub</a>
+        <div class="theme-toggle">
+            <button id="themeToggle"><span></span> Темна тема</button>
         </div>
     </header>
 
-    <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div class="hero-content">
+            <div class="hero-kicker">Хаб виробництва MTU</div>
+            <h1 class="hero-title">Один центр для прорахунку профілів, фасадів та гардеробів</h1>
 
-        <!-- Hero -->
-        <section class="hero" id="top">
-            <div class="hero-left">
-                <h1>
-                    MT Hub — <span class="hero-highlight">виробничий хаб</span><br />
-                    для меблевих компаній
-                </h1>
-                <p>
-                    Розкрій, кромка, присадка, фасади Cleaf / Saib, алюмінієві системи Volpato
-                    та гардеробні Trial. Калькулятори, техпідготовка та сервіс MT Україна — в одному місці.
-                </p>
-
-                <ul class="hero-bullets">
-                    <li>Швидко порахувати модулі кухні, гардероб або алюмінієві системи.</li>
-                    <li>Побачити реальну вартість матеріалів та послуг MT.</li>
-                    <li>Передати специфікацію технологу MT без додаткового “ручного” набору.</li>
-                </ul>
-
-                <div class="hero-actions">
-                    <a href="#calculators" class="btn btn-primary">Перейти до калькуляторів</a>
-                    <a href="#how-it-works" class="btn btn-outline">Як працює MT Hub</a>
-                </div>
-
-                <div class="hero-tagline">
-                    MT Hub не замінює ваш цех — він бере на себе частину операцій, щоб ви могли заробляти більше на проєктах.
-                </div>
-            </div>
-
-            <div class="hero-right">
-                <div class="hero-image">
-                    <!-- Постав сюди фото цеху MT -->
-                    <img src="images/mtu-workshop.jpg" alt="Виробничий цех MT Україна" />
-                </div>
-                <div class="hero-badge">
-                    <span class="hero-badge-dot"></span>
-                    <span>Онлайн-калькулятори та техпідтримка MT</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services -->
-        <section class="section" id="services">
-            <div class="section__eyebrow">Що ми робимо</div>
-            <h2 class="section__title">Основні сервіси MT Hub</h2>
-            <p class="section__subtitle">
-                MT Hub об’єднує послуги виробничого цеху, постачання матеріалів та цифрові інструменти.
-                Ви можете віддати нам частину виробництва — від розкрою до фасадів та алюмінію.
+            <p class="hero-sub">
+                Тут зібрані всі ключові калькулятори MT × Systems: Volpato, TRIAL eTSecutive, полиці LAIT, Only / IKS,
+                скло Busel та сервіс ДСП. Ви вводите розміри — ми даємо специфікацію, послуги та фінальний чек.
             </p>
 
-            <div class="card-grid">
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Плитний цех</div>
-                    <h3>Розкрій та кромка ДСП / МДФ</h3>
-                    <p>Точні розміри, оптимізація листів, EVA або PUR клей, чисті торці без сколів.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>ЧПК / Присадка</div>
-                    <h3>Присадка, отвори, фрезерування</h3>
-                    <p>Отвори під петлі, полички, стяжки, вибірки під задні стінки та інші операції.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Фасади</div>
-                    <h3>Фасади Cleaf / Saib + корпуси</h3>
-                    <p>Підбір корпусних ДСП Egger / Kronospan / Swiss Krono під декори фасадів, розкрій та кромка.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Алюміній</div>
-                    <h3>Системи Volpato та Trial</h3>
-                    <p>Ручки Gola, алюмінієві рамки та гардеробні системи — від розрахунку до готових комплектів.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Комплектування</div>
-                    <h3>Маркування та пакування модулів</h3>
-                    <p>Етикетки на деталях, модульні комплекти, контрольні листи та зручне пакування.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Техпідготовка</div>
-                    <h3>GIBlab, техкарти та допуски</h3>
-                    <p>Приймаємо файли з GIBlab, допомагаємо з техкартою та перевіряємо проєкти перед запуском.</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- Calculators -->
-        <section class="section" id="calculators">
-            <div class="section__eyebrow">Цифрові інструменти</div>
-            <h2 class="section__title">Калькулятори MT Hub</h2>
-            <p class="section__subtitle">
-                Калькулятори допомагають швидко оцінити вартість типових рішень і матеріалів.
-                Ви можете працювати як технолог, навіть якщо ви власник салону чи дизайнер.
-            </p>
-
-            <div class="card-grid">
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Модулі MTU</div>
-                    <h3>Кухонні та корпусні модулі</h3>
-                    <p>
-                        Нижні й верхні модулі 600, гардеробні прольоти. ДСП Egger, фасади Cleaf / Saib,
-                        послуги MT та залишок ДСП.
-                    </p>
-                    <div style="margin-top:10px;">
-                        <a href="#calculator-kitchen" class="btn btn-outline" style="font-size:13px;">Запустити калькулятор модулів</a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Volpato</div>
-                    <h3>Volpato Hub</h3>
-                    <p>
-                        Калькулятор алюмінієвих профілів та ручок Gola. Довжини, вставки, фурнітура
-                        та зведена специфікація.
-                    </p>
-                    <div style="margin-top:10px;">
-                        <a href="https://mt-volpato.vercel.app/" class="btn btn-outline" style="font-size:13px;" target="_blank">
-                            Відкрити Volpato Hub
-                        </a>
-                    </div>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Trial</div>
-                    <h3>Trial Configurator</h3>
-                    <p>
-                        Гардеробні системи та алюмінієві двері Trial, скло Busel.
-                        Автоматичний розрахунок комплектів під ваші розміри.
-                    </p>
-                    <div style="margin-top:10px;">
-                        <a href="trial-calculator.html" class="btn btn-outline" style="font-size:13px;">
-                            Відкрити Trial Configurator
-                        </a>
-                    </div>
-                </article>
+            <div class="hero-tags">
+                <span>Volpato · TRIAL · LAIT</span>
+                <span>Фасади Cleaf / SAIB</span>
+                <span>Скло Busel · ДСП сервіс</span>
             </div>
 
-            <!-- How it works -->
-            <div class="section" id="how-it-works" style="padding-left:0;padding-right:0;">
-                <div class="section__eyebrow">Як це працює</div>
-                <h2 class="section__title">Три кроки взаємодії з MT Hub</h2>
-                <p class="section__subtitle">
-                    Ви можете почати з одного модуля або невеликого проєкту.
-                    Далі — масштабувати співпрацю та передавати нам більше етапів виробництва.
-                </p>
-
-                <div class="steps-row">
-                    <div class="step">
-                        <div class="step-number">Крок 1</div>
-                        <div class="step-title">Оберіть калькулятор</div>
-                        <p>Модулі кухні, Volpato або Trial — залежно від задачі. Вкажіть базові розміри та матеріали.</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">Крок 2</div>
-                        <div class="step-title">Отримайте розрахунок</div>
-                        <p>Бачите матеріали, послуги, залишки та орієнтовну вартість. За потреби коригуємо конфігурацію.</p>
-                    </div>
-                    <div class="step">
-                        <div class="step-number">Крок 3</div>
-                        <div class="step-title">Передайте замовлення в MT</div>
-                        <p>Завантажуєте специфікацію, погоджуєте терміни та запускаєте замовлення на виробництво.</p>
-                    </div>
-                </div>
+            <div class="hero-actions">
+                <button class="btn-green" onclick="document.getElementById('calculators').scrollIntoView({behavior:'smooth'})">
+                    Обрати калькулятор
+                </button>
+                <button class="btn-white" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+                    Як працює хаб
+                </button>
             </div>
-        </section>
-
-        <!-- Materials -->
-        <section class="section" id="materials">
-            <div class="section__eyebrow">Матеріали</div>
-            <h2 class="section__title">Фасади та корпусні матеріали</h2>
-            <p class="section__subtitle">
-                Ми працюємо з преміальними фасадами Cleaf / Saib та підбираємо під них корпусні ДСП
-                Egger, Kronospan та Swiss Krono. Для гардеробних алюмінієвих систем використовуємо Volpato, Trial, Mixal, Mixer.
-            </p>
-
-            <div class="card-grid">
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Фасади</div>
-                    <h3>Cleaf / Saib</h3>
-                    <p>Фактури, декори, готові рішення для кухонь та гардеробів. Працюємо з заводськими картами та техкартами MT.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Корпуси</div>
-                    <h3>Egger / Kronospan / Swiss Krono</h3>
-                    <p>Підібрані декори під фасади Cleaf / Saib. Розрахунок листів, відходів та залишку ДСП для вашого складу.</p>
-                </article>
-
-                <article class="card">
-                    <div class="card-tag"><span class="card-tag-dot"></span>Алюміній</div>
-                    <h3>Volpato, Trial, Mixal, Mixer</h3>
-                    <p>Системи для кухонь та гардеробів: ручки Gola, алюмінієві рамки, гардеробні системи та комплектуючі.</p>
-                </article>
-            </div>
-
-            <div class="section-box">
-                <strong style="font-size:14px;">Прайси та бланки замовлень</strong>
-                <p style="font-size:13px; color:var(--mt-muted); margin:6px 0 10px;">
-                    Ви можете скористатися базовими прайсами MTУ та стандартним бланком замовлення для плитних матеріалів.
-                </p>
-                <div class="section-box-actions">
-                    <a href="https://mt.ua/storage/editor/files/blank-zamovlennya-plitnikh-materialiv-na-mtu-20-07-22_1658326561.xls"
-                       class="btn btn-outline" target="_blank">
-                        Форма замовлення плитних матеріалів                   </a>
-                    <a href="https://mt.ua/storage/editor/files/poslugi-obrobki-plitnikh-materialiv.pdf" class="btn btn-outline" target="_blank">
-                        Прайс послуг обробки плитних матеріалів
-                    </a>
-                    <a href="https://mt.ua/storage/editor/files/poslugi-alyuminievoi-dilyanki.pdf" class="btn btn-outline" target="_blank">
-                        Прайс послуг алюмінієвої ділянки
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Learning / Tech -->
-        <section class="section" id="learning">
-            <div class="section__eyebrow">Навчання та техпідготовка</div>
-            <h2 class="section__title">Як правильно працювати з MT Hub</h2>
-            <p class="section__subtitle">
-                Щоб замовлення проходили швидко та без помилок, ми підготували правила, допуски та рекомендації.
-                Надалі тут будуть відеоуроки та приклади техкарт.
-            </p>
-
-            <div class="card-grid">
-                <article class="card">
-                    <h3>Правила та допуски MTU</h3>
-                    <p>Технічні обмеження виробництва, допуски по розмірах, мінімальні/максимальні формати, особливості обробки.</p>
-                </article>
-                <article class="card">
-                    <h3>Файли GIBlab та специфікації</h3>
-                    <p>Які формати приймаємо, як правильно підготувати проєкт та передати його в MT Hub.</p>
-                </article>
-                <article class="card">
-                    <h3>Навчання для ваших технологів</h3>
-                    <p>Консультації для технологів та менеджерів, щоб вони могли самостійно працювати з калькуляторами MT.</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section class="section" id="projects">
-            <div class="section__eyebrow">Кейси</div>
-            <h2 class="section__title">Проєкти з використанням MT Hub</h2>
-            <p class="section__subtitle">
-                Тут будуть приклади реалізованих об’єктів: кухні, гардеробні, HoReCa та комерційні інтер’єри,
-                де застосовані фасади Cleaf, системи Volpato, Trial, Mixal, Mixer та сервіс MT.
-            </p>
-
-            <div class="card-grid">
-                <article class="card">
-                    <h3>Кухні та HoReCa</h3>
-                    <p>Фасади Cleaf / Saib, корпуси Egger, алюмінієві системи Volpato для професійних кухонь та готелів.</p>
-                </article>
-                <article class="card">
-                    <h3>Гардеробні та шафи</h3>
-                    <p>Системи Trial, алюмінієві двері, внутрішні гардеробні рішення, повний цикл — від прорахунку до комплектів.</p>
-                </article>
-                <article class="card">
-                    <h3>Комерційні інтер’єри</h3>
-                    <p>Офіси, шоуруми, ресепшени — комплекти на базі матеріалів MT та послуг виробничого хабу.</p>
-                </article>
-            </div>
-        </section>
-
-        <!-- Placeholder: Kitchen calculator -->
-        <section class="section section--tight" id="calculator-kitchen">
-                        <div class="section-box">
-                <!-- PAGE 4 — Калькулятор -->
-                            <!-- КАЛЬКУЛЯТОР MTU -->
-                            <section class="page" id="mtu-calculator">
-                                <h2 class="title-lg">Калькулятор модулів з ДСП та послуг</h2>
-                                <p>
-                                    Оберіть фасад Cleaf / Saib, матеріал корпусу Egger U788, тип модуля та опції —
-                                    система покаже орієнтовну вартість матеріалів, послуг і залишку ДСП та фасадів.
-                                </p>
-
-                                <div class="calc-layout">
-                                    <!-- ЛІВА ЧАСТИНА -->
-                                    <div class="calc-card">
-                                        <div class="calc-title">Параметри модуля</div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Фасад Cleaf / Saib</div>
-                                            <select class="calc-select" id="hub_facadeType">
-                                                <option value="none">Без фасаду (тільки корпус)</option>
-                                                <option value="cleaf_lr22">Cleaf LR22 Sable</option>
-                                                <option value="cleaf_s158">Cleaf S158 Okobo</option>
-                                                <option value="saib_3005">Saib 3005 Aguarama</option>
-                                                <option value="saib_1985">Saib 1985 Root</option>
-                                            </select>
-                                            <div class="calc-hint">
-                                                Для прикладу: 1 фасад на модуль (2 для гардеробу).
-                                            </div>
-                                        </div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Тип модуля</div>
-                                            <select class="calc-select" id="hub_moduleType">
-                                                <option value="lower600">Нижній корпус кухні</option>
-                                                <option value="upper600">Верхній модуль кухні</option>
-                                                <option value="wardrobe1m">Гардеробний проліт</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Ширина модуля, мм</div>
-                                            <select class="calc-select" id="hub_moduleWidth">
-                                                <option value="600" selected>600</option>
-                                                <option value="1000">1000</option>
-                                            </select>
-                                            <div class="calc-hint">
-                                                Площа масштабується пропорційно ширині від базового модуля.
-                                            </div>
-                                        </div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Кількість модулів</div>
-                                            <input class="calc-input" id="hub_qty" type="number" min="1" value="1" />
-                                        </div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Матеріал корпусу</div>
-                                            <select class="calc-select" id="hub_materialType">
-                                                <option value="egger_u788">Egger U788 ST9 Арктика сіра</option>
-                                            </select>
-                                            <div class="calc-hint">
-                                                Ціна корпусу розрахована від прайса (лист 2800×2070) ≈
-                                                <strong>535 грн/м²</strong>.
-                                            </div>
-                                        </div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Пакет послуг MTU</div>
-                                            <select class="calc-select" id="hub_servicePack">
-                                                <option value="full">Розкрій + кромка + присадка (повний пакет)</option>
-                                                <option value="cut_edge">Розкрій + кромка</option>
-                                                <option value="cut_only">Лише розкрій</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="calc-field">
-                                            <div class="calc-label">Опції</div>
-                                            <div class="calc-checkbox-row">
-                                                <input type="checkbox" id="hub_optBack10" />
-                                                <label for="hub_optBack10">Задня стінка з ДСП 10 мм (замість HDF 3 мм)</label>
-                                            </div>
-                                            <div class="calc-checkbox-row">
-                                                <input type="checkbox" id="hub_optBlum" checked />
-                                                <label for="hub_optBlum">Комплект Blum (петлі / кріплення)</label>
-                                            </div>
-                                            <div class="calc-checkbox-row">
-                                                <input type="checkbox" id="hub_optAssembly" />
-                                                <label for="hub_optAssembly">Збірка / півзбірка корпусу</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="calc-buttons">
-                                            <span class="btn btn--primary" onclick="hubRecalcModule()">Розрахувати модуль</span>
-                                            <span class="btn btn--secondary" onclick="hubAddModuleToOrder()">Додати модуль до замовлення</span>
-                                        </div>
-                                        <div class="calc-hint" style="margin-top: 6px">
-                                            Важливо: це орієнтовний прорахунок. Точні суми фіксуються у технічному замовленні MTU.
-                                        </div>
-                                        <!-- Прайс ДСП Egger (ТОП корпуси) -->
-                                        <section class="page" id="mtu-egger-price">
-                                            <div class="accordion" id="eggerPriceAccordion">
-                                                <button class="accordion-toggle" type="button">
-                                                    Прайс ДСП ТОП корпусів (Egger) — прив’язано до вибору матеріалу корпусу
-                                                </button>
-                                                <div class="accordion-content">
-                                                    <table class="price-table" id="eggerPriceTable">
-                                                        <thead>
-                                                        <tr>
-                                                            <th style="width: 40px;">№</th>
-                                                            <th>Назва товару</th>
-                                                            <th style="width: 60px;">Од.</th>
-                                                            <th style="width: 110px;">Прайс для клієнта, грн</th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <!-- приклад: U788 (той, що вибраний у калькуляторі) -->
-                                                        <tr data-material="egger_u788">
-                                                            <td>1</td>
-                                                            <td>
-                                                                ДСП EGGER U788 ST9 Арктика сіра<br>
-                                                                2800×2070×18 мм
-                                                            </td>
-                                                            <td>шт.</td>
-                                                            <td>3099,94</td>
-                                                        </tr>
-
-                                                        <!-- решта декорів — без прив’язки, просто прайс -->
-                                                        <tr>
-                                                            <td>2</td>
-                                                            <td>ДСП EGGER W1000 ST9 Білий Преміум 2800×2070×18 мм</td>
-                                                            <td>шт.</td>
-                                                            <td>2906,18</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>3</td>
-                                                            <td>ДСП EGGER U104 ST9 Альбафрост білий 2800×2070×18 мм</td>
-                                                            <td>шт.</td>
-                                                            <td>2615,52</td>
-                                                        </tr>
-                                                        <!-- додай сюди інші позиції так, як були в старому прайсі -->
-                                                        </tbody>
-                                                    </table>
-                                                    <p style="font-size: 12px; margin-top: 6px;">
-                                                        Після вибору матеріалу корпусу у калькуляторі відповідний декор у прайсі автоматично
-                                                        підсвічується. Прайс наведено для орієнтовного розуміння вартості цілого листа.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </section>
-
-                                    </div>
-
-                                    <!-- ПРАВА ЧАСТИНА -->
-                                    <div class="calc-card calc-card--summary">
-                                        <div class="calc-title">Підсумок розрахунку (1 позиція)</div>
-
-                                        <table class="calc-table calc-table--compact">
-                                            <thead>
-                                            <tr>
-                                                <th>Стаття</th>
-                                                <th style="width: 110px">Сума, грн</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td id="hub_rowMaterialName">ДСП Egger (корпус)</td>
-                                                <td id="hub_rowMaterialPrice">0</td>
-                                            </tr>
-                                            <tr>
-                                                <td id="hub_rowBackName">Задня стінка (HDF / ДСП)</td>
-                                                <td id="hub_rowBackPrice">0</td>
-                                            </tr>
-                                            <tr>
-                                                <td id="hub_rowServicesName">Послуги MTU (деталізація нижче)</td>
-                                                <td id="hub_rowServicesPrice">0</td>
-                                            </tr>
-                                            <tr>
-                                                <td id="hub_rowFacadeName">Фасад Cleaf / Saib</td>
-                                                <td id="hub_rowFacadePrice">0</td>
-                                            </tr>
-                                            <tr>
-                                                <td id="hub_rowBlumName">Комплект Blum</td>
-                                                <td id="hub_rowBlumPrice">0</td>
-                                            </tr>
-                                            <tr>
-                                                <td id="hub_rowAssemblyName">Збірка корпусу</td>
-                                                <td id="hub_rowAssemblyPrice">0</td>
-                                            </tr>
-                                            <tr class="calc-table-total">
-                                                <td>Разом за модуль</td>
-                                                <td id="hub_rowModuleTotal">0</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-
-                                        <div class="calc-title" style="margin-top: 14px">Розшифровка послуг MTU (1 модуль)</div>
-
-                                        <table class="calc-table calc-table--services">
-                                            <thead>
-                                            <tr>
-                                                <th>Послуга</th>
-                                                <th>Код</th>
-                                                <th>Од. вим.</th>
-                                                <th>Обсяг</th>
-                                                <th>Тариф, грн</th>
-                                                <th>Сума, грн</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="hub_servicesDetailsBody"></tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <td colspan="5">Разом послуги по модулю</td>
-                                                <td id="hub_servicesDetailsTotal">0</td>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-
-                                        <p class="calc-note" id="hub_leftoverNote">
-                                            Оберіть параметри модуля і натисніть «Розрахувати модуль», щоб побачити деталі:
-                                            площу корпусу, кількість листів та залишок ДСП і фасадів.
-                                        </p>
-
-                                        <div class="calc-divider"></div>
-
-                                        <div class="calc-title" style="margin-top: 10px">Замовлення MTU (накопичувально)</div>
-
-                                        <table class="calc-table calc-table--order">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Модуль</th>
-                                                <th>К-сть</th>
-                                                <th>Матеріал</th>
-                                                <th>Площа корпуса, м²</th>
-                                                <th>Сума, грн</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="hub_orderBody"></tbody>
-                                            <tfoot>
-                                            <tr>
-                                                <td colspan="4">Разом по замовленню (чиста площа корпусу)</td>
-                                                <td id="hub_orderTotalArea">0,00</td>
-                                                <td id="hub_orderTotalSum">0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">Листів ДСП</td>
-                                                <td id="hub_orderTotalSheets">0</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">Залишок ДСП</td>
-                                                <td id="hub_orderLeftoverArea">0,00</td>
-                                                <td id="hub_orderLeftoverCost">0</td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">Листів фасаду CLEAF/SAIB</td>
-                                                <td id="hub_orderFacadeSheets">0</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4">Залишок фасаду</td>
-                                                <td id="hub_orderFacadeLeftoverArea">0,00</td>
-                                                <td id="hub_orderFacadeLeftoverCost">0</td>
-                                                <td></td>
-                                            </tr>
-                                            </tfoot>
-                                        </table>
-
-                                        <p id="hub_orderSheetsNote" style="font-size: 12px; margin-top: 6px">
-                                            Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.
-                                        </p>
-
-                                        <div class="calc-buttons">
-                                            <span class="btn btn--secondary" onclick="hubClearOrder()">Очистити замовлення</span>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p class="modularity-note">
-                                    <strong>Примітка.</strong> MTU закуповує листи ДСП і фасадів під ваш проєкт.
-                                    Залишок матеріалу після розкрою (м² та гривня) показується окремо — це чесно демонструє,
-                                    скільки матеріалу фактично пішло на проєкт і хто його оплачує.
-                                </p>
-                            </section>
-
-                            <script>
-
-                                    // ---- КОНСТАНТИ ----
-                                    const HUB_SHEET_WIDTH = 2.8;
-                                    const HUB_SHEET_HEIGHT = 2.07;
-                                    const HUB_SHEET_AREA_M2 = HUB_SHEET_WIDTH * HUB_SHEET_HEIGHT;
-                                    const HUB_GROSS_FACTOR = 1.25; // 25% відходів
-                                    const EDGE_WASTE_FACTOR = 1.1; // +10% по кромці фасадів
-
-                                    const HUB_MATERIALS = {
-                                    egger_u788: {
-                                    name: "ДСП Egger U788 ST9 Арктика сіра",
-                                    pricePerM2: 535,
-                                },
-                                };
-
-                                    const HUB_FACADES = {
-                                    none: {
-                                    name: "Без фасаду",
-                                    sheetPrice: 0,
-                                    pricePerM2: 0,
-                                    edgePricePerM: 0,
-                                },
-                                    cleaf_lr22: {
-                                    name: "Cleaf LR22 Sable",
-                                    sheetPrice: 9394.3,
-                                    pricePerM2: 9394.3 / HUB_SHEET_AREA_M2,
-                                    edgePricePerM: 65.6,
-                                },
-                                    cleaf_s158: {
-                                    name: "Cleaf S158 Okobo",
-                                    sheetPrice: 12263,
-                                    pricePerM2: 12263 / HUB_SHEET_AREA_M2,
-                                    edgePricePerM: 65.6,
-                                },
-                                    saib_3005: {
-                                    name: "Saib 3005 Aguarama",
-                                    sheetPrice: 7418.9,
-                                    pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
-                                    edgePricePerM: 65.6,
-                                },
-                                    saib_1985: {
-                                    name: "Saib 1985 Root",
-                                    sheetPrice: 7418.9,
-                                    pricePerM2: 7418.9 / HUB_SHEET_AREA_M2,
-                                    edgePricePerM: 65.6,
-                                },
-                                };
-
-                                    const HUB_BACK_HDF = {
-                                    name: "HDF Kronospan білий 3 мм",
-                                    pricePerM2: 567 / HUB_SHEET_AREA_M2,
-                                };
-
-                                    const HUB_BACK_DSP10 = {
-                                    name: "ДСП 10 мм (задня стінка)",
-                                    pricePerM2: 300,
-                                };
-
-                                    const HUB_MODULES = {
-                                    lower600: {
-                                    name: "Нижній корпус кухні",
-                                    baseWidth: 600,
-                                    baseAreaNetDSP: 1.6,
-                                    blum: 350,
-                                    assembly: 300,
-                                    facadeHeightM: 0.72,
-                                    backAreaM2: 0.4,
-                                },
-                                    upper600: {
-                                    name: "Верхній модуль кухні",
-                                    baseWidth: 600,
-                                    baseAreaNetDSP: 1.2,
-                                    blum: 350,
-                                    assembly: 260,
-                                    facadeHeightM: 0.72,
-                                    backAreaM2: 0.3,
-                                },
-                                    wardrobe1m: {
-                                    name: "Гардеробний проліт",
-                                    baseWidth: 1000,
-                                    baseAreaNetDSP: 1.8,
-                                    blum: 1400,
-                                    assembly: 380,
-                                    facadeHeightM: 2.4,
-                                    backAreaM2: 1.44,
-                                },
-                                };
-
-                                    // Норми по корпусу (порізка, кромка корпуса, вибірка, отвори)
-                                    const HUB_SERVICE_TARIFFS = {
-                                    cut:      {code: "044261", name: "Порізка ДСП",                        unit: "м.п.", price: 20},
-                                    edgeCorp: {code: "044278", name: "Кромкування ДСП 8–25 мм EVA",        unit: "м.п.", price: 40},
-                                    rebate:   {code: "044275", name: "Вибірка чверті під ДВП / ДСП 10 мм", unit: "м.п.", price: 50},
-                                    holes:    {code: "044299", name: "Свердління отворів (полиці / стяжки)",unit: "шт.", price: 6},
-                                    hinges:   {code: "044300", name: "Поглиблення під петлі Ø35",          unit: "шт.", price: 18},
-                                    edgeFront:{code: "086618", name: "Кромкування фасадів CLEAF/SAIB PUR", unit: "м.п.", price: 60},
-                                };
-
-                                    const HUB_SERVICE_NORMS = {
-                                    lower600: {
-                                    cut_mp: 10.8,
-                                    edgeCorp_mp: 9.6,
-                                    rebate_mp: 1.8,
-                                    holesCount: 12,
-                                },
-                                    upper600: {
-                                    cut_mp: 8.4,
-                                    edgeCorp_mp: 7.2,
-                                    rebate_mp: 1.8,
-                                    holesCount: 16,
-                                },
-                                    wardrobe1m: {
-                                    cut_mp: 14.4,
-                                    edgeCorp_mp: 12.0,
-                                    rebate_mp: 2.4,
-                                    holesCount: 24,
-                                },
-                                };
-
-                                    // логіка дверей
-                                    function hubGetDoorsCount(moduleKey, widthMm) {
-                                    if (moduleKey === "wardrobe1m") return 2;          // гардероб завжди 2 двері
-                                    return widthMm > 700 ? 2 : 1;                      // кухня: до 700 – 1, від 800 – 2
-                                }
-
-                                    function hubGetHingesPerDoor(moduleKey) {
-                                    if (moduleKey === "wardrobe1m") return 4;          // високі двері
-                                    return 2;                                          // кухонний фасад
-                                }
-
-                                    let hubLastCalc = null;
-                                    let hubOrderLines = [];
-
-                                    function hubResetModuleUI() {
-                                    hubLastCalc = null;
-
-                                    // Верхня таблиця
-                                    document.getElementById("hub_rowMaterialName").textContent = "ДСП Egger (корпус)";
-                                    document.getElementById("hub_rowMaterialPrice").textContent = "0";
-
-                                    document.getElementById("hub_rowBackName").textContent = "Задня стінка (HDF / ДСП)";
-                                    document.getElementById("hub_rowBackPrice").textContent = "0";
-
-                                    document.getElementById("hub_rowServicesName").textContent = "Послуги MTU (деталізація нижче)";
-                                    document.getElementById("hub_rowServicesPrice").textContent = "0";
-
-                                    document.getElementById("hub_rowFacadeName").textContent = "Фасад Cleaf / Saib";
-                                    document.getElementById("hub_rowFacadePrice").textContent = "0";
-
-                                    document.getElementById("hub_rowBlumName").textContent = "Комплект Blum";
-                                    document.getElementById("hub_rowBlumPrice").textContent = "0";
-
-                                    document.getElementById("hub_rowAssemblyName").textContent = "Збірка корпусу";
-                                    document.getElementById("hub_rowAssemblyPrice").textContent = "0";
-
-                                    document.getElementById("hub_rowModuleTotal").textContent = "0";
-
-                                    // Таблиця послуг
-                                    document.getElementById("hub_servicesDetailsBody").innerHTML = "";
-                                    document.getElementById("hub_servicesDetailsTotal").textContent = "0";
-
-                                    document.getElementById("hub_leftoverNote").textContent =
-                                    "Оберіть параметри модуля і натисніть «Розрахувати модуль», щоб побачити деталі: площу корпусу, кількість листів та залишок ДСП і фасадів.";
-                                }
-
-                                    function hubGetSelectedValues() {
-                                    const moduleKey   = document.getElementById("hub_moduleType").value;
-                                    const width       = parseInt(document.getElementById("hub_moduleWidth").value, 10);
-                                    let   qty         = parseInt(document.getElementById("hub_qty").value, 10);
-                                    if (!Number.isFinite(qty) || qty < 1) qty = 1;
-                                    document.getElementById("hub_qty").value = qty;
-
-                                    const materialKey = document.getElementById("hub_materialType").value;
-                                    const pack        = document.getElementById("hub_servicePack").value;
-                                    const facadeKey   = document.getElementById("hub_facadeType").value;
-                                    const useBack10   = document.getElementById("hub_optBack10").checked;
-                                    const optBlum     = document.getElementById("hub_optBlum").checked;
-                                    const optAssembly = document.getElementById("hub_optAssembly").checked;
-
-                                    return {
-                                    moduleKey,
-                                    width,
-                                    qty,
-                                    materialKey,
-                                    pack,
-                                    facadeKey,
-                                    useBack10,
-                                    optBlum,
-                                    optAssembly,
-                                };
-                                }
-
-                                    function hubRecalcModule() {
-                                    const {
-                                    moduleKey,
-                                    width,
-                                    qty,
-                                    materialKey,
-                                    pack,
-                                    facadeKey,
-                                    useBack10,
-                                    optBlum,
-                                    optAssembly,
-                                } = hubGetSelectedValues();
-
-                                    const mod   = HUB_MODULES[moduleKey];
-                                    const mat   = HUB_MATERIALS[materialKey];
-                                    const fac   = HUB_FACADES[facadeKey];
-                                    const norms = HUB_SERVICE_NORMS[moduleKey];
-
-                                    if (!mod || !mat) return;
-
-                                    const widthFactor = width / mod.baseWidth;
-
-                                    // --- корпус ДСП ---
-                                    const netAreaOneDSP   = mod.baseAreaNetDSP * widthFactor;
-                                    const grossAreaOneDSP = netAreaOneDSP * HUB_GROSS_FACTOR;
-                                    const materialCostOne = Math.round(netAreaOneDSP * mat.pricePerM2);
-
-                                    // --- задня стінка ---
-                                    const backAreaOne  = mod.backAreaM2 * widthFactor;
-                                    const backMaterial = useBack10 ? HUB_BACK_DSP10 : HUB_BACK_HDF;
-                                    const backCostOne  = Math.round(backAreaOne * backMaterial.pricePerM2);
-
-                                    // --- фасади: геометрія ---
-                                    let facadeCostOne        = 0;
-                                    let facadeName           = "Фасад (не вибрано)";
-                                    let netFacadeAreaOneM2   = 0;
-                                    let grossFacadeAreaOneM2 = 0;
-                                    let perimeterM           = 0;
-                                    let facadeOrderText      = "";
-
-                                    const doors = hubGetDoorsCount(moduleKey, width);
-                                    const widthM = width / 1000;
-                                    const heightM = mod.facadeHeightM;
-                                    const widthDoorM = doors > 0 ? widthM / doors : widthM;
-                                    const widthDoorMm = Math.round(widthDoorM * 1000);
-                                    const heightMm = Math.round(heightM * 1000);
-
-                                    if (facadeKey !== "none") {
-                                    const areaFacadeOneM2 = widthDoorM * heightM * doors;
-                                    netFacadeAreaOneM2   = areaFacadeOneM2;
-                                    grossFacadeAreaOneM2 = areaFacadeOneM2 * HUB_GROSS_FACTOR;
-
-                                    perimeterM = 2 * (widthDoorM + heightM) * doors;
-                                    const facadeMaterialCost = areaFacadeOneM2 * fac.pricePerM2;
-                                    const facadeEdgeCost     = perimeterM * EDGE_WASTE_FACTOR * fac.edgePricePerM;
-
-                                    facadeCostOne = Math.round(facadeMaterialCost + facadeEdgeCost);
-
-                                    const doorsText = doors === 1
-                                    ? "1 фас."
-                                    : `${doors} фас. по ~${widthDoorMm}×${heightMm} мм`;
-
-                                    facadeName =
-                                    `${fac.name}, ${doorsText} (≈${areaFacadeOneM2.toFixed(2)} м², кромка ≈${(perimeterM * EDGE_WASTE_FACTOR).toFixed(2)} м)`;
-
-                                    facadeOrderText = facadeName; // цей текст піде в нижню таблицю
-                                }
-
-                                    // --- Blum / збірка ---
-                                    const blumCostOne     = optBlum ? mod.blum : 0;
-                                    const assemblyCostOne = optAssembly ? mod.assembly : 0;
-
-                                    // --- послуги ---
-                                    let serviceLines     = [];
-                                    let serviceCostTotal = 0;
-
-                                    if (norms) {
-                                    const cutMpOne      = norms.cut_mp * widthFactor;
-                                    const edgeCorpMpOne = norms.edgeCorp_mp * widthFactor;
-                                    const rebateMpOne   = norms.rebate_mp * widthFactor;
-                                    const holesOne      = norms.holesCount || 0;
-
-                                    const cutMp      = cutMpOne      * qty;
-                                    const edgeCorpMp = edgeCorpMpOne * qty;
-                                    const rebateMp   = rebateMpOne   * qty;
-                                    const holesQty   = holesOne      * qty;
-
-                                    const edgeFrontMpOne = facadeKey !== "none"
-                                    ? perimeterM * EDGE_WASTE_FACTOR
-                                    : 0;
-                                    const edgeFrontMp = edgeFrontMpOne * qty;
-
-                                    const hingesPerDoor = hubGetHingesPerDoor(moduleKey);
-                                    const hingesFrontOne = facadeKey !== "none"
-                                    ? hingesPerDoor * doors
-                                    : 0;
-                                    const hingesQty = hingesFrontOne * qty;
-
-                                    const isCutOnly = pack === "cut_only";
-                                    const isCutEdge = pack === "cut_edge";
-                                    const isFull    = pack === "full";
-
-                                    if (cutMp > 0) {
-                                    const sum = Math.round(cutMp * HUB_SERVICE_TARIFFS.cut.price);
-                                    serviceLines.push({...HUB_SERVICE_TARIFFS.cut, volume: cutMp, sum});
-                                    serviceCostTotal += sum;
-                                }
-
-                                    if (!isCutOnly && edgeCorpMp > 0) {
-                                    const sum = Math.round(edgeCorpMp * HUB_SERVICE_TARIFFS.edgeCorp.price);
-                                    serviceLines.push({...HUB_SERVICE_TARIFFS.edgeCorp, volume: edgeCorpMp, sum});
-                                    serviceCostTotal += sum;
-                                }
-
-                                    if (isFull && useBack10 && rebateMp > 0) {
-                                    const sum = Math.round(rebateMp * HUB_SERVICE_TARIFFS.rebate.price);
-                                    serviceLines.push({...HUB_SERVICE_TARIFFS.rebate, volume: rebateMp, sum});
-                                    serviceCostTotal += sum;
-                                }
-
-                                    if (facadeKey !== "none" && edgeFrontMp > 0 && !isCutOnly) {
-                                    const sum = Math.round(edgeFrontMp * HUB_SERVICE_TARIFFS.edgeFront.price);
-                                    serviceLines.push({...HUB_SERVICE_TARIFFS.edgeFront, volume: edgeFrontMp, sum});
-                                    serviceCostTotal += sum;
-                                }
-
-                                    if (holesQty > 0 && isFull) {
-                                    const sum = Math.round(holesQty * HUB_SERVICE_TARIFFS.holes.price);
-                                    serviceLines.push({...HUB_SERVICE_TARIFFS.holes, volume: holesQty, sum});
-                                    serviceCostTotal += sum;
-                                }
-
-                                    if (hingesQty > 0 && isFull) {
-                                    const sum = Math.round(hingesQty * HUB_SERVICE_TARIFFS.hinges.price);
-                                    serviceLines.push({...HUB_SERVICE_TARIFFS.hinges, volume: hingesQty, sum});
-                                    serviceCostTotal += sum;
-                                }
-                                }
-
-                                    const materialCostTotal = materialCostOne * qty;
-                                    const backCostTotal     = backCostOne     * qty;
-                                    const blumCostTotal     = blumCostOne     * qty;
-                                    const assemblyCostTotal = assemblyCostOne * qty;
-                                    const facadeCostTotal   = facadeCostOne   * qty;
-
-                                    const moduleTotal =
-                                    materialCostTotal +
-                                    backCostTotal +
-                                    serviceCostTotal +
-                                    blumCostTotal +
-                                    assemblyCostTotal +
-                                    facadeCostTotal;
-
-                                    // --- верхня таблиця ---
-                                    document.getElementById("hub_rowMaterialName").textContent =
-                                    `${mod.name} (${mat.name}), ≈${netAreaOneDSP.toFixed(2)} м² × ${qty} мод.`;
-                                    document.getElementById("hub_rowMaterialPrice").textContent =
-                                    materialCostTotal.toLocaleString("uk-UA");
-
-                                    document.getElementById("hub_rowBackName").textContent =
-                                    `${backMaterial.name} (≈${backAreaOne.toFixed(2)} м² × ${qty} мод.)`;
-                                    document.getElementById("hub_rowBackPrice").textContent =
-                                    backCostTotal.toLocaleString("uk-UA");
-
-                                    document.getElementById("hub_rowServicesName").textContent =
-                                    "Послуги MTU (деталізація нижче)";
-                                    document.getElementById("hub_rowServicesPrice").textContent =
-                                    serviceCostTotal.toLocaleString("uk-UA");
-
-                                    document.getElementById("hub_rowFacadeName").textContent =
-                                    facadeKey === "none"
-                                    ? "Фасад (не вибрано)"
-                                    : facadeName + (qty > 1 ? ` × ${qty} мод.` : "");
-                                    document.getElementById("hub_rowFacadePrice").textContent =
-                                    facadeCostTotal ? facadeCostTotal.toLocaleString("uk-UA") : "0";
-
-                                    const hasBlumForModule = mod.blum > 0;
-                                    if (!hasBlumForModule) {
-                                    document.getElementById("hub_rowBlumName").textContent =
-                                    "Комплект Blum (не застосовується до цього модуля)";
-                                    document.getElementById("hub_rowBlumPrice").textContent = "—";
-                                } else {
-                                    document.getElementById("hub_rowBlumName").textContent =
-                                    optBlum ? `Комплект Blum × ${qty} шт.` : "Комплект Blum (не вибрано)";
-                                    document.getElementById("hub_rowBlumPrice").textContent =
-                                    blumCostTotal ? blumCostTotal.toLocaleString("uk-UA") : "0";
-                                }
-
-                                    document.getElementById("hub_rowAssemblyName").textContent =
-                                    optAssembly ? `Збірка / півзбірка корпусу × ${qty} мод.` : "Збірка корпусу (не вибрано)";
-                                    document.getElementById("hub_rowAssemblyPrice").textContent =
-                                    assemblyCostTotal ? assemblyCostTotal.toLocaleString("uk-UA") : "0";
-
-                                    document.getElementById("hub_rowModuleTotal").textContent =
-                                    moduleTotal.toLocaleString("uk-UA");
-
-                                    // --- таблиця послуг ---
-                                    const tbodyServices = document.getElementById("hub_servicesDetailsBody");
-                                    const totalServicesCell = document.getElementById("hub_servicesDetailsTotal");
-                                    tbodyServices.innerHTML = "";
-                                    serviceLines.forEach((line) => {
-                                    const tr = document.createElement("tr");
-                                    const vol = line.unit === "шт."
-                                    ? line.volume.toFixed(0)
-                                    : line.volume.toFixed(2);
-                                    tr.innerHTML = `
-                <td>${line.name}</td>
-                <td>${line.code}</td>
-                <td>${line.unit}</td>
-                <td>${vol}</td>
-                <td>${line.price}</td>
-                <td>${line.sum.toLocaleString("uk-UA")}</td>`;
-                                    tbodyServices.appendChild(tr);
-                                });
-                                    totalServicesCell.textContent = serviceCostTotal.toLocaleString("uk-UA");
-
-                                    // --- листи + залишок ДСП по модулю ---
-                                    const totalNetArea   = netAreaOneDSP   * qty;
-                                    const totalGrossArea = grossAreaOneDSP * qty;
-
-                                    const sheetsNeeded   = Math.max(1, Math.ceil(totalGrossArea / HUB_SHEET_AREA_M2));
-                                    const totalSheetArea = sheetsNeeded * HUB_SHEET_AREA_M2;
-                                    const leftoverArea   = totalSheetArea - totalGrossArea;
-                                    const leftoverCost   = Math.round(leftoverArea * mat.pricePerM2);
-
-                                    // --- листи + залишок фасаду по модулю ---
-                                    let facadeLeftText = "";
-                                    if (facadeKey !== "none" && netFacadeAreaOneM2 > 0) {
-                                    const netFacadeArea   = netFacadeAreaOneM2   * qty;
-                                    const grossFacadeArea = grossFacadeAreaOneM2 * qty;
-                                    const facadeSheets    = Math.max(1, Math.ceil(grossFacadeArea / HUB_SHEET_AREA_M2));
-                                    const facadeSheetsArea   = facadeSheets * HUB_SHEET_AREA_M2;
-                                    const facadeLeftoverArea = facadeSheetsArea - grossFacadeArea;
-                                    const facadeLeftoverCost = Math.round(facadeLeftoverArea * fac.pricePerM2);
-
-                                    facadeLeftText =
-                                    ` Фасади ${fac.name}: потрібно ${facadeSheets} лист(и) ` +
-                                    `(${facadeSheetsArea.toFixed(2)} м²), чиста площа фасадів: ${netFacadeArea.toFixed(2)} м², ` +
-                                    `з відходами 25%: ${grossFacadeArea.toFixed(2)} м². Залишок фасаду ≈ ${facadeLeftoverArea.toFixed(2)} м² ` +
-                                    `(~${facadeLeftoverCost.toLocaleString("uk-UA")} грн).`;
-                                }
-
-                                    const noteText = leftoverArea > 0.01
-                                    ? `Для цього модуля (×${qty}) потрібно ${sheetsNeeded} лист(и) ${mat.name} ` +
-                                    `(${totalSheetArea.toFixed(2)} м² з урахуванням відходів). Чиста площа корпусу: ${totalNetArea.toFixed(2)} м², ` +
-                                    `з відходами 25%: ${totalGrossArea.toFixed(2)} м². Залишок ДСП ≈ ${leftoverArea.toFixed(2)} м² ` +
-                                    `(~${leftoverCost.toLocaleString("uk-UA")} грн).` +
-                                    facadeLeftText
-                                    : "Площа модулів практично дорівнює площі листів — залишок мінімальний.";
-                                    document.getElementById("hub_leftoverNote").textContent = noteText;
-
-                                    hubLastCalc = {
-                                    moduleKey,
-                                    width,
-                                    qty,
-                                    materialKey,
-                                    facadeKey,
-                                    pack,
-                                    useBack10,
-                                    optBlum,
-                                    optAssembly,
-                                    netAreaOneDSP,
-                                    grossAreaOneDSP,
-                                    netFacadeAreaOneM2,
-                                    grossFacadeAreaOneM2,
-                                    moduleTotal,
-                                    materialCostTotal,
-                                    backCostTotal,
-                                    serviceCostTotal,
-                                    blumCostTotal,
-                                    assemblyCostTotal,
-                                    facadeCostTotal,
-                                    facadeOrderText,
-                                };
-                                }
-
-                                    function hubAddModuleToOrder() {
-                                    if (!hubLastCalc) hubRecalcModule();
-                                    if (!hubLastCalc) return;
-                                    hubOrderLines.push({...hubLastCalc});
-                                    hubRenderOrderSummary();
-                                }
-
-                                    function hubDeleteOrderLine(index) {
-                                    hubOrderLines.splice(index, 1);
-                                    hubRenderOrderSummary();
-                                }
-
-                                    function hubClearOrder() {
-                                    hubOrderLines = [];
-                                    hubLastCalc = null;
-
-                                    // дефолтні значення в лівій частині
-                                    document.getElementById("hub_facadeType").value = "cleaf_lr22";
-                                    document.getElementById("hub_moduleType").value = "lower600";
-                                    document.getElementById("hub_moduleWidth").value = "600";
-                                    document.getElementById("hub_qty").value = "1";
-                                    document.getElementById("hub_materialType").value = "egger_u788";
-                                    document.getElementById("hub_servicePack").value = "full";
-
-                                    document.getElementById("hub_optBack10").checked = false;
-                                    document.getElementById("hub_optBlum").checked = true;
-                                    document.getElementById("hub_optAssembly").checked = false;
-
-                                    hubResetModuleUI();
-                                    hubRenderOrderSummary();
-                                }
-
-                                    // === ПРИВ'ЯЗКА ПРАЙСУ ДСП EGGER ДО ВИБОРУ МАТЕРІАЛУ ===
-
-                                    function hubHighlightEggerPrice(materialKey) {
-                                        const table = document.getElementById("eggerPriceTable");
-                                        const accordion = document.getElementById("eggerPriceAccordion");
-                                        if (!table || !accordion) return;
-
-                                        // зняти підсвітку зі всіх рядків
-                                        table.querySelectorAll("tbody tr").forEach((tr) => {
-                                            tr.classList.remove("is-highlight");
-                                        });
-
-                                        // знайти рядок з потрібним data-material
-                                        const targetRow = table.querySelector(`tbody tr[data-material="${materialKey}"]`);
-                                        if (!targetRow) return;
-
-                                        // увімкнути підсвітку
-                                        targetRow.classList.add("is-highlight");
-
-                                        // розкрити акордеон, якщо він закритий
-                                        const content = accordion.querySelector(".accordion-content");
-                                        if (content && !content.classList.contains("open")) {
-                                            content.classList.add("open");
-                                        }
-
-                                        // акуратний скрол до виділеного рядка (тільки якщо користувач вже трохи проскролив сторінку)
-                                        setTimeout(() => {
-                                            targetRow.scrollIntoView({ behavior: "smooth", block: "center" });
-                                        }, 150);
-                                    }
-
-
-                                    function hubRenderOrderSummary() {
-                                    const tbody = document.getElementById("hub_orderBody");
-                                    const totalAreaCell = document.getElementById("hub_orderTotalArea");
-                                    const totalSumCell = document.getElementById("hub_orderTotalSum");
-                                    const totalSheetsEl = document.getElementById("hub_orderTotalSheets");
-                                    const leftAreaEl = document.getElementById("hub_orderLeftoverArea");
-                                    const leftCostEl = document.getElementById("hub_orderLeftoverCost");
-
-                                    const facadeSheetsEl = document.getElementById("hub_orderFacadeSheets");
-                                    const facadeLeftAreaEl = document.getElementById("hub_orderFacadeLeftoverArea");
-                                    const facadeLeftCostEl = document.getElementById("hub_orderFacadeLeftoverCost");
-
-                                    let totalNetArea = 0;
-                                    let totalSum = 0;
-                                    const materialGroups = {};
-                                    const facadeGroups = {};
-                                    let rowsHtml = "";
-
-                                    hubOrderLines.forEach((line, idx) => {
-                                    const mod = HUB_MODULES[line.moduleKey];
-                                    const mat = HUB_MATERIALS[line.materialKey];
-
-                                    const areaNet = line.netAreaOneDSP * line.qty;
-                                    const areaGross = line.grossAreaOneDSP * line.qty;
-
-                                    totalNetArea += areaNet;
-                                    totalSum += line.moduleTotal;
-
-                                    // групування по корпусних матеріалах
-                                    if (!materialGroups[line.materialKey]) {
-                                    materialGroups[line.materialKey] = {
-                                    name: mat.name,
-                                    grossArea: 0,
-                                    pricePerM2: mat.pricePerM2,
-                                };
-                                }
-                                    materialGroups[line.materialKey].grossArea += areaGross;
-
-                                    // групування по фасадах
-                                    const netFacadeArea = (line.netFacadeAreaOneM2 || 0) * line.qty;
-                                    const grossFacadeArea = (line.grossFacadeAreaOneM2 || 0) * line.qty;
-
-                                    if (grossFacadeArea > 0 && line.facadeKey && line.facadeKey !== "none") {
-                                    const fac = HUB_FACADES[line.facadeKey];
-                                    if (!facadeGroups[line.facadeKey]) {
-                                    facadeGroups[line.facadeKey] = {
-                                    name: fac.name,
-                                    grossArea: 0,
-                                    pricePerM2: fac.pricePerM2,
-                                };
-                                }
-                                    facadeGroups[line.facadeKey].grossArea += grossFacadeArea;
-                                }
-
-                                    // колонка «Матеріал»: корпус + фасад з розмірами
-                                    let materialCell = mat.name;
-                                    if (line.facadeKey && line.facadeKey !== "none" && line.facadeOrderText) {
-                                    materialCell =
-                                    `${mat.name}<span class="calc-facade-note">${line.facadeOrderText}</span>`;
-                                }
-
-                                    rowsHtml += `
-            <tr>
-                <td>${idx + 1}</td>
-                <td>${mod.name}</td>
-                <td>${line.qty}</td>
-                <td>${materialCell}</td>
-                <td>${areaNet.toFixed(2)}</td>
-                <td>${line.moduleTotal.toLocaleString("uk-UA")}</td>
-                <td><button type="button" class="link-button"
-                    onclick="hubDeleteOrderLine(${idx})">видалити</button></td>
-            </tr>`;
-                                });
-
-                                    tbody.innerHTML = rowsHtml;
-
-                                    // підсумок по листам ДСП
-                                    let totalSheets = 0;
-                                    let totalLeftoverM2 = 0;
-                                    let totalLeftoverUah = 0;
-
-                                    Object.values(materialGroups).forEach((group) => {
-                                    const areaGross = group.grossArea;
-                                    const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
-                                    const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
-                                    const leftoverArea = sheetAreaTotal - areaGross;
-                                    const leftoverCost = leftoverArea * group.pricePerM2;
-
-                                    totalSheets += sheets;
-                                    totalLeftoverM2 += leftoverArea;
-                                    totalLeftoverUah += leftoverCost;
-                                });
-
-                                    // підсумок по фасадах
-                                    let totalFacadeSheets = 0;
-                                    let totalFacadeLeftoverM2 = 0;
-                                    let totalFacadeLeftoverUah = 0;
-
-                                    Object.values(facadeGroups).forEach((group) => {
-                                    const areaGross = group.grossArea;
-                                    const sheets = Math.ceil(areaGross / HUB_SHEET_AREA_M2);
-                                    const sheetAreaTotal = sheets * HUB_SHEET_AREA_M2;
-                                    const leftoverArea = sheetAreaTotal - areaGross;
-                                    const leftoverCost = leftoverArea * group.pricePerM2;
-
-                                    totalFacadeSheets += sheets;
-                                    totalFacadeLeftoverM2 += leftoverArea;
-                                    totalFacadeLeftoverUah += leftoverCost;
-                                });
-
-                                    totalAreaCell.textContent = totalNetArea.toFixed(2);
-                                    totalSumCell.textContent = totalSum.toLocaleString("uk-UA");
-                                    totalSheetsEl.textContent = totalSheets.toString();
-                                    leftAreaEl.textContent = totalLeftoverM2.toFixed(2);
-                                    leftCostEl.textContent = Math.round(totalLeftoverUah).toLocaleString("uk-UA");
-
-                                    facadeSheetsEl.textContent = totalFacadeSheets.toString();
-                                    facadeLeftAreaEl.textContent = totalFacadeLeftoverM2.toFixed(2);
-                                    facadeLeftCostEl.textContent = Math.round(totalFacadeLeftoverUah).toLocaleString("uk-UA");
-
-                                    const noteEl = document.getElementById("hub_orderSheetsNote");
-                                    if (hubOrderLines.length === 0) {
-                                    noteEl.textContent =
-                                    "Додайте модулі, щоб побачити загальну площу, кількість листів і залишок ДСП та фасадів.";
-                                } else {
-                                    noteEl.textContent =
-                                    "Розрахунок виконується укрупнено: площа всіх модулів по матеріалах і фасадах, листи з відходами 25%, залишок ДСП та фасадів показано окремо (м² та орієнтовна вартість).";
-                                }
-                                }
-
-                                    document.addEventListener("DOMContentLoaded", () => {
-                                        const ids = [
-                                            "hub_facadeType",
-                                            "hub_moduleType",
-                                            "hub_moduleWidth",
-                                            "hub_qty",
-                                            "hub_materialType",
-                                            "hub_servicePack",
-                                            "hub_optBack10",
-                                            "hub_optBlum",
-                                            "hub_optAssembly",
-                                        ];
-
-                                        ids.forEach((id) => {
-                                            const el = document.getElementById(id);
-                                            if (!el) return;
-
-                                            // стандартна реакція калькулятора
-                                            el.addEventListener("change", hubRecalcModule);
-                                            el.addEventListener("input", hubRecalcModule);
-
-                                            // додаткова логіка саме для матеріалу корпусу
-                                            if (id === "hub_materialType") {
-                                                el.addEventListener("change", function () {
-                                                    hubHighlightEggerPrice(this.value);
-                                                });
-                                            }
-                                        });
-
-                                        // початковий рендер замовлення
-                                        hubRenderOrderSummary();
-
-                                        // початкова підсвітка (на стартовий матеріал)
-                                        const materialSelect = document.getElementById("hub_materialType");
-                                        if (materialSelect) {
-                                            hubHighlightEggerPrice(materialSelect.value);
-                                        }
-                                    });
-
-
-
-                            </script>
-
-
-                        </div>
-            <script>
-                // Акордеон
-                document.querySelectorAll(".accordion-toggle").forEach((btn) => {
-                    btn.addEventListener("click", () => {
-                        const content = btn.nextElementSibling;
-                        content.classList.toggle("open");
-                    });
-                });
-
-                // Плавний скрол по якорях
-                document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                    anchor.addEventListener("click", function (e) {
-                        const id = this.getAttribute("href");
-                        if (id.length > 1) {
-                            e.preventDefault();
-                            const target = document.querySelector(id);
-                            if (target) {
-                                target.scrollIntoView({behavior: "smooth"});
-                            }
-                        }
-                    });
-                });
-
-
-            </script>
-        </section>
-
-
-        <!-- CTA + contacts -->
-        <section class="cta" id="contacts">
-            <div>
-                <h2 class="cta-main-title">Почніть з одного модуля або невеликого проєкту</h2>
-                <p class="cta-main-text">
-                    Спробуйте MT Hub на прорахунку типового модуля 600, гардеробного прольоту або
-                    невеликого комплекту Volpato / Trial.
-                    Далі ми допоможемо масштабувати співпрацю та побудувати для вас стабільний виробничий ланцюжок.
-                </p>
-                <div class="hero-actions">
-                    <a href="#calculators" class="btn btn-primary">Запустити калькулятор</a>
-                    <a href="mailto:info@mt.ua" class="btn btn-outline">Надіслати специфікацію</a>
-                </div>
-                <p class="cta-note">
-                    Ви можете прикріпити файл GIBlab, Excel зі специфікацією або просто ескіз. Технолог MT Hub підкаже,
-                    з чого краще почати.
-                </p>
-            </div>
-            <div class="cta-contacts" id="contacts-card">
-                <h3>Контакти MT Hub</h3>
-                <p><strong>Офіс / виробництво:</strong><br/>м. Київ, вул. Кирилівська, 102</p>
-                <p><strong>Телефон виробництва:</strong><br/>+38 (044) 369-31-89</p>
-                <p><strong>Email:</strong><br/><a href="mailto:info@mt.ua">info@mt.ua</a></p>
-                <p style="margin-top:8px;">
-                    Для питань по MT Hub та калькуляторам — напишіть, і ми організуємо консультацію для вашої команди.
-                </p>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-inner">
-            <span>© MT Україна, MT Hub — виробничий хаб для меблевиків.</span>
-            <span>Цифрові калькулятори, техпідготовка та сервіс під ваші проєкти.</span>
         </div>
-    </footer>
+
+        <div class="hero-image">
+            <!-- Можеш замінити на свій колаж / фото виробництва -->
+            <img src="/images/hub-hero.jpg" alt="MT × Systems — виробничий центр">
+        </div>
+    </section>
+
+    <!-- КОМУ ЦЕ ПОТРІБНО -->
+    <section id="for-whom">
+        <h2 class="section-headline">Для кого MT × Systems</h2>
+        <p class="section-lead">
+            Головна сторінка Хабу — стартова точка для виробників, дизайнерів та салонів. Звідси ви одним кліком
+            потрапляєте в потрібний калькулятор і отримуєте повний прорахунок з послугами MT.
+        </p>
+
+        <div class="three-cols">
+            <div class="card">
+                <div class="card-title">Виробнику меблів</div>
+                <div class="card-body">
+                    <ul class="check-list">
+                        <li>Швидкий прорахунок профілів, фасадів та скляних вставок.</li>
+                        <li>Готові CSV для завантаження в 1С / ERP.</li>
+                        <li>Послуги MT (розкрій, кромка, свердління, збірка) вже закладені в калькулятори.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">Дизайнеру / архітектору</div>
+                <div class="card-body">
+                    <ul class="check-list">
+                        <li>Орієнтовні бюджети на системи TRIAL / Volpato / фасади Cleaf / SAIB.</li>
+                        <li>Підбір технічних рішень під ескізи та планування.</li>
+                        <li>Підтримка по вузлах, висотах, навантаженнях.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">Салону / девелоперу</div>
+                <div class="card-body">
+                    <ul class="check-list">
+                        <li>Прорахунок експозицій, шоурумів та серійних рішень.</li>
+                        <li>Готові «продукти MT» — гардеробні, кухні, фасадні системи.</li>
+                        <li>Прозора економіка кожного стенду чи об’єкта.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ALT SECTION: 2-Й ФОН -->
+    <div class="section-alt-wrap">
+        <div class="section-alt-inner">
+            <h2 class="section-alt-title">Два рівні: презентація + калькулятор</h2>
+            <p class="section-alt-sub">
+                Для кожної системи ми будуємо <strong>вітринну сторінку</strong> (пояснення, приклади, FAQ) та
+                <strong>калькулятор</strong> з реальними прайсами MT. Стиль єдиний, як у TRIAL eTSecutive — щоб клієнт
+                не губився між інструментами.
+            </p>
+
+            <div class="grid-2">
+                <div class="card">
+                    <div class="pill">Вітрина</div>
+                    <div class="card-title">Пояснення продукту «людською» мовою</div>
+                    <div class="card-body">
+                        <ul class="check-list">
+                            <li>Фото / рендери, технічні схеми, приклади реалізацій.</li>
+                            <li>Переваги системи, обмеження, відповіді на часті питання.</li>
+                            <li>Завершується кнопкою: <em>«Зібрати систему»</em> → перехід в калькулятор.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="pill">Калькулятор</div>
+                    <div class="card-title">Математика + послуги MT</div>
+                    <div class="card-body">
+                        <ul class="check-list">
+                            <li>Вводимо розміри, отримуємо специфікацію та суму в € / грн.</li>
+                            <li>Сервіси MT (розкрій, кромка, свердління, збірка, упаковка).</li>
+                            <li>Експорт CSV та відправка заявки в Telegram MT × Systems.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- КАЛЬКУЛЯТОРИ -->
+    <section id="calculators">
+        <h2 class="section-headline">Калькулятори MT × Systems</h2>
+        <p class="section-lead">
+            Виберіть продукт, який хочете порахувати. Кожен калькулятор відкривається в тому ж стилі, що й TRIAL eTSecutive:
+            чистий інтерфейс, зрозумілі поля, прозорі формули.
+        </p>
+
+        <div class="calc-grid">
+            <!-- TRIAL eTSecutive -->
+            <div class="card calc-card">
+                <div class="calc-card-header">
+                    <div class="calc-card-title">TRIAL eTSecutive · TS-603</div>
+                    <div class="calc-card-sub">
+                        Гардеробна система на профілі TS-603: стійки, панелі Cleaf / SAIB, полиці, тумби, труби гардеробни.
+                    </div>
+                </div>
+                <div class="calc-card-footer">
+                    <a href="/trial-etsecutive.html" class="btn-outline">Відкрити калькулятор</a>
+                    <a href="/trial-etsecutive" class="btn-outline">Вітрина системи</a>
+                </div>
+            </div>
+
+            <!-- Полиці LAIT / Lite -->
+            <div class="card calc-card">
+                <div class="calc-card-header">
+                    <div class="calc-card-title">Полиці LAIT / Lite</div>
+                    <div class="calc-card-sub">
+                        Підвісні полиці на профілях LA-1048/1049: довжина, навантаження, труби, підсвітка, комплектація.
+                    </div>
+                </div>
+                <div class="calc-card-footer">
+                    <a href="/lait-shelves.html" class="btn-outline">Калькулятор полиць</a>
+                    <a href="/lait" class="btn-outline">Вітрина полиць</a>
+                </div>
+            </div>
+
+            <!-- Volpato фасади -->
+            <div class="card calc-card">
+                <div class="calc-card-header">
+                    <div class="calc-card-title">Volpato · фасадні системи</div>
+                    <div class="calc-card-sub">
+                        Алюмінієві рамки, скло, розкрій профілю, вузли, послуги Busel — все в одному прорахунку.
+                    </div>
+                </div>
+                <div class="calc-card-footer">
+                    <a href="/volpato-facades.html" class="btn-outline">Калькулятор фасадів</a>
+                    <a href="/volpato" class="btn-outline">Вітрина Volpato</a>
+                </div>
+            </div>
+
+            <!-- Volpato гардеробні / полиці -->
+            <div class="card calc-card">
+                <div class="calc-card-header">
+                    <div class="calc-card-title">Volpato · гардеробні / полиці</div>
+                    <div class="calc-card-sub">
+                        Алюмінієві системи Volpato для гардеробів, ніш, полиць — модулі, навантаження, LED-підсвітка.
+                    </div>
+                </div>
+                <div class="calc-card-footer">
+                    <a href="/volpato-wardrobes.html" class="btn-outline">Калькулятор систем</a>
+                    <a href="/volpato-ideas" class="btn-outline">Ідеї для гардеробів</a>
+                </div>
+            </div>
+
+            <!-- ONLY / IKS фасади -->
+            <div class="card calc-card">
+                <div class="calc-card-header">
+                    <div class="calc-card-title">ONLY / IKS · фасадні системи</div>
+                    <div class="calc-card-sub">
+                        Алюмінієві фасади з профілями IKS/ONLY: розміри, скло, допуски, сумісні петлі, розкрій.
+                    </div>
+                </div>
+                <div class="calc-card-footer">
+                    <a href="/only-iks-facades.html" class="btn-outline">Калькулятор фасадів</a>
+                    <a href="/only-iks" class="btn-outline">Технічні карти</a>
+                </div>
+            </div>
+
+            <!-- Скло Busel + сервіс MT -->
+            <div class="card calc-card">
+                <div class="calc-card-header">
+                    <div class="calc-card-title">Скло Busel + сервіс MT</div>
+                    <div class="calc-card-sub">
+                        Методику Busel Glass v3 інтегровано в калькулятор: формат, різи, загартоване / не загартоване, шліфовка.
+                    </div>
+                </div>
+                <div class="calc-card-footer">
+                    <a href="/glass-busel.html" class="btn-outline">Калькулятор скла</a>
+                    <a href="/glass-rules" class="btn-outline">Правила по склу</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ЯК ПРАЦЮЄ ХАБ -->
+    <section id="how-it-works">
+        <h2 class="section-headline">Як працює виробничий хаб MT × Systems</h2>
+        <p class="section-lead">
+            Логіка однакова для всіх калькуляторів: прості вхідні дані, прозора математика, готові файли для 1С та Telegram.
+        </p>
+
+        <div class="steps">
+            <div class="card">
+                <div class="step-num">1</div>
+                <div class="step-title">Вибір системи / продукту</div>
+                <div class="step-text">
+                    З головної сторінки переходите до потрібного калькулятора: TRIAL, Volpato, LAIT, ONLY / IKS чи скло Busel.
+                </div>
+            </div>
+            <div class="card">
+                <div class="step-num">2</div>
+                <div class="step-title">Введення розмірів та модулів</div>
+                <div class="step-text">
+                    Вказуєте висоту, ширину, кількість секцій, типи полиць, тумб, панелей, фасадів. Математика та допуски вже
+                    закладені в логіку калікулятора.
+                </div>
+            </div>
+            <div class="card">
+                <div class="step-num">3</div>
+                <div class="step-title">Результат, CSV, Telegram</div>
+                <div class="step-text">
+                    Отримуєте загальну суму, повну специфікацію, CSV для 1С та можливість відправити прорахунок
+                    прямо в Telegram MT × Systems для виставлення рахунку.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ФІНАЛЬНИЙ CTA / КОНТАКТ -->
+    <section id="contact" class="hub-cta">
+        <div class="hub-cta-inner">
+            <div class="hub-cta-left">
+                <h2 class="hub-cta-title">Готові тестувати MT × Systems як віддалений цех?</h2>
+                <p class="hub-cta-text">
+                    Напишіть або зателефонуйте нам. Ми допоможемо підібрати стартові продукти (TRIAL, Volpato, LAIT, фасади),
+                    налаштувати калькулятори під ваші процеси та інтегрувати прорахунки з 1С.
+                </p>
+                <div class="hub-cta-actions">
+                    <a href="tel:+380800304404" class="hub-cta-btn hub-cta-btn--primary">
+                        Зателефонувати в MT × Systems
+                    </a>
+                    <a href="mailto:info@mt.ua" class="hub-cta-btn hub-cta-btn--ghost">
+                        Написати листа
+                    </a>
+                </div>
+            </div>
+
+            <div class="hub-cta-contacts">
+                <div class="hub-cta-row">
+                    <div class="hub-cta-label">Телефон</div>
+                    <div class="hub-cta-value">+38 (0800) 30 44 04</div>
+                </div>
+                <div class="hub-cta-row">
+                    <div class="hub-cta-label">Email</div>
+                    <div class="hub-cta-value">info@mt.ua</div>
+                </div>
+                <div class="hub-cta-row">
+                    <div class="hub-cta-label">Адреса виробництва</div>
+                    <div class="hub-cta-value">м. Київ, вул. Кирилівська, 102</div>
+                </div>
+                <div class="hub-cta-row">
+                    <div class="hub-cta-label">Звʼязок по калькуляторам</div>
+                    <div class="hub-cta-value">Telegram: @mt_systems (приклад, підстав свій)</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
+
+<script>
+    // Єдина логіка теми (як на TRIAL eTSecutive)
+    const bodyEl = document.body;
+    const themeBtn = document.getElementById('themeToggle');
+
+    function applyTheme(mode) {
+        const isDark = mode === 'dark';
+        if (isDark) {
+            bodyEl.classList.add('dark-theme');
+            themeBtn.innerHTML = '<span></span> Світла тема';
+        } else {
+            bodyEl.classList.remove('dark-theme');
+            themeBtn.innerHTML = '<span></span> Темна тема';
+        }
+    }
+
+    const savedTheme = localStorage.getItem('mtHubTheme') || 'light';
+    applyTheme(savedTheme);
+
+    themeBtn.addEventListener('click', () => {
+        const newTheme = bodyEl.classList.contains('dark-theme') ? 'light' : 'dark';
+        localStorage.setItem('mtHubTheme', newTheme);
+        applyTheme(newTheme);
+    });
+</script>
 
 </body>
 </html>
