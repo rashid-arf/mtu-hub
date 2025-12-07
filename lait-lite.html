@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <title>Калькулятор полиць LAIT (Lite)</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #050505;
+            color: #f5f5f5;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }
+        .root {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 24px 16px 40px;
+        }
+        h1.title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .card {
+            background: #141414;
+            border-radius: 16px;
+            padding: 16px 18px 18px;
+            border: 1px solid #2a2a2a;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 16px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px 16px;
+            margin-bottom: 16px;
+        }
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .field label {
+            font-size: 12px;
+            color: #bbbbbb;
+        }
+        .field input,
+        .field select {
+            background: #111111;
+            border-radius: 10px;
+            border: 1px solid #333333;
+            padding: 6px 8px;
+            font-size: 13px;
+            color: #f5f5f5;
+            outline: none;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .field input:focus,
+        .field select:focus {
+            border-color: #ffffff;
+            box-shadow: 0 0 0 1px #ffffff11;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, #ffffff, #bbbbbb);
+            color: #000000;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
+        }
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.45);
+        }
+        .button:active {
+            transform: translateY(0);
+            box-shadow: none;
+            opacity: 0.9;
+        }
+        .results {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(0, 1.4fr);
+            gap: 12px;
+        }
+        .section {
+            margin-top: 6px;
+        }
+        .section h3 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #e0e0e0;
+        }
+        .block {
+            padding: 4px 0;
+            border-bottom: 1px dashed #2e2e2e;
+        }
+        .block:last-child {
+            border-bottom: none;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+        .rowSmall {
+            font-size: 12px;
+            color: #d0d0d0;
+            margin-top: 2px;
+        }
+        .rowStrong {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+        @media (max-width: 900px) {
+            .results {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ВІТРИНА LAIT (Lite) -->
+<section id="lait-lite-showcase" class="section">
+    <div class="section-header">
+        <h2 class="section-headline">Полиці LAIT (Lite)</h2>
+        <p class="section-lead">
+            Легка система скляних полиць з інтегрованим світлом:
+            профілі LA-1048 / LA-1049, кронштейни LA-B, LED Domus APEX SHE та
+            конвертери 24V. Готове рішення для гардеробних, вітрин і ніш.
+        </p>
+    </div>
+
+    <div class="cards-grid">
+        <article class="info-card">
+            <h3>Де застосовувати</h3>
+            <p>
+                Гардеробні системи, нішеві полиці у спальні, шоуруми, магазини.
+                LAIT працює як самостійна полиця або доповнення до TRIAL / eTSecutive.
+            </p>
+            <ul>
+                <li>Гардеробні та шафи-купе</li>
+                <li>Ніші в спальнях та вітальнях</li>
+                <li>Зони продажу та вітрини</li>
+            </ul>
+        </article>
+
+        <article class="info-card">
+            <h3>Конструкція полиці</h3>
+            <p>
+                Рамка з алюмінієвих профілів LA-1048 (фронт під світло) та
+                LA-1049 (бокові/задня частина), наповнення — скло або ДСП 18 мм
+                з четвертю, кронштейни LA-B.
+            </p>
+            <ul>
+                <li>Довжина полиці: 600–1200 мм</li>
+                <li>Глибина: зазвичай 300–400 мм (можна змінювати)</li>
+                <li>Кронштейни: 2&nbsp;шт до 900 мм, 3&nbsp;шт від 900 до 1200 мм</li>
+            </ul>
+        </article>
+
+        <article class="info-card">
+            <h3>Скло / ДСП та обробка</h3>
+            <p>
+                Скло гартоване за прайсом Busel (Float, Extra-clear, Dark Grey, Satin),
+                з поліруванням кромок. Альтернатива — ДСП 18 мм з вибіркою четверті.
+            </p>
+            <ul>
+                <li>Скло 4–6 мм, тільки гартоване</li>
+                <li>Розрахунок площі та вартості — через Busel GLASS engine</li>
+                <li>ДСП 18 мм без кромки, з четвертю під профіль</li>
+            </ul>
+        </article>
+
+        <article class="info-card">
+            <h3>LED-версія</h3>
+            <p>
+                У профіль LA-1048 вбудовується LED-стрічка Domus APEX SHE 24V
+                або LED-розсіювач 2800&nbsp;мм. Калькулятор рахує довжину стрічки,
+                потужність та підбирає конвертер.
+            </p>
+            <ul>
+                <li>Domus APEX SHE 24V, розрахунок W/м</li>
+                <li>Автоматичний підбір конвертера (30 / 60 / 90 / 150 W)</li>
+                <li>Конектори живлення OL-CONN-N по кількості полиць</li>
+            </ul>
+        </article>
+
+        <article class="info-card">
+            <h3>Що дає калькулятор</h3>
+            <p>
+                Калькулятор LAIT (Lite) розбиває проєкт на матеріали та послуги:
+                профіль, скло/ДСП, кронштейни, конектори, LED, конвертер та роботи
+                (різка профілю, збірка, поклейка скла, вибірка четверті, монтаж LED).
+            </p>
+            <ul>
+                <li>Чітке ТЗ для виробника або монтажної бригади</li>
+                <li>Прозора собівартість по кожній полиці</li>
+                <li>Готовий текст для комерційної пропозиції клієнту</li>
+            </ul>
+        </article>
+
+        <article class="info-card">
+            <h3>Як працювати з MTU</h3>
+            <p>
+                Ви можете замовити повний комплект LAIT:
+                профіль, скло, LED та послуги в одному місці.
+                Ми робимо різку, збірку, поклейку та готуємо полиці до монтажу.
+            </p>
+            <ul>
+                <li>Комплект «під ключ» з нашого складу</li>
+                <li>Варіант: тільки профіль + послуги, скло — вашого постачальника</li>
+                <li>Підтримка менеджера MTU на етапі проєктування</li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+<div class="root">
+    <h1 class="title">Калькулятор полиць LAIT (Lite)</h1>
+
+    <!-- Вхідні дані -->
+    <div class="card">
+        <div class="grid">
+            <div class="field">
+                <label for="eurRate">Курс EUR, грн</label>
+                <input id="eurRate" type="number" value="49.5" step="0.01" />
+            </div>
+            <div class="field">
+                <label for="lengthMm">Довжина полиці, мм</label>
+                <input id="lengthMm" type="number" value="900" />
+            </div>
+            <div class="field">
+                <label for="depthMm">Глибина полиці, мм</label>
+                <input id="depthMm" type="number" value="600" />
+            </div>
+            <div class="field">
+                <label for="quantity">Кількість полиць</label>
+                <input id="quantity" type="number" value="2" min="1" />
+            </div>
+
+            <div class="field">
+                <label for="finishId">Оздоблення профілю</label>
+                <select id="finishId">
+                    <option value="black">Чорний мат</option>
+                    <option value="bronze_cartier">Бронза Карт’є</option>
+                    <option value="bronze_armani">Бронза Armani</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="infillType">Наповнення</label>
+                <select id="infillType">
+                    <option value="glass">Скло</option>
+                    <option value="board">ДСП 18 мм (під четверть)</option>
+                </select>
+            </div>
+
+            <div class="field" id="glassField">
+                <label for="glassId">Тип скла</label>
+                <select id="glassId">
+                    <option value="float_clear_4">Скло Float прозоре 4 мм</option>
+                    <option value="float_clear_5" selected>Скло Float прозоре 5 мм</option>
+                    <option value="float_clear_6">Скло Float прозоре 6 мм</option>
+
+                    <option value="extra_clear_4">Скло Extra-clear 4 мм (Діамант / low-iron)</option>
+                    <option value="extra_clear_5">Скло Extra-clear 5 мм (Діамант / low-iron)</option>
+                    <option value="extra_clear_6">Скло Extra-clear 6 мм (Діамант / low-iron)</option>
+
+                    <option value="dark_grey_4">Скло Dark Grey 4 мм (тоноване)</option>
+                    <option value="dark_grey_6">Скло Dark Grey 6 мм (тоноване)</option>
+
+                    <option value="satin_extra_clear_4">Скло Satin Extra Clear 4 мм (матове)</option>
+                    <option value="satin_extra_clear_6">Скло Satin Extra Clear 6 мм (матове)</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="ledType">LED-підсвітка</label>
+                <select id="ledType">
+                    <option value="none">Без LED</option>
+                    <option value="led_domus_apex_she" selected>Domus Apex SHE 24V</option>
+                    <option value="led_diffuser_2800">LED розсіювач 2800 мм</option>
+                </select>
+            </div>
+        </div>
+
+        <button id="calcBtn" class="button">Розрахувати</button>
+    </div>
+
+    <!-- Результати -->
+    <div id="resultsContainer" style="display:none;">
+        <div class="results">
+            <div class="card">
+                <h2>Підсумок по полиці</h2>
+                <div id="shelvesSummary"></div>
+            </div>
+
+            <div class="card">
+                <h2>Матеріали</h2>
+
+                <div class="section">
+                    <h3>Профілі (факт / до оплати)</h3>
+                    <div id="profilesSummary"></div>
+                </div>
+
+                <div class="section">
+                    <h3>Скло</h3>
+                    <div id="glassSummary"></div>
+                </div>
+
+                <div class="section">
+                    <h3>ДСП</h3>
+                    <div id="boardsSummary"></div>
+                </div>
+
+                <div class="section">
+                    <h3>Кронштейни</h3>
+                    <div id="bracketsSummary"></div>
+                </div>
+
+                <div class="section">
+                    <h3>Конектори рамки</h3>
+                    <div id="connectorsSummary"></div>
+                </div>
+
+                <div class="section">
+                    <h3>LED</h3>
+                    <div id="ledSummary"></div>
+                </div>
+
+                <div class="section">
+                    <h3>Живлення (конвертер + конектор живлення)</h3>
+                    <div id="powerSummary"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Послуги та суми</h2>
+
+                <div class="section">
+                    <h3>Послуги</h3>
+                    <div id="servicesSummary"></div>
+                </div>
+
+                <div class="section">
+                    <div class="rowSmall" id="materialsTotal"></div>
+                    <div class="rowSmall" id="servicesTotal"></div>
+                    <div class="rowStrong" id="grandTotal"></div>
+                </div>
+
+                <div class="section">
+                    <h3>Пояснення для менеджера</h3>
+                    <div id="explainManager"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ===== ДОВІДНИКИ =====
+    const refData = {
+        profilesLait: [
+            {
+                id: 'LA1048',
+                name: 'Профіль LAIT фронтальний для світла, 6100мм',
+                role: 'front',
+                lengthMm: 6100,
+                finishes: [
+                    { id: 'black',          name: 'Чорний мат',      pricePerBar: 122.91, currency: 'EUR', article: 'трLA-1048-NS' },
+                    { id: 'bronze_cartier', name: 'Бронза Карт’є',   pricePerBar: 104.81, currency: 'EUR', article: 'трLA-1048-BRC_св' },
+                    { id: 'bronze_armani',  name: 'Бронза Armani',   pricePerBar: 110.97, currency: 'EUR', article: 'трLA-1048-BRA' }
+                ]
+            },
+            {
+                id: 'LA1049',
+                name: 'Профіль LAIT боковий і задній для полиці, 6100мм',
+                role: 'side_back',
+                lengthMm: 6100,
+                finishes: [
+                    { id: 'black',          name: 'Чорний мат',      pricePerBar: 112.46, currency: 'EUR', article: 'трLA-1049-NS' },
+                    { id: 'bronze_cartier', name: 'Бронза Карт’є',   pricePerBar: 112.46, currency: 'EUR', article: 'трLA-1049-BRC_св' },
+                    { id: 'bronze_armani',  name: 'Бронза Armani',   pricePerBar: 119.07, currency: 'EUR', article: 'трLA-1049-BRA' }
+                ]
+            }
+        ],
+
+        // ==== ВСІ ВАРІАНТИ СКЛА ДЛЯ LAIT ====
+        glassLait: [
+            // FLOAT
+            {
+                id: 'float_clear_4',
+                name: 'Скло Float прозоре 4 мм (гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 507.90,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-FLOAT-4'
+            },
+            {
+                id: 'float_clear_5',
+                name: 'Скло Float прозоре 5 мм (гарт.)',
+                thicknessMm: 5,
+                pricePerM2: 725.22,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-FLOAT-5'
+            },
+            {
+                id: 'float_clear_6',
+                name: 'Скло Float прозоре 6 мм (гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 996.90,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-FLOAT-6'
+            },
+
+            // EXTRA CLEAR (Діамант / low-iron)
+            {
+                id: 'extra_clear_4',
+                name: 'Скло Extra-clear 4 мм (Діамант / low-iron, гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 879.30,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-EXTRA-4'
+            },
+            {
+                id: 'extra_clear_5',
+                name: 'Скло Extra-clear 5 мм (Діамант / low-iron, гарт.)',
+                thicknessMm: 5,
+                pricePerM2: 1203.48,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-EXTRA-5'
+            },
+            {
+                id: 'extra_clear_6',
+                name: 'Скло Extra-clear 6 мм (Діамант / low-iron, гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 1403.4,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-EXTRA-6'
+            },
+
+            // DARK GREY
+            {
+                id: 'dark_grey_4',
+                name: 'Скло Dark Grey 4 мм (тоноване, гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 1683,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-GREY-4'
+            },
+            {
+                id: 'dark_grey_6',
+                name: 'Скло Dark Grey 6 мм (тоноване, гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 2863.08,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-GREY-6'
+            },
+
+            // SATIN EXTRA CLEAR
+            {
+                id: 'satin_extra_clear_4',
+                name: 'Скло Satin Extra Clear 4 мм (матове, гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 1306.26,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-SATIN-4'
+            },
+            {
+                id: 'satin_extra_clear_6',
+                name: 'Скло Satin Extra Clear 6 мм (матове, гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 1918.62,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-SATIN-6'
+            }
+        ],
+
+        boardLait: [
+            {
+                id: 'board_18mm_generic',
+                name: 'ДСП 18 мм (під четверть для LAIT, без кромки)',
+                thicknessMm: 18,
+                pricePerM2: 590,
+                currency: 'UAH',
+                quarterDepthMm: 8,
+                seatThicknessMm: 10,
+                article: 'BOARD-18-LAIT'
+            }
+        ],
+
+        // LED-варіанти
+        ledLait: [
+            {
+                id: 'led_domus_apex_she',
+                name: 'Domus APEX SHE 24V',
+                pricingMode: 'perMeter',
+                pricePerM: 2125,
+                currency: 'UAH',
+                powerWPerM: 13.9,
+                needsDriver: true,
+                note: 'Монтаж у профіль LA1048',
+                article: 'DOMUS-APEX-SHE'
+            },
+            {
+                id: 'led_diffuser_2800',
+                name: 'LED розсіювач 2800 мм',
+                pricingMode: 'perPiece',
+                pieceLengthMm: 2800,
+                pricePerPiece: 1017.00,
+                currency: 'UAH',
+                powerWPerM: 0,
+                needsDriver: false,
+                article: 'boMNSLP2800'
+            }
+        ],
+
+        bracketsLait: [
+            {
+                id: 'holder_LA_B',
+                name: 'Тримач полиці LA-B (4 шт/комплект)',
+                mountType: 'side_panel',
+                pricePerPc: 7.42 / 4, // EUR за 1 шт
+                currency: 'EUR',
+                minQtyPerShelfUpToMm: 900,
+                minQtyBelowOrEqualSpan: 2,
+                minQtyAboveSpan: 3,
+                maxSpanMm: 1200,
+                article: 'трLA-B'
+            }
+        ],
+
+        connectorsLait: [
+            {
+                id: 'connector_kit_LAIT',
+                name: 'Комплект з’єднувальних елементів для полиці LAIT (4 шт.)',
+                pricePerKit: 17.88,
+                currency: 'EUR',
+                pcsPerKit: 4,
+                article: 'трKIT-LA-G30-EL-GR'
+            }
+        ],
+
+        // Конвертери 24V
+        convertersLait: [
+            {
+                id: 'conv30',
+                name: 'Конвертер 24V 30W',
+                powerW: 30,
+                priceUah: 1150,
+                currency: 'UAH',
+                article: 'DL-CONV-30'
+            },
+            {
+                id: 'conv60',
+                name: 'Конвертер 24V 60W',
+                powerW: 60,
+                priceUah: 1800,
+                currency: 'UAH',
+                article: 'DL-CONV-60'
+            },
+            {
+                id: 'conv90',
+                name: 'Конвертер 24V 90W',
+                powerW: 90,
+                priceUah: 3000,
+                currency: 'UAH',
+                article: 'DL-CONV-90'
+            },
+            {
+                id: 'conv150',
+                name: 'Конвертер 24V 150W',
+                powerW: 150,
+                priceUah: 3500,
+                currency: 'UAH',
+                article: 'DL-CONV-150'
+            }
+        ],
+
+        // Конектор живлення OL-CONN-N
+        powerConnectorLait: {
+            id: 'ol_conn_n',
+            name: 'Конектор живлення OL-CONN-N (Domus Line)',
+            priceUah: 80,
+            currency: 'UAH',
+            article: 'OL-CONN-N'
+        },
+
+        servicesLait: [
+            {
+                id: 'srv_cut_profile_lait',
+                name: 'Порізка та свердлівка профілю на одну полицю (087366)',
+                unit: 'shelf',
+                pricePerUnit: 1150.00,
+                currency: 'UAH',
+                article: '087366'
+            },
+            {
+                id: 'srv_assemble_frame_lait',
+                name: 'Збірка полиці LAIT (без приклеювання скла) (116357)',
+                unit: 'shelf',
+                pricePerUnit: 675.00,
+                currency: 'UAH',
+                article: '116357'
+            },
+            {
+                id: 'srv_install_glass_lait',
+                name: 'Поклейка скла на профіль LAIT (до 1 м²) (123125)',
+                unit: 'm2',
+                pricePerUnit: 600,
+                currency: 'UAH',
+                article: '123125'
+            },
+            {
+                id: 'srv_quarter_board_lait',
+                name: 'Вибірка четверті під ДВП, ДСП (044275)',
+                unit: 'm',
+                pricePerUnit: 50.00,
+                currency: 'UAH',
+                article: '044275'
+            },
+            {
+                id: 'srv_install_led_lait',
+                name: 'Монтаж LED-підсвітки в полицю LAIT',
+                unit: 'shelf',
+                pricePerUnit: 15,
+                currency: 'UAH',
+                article: '102907'
+            }
+        ],
+
+        constantsLait: {
+            glassOffsetMm: 5,
+            ledOffsetMm: 10
+        }
+    };
+
+    function toUAH(value, currency, eurRate) {
+        return currency === 'EUR' ? value * eurRate : value;
+    }
+
+    // ===== Busel GLASS ENGINE =====
+    function calcBuselGlassForLait({ widthMm, heightMm, pricePerM2, edgePolishPerM }) {
+        const rawArea = (widthMm * heightMm) / 1_000_000;
+        const billingArea = Math.max(rawArea, 0.25);
+        const edgeLenM = (2 * (widthMm + heightMm)) / 1000;
+
+        function areaCoef(a) {
+            if (a >= 7.5) return 2.0;
+            if (a >= 6.5) return 1.5;
+            if (a >= 5.5) return 1.3;
+            if (a >= 4.5) return 1.2;
+            if (a >= 3.5) return 1.1;
+            return 1.0;
+        }
+        const coef = areaCoef(billingArea);
+
+        const materialBusel = billingArea * pricePerM2 * coef;
+        const polishBusel   = edgeLenM * edgePolishPerM;
+        const buselNet      = materialBusel + polishBusel;
+
+        const mtNet    = buselNet * 0.85;
+        const mtRetail = mtNet * 1.30;
+
+        return {
+            rawArea,
+            billingArea,
+            edgeLenM,
+            coef,
+            mtRetail
+        };
+    }
+
+    // ===== Billing rule для профілю (0.5 / 1 / 1.5 / ... барів) =====
+    function computeBillingBars(usedLengthMm, barLenMm) {
+        if (usedLengthMm <= 0) return 0;
+        const ratio = usedLengthMm / barLenMm;
+        const whole = Math.floor(ratio);
+        const frac = ratio - whole;
+
+        if (frac === 0) return whole;
+        if (whole === 0) {
+            return frac <= 0.5 ? 0.5 : 1;
+        }
+        return frac <= 0.5 ? whole + 0.5 : whole + 1;
+    }
+
+    function calcLaitProject(input, ref) {
+        const c = ref.constantsLait;
+
+        const shelvesOut = [];
+
+        const profilesMap        = new Map();
+        const glassMap           = new Map();
+        const boardsMap          = new Map();
+        const bracketsMap        = new Map();
+        const connectorsMap      = new Map();
+        const ledsMap            = new Map();
+        const servicesMap        = new Map();
+        const powerConvertersMap = new Map();
+        const powerConnectorsMap = new Map();
+
+        let totalLedPowerW = 0;
+        let totalLedLengthM = 0;
+        let ledShelfCount = 0;
+
+        function getProfile(id) { return ref.profilesLait.find(p => p.id === id); }
+        function getGlass(id)   { return ref.glassLait.find(g => g.id === id); }
+        function getBoard(id)   { return ref.boardLait.find(b => b.id === id); }
+        function getBracket(id) { return ref.bracketsLait.find(b => b.id === id); }
+        function getLed(id)     { return ref.ledLait.find(l => l.id === id); }
+        function getConnector() { return ref.connectorsLait[0]; }
+        function getService(id) { return ref.servicesLait.find(s => s.id === id); }
+        function getConverters() { return ref.convertersLait || []; }
+        function getPowerConnectorLait() { return ref.powerConnectorLait; }
+
+        function addService(key, line) {
+            const existing = servicesMap.get(key);
+            if (!existing) {
+                servicesMap.set(key, Object.assign({}, line));
+            } else {
+                existing.quantity += line.quantity;
+                existing.subtotal += line.subtotal;
+            }
+        }
+
+        input.shelves.forEach(shelf => {
+            const {
+                shelfId,
+                label,
+                quantity,
+                lengthMm,
+                depthMm,
+                infillType,
+                infillId,
+                profileFinishId,
+                ledId,
+                bracketId
+            } = shelf;
+
+            const L_infill = lengthMm - c.glassOffsetMm;
+            const D_infill = depthMm - c.glassOffsetMm;
+            const areaM2   = (L_infill * D_infill) / 1_000_000;
+            const perimeterM = 2 * (L_infill + D_infill) / 1000;
+
+            let infillName = '';
+
+            // === Наповнення: скло / ДСП ===
+            if (infillType === 'glass') {
+                const gl = getGlass(infillId);
+                infillName = gl ? gl.name : 'Скло (не знайдено)';
+
+                if (gl) {
+                    const glassCalc = calcBuselGlassForLait({
+                        widthMm:  L_infill,
+                        heightMm: D_infill,
+                        pricePerM2: gl.pricePerM2,
+                        edgePolishPerM: 100
+                    });
+
+                    const costPerShelf = glassCalc.mtRetail;
+                    const subtotal = costPerShelf * quantity;
+
+                    const key = gl.id;
+                    const existing = glassMap.get(key);
+
+                    if (!existing) {
+                        glassMap.set(key, {
+                            infillId: gl.id,
+                            name: gl.name,
+                            thicknessMm: gl.thicknessMm,
+                            areaM2: glassCalc.rawArea * quantity,
+                            quantitySheets: quantity,
+                            subtotal,
+                            currency: 'UAH'
+                        });
+                    } else {
+                        existing.areaM2 += glassCalc.rawArea * quantity;
+                        existing.quantitySheets += quantity;
+                        existing.subtotal += subtotal;
+                    }
+
+                    const srvGlass = getService('srv_install_glass_lait');
+                    if (srvGlass) {
+                        const srvQty = glassCalc.billingArea * quantity;
+                        const srvSub = srvQty * srvGlass.pricePerUnit;
+                        addService(srvGlass.id, {
+                            serviceId: srvGlass.id,
+                            name: srvGlass.name,
+                            unit: srvGlass.unit,
+                            quantity: srvQty,
+                            subtotal: srvSub,
+                            currency: srvGlass.currency
+                        });
+                    }
+                }
+            } else {
+                const bd = getBoard(infillId);
+                infillName = bd ? bd.name : 'ДСП (не знайдено)';
+
+                if (bd) {
+                    const key = bd.id;
+                    const subtotal = areaM2 * quantity * bd.pricePerM2;
+                    const ex = boardsMap.get(key);
+                    if (!ex) {
+                        boardsMap.set(key, {
+                            infillId: bd.id,
+                            name: bd.name,
+                            areaM2: areaM2 * quantity,
+                            perimeterM: perimeterM * quantity,
+                            quantityBoards: quantity,
+                            subtotal,
+                            currency: bd.currency
+                        });
+                    } else {
+                        ex.areaM2 += areaM2 * quantity;
+                        ex.perimeterM += perimeterM * quantity;
+                        ex.quantityBoards += quantity;
+                        ex.subtotal += subtotal;
+                    }
+
+                    const srvQuarter = getService('srv_quarter_board_lait');
+                    if (srvQuarter) {
+                        const qty = perimeterM * quantity;
+                        const sub = qty * srvQuarter.pricePerUnit;
+                        addService(srvQuarter.id, {
+                            serviceId: srvQuarter.id,
+                            name: srvQuarter.name,
+                            unit: srvQuarter.unit,
+                            quantity: qty,
+                            subtotal: sub,
+                            currency: srvQuarter.currency
+                        });
+                    }
+                }
+            }
+
+            // === Профілі ===
+            const profFront    = getProfile('LA1048');
+            const profSideBack = getProfile('LA1049');
+            const finishFront  = profFront.finishes.find(f => f.id === profileFinishId);
+            const finishSB     = profSideBack.finishes.find(f => f.id === profileFinishId);
+
+            const frontLenPerShelf = lengthMm;
+            const backLenPerShelf  = lengthMm - 2 * 30;
+            const sideLenPerShelf  = depthMm;
+
+            const totalFrontLenMm      = frontLenPerShelf * quantity;
+            const totalBackSideLenMm   = (backLenPerShelf + 2 * sideLenPerShelf) * quantity;
+
+            function updateProfile(profile, finish, totalLenMm) {
+                const key = profile.id + '|' + finish.id;
+                const barLen = profile.lengthMm;
+
+                const barsPhysical = Math.max(1, Math.ceil(totalLenMm / barLen));
+                const billingBars  = computeBillingBars(totalLenMm, barLen);
+                const offcutMm     = barsPhysical * barLen - totalLenMm;
+                const subtotal     = billingBars * finish.pricePerBar;
+
+                const ex = profilesMap.get(key);
+                if (!ex) {
+                    profilesMap.set(key, {
+                        profileId: profile.id,
+                        finishId: finish.id,
+                        totalLengthMm: totalLenMm,
+                        barsPhysical,
+                        billingBars,
+                        offcutMm,
+                        subtotal,
+                        currency: finish.currency
+                    });
+                } else {
+                    ex.totalLengthMm += totalLenMm;
+                    ex.barsPhysical = Math.max(1, Math.ceil(ex.totalLengthMm / barLen));
+                    ex.billingBars  = computeBillingBars(ex.totalLengthMm, barLen);
+                    ex.offcutMm     = ex.barsPhysical * barLen - ex.totalLengthMm;
+                    ex.subtotal     = ex.billingBars * finish.pricePerBar;
+                }
+            }
+
+            updateProfile(profFront, finishFront, totalFrontLenMm);
+            updateProfile(profSideBack, finishSB, totalBackSideLenMm);
+
+            // === Кронштейни ===
+            const bracket = getBracket(bracketId);
+            if (bracket) {
+                const bracketsPerShelf =
+                    lengthMm <= bracket.minQtyPerShelfUpToMm
+                        ? bracket.minQtyBelowOrEqualSpan
+                        : bracket.minQtyAboveSpan;
+                const totalBrackets = bracketsPerShelf * quantity;
+                const key = bracket.id;
+                const sub = totalBrackets * bracket.pricePerPc;
+                const ex = bracketsMap.get(key);
+                if (!ex) {
+                    bracketsMap.set(key, {
+                        bracketId: bracket.id,
+                        name: bracket.name,
+                        quantity: totalBrackets,
+                        subtotal: sub,
+                        currency: bracket.currency
+                    });
+                } else {
+                    ex.quantity += totalBrackets;
+                    ex.subtotal += sub;
+                }
+            }
+
+            // === Конектори рамки ===
+            const connectorKit = getConnector();
+            const kits = quantity;
+            const pcsTotal = kits * connectorKit.pcsPerKit;
+            const connKey = connectorKit.id;
+            const connSub = kits * connectorKit.pricePerKit;
+            const exConn = connectorsMap.get(connKey);
+            if (!exConn) {
+                connectorsMap.set(connKey, {
+                    connectorId: connectorKit.id,
+                    name: connectorKit.name,
+                    kits,
+                    pcsTotal,
+                    subtotal: connSub,
+                    currency: connectorKit.currency
+                });
+            } else {
+                exConn.kits += kits;
+                exConn.pcsTotal += pcsTotal;
+                exConn.subtotal += connSub;
+            }
+
+            // === LED ===
+            let ledLengthMPerShelf = 0;
+            if (ledId && ledId !== 'none') {
+                const led = getLed(ledId);
+                if (led) {
+                    let totalLengthMForGroup = 0;
+                    let subtotal = 0;
+                    let totalPieces = 0;
+
+                    if (led.pricingMode === 'perMeter') {
+                        const ledNetLengthMm = lengthMm - 2 * c.ledOffsetMm;
+                        const lengthPerShelfM = ledNetLengthMm / 1000;
+                        ledLengthMPerShelf = lengthPerShelfM * quantity;
+                        totalLengthMForGroup = ledLengthMPerShelf;
+                        subtotal = totalLengthMForGroup * led.pricePerM;
+
+                        if (led.needsDriver) {
+                            totalLedPowerW += totalLengthMForGroup * led.powerWPerM;
+                            ledShelfCount += quantity;
+                        }
+                    } else if (led.pricingMode === 'perPiece') {
+                        const piecesPerShelf = Math.ceil(lengthMm / led.pieceLengthMm);
+                        totalPieces = piecesPerShelf * quantity;
+                        totalLengthMForGroup = (totalPieces * led.pieceLengthMm) / 1000;
+                        ledLengthMPerShelf = totalLengthMForGroup;
+                        subtotal = totalPieces * led.pricePerPiece;
+                    }
+
+                    totalLedLengthM += totalLengthMForGroup;
+
+                    const ledKey = led.id;
+                    const exLed = ledsMap.get(ledKey);
+                    if (!exLed) {
+                        ledsMap.set(ledKey, {
+                            ledId: led.id,
+                            name: led.name,
+                            totalLengthM: totalLengthMForGroup,
+                            subtotal,
+                            currency: led.currency,
+                            totalPieces: totalPieces
+                        });
+                    } else {
+                        exLed.totalLengthM += totalLengthMForGroup;
+                        exLed.subtotal += subtotal;
+                        exLed.totalPieces = (exLed.totalPieces || 0) + totalPieces;
+                    }
+
+                    const srvLed = getService('srv_install_led_lait');
+                    if (srvLed) {
+                        const qty = quantity;
+                        const sub = qty * srvLed.pricePerUnit;
+                        addService(srvLed.id, {
+                            serviceId: srvLed.id,
+                            name: srvLed.name,
+                            unit: srvLed.unit,
+                            quantity: qty,
+                            subtotal: sub,
+                            currency: srvLed.currency
+                        });
+                    }
+                }
+            }
+
+            // === Послуги порізки/збірки (на полицю) ===
+            const srvCut = getService('srv_cut_profile_lait');
+            const srvAssy = getService('srv_assemble_frame_lait');
+
+            if (srvCut) {
+                const qty = quantity;
+                const sub = qty * srvCut.pricePerUnit;
+                addService(srvCut.id, {
+                    serviceId: srvCut.id,
+                    name: srvCut.name,
+                    unit: srvCut.unit,
+                    quantity: qty,
+                    subtotal: sub,
+                    currency: srvCut.currency
+                });
+            }
+
+            if (srvAssy) {
+                const qty = quantity;
+                const sub = qty * srvAssy.pricePerUnit;
+                addService(srvAssy.id, {
+                    serviceId: srvAssy.id,
+                    name: srvAssy.name,
+                    unit: srvAssy.unit,
+                    quantity: qty,
+                    subtotal: sub,
+                    currency: srvAssy.currency
+                });
+            }
+
+            shelvesOut.push({
+                shelfId,
+                label,
+                quantity,
+                lengthMm,
+                depthMm,
+                infillType,
+                infillName,
+                infillSize: {
+                    lengthMm: L_infill,
+                    depthMm: D_infill,
+                    areaM2,
+                    perimeterM
+                },
+                ledLengthM: ledLengthMPerShelf,
+                bracketsQty: bracket ? quantity * (lengthMm <= bracket.minQtyPerShelfUpToMm
+                    ? bracket.minQtyBelowOrEqualSpan
+                    : bracket.minQtyAboveSpan) : 0,
+                connectorsKits: kits
+            });
+        });
+
+        // === ЖИВЛЕННЯ: конвертер + OL-CONN-N (тільки якщо є LED з потребою в драйвері) ===
+        let powerInfo = {
+            totalLedPowerW,
+            totalLedLengthM,
+            converter: null,
+            requiredWithReserveW: 0
+        };
+
+        if (totalLedPowerW > 0) {
+            const convs = getConverters();
+            const reserveFactor = 1.3;
+            const requiredWithReserveW = totalLedPowerW * reserveFactor;
+
+            let selectedConv = convs.find(c => c.powerW >= requiredWithReserveW);
+            if (!selectedConv && convs.length > 0) {
+                selectedConv = convs[convs.length - 1];
+            }
+
+            if (selectedConv) {
+                powerConvertersMap.set(selectedConv.id, {
+                    converterId: selectedConv.id,
+                    name: selectedConv.name,
+                    powerW: selectedConv.powerW,
+                    requiredPowerW: totalLedPowerW,
+                    requiredWithReserveW,
+                    quantity: 1,
+                    subtotal: selectedConv.priceUah,
+                    currency: selectedConv.currency,
+                    article: selectedConv.article
+                });
+
+                const pc = getPowerConnectorLait();
+                if (pc) {
+                    const totalConnectors = ledShelfCount;
+                    powerConnectorsMap.set(pc.id, {
+                        connectorId: pc.id,
+                        name: pc.name,
+                        quantity: totalConnectors,
+                        subtotal: pc.priceUah * totalConnectors,
+                        currency: pc.currency,
+                        article: pc.article
+                    });
+                }
+
+                powerInfo = {
+                    totalLedPowerW,
+                    totalLedLengthM,
+                    converter: selectedConv,
+                    requiredWithReserveW
+                };
+            }
+        }
+
+        const profiles        = Array.from(profilesMap.values());
+        const glass           = Array.from(glassMap.values());
+        const boards          = Array.from(boardsMap.values());
+        const brackets        = Array.from(bracketsMap.values());
+        const connectors      = Array.from(connectorsMap.values());
+        const leds            = Array.from(ledsMap.values());
+        const services        = Array.from(servicesMap.values());
+        const powerConverters = Array.from(powerConvertersMap.values());
+        const powerConnectors = Array.from(powerConnectorsMap.values());
+
+        let totalMatUAH = 0;
+        let totalSrvUAH = 0;
+
+        profiles.forEach(p   => totalMatUAH += toUAH(p.subtotal,   p.currency, input.eurRate));
+        glass.forEach(g      => totalMatUAH += toUAH(g.subtotal,   g.currency, input.eurRate));
+        boards.forEach(b     => totalMatUAH += toUAH(b.subtotal,   b.currency, input.eurRate));
+        brackets.forEach(b   => totalMatUAH += toUAH(b.subtotal,   b.currency, input.eurRate));
+        connectors.forEach(c => totalMatUAH += toUAH(c.subtotal,   c.currency, input.eurRate));
+        leds.forEach(l       => totalMatUAH += toUAH(l.subtotal,   l.currency, input.eurRate));
+        powerConverters.forEach(pc => totalMatUAH += toUAH(pc.subtotal, pc.currency, input.eurRate));
+        powerConnectors.forEach(pc => totalMatUAH += toUAH(pc.subtotal, pc.currency, input.eurRate));
+        services.forEach(s   => totalSrvUAH += toUAH(s.subtotal,   s.currency, input.eurRate));
+
+        return {
+            shelves: shelvesOut,
+            materials: {
+                profiles,
+                glass,
+                boards,
+                brackets,
+                connectors,
+                leds,
+                powerConverters,
+                powerConnectors
+            },
+            services,
+            power: powerInfo,
+            totals: {
+                materials: totalMatUAH,
+                services: totalSrvUAH,
+                grandTotal: totalMatUAH + totalSrvUAH,
+                currency: 'UAH'
+            }
+        };
+    }
+
+    // ===== UI =====
+    const infillTypeEl = document.getElementById('infillType');
+    const glassFieldEl = document.getElementById('glassField');
+
+    function updateGlassFieldVisibility() {
+        glassFieldEl.style.display = infillTypeEl.value === 'glass' ? 'flex' : 'none';
+    }
+    infillTypeEl.addEventListener('change', updateGlassFieldVisibility);
+    updateGlassFieldVisibility();
+
+    document.getElementById('calcBtn').addEventListener('click', function () {
+        const eurRate   = parseFloat(document.getElementById('eurRate').value || '0');
+        const lengthMm  = parseFloat(document.getElementById('lengthMm').value || '0');
+        const depthMm   = parseFloat(document.getElementById('depthMm').value || '0');
+        const quantity  = parseFloat(document.getElementById('quantity').value || '0');
+        const finishId  = document.getElementById('finishId').value;
+        const infillRaw = document.getElementById('infillType').value;
+        const glassId   = document.getElementById('glassId').value;
+        const ledId     = document.getElementById('ledType').value;
+
+        let infillType, infillId;
+        if (infillRaw === 'glass') {
+            infillType = 'glass';
+            infillId = glassId;
+        } else {
+            infillType = 'board';
+            infillId = 'board_18mm_generic';
+        }
+
+        const inputProject = {
+            eurRate: eurRate,
+            shelves: [
+                {
+                    shelfId: 'S1',
+                    label: 'Полиця ' + lengthMm + '×' + depthMm,
+                    quantity: quantity,
+                    lengthMm: lengthMm,
+                    depthMm: depthMm,
+                    infillType: infillType,
+                    infillId: infillId,
+                    profileFinishId: finishId,
+                    ledId: ledId,
+                    bracketId: 'holder_LA_B'
+                }
+            ]
+        };
+
+        const result = calcLaitProject(inputProject, refData);
+        renderResult(result, eurRate);
+    });
+
+    function clearElement(el) {
+        while (el.firstChild) el.removeChild(el.firstChild);
+    }
+
+    function renderResult(result, eurRate) {
+        document.getElementById('resultsContainer').style.display = 'block';
+
+        const shelvesSummary    = document.getElementById('shelvesSummary');
+        const profilesSummary   = document.getElementById('profilesSummary');
+        const glassSummary      = document.getElementById('glassSummary');
+        const boardsSummary     = document.getElementById('boardsSummary');
+        const bracketsSummary   = document.getElementById('bracketsSummary');
+        const connectorsSummary = document.getElementById('connectorsSummary');
+        const ledSummary        = document.getElementById('ledSummary');
+        const powerSummary      = document.getElementById('powerSummary');
+        const servicesSummary   = document.getElementById('servicesSummary');
+        const explainManagerEl  = document.getElementById('explainManager');
+
+        clearElement(shelvesSummary);
+        clearElement(profilesSummary);
+        clearElement(glassSummary);
+        clearElement(boardsSummary);
+        clearElement(bracketsSummary);
+        clearElement(connectorsSummary);
+        clearElement(ledSummary);
+        clearElement(powerSummary);
+        clearElement(servicesSummary);
+        clearElement(explainManagerEl);
+
+        // Полиці
+        result.shelves.forEach(s => {
+            const div = document.createElement('div');
+            div.className = 'block';
+            div.innerHTML = `
+        <div class="row">
+          <span>${s.label}</span>
+          <span>× ${s.quantity} шт</span>
+        </div>
+        <div class="rowSmall">
+          Наповнення: ${s.infillName} (${s.infillSize.lengthMm}×${s.infillSize.depthMm} мм, ${s.infillSize.areaM2.toFixed(3)} м²)
+        </div>
+        <div class="rowSmall">
+          Кронштейнів: ${s.bracketsQty} шт · Конекторів рамки: ${s.connectorsKits} компл
+        </div>
+        ${s.ledLengthM > 0 ? `<div class="rowSmall">LED: ${s.ledLengthM.toFixed(2)} м</div>` : ''}
+      `;
+            shelvesSummary.appendChild(div);
+        });
+
+        // Профілі
+        if (result.materials.profiles.length === 0) {
+            profilesSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.profiles.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent =
+                    `${p.profileId}/${p.finishId}: витрачено ${p.totalLengthMm.toFixed(0)} мм, ` +
+                    `фізично ${p.barsPhysical.toFixed(1)} бар (відходи ${p.offcutMm.toFixed(0)} мм), ` +
+                    `до оплати ${p.billingBars.toFixed(1)} бар.`;
+                profilesSummary.appendChild(div);
+            });
+        }
+
+        // Скло
+        if (result.materials.glass.length === 0) {
+            glassSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.glass.forEach(g => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent =
+                    `${g.name}: ${g.areaM2.toFixed(3)} м², ${g.quantitySheets} шт`;
+                glassSummary.appendChild(div);
+            });
+        }
+
+        // ДСП
+        if (result.materials.boards.length === 0) {
+            boardsSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.boards.forEach(b => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent =
+                    `${b.name}: ${b.areaM2.toFixed(3)} м², периметр ${b.perimeterM.toFixed(2)} м`;
+                boardsSummary.appendChild(div);
+            });
+        }
+
+        // Кронштейни
+        if (result.materials.brackets.length === 0) {
+            bracketsSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.brackets.forEach(b => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent = `${b.name}: ${b.quantity} шт`;
+                bracketsSummary.appendChild(div);
+            });
+        }
+
+        // Конектори рамки
+        if (result.materials.connectors.length === 0) {
+            connectorsSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.connectors.forEach(c => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent = `${c.name}: ${c.kits} компл (${c.pcsTotal} шт)`;
+                connectorsSummary.appendChild(div);
+            });
+        }
+
+        // LED
+        if (result.materials.leds.length === 0) {
+            ledSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.leds.forEach(l => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                const piecesPart = l.totalPieces ? ` (${l.totalPieces} шт по 2800 мм)` : '';
+                div.textContent = `${l.name}: ${l.totalLengthM.toFixed(2)} м${piecesPart}`;
+                ledSummary.appendChild(div);
+            });
+        }
+
+        // Живлення (конвертер + OL-CONN-N)
+        if (
+            (result.materials.powerConverters.length === 0) &&
+            (result.materials.powerConnectors.length === 0)
+        ) {
+            powerSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.materials.powerConverters.forEach(pc => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent =
+                    `${pc.name} (${pc.article}): 1 шт, ${pc.subtotal.toFixed(2)} грн ` +
+                    `(потрібно ~${pc.requiredWithReserveW.toFixed(1)} W з запасом, обрано ${pc.powerW} W).`;
+                powerSummary.appendChild(div);
+            });
+            result.materials.powerConnectors.forEach(pc => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent =
+                    `${pc.name} (${pc.article}): ${pc.quantity} шт, ${pc.subtotal.toFixed(2)} грн`;
+                powerSummary.appendChild(div);
+            });
+        }
+
+        // Послуги
+        if (result.services.length === 0) {
+            servicesSummary.innerHTML = '<div class="rowSmall">—</div>';
+        } else {
+            result.services.forEach(s => {
+                const div = document.createElement('div');
+                div.className = 'rowSmall';
+                div.textContent =
+                    `${s.name}: ${s.quantity.toFixed(2)} ${s.unit}, ${s.subtotal.toFixed(2)} ${s.currency}`;
+                servicesSummary.appendChild(div);
+            });
+        }
+
+        // Підсумки
+        document.getElementById('materialsTotal').textContent =
+            'Матеріали (UAH): ' + result.totals.materials.toFixed(2);
+        document.getElementById('servicesTotal').textContent =
+            'Послуги (UAH): ' + result.totals.services.toFixed(2);
+        document.getElementById('grandTotal').textContent =
+            'Разом (UAH): ' + result.totals.grandTotal.toFixed(2);
+
+        // ===== Пояснення для менеджера =====
+        let profUAH = 0, glassUAH = 0, boardsUAH = 0, brUAH = 0, connUAH = 0, ledUAH = 0;
+        let powerConvUAH = 0, powerConnUAH = 0;
+        let physBarsTotal = 0, billBarsTotal = 0;
+
+        result.materials.profiles.forEach(p => {
+            profUAH += toUAH(p.subtotal, p.currency, eurRate);
+            physBarsTotal += p.barsPhysical;
+            billBarsTotal += p.billingBars;
+        });
+        result.materials.glass.forEach(g   => glassUAH += toUAH(g.subtotal, g.currency, eurRate));
+        result.materials.boards.forEach(b  => boardsUAH += toUAH(b.subtotal, b.currency, eurRate));
+        result.materials.brackets.forEach(b=> brUAH += toUAH(b.subtotal, b.currency, eurRate));
+        result.materials.connectors.forEach(c=> connUAH += toUAH(c.subtotal, c.currency, eurRate));
+        result.materials.leds.forEach(l    => ledUAH += toUAH(l.subtotal, l.currency, eurRate));
+        result.materials.powerConverters.forEach(pc => powerConvUAH += toUAH(pc.subtotal, pc.currency, eurRate));
+        result.materials.powerConnectors.forEach(pc => powerConnUAH += toUAH(pc.subtotal, pc.currency, eurRate));
+
+        let cutUAH = 0, assyUAH = 0, quarterUAH = 0, ledSrvUAH = 0, glueUAH = 0;
+        result.services.forEach(s => {
+            const valUAH = toUAH(s.subtotal, s.currency, eurRate);
+            if (s.serviceId === 'srv_cut_profile_lait') cutUAH += valUAH;
+            else if (s.serviceId === 'srv_assemble_frame_lait') assyUAH += valUAH;
+            else if (s.serviceId === 'srv_quarter_board_lait') quarterUAH += valUAH;
+            else if (s.serviceId === 'srv_install_led_lait') ledSrvUAH += valUAH;
+            else if (s.serviceId === 'srv_install_glass_lait') glueUAH += valUAH;
+        });
+
+        const em = explainManagerEl;
+        const addLine = text => {
+            const div = document.createElement('div');
+            div.className = 'rowSmall';
+            div.textContent = text;
+            em.appendChild(div);
+        };
+
+        if (profUAH > 0) {
+            addLine(`Профілі: ${profUAH.toFixed(2)} грн (факт ${physBarsTotal.toFixed(1)} бар, до оплати ${billBarsTotal.toFixed(1)} бар).`);
+        }
+        if (glassUAH > 0 && result.materials.glass.length > 0) {
+            const g = result.materials.glass[0];
+            addLine(`Скло (Busel): ${glassUAH.toFixed(2)} грн — ${g.quantitySheets} шт ${g.name}, сумарна площа ${g.areaM2.toFixed(3)} м², ціна розрахована за прайс Busel (м² + поліровка, −15% +30%).`);
+        }
+        if (boardsUAH > 0) {
+            addLine(`ДСП: ${boardsUAH.toFixed(2)} грн (без кромки, з вибіркою четверті).`);
+        }
+        if (brUAH > 0 || connUAH > 0 || ledUAH > 0 || powerConvUAH > 0 || powerConnUAH > 0) {
+            addLine(
+                `Фурнітура та живлення: кронштейни ${brUAH.toFixed(2)} грн, ` +
+                `конектори рамки ${connUAH.toFixed(2)} грн, ` +
+                `LED ${ledUAH.toFixed(2)} грн, ` +
+                `конвертер(и) живлення ${powerConvUAH.toFixed(2)} грн, ` +
+                `конектори живлення ${powerConnUAH.toFixed(2)} грн.`
+            );
+        }
+        if (cutUAH + assyUAH + quarterUAH + ledSrvUAH + glueUAH > 0) {
+            addLine(
+                `Послуги: порізка+свердління профілю ${cutUAH.toFixed(2)} грн, ` +
+                `збірка полиць ${assyUAH.toFixed(2)} грн, ` +
+                `вибірка четверті ${quarterUAH.toFixed(2)} грн, ` +
+                `поклейка скла ${glueUAH.toFixed(2)} грн, ` +
+                `монтаж LED ${ledSrvUAH.toFixed(2)} грн.`
+            );
+        }
+
+        if (result.power && result.power.totalLedPowerW > 0 && result.power.converter) {
+            addLine(
+                `LED-живлення: сумарна довжина LED ${result.power.totalLedLengthM.toFixed(2)} м, ` +
+                `потужність ${result.power.totalLedPowerW.toFixed(1)} W; ` +
+                `для роботи потрібен конвертер не менше ${result.power.requiredWithReserveW.toFixed(1)} W (з запасом), ` +
+                `обрано ${result.power.converter.powerW} W (${result.power.converter.name}).`
+            );
+        }
+
+        addLine(
+            `Загалом: матеріали ${result.totals.materials.toFixed(2)} грн + послуги ${result.totals.services.toFixed(2)} грн = ${result.totals.grandTotal.toFixed(2)} грн.`
+        );
+    }
+</script>
+</body>
+</html>
