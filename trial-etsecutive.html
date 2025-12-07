@@ -3395,7 +3395,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    secret: "mtx-volpato-2025",
+                    secret: TELEGRAM_FORM_SECRET,
                     text: textSummary
                 })
             });
@@ -3412,7 +3412,7 @@
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    secret: "mtx-volpato-2025",
+                    secret: TELEGRAM_FORM_SECRET,
                     text: textCsv
                 })
             });

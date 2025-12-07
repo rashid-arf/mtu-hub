@@ -385,6 +385,13 @@ section {
     min-height: 170px;
 }
 
+.calc-photo {
+    width: 100%;
+    border-radius: 15px;
+    margin: 16px 0;
+    height: 310px;
+}
+
 .calc-card-header {
     margin-bottom: 10px;
 }

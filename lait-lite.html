@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Спільні стилі MTU hub -->
-    <link rel="stylesheet" href="mtu-hub.css/" />
+    <link rel="stylesheet" href="mtu-hub.css" />
 
     <style>
         /* =========================
-           1. Блок детального калькулятора (старий engine)
+           1. Блок детального калькулятора LAIT
            ========================= */
 
         .lait-root {
@@ -30,18 +30,23 @@
             color: #f9fafb;
         }
 
-        .lait-grid-main {
+        /* Контейнер карток калькулятора:
+           1 велика зверху (форма) + 3 нижні (результат) */
+        .lait-calc-grid {
             display: grid;
-            grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.35fr);
             gap: 18px;
         }
 
-        .lait-form-card {
+        .lait-panel {
+            border-radius: 20px;
             background: rgba(15, 23, 42, 0.96);
-            border-radius: 18px;
-            padding: 16px 18px 18px;
-            border: 1px solid rgba(148, 163, 184, 0.55);
-            box-shadow: 0 14px 35px rgba(0,0,0,0.8);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
+            padding: 18px 20px;
+        }
+
+        .lait-panel--inputs {
+            grid-column: 1 / -1;
         }
 
         .lait-results-wrapper {
@@ -52,7 +57,19 @@
             display: block;
         }
 
-        /* Сітка полів */
+        .results {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .results {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Сітка полів форми */
         .lait-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -106,7 +123,7 @@
 
         .button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(15,23,42,0.55);
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.55);
         }
 
         .button:active {
@@ -115,11 +132,10 @@
             opacity: 0.9;
         }
 
-        /* Результати (3 колонки з картками hub) */
-        .results {
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
-            gap: 16px;
+        .button-small {
+            margin-top: 8px;
+            padding: 6px 14px;
+            font-size: 12px;
         }
 
         .row {
@@ -140,11 +156,20 @@
             margin-top: 6px;
         }
 
+        .tg-box {
+            margin-top: 4px;
+        }
 
-        @media (max-width: 900px) {
-            .results {
-                grid-template-columns: 1fr;
-            }
+        .tg-textarea {
+            width: 100%;
+            min-height: 120px;
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            font-size: 12px;
+            padding: 8px 10px;
+            resize: vertical;
         }
 
         /* =========================
@@ -171,41 +196,6 @@
             gap: 18px;
         }
 
-
-        /* ===== LAIT (Lite) — новый лэйаут калькулятора ===== */
-
-        /* контейнер всех 4 карточек калькулятора */
-        .lait-calc-grid {
-            display: grid;
-            /*grid-template-columns: repeat(3, minmax(0, 1fr)); !* три колонки снизу *!*/
-            gap: 18px;
-        }
-
-        /* верхняя карточка с формой — во всю ширину */
-        .lait-panel--inputs {
-            grid-column: 1 / -1; /* растягиваем на все 3 колонки */
-        }
-
-        /* базовый вид карточек (если уже есть, оставь как есть) */
-        .lait-panel {
-            border-radius: 20px;
-            background: rgba(15, 23, 42, 0.96);
-            border: 1px solid rgba(148, 163, 184, 0.45);
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
-            padding: 18px 20px;
-        }
-
-        /* адаптив — на планшетах/мобиле все карточки в колонку */
-        @media (max-width: 1024px) {
-            .lait-calc-grid {
-                grid-template-columns: minmax(0, 1fr);
-            }
-            .lait-panel--inputs {
-                grid-column: auto;
-            }
-        }
-
-
         .lait-bullets {
             padding-left: 18px;
             margin: 6px 0 0;
@@ -225,8 +215,131 @@
                 padding-inline: 12px;
             }
 
-            .lait-grid-2,
-            .lait-grid-3 {
+            .lait-grid-2 {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        .lait-result {
+            margin-top: 32px;
+        }
+
+        .lait-result-card {
+            border-radius: 24px;
+            padding: 20px 24px 22px;
+            background: radial-gradient(circle at top left, #064e3b, #020617 65%);
+            border: 1px solid rgba(34, 197, 94, 0.45);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.85);
+            color: #ecfdf5;
+        }
+
+        .lait-result-main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .lait-result-label {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .lait-result-value {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .lait-result-note {
+            font-size: 13px;
+            max-width: 340px;
+        }
+
+        .lait-result-note-sub {
+            opacity: 0.9;
+        }
+
+        .lait-result-form {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .lait-result-field label {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 4px;
+            opacity: 0.9;
+        }
+
+        .lait-result-field input {
+            width: 100%;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: rgba(15, 23, 42, 0.85);
+            color: #f9fafb;
+            padding: 7px 12px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .lait-result-field input::placeholder {
+            color: rgba(148, 163, 184, 0.8);
+        }
+
+        .lait-result-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .lait-result-mode {
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lait-mode-btn {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: transparent;
+            color: #e5e7eb;
+            padding: 5px 12px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .lait-mode-btn.active {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: #022c22;
+        }
+
+        .lait-send-btn {
+            border-radius: 999px;
+            border: none;
+            padding: 9px 18px;
+            background: #22c55e;
+            color: #022c22;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 14px 30px rgba(34, 197, 94, 0.45);
+        }
+
+        .lait-send-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(34, 197, 94, 0.65);
+        }
+
+        @media (max-width: 960px) {
+            .lait-result-form {
                 grid-template-columns: minmax(0, 1fr);
             }
         }
@@ -252,14 +365,39 @@
         </div>
     </header>
 
-    <!-- ВІТРИНА LAIT (Lite) -->
-    <section id="lait-lite-showcase">
-        <h1 class="section-headline">Полиці LAIT (Lite)</h1>
-        <div class="section-lead lait-intro">
-            <p>Легка система скляних полиць з інтегрованим світлом: профілі LA-1048 / LA-1049, кронштейни LA-B, LED Domus APEX SHE та конвертери 24V.</p>
-            <p>Готове рішення для гардеробних, вітрин і ніш. Працює як доповнення до TRIAL / eTSecutive або як окрема полиця.</p>
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div class="hero-content">
+            <h1 class="hero-title">Легка система скляних полиць</h1>
+
+            <p class="hero-sub">
+                Легка система скляних полиць з інтегрованим світлом: профілі LA-1048 / LA-1049, кронштейни LA-B, LED Domus APEX SHE та конвертери 24V.
+            </p>
+            <p class="hero-sub">
+                Готове рішення для гардеробних, вітрин і ніш. Працює як доповнення до TRIAL / eTSecutive або як окрема полиця.
+            </p>
+
+            <div class="hero-tags">
+                <span>профілі LA-1048 / LA-1049</span>
+                <span>Скло</span>
+                <span>кронштейни LA-B</span>
+                <span>LED Domus APEX SHE</span>
+            </div>
+
+            <button class="btn-green" onclick="document.getElementById('lait-lite-calculator').scrollIntoView({behavior:'smooth'})">
+                Зібрати полку
+            </button>
+            <button class="btn-white" onclick="document.getElementById('lait-lite-showcase').scrollIntoView({behavior:'smooth'})">
+                Дивитись приклади
+            </button>
         </div>
 
+        <div class="hero-image">
+            <img src="/images/lait.png" alt="Система Lait"/>
+        </div>
+    </section>
+
+    <section id="lait-lite-showcase">
         <div class="lait-grid-2">
             <!-- Де застосовувати -->
             <div class="card">
@@ -408,9 +546,86 @@
                                 <option value="led_diffuser_2800">LED розсіювач 2800 мм</option>
                             </select>
                         </div>
+
+                        <div class="field">
+                            <label for="mode">Режим</label>
+                            <select id="mode">
+                                <option value="client" selected>Клієнт (орієнтовний прорахунок)</option>
+                                <option value="manager">Менеджер MTU (службовий)</option>
+                            </select>
+                        </div>
                     </div>
 
                     <button id="calcBtn" class="button" type="button">Розрахувати</button>
+
+                    <!-- Блок з результатом та формою заявки -->
+                    <section class="lait-result" id="lait-result">
+                        <h2 class="section-headline">Результат розрахунку</h2>
+                        <p id="lait-result-summary" class="section-lead">
+                            Після натискання «Розрахувати» тут зʼявиться короткий підсумок по полиці LAIT.
+                        </p>
+
+                        <div class="lait-result-card">
+                            <div class="lait-result-main">
+                                <div>
+                                    <div class="lait-result-label">Орієнтовна вартість комплекту</div>
+                                    <div class="lait-result-value">
+                                        <span id="lait-total-eur">0.00</span> €
+                                    </div>
+                                </div>
+                                <div class="lait-result-note">
+                                    або <span id="lait-total-uah">0.00</span> грн<br />
+                                    <span class="lait-result-note-sub">
+                                        Ціна включає профілі, скло / ДСП, LED та послуги MT згідно поточного прорахунку.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="lait-result-form">
+                                <div class="lait-result-field">
+                                    <label for="lait-name">Імʼя</label>
+                                    <input id="lait-name" type="text" placeholder="Ваше імʼя">
+                                </div>
+                                <div class="lait-result-field">
+                                    <label for="lait-phone">Телефон</label>
+                                    <input id="lait-phone" type="tel" placeholder="+380…">
+                                </div>
+                                <div class="lait-result-field">
+                                    <label for="lait-email">Email (необовʼязково)</label>
+                                    <input id="lait-email" type="email" placeholder="email@example.com">
+                                </div>
+                            </div>
+
+                            <div class="lait-result-bottom">
+                                <div class="lait-result-mode">
+                                    Режим:
+                                    <button
+                                            id="lait-mode-client"
+                                            class="lait-mode-btn active"
+                                            data-mode="client"
+                                            type="button"
+                                            onclick="setLaitMode('client')"
+                                    >
+                                        клієнт
+                                    </button>
+                                    <button
+                                            id="lait-mode-manager"
+                                            class="lait-mode-btn"
+                                            data-mode="manager"
+                                            type="button"
+                                            onclick="setLaitMode('manager')"
+                                    >
+                                        менеджер
+                                    </button>
+                                </div>
+
+                                <button type="button" id="lait-send-btn" class="lait-send-btn">
+                                    Надіслати заявку в MT × Systems
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
                 </div>
 
                 <!-- Права частина — результати (3 картки hub) -->
@@ -478,10 +693,22 @@
                                 <h3>Пояснення для менеджера</h3>
                                 <div id="explainManager"></div>
                             </div>
+
+                            <!-- Секція з текстом Telegram схована, textarea використовується лише для відправки -->
+                            <div class="section" id="telegramSection" style="display:none;">
+                                <h3>Текст заявки в Telegram</h3>
+                                <div class="tg-box">
+                                    <textarea id="telegramText" class="tg-textarea" readonly></textarea>
+                                    <button id="copyTelegram" class="button button-small" type="button">
+                                        Скопіювати текст
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div> <!-- /resultsContainer -->
-            </div> <!-- /lait-grid-main -->
+            </div> <!-- /lait-calc-grid -->
         </div> <!-- /lait-root -->
     </section>
 </div>
@@ -511,6 +738,11 @@
         applyTheme(newTheme);
     });
 
+    // ========= Константи режиму / Telegram =========
+    const MANAGER_PASSWORD = "603"; // як у TRIAL
+    const TELEGRAM_ENDPOINT = "https://mt-volpato.vercel.app/api/telegram";
+    const TELEGRAM_FORM_SECRET = "mtx-volpato-2025";
+
     // ========= ДАНІ ДЛЯ LAIT (довідники + engine) =========
 
     const refData = {
@@ -521,9 +753,21 @@
                 role: 'front',
                 lengthMm: 6100,
                 finishes: [
-                    { id: 'black',          name: 'Чорний мат',      pricePerBar: 122.91, currency: 'EUR', article: 'трLA-1048-NS' },
-                    { id: 'bronze_cartier', name: 'Бронза Карт’є',   pricePerBar: 104.81, currency: 'EUR', article: 'трLA-1048-BRC_св' },
-                    { id: 'bronze_armani',  name: 'Бронза Armani',   pricePerBar: 110.97, currency: 'EUR', article: 'трLA-1048-BRA' }
+                    {id: 'black', name: 'Чорний мат', pricePerBar: 122.91, currency: 'EUR', article: 'трLA-1048-NS'},
+                    {
+                        id: 'bronze_cartier',
+                        name: 'Бронза Карт’є',
+                        pricePerBar: 104.81,
+                        currency: 'EUR',
+                        article: 'трLA-1048-BRC_св'
+                    },
+                    {
+                        id: 'bronze_armani',
+                        name: 'Бронза Armani',
+                        pricePerBar: 110.97,
+                        currency: 'EUR',
+                        article: 'трLA-1048-BRA'
+                    }
                 ]
             },
             {
@@ -532,24 +776,116 @@
                 role: 'side_back',
                 lengthMm: 6100,
                 finishes: [
-                    { id: 'black',          name: 'Чорний мат',      pricePerBar: 112.46, currency: 'EUR', article: 'трLA-1049-NS' },
-                    { id: 'bronze_cartier', name: 'Бронза Карт’є',   pricePerBar: 112.46, currency: 'EUR', article: 'трLA-1049-BRC_св' },
-                    { id: 'bronze_armani',  name: 'Бронза Armani',   pricePerBar: 119.07, currency: 'EUR', article: 'трLA-1049-BRA' }
+                    {id: 'black', name: 'Чорний мат', pricePerBar: 112.46, currency: 'EUR', article: 'трLA-1049-NS'},
+                    {
+                        id: 'bronze_cartier',
+                        name: 'Бронза Карт’є',
+                        pricePerBar: 112.46,
+                        currency: 'EUR',
+                        article: 'трLA-1049-BRC_св'
+                    },
+                    {
+                        id: 'bronze_armani',
+                        name: 'Бронза Armani',
+                        pricePerBar: 119.07,
+                        currency: 'EUR',
+                        article: 'трLA-1049-BRA'
+                    }
                 ]
             }
         ],
 
         glassLait: [
-            { id: 'float_clear_4',       name: 'Скло Float прозоре 4 мм (гарт.)',              thicknessMm: 4, pricePerM2: 507.90,  currency: 'UAH', tempered: true, article: 'GL-FLOAT-4' },
-            { id: 'float_clear_5',       name: 'Скло Float прозоре 5 мм (гарт.)',              thicknessMm: 5, pricePerM2: 725.22,  currency: 'UAH', tempered: true, article: 'GL-FLOAT-5' },
-            { id: 'float_clear_6',       name: 'Скло Float прозоре 6 мм (гарт.)',              thicknessMm: 6, pricePerM2: 996.90,  currency: 'UAH', tempered: true, article: 'GL-FLOAT-6' },
-            { id: 'extra_clear_4',       name: 'Скло Extra-clear 4 мм (Діамант / low-iron)',   thicknessMm: 4, pricePerM2: 879.30,  currency: 'UAH', tempered: true, article: 'GL-EXTRA-4' },
-            { id: 'extra_clear_5',       name: 'Скло Extra-clear 5 мм (Діамант / low-iron)',   thicknessMm: 5, pricePerM2: 1203.48, currency: 'UAH', tempered: true, article: 'GL-EXTRA-5' },
-            { id: 'extra_clear_6',       name: 'Скло Extra-clear 6 мм (Діамант / low-iron)',   thicknessMm: 6, pricePerM2: 1403.4,  currency: 'UAH', tempered: true, article: 'GL-EXTRA-6' },
-            { id: 'dark_grey_4',         name: 'Скло Dark Grey 4 мм (тоноване, гарт.)',        thicknessMm: 4, pricePerM2: 1683,    currency: 'UAH', tempered: true, article: 'GL-GREY-4' },
-            { id: 'dark_grey_6',         name: 'Скло Dark Grey 6 мм (тоноване, гарт.)',        thicknessMm: 6, pricePerM2: 2863.08, currency: 'UAH', tempered: true, article: 'GL-GREY-6' },
-            { id: 'satin_extra_clear_4', name: 'Скло Satin Extra Clear 4 мм (матове, гарт.)',  thicknessMm: 4, pricePerM2: 1306.26, currency: 'UAH', tempered: true, article: 'GL-SATIN-4' },
-            { id: 'satin_extra_clear_6', name: 'Скло Satin Extra Clear 6 мм (матове, гарт.)',  thicknessMm: 6, pricePerM2: 1918.62, currency: 'UAH', tempered: true, article: 'GL-SATIN-6' }
+            {
+                id: 'float_clear_4',
+                name: 'Скло Float прозоре 4 мм (гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 507.90,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-FLOAT-4'
+            },
+            {
+                id: 'float_clear_5',
+                name: 'Скло Float прозоре 5 мм (гарт.)',
+                thicknessMm: 5,
+                pricePerM2: 725.22,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-FLOAT-5'
+            },
+            {
+                id: 'float_clear_6',
+                name: 'Скло Float прозоре 6 мм (гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 996.90,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-FLOAT-6'
+            },
+            {
+                id: 'extra_clear_4',
+                name: 'Скло Extra-clear 4 мм (Діамант / low-iron)',
+                thicknessMm: 4,
+                pricePerM2: 879.30,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-EXTRA-4'
+            },
+            {
+                id: 'extra_clear_5',
+                name: 'Скло Extra-clear 5 мм (Діамант / low-iron)',
+                thicknessMm: 5,
+                pricePerM2: 1203.48,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-EXTRA-5'
+            },
+            {
+                id: 'extra_clear_6',
+                name: 'Скло Extra-clear 6 мм (Діамант / low-iron)',
+                thicknessMm: 6,
+                pricePerM2: 1403.4,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-EXTRA-6'
+            },
+            {
+                id: 'dark_grey_4',
+                name: 'Скло Dark Grey 4 мм (тоноване, гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 1683,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-GREY-4'
+            },
+            {
+                id: 'dark_grey_6',
+                name: 'Скло Dark Grey 6 мм (тоноване, гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 2863.08,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-GREY-6'
+            },
+            {
+                id: 'satin_extra_clear_4',
+                name: 'Скло Satin Extra Clear 4 мм (матове, гарт.)',
+                thicknessMm: 4,
+                pricePerM2: 1306.26,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-SATIN-4'
+            },
+            {
+                id: 'satin_extra_clear_6',
+                name: 'Скло Satin Extra Clear 6 мм (матове, гарт.)',
+                thicknessMm: 6,
+                pricePerM2: 1918.62,
+                currency: 'UAH',
+                tempered: true,
+                article: 'GL-SATIN-6'
+            }
         ],
 
         boardLait: [
@@ -617,10 +953,38 @@
         ],
 
         convertersLait: [
-            { id: 'conv30',  name: 'Конвертер 24V 30W',  powerW: 30,  priceUah: 1150, currency: 'UAH', article: 'DL-CONV-30' },
-            { id: 'conv60',  name: 'Конвертер 24V 60W',  powerW: 60,  priceUah: 1800, currency: 'UAH', article: 'DL-CONV-60' },
-            { id: 'conv90',  name: 'Конвертер 24V 90W',  powerW: 90,  priceUah: 3000, currency: 'UAH', article: 'DL-CONV-90' },
-            { id: 'conv150', name: 'Конвертер 24V 150W', powerW: 150, priceUah: 3500, currency: 'UAH', article: 'DL-CONV-150' }
+            {
+                id: 'conv30',
+                name: 'Конвертер 24V 30W',
+                powerW: 30,
+                priceUah: 1150,
+                currency: 'UAH',
+                article: 'DL-CONV-30'
+            },
+            {
+                id: 'conv60',
+                name: 'Конвертер 24V 60W',
+                powerW: 60,
+                priceUah: 1800,
+                currency: 'UAH',
+                article: 'DL-CONV-60'
+            },
+            {
+                id: 'conv90',
+                name: 'Конвертер 24V 90W',
+                powerW: 90,
+                priceUah: 3000,
+                currency: 'UAH',
+                article: 'DL-CONV-90'
+            },
+            {
+                id: 'conv150',
+                name: 'Конвертер 24V 150W',
+                powerW: 150,
+                priceUah: 3500,
+                currency: 'UAH',
+                article: 'DL-CONV-150'
+            }
         ],
 
         powerConnectorLait: {
@@ -632,11 +996,46 @@
         },
 
         servicesLait: [
-            { id: 'srv_cut_profile_lait',     name: 'Порізка та свердлівка профілю на одну полицю (087366)',       unit: 'shelf', pricePerUnit: 1150.00, currency: 'UAH', article: '087366' },
-            { id: 'srv_assemble_frame_lait',  name: 'Збірка полиці LAIT (без приклеювання скла) (116357)',         unit: 'shelf', pricePerUnit: 675.00,  currency: 'UAH', article: '116357' },
-            { id: 'srv_install_glass_lait',   name: 'Поклейка скла на профіль LAIT (до 1 м²) (123125)',            unit: 'm2',    pricePerUnit: 600,     currency: 'UAH', article: '123125' },
-            { id: 'srv_quarter_board_lait',   name: 'Вибірка четверті під ДВП, ДСП (044275)',                      unit: 'm',     pricePerUnit: 50.00,   currency: 'UAH', article: '044275' },
-            { id: 'srv_install_led_lait',     name: 'Монтаж LED-підсвітки в полицю LAIT (102907)',                 unit: 'shelf', pricePerUnit: 15,      currency: 'UAH', article: '102907' }
+            {
+                id: 'srv_cut_profile_lait',
+                name: 'Порізка та свердлівка профілю на одну полицю (087366)',
+                unit: 'shelf',
+                pricePerUnit: 1150.00,
+                currency: 'UAH',
+                article: '087366'
+            },
+            {
+                id: 'srv_assemble_frame_lait',
+                name: 'Збірка полиці LAIT (без приклеювання скла) (116357)',
+                unit: 'shelf',
+                pricePerUnit: 675.00,
+                currency: 'UAH',
+                article: '116357'
+            },
+            {
+                id: 'srv_install_glass_lait',
+                name: 'Поклейка скла на профіль LAIT (до 1 м²) (123125)',
+                unit: 'm2',
+                pricePerUnit: 600,
+                currency: 'UAH',
+                article: '123125'
+            },
+            {
+                id: 'srv_quarter_board_lait',
+                name: 'Вибірка четверті під ДВП, ДСП (044275)',
+                unit: 'm',
+                pricePerUnit: 50.00,
+                currency: 'UAH',
+                article: '044275'
+            },
+            {
+                id: 'srv_install_led_lait',
+                name: 'Монтаж LED-підсвітки в полицю LAIT (102907)',
+                unit: 'shelf',
+                pricePerUnit: 15,
+                currency: 'UAH',
+                article: '102907'
+            }
         ],
 
         constantsLait: {
@@ -649,7 +1048,7 @@
         return currency === 'EUR' ? value * eurRate : value;
     }
 
-    function calcBuselGlassForLait({ widthMm, heightMm, pricePerM2, edgePolishPerM }) {
+    function calcBuselGlassForLait({widthMm, heightMm, pricePerM2, edgePolishPerM}) {
         const rawArea = (widthMm * heightMm) / 1_000_000;
         const billingArea = Math.max(rawArea, 0.25);
         const edgeLenM = (2 * (widthMm + heightMm)) / 1000;
@@ -662,13 +1061,14 @@
             if (a >= 3.5) return 1.1;
             return 1.0;
         }
+
         const coef = areaCoef(billingArea);
 
         const materialBusel = billingArea * pricePerM2 * coef;
-        const polishBusel   = edgeLenM * edgePolishPerM;
-        const buselNet      = materialBusel + polishBusel;
+        const polishBusel = edgeLenM * edgePolishPerM;
+        const buselNet = materialBusel + polishBusel;
 
-        const mtNet    = buselNet * 0.85;
+        const mtNet = buselNet * 0.85;
         const mtRetail = mtNet * 1.30;
 
         return {
@@ -698,13 +1098,13 @@
 
         const shelvesOut = [];
 
-        const profilesMap        = new Map();
-        const glassMap           = new Map();
-        const boardsMap          = new Map();
-        const bracketsMap        = new Map();
-        const connectorsMap      = new Map();
-        const ledsMap            = new Map();
-        const servicesMap        = new Map();
+        const profilesMap = new Map();
+        const glassMap = new Map();
+        const boardsMap = new Map();
+        const bracketsMap = new Map();
+        const connectorsMap = new Map();
+        const ledsMap = new Map();
+        const servicesMap = new Map();
         const powerConvertersMap = new Map();
         const powerConnectorsMap = new Map();
 
@@ -712,15 +1112,41 @@
         let totalLedLengthM = 0;
         let ledShelfCount = 0;
 
-        function getProfile(id) { return ref.profilesLait.find(p => p.id === id); }
-        function getGlass(id)   { return ref.glassLait.find(g => g.id === id); }
-        function getBoard(id)   { return ref.boardLait.find(b => b.id === id); }
-        function getBracket(id) { return ref.bracketsLait.find(b => b.id === id); }
-        function getLed(id)     { return ref.ledLait.find(l => l.id === id); }
-        function getConnector() { return ref.connectorsLait[0]; }
-        function getService(id) { return ref.servicesLait.find(s => s.id === id); }
-        function getConverters(){ return ref.convertersLait || []; }
-        function getPowerConnectorLait() { return ref.powerConnectorLait; }
+        function getProfile(id) {
+            return ref.profilesLait.find(p => p.id === id);
+        }
+
+        function getGlass(id) {
+            return ref.glassLait.find(g => g.id === id);
+        }
+
+        function getBoard(id) {
+            return ref.boardLait.find(b => b.id === id);
+        }
+
+        function getBracket(id) {
+            return ref.bracketsLait.find(b => b.id === id);
+        }
+
+        function getLed(id) {
+            return ref.ledLait.find(l => l.id === id);
+        }
+
+        function getConnector() {
+            return ref.connectorsLait[0];
+        }
+
+        function getService(id) {
+            return ref.servicesLait.find(s => s.id === id);
+        }
+
+        function getConverters() {
+            return ref.convertersLait || [];
+        }
+
+        function getPowerConnectorLait() {
+            return ref.powerConnectorLait;
+        }
 
         function addService(key, line) {
             const existing = servicesMap.get(key);
@@ -748,7 +1174,7 @@
 
             const L_infill = lengthMm - c.glassOffsetMm;
             const D_infill = depthMm - c.glassOffsetMm;
-            const areaM2   = (L_infill * D_infill) / 1_000_000;
+            const areaM2 = (L_infill * D_infill) / 1_000_000;
             const perimeterM = 2 * (L_infill + D_infill) / 1000;
 
             let infillName = '';
@@ -759,7 +1185,7 @@
 
                 if (gl) {
                     const glassCalc = calcBuselGlassForLait({
-                        widthMm:  L_infill,
+                        widthMm: L_infill,
                         heightMm: D_infill,
                         pricePerM2: gl.pricePerM2,
                         edgePolishPerM: 100
@@ -842,26 +1268,26 @@
                 }
             }
 
-            const profFront    = getProfile('LA1048');
+            const profFront = getProfile('LA1048');
             const profSideBack = getProfile('LA1049');
-            const finishFront  = profFront.finishes.find(f => f.id === profileFinishId);
-            const finishSB     = profSideBack.finishes.find(f => f.id === profileFinishId);
+            const finishFront = profFront.finishes.find(f => f.id === profileFinishId);
+            const finishSB = profSideBack.finishes.find(f => f.id === profileFinishId);
 
             const frontLenPerShelf = lengthMm;
-            const backLenPerShelf  = lengthMm - 2 * 30;
-            const sideLenPerShelf  = depthMm;
+            const backLenPerShelf = lengthMm - 2 * 30;
+            const sideLenPerShelf = depthMm;
 
-            const totalFrontLenMm      = frontLenPerShelf * quantity;
-            const totalBackSideLenMm   = (backLenPerShelf + 2 * sideLenPerShelf) * quantity;
+            const totalFrontLenMm = frontLenPerShelf * quantity;
+            const totalBackSideLenMm = (backLenPerShelf + 2 * sideLenPerShelf) * quantity;
 
             function updateProfile(profile, finish, totalLenMm) {
                 const key = profile.id + '|' + finish.id;
                 const barLen = profile.lengthMm;
 
                 const barsPhysical = Math.max(1, Math.ceil(totalLenMm / barLen));
-                const billingBars  = computeBillingBars(totalLenMm, barLen);
-                const offcutMm     = barsPhysical * barLen - totalLenMm;
-                const subtotal     = billingBars * finish.pricePerBar;
+                const billingBars = computeBillingBars(totalLenMm, barLen);
+                const offcutMm = barsPhysical * barLen - totalLenMm;
+                const subtotal = billingBars * finish.pricePerBar;
 
                 const ex = profilesMap.get(key);
                 if (!ex) {
@@ -878,9 +1304,9 @@
                 } else {
                     ex.totalLengthMm += totalLenMm;
                     ex.barsPhysical = Math.max(1, Math.ceil(ex.totalLengthMm / barLen));
-                    ex.billingBars  = computeBillingBars(ex.totalLengthMm, barLen);
-                    ex.offcutMm     = ex.barsPhysical * barLen - ex.totalLengthMm;
-                    ex.subtotal     = ex.billingBars * finish.pricePerBar;
+                    ex.billingBars = computeBillingBars(ex.totalLengthMm, barLen);
+                    ex.offcutMm = ex.barsPhysical * barLen - ex.totalLengthMm;
+                    ex.subtotal = ex.billingBars * finish.pricePerBar;
                 }
             }
 
@@ -1097,28 +1523,28 @@
             }
         }
 
-        const profiles        = Array.from(profilesMap.values());
-        const glass           = Array.from(glassMap.values());
-        const boards          = Array.from(boardsMap.values());
-        const brackets        = Array.from(bracketsMap.values());
-        const connectors      = Array.from(connectorsMap.values());
-        const leds            = Array.from(ledsMap.values());
-        const services        = Array.from(servicesMap.values());
+        const profiles = Array.from(profilesMap.values());
+        const glass = Array.from(glassMap.values());
+        const boards = Array.from(boardsMap.values());
+        const brackets = Array.from(bracketsMap.values());
+        const connectors = Array.from(connectorsMap.values());
+        const leds = Array.from(ledsMap.values());
+        const services = Array.from(servicesMap.values());
         const powerConverters = Array.from(powerConvertersMap.values());
         const powerConnectors = Array.from(powerConnectorsMap.values());
 
         let totalMatUAH = 0;
         let totalSrvUAH = 0;
 
-        profiles.forEach(p   => totalMatUAH += toUAH(p.subtotal,   p.currency, input.eurRate));
-        glass.forEach(g      => totalMatUAH += toUAH(g.subtotal,   g.currency, input.eurRate));
-        boards.forEach(b     => totalMatUAH += toUAH(b.subtotal,   b.currency, input.eurRate));
-        brackets.forEach(b   => totalMatUAH += toUAH(b.subtotal,   b.currency, input.eurRate));
-        connectors.forEach(c => totalMatUAH += toUAH(c.subtotal,   c.currency, input.eurRate));
-        leds.forEach(l       => totalMatUAH += toUAH(l.subtotal,   l.currency, input.eurRate));
+        profiles.forEach(p => totalMatUAH += toUAH(p.subtotal, p.currency, input.eurRate));
+        glass.forEach(g => totalMatUAH += toUAH(g.subtotal, g.currency, input.eurRate));
+        boards.forEach(b => totalMatUAH += toUAH(b.subtotal, b.currency, input.eurRate));
+        brackets.forEach(b => totalMatUAH += toUAH(b.subtotal, b.currency, input.eurRate));
+        connectors.forEach(c => totalMatUAH += toUAH(c.subtotal, c.currency, input.eurRate));
+        leds.forEach(l => totalMatUAH += toUAH(l.subtotal, l.currency, input.eurRate));
         powerConverters.forEach(pc => totalMatUAH += toUAH(pc.subtotal, pc.currency, input.eurRate));
         powerConnectors.forEach(pc => totalMatUAH += toUAH(pc.subtotal, pc.currency, input.eurRate));
-        services.forEach(s   => totalSrvUAH += toUAH(s.subtotal,   s.currency, input.eurRate));
+        services.forEach(s => totalSrvUAH += toUAH(s.subtotal, s.currency, input.eurRate));
 
         return {
             shelves: shelvesOut,
@@ -1147,22 +1573,66 @@
 
     const infillTypeEl = document.getElementById('infillType');
     const glassFieldEl = document.getElementById('glassField');
+    const modeEl = document.getElementById('mode');
+    const copyBtn = document.getElementById('copyTelegram');
+
+    // глобальний режим (client / manager)
+    let laitMode = modeEl ? modeEl.value : 'client';
+
+    function updateModeUI(mode) {
+        laitMode = mode;
+
+        // синхронізуємо select
+        if (modeEl) {
+            modeEl.value = mode;
+        }
+
+        // підсвітка кнопок режиму
+        document.querySelectorAll('.lait-mode-btn').forEach(btn => {
+            const btnMode = btn.dataset.mode;
+            btn.classList.toggle('active', btnMode === mode);
+        });
+
+        // показ / приховування детальних результатів
+        const resultsContainer = document.getElementById('resultsContainer');
+        if (resultsContainer) {
+            const shouldShow = mode === 'manager' && resultsContainer.classList.contains('active');
+            resultsContainer.style.display = shouldShow ? 'block' : 'none';
+        }
+    }
+
+    function setLaitMode(mode) {
+        // якщо хочемо ввімкнути режим менеджера — питаємо пароль
+        if (mode === "manager" && laitMode !== "manager") {
+            const pwd = prompt("Введіть пароль доступу для режиму менеджера MTU:");
+            if (!pwd) {
+                return;
+            }
+            if (pwd !== MANAGER_PASSWORD) {
+                alert("Невірний пароль.");
+                return;
+            }
+        }
+
+        updateModeUI(mode);
+    }
 
     function updateGlassFieldVisibility() {
         glassFieldEl.style.display = infillTypeEl.value === 'glass' ? 'flex' : 'none';
     }
+
     infillTypeEl.addEventListener('change', updateGlassFieldVisibility);
     updateGlassFieldVisibility();
 
     document.getElementById('calcBtn').addEventListener('click', function () {
-        const eurRate   = parseFloat(document.getElementById('eurRate').value || '0');
-        const lengthMm  = parseFloat(document.getElementById('lengthMm').value || '0');
-        const depthMm   = parseFloat(document.getElementById('depthMm').value || '0');
-        const quantity  = parseFloat(document.getElementById('quantity').value || '0');
-        const finishId  = document.getElementById('finishId').value;
+        const eurRate = parseFloat(document.getElementById('eurRate').value || '0');
+        const lengthMm = parseFloat(document.getElementById('lengthMm').value || '0');
+        const depthMm = parseFloat(document.getElementById('depthMm').value || '0');
+        const quantity = parseFloat(document.getElementById('quantity').value || '0');
+        const finishId = document.getElementById('finishId').value;
         const infillRaw = document.getElementById('infillType').value;
-        const glassId   = document.getElementById('glassId').value;
-        const ledId     = document.getElementById('ledType').value;
+        const glassId = document.getElementById('glassId').value;
+        const ledId = document.getElementById('ledType').value;
 
         let infillType, infillId;
         if (infillRaw === 'glass') {
@@ -1202,17 +1672,20 @@
     function renderResult(result, eurRate) {
         const container = document.getElementById('resultsContainer');
         container.classList.add('active');
+        // оновити видимість колонок згідно поточного режиму
+        updateModeUI(laitMode);
 
-        const shelvesSummary    = document.getElementById('shelvesSummary');
-        const profilesSummary   = document.getElementById('profilesSummary');
-        const glassSummary      = document.getElementById('glassSummary');
-        const boardsSummary     = document.getElementById('boardsSummary');
-        const bracketsSummary   = document.getElementById('bracketsSummary');
+        const shelvesSummary = document.getElementById('shelvesSummary');
+        const profilesSummary = document.getElementById('profilesSummary');
+        const glassSummary = document.getElementById('glassSummary');
+        const boardsSummary = document.getElementById('boardsSummary');
+        const bracketsSummary = document.getElementById('bracketsSummary');
         const connectorsSummary = document.getElementById('connectorsSummary');
-        const ledSummary        = document.getElementById('ledSummary');
-        const powerSummary      = document.getElementById('powerSummary');
-        const servicesSummary   = document.getElementById('servicesSummary');
-        const explainManagerEl  = document.getElementById('explainManager');
+        const ledSummary = document.getElementById('ledSummary');
+        const powerSummary = document.getElementById('powerSummary');
+        const servicesSummary = document.getElementById('servicesSummary');
+        const explainManagerEl = document.getElementById('explainManager');
+        const telegramTextarea = document.getElementById('telegramText');
 
         clearElement(shelvesSummary);
         clearElement(profilesSummary);
@@ -1224,6 +1697,7 @@
         clearElement(powerSummary);
         clearElement(servicesSummary);
         clearElement(explainManagerEl);
+        telegramTextarea.value = '';
 
         result.shelves.forEach(s => {
             const div = document.createElement('div');
@@ -1367,11 +1841,11 @@
             physBarsTotal += p.barsPhysical;
             billBarsTotal += p.billingBars;
         });
-        result.materials.glass.forEach(g   => glassUAH  += toUAH(g.subtotal, g.currency, eurRate));
-        result.materials.boards.forEach(b  => boardsUAH += toUAH(b.subtotal, b.currency, eurRate));
-        result.materials.brackets.forEach(b=> brUAH     += toUAH(b.subtotal, b.currency, eurRate));
-        result.materials.connectors.forEach(c=> connUAH += toUAH(c.subtotal, c.currency, eurRate));
-        result.materials.leds.forEach(l    => ledUAH    += toUAH(l.subtotal, l.currency, eurRate));
+        result.materials.glass.forEach(g => glassUAH += toUAH(g.subtotal, g.currency, eurRate));
+        result.materials.boards.forEach(b => boardsUAH += toUAH(b.subtotal, b.currency, eurRate));
+        result.materials.brackets.forEach(b => brUAH += toUAH(b.subtotal, b.currency, eurRate));
+        result.materials.connectors.forEach(c => connUAH += toUAH(c.subtotal, c.currency, eurRate));
+        result.materials.leds.forEach(l => ledUAH += toUAH(l.subtotal, l.currency, eurRate));
         result.materials.powerConverters.forEach(pc => powerConvUAH += toUAH(pc.subtotal, pc.currency, eurRate));
         result.materials.powerConnectors.forEach(pc => powerConnUAH += toUAH(pc.subtotal, pc.currency, eurRate));
 
@@ -1385,8 +1859,10 @@
             else if (s.serviceId === 'srv_install_glass_lait') glueUAH += valUAH;
         });
 
+        const notes = [];
         const em = explainManagerEl;
         const addLine = text => {
+            notes.push(text);
             const div = document.createElement('div');
             div.className = 'rowSmall';
             div.textContent = text;
@@ -1433,7 +1909,136 @@
         addLine(
             `Загалом: матеріали ${result.totals.materials.toFixed(2)} грн + послуги ${result.totals.services.toFixed(2)} грн = ${result.totals.grandTotal.toFixed(2)} грн.`
         );
+
+        // ===== Текст для Telegram =====
+        const modeLabel = laitMode === 'manager' ? 'менеджер MTU' : 'клієнт';
+        const shelvesLine = result.shelves
+            .map(s => `${s.label} ×${s.quantity}`)
+            .join('; ');
+
+        const msgLines = [
+            '📨 Нова заявка: LAIT (Lite)',
+            `🔁 Режим: ${modeLabel}`,
+            `Курс EUR: ${eurRate.toFixed(2)}`,
+            `Полиці: ${shelvesLine}`,
+            '',
+            `Матеріали: ${result.totals.materials.toFixed(2)} грн`,
+            `Послуги: ${result.totals.services.toFixed(2)} грн`,
+            `Разом: ${result.totals.grandTotal.toFixed(2)} грн`,
+            '',
+            'Пояснення:',
+            ...notes.map(n => '• ' + n)
+        ];
+
+        telegramTextarea.value = msgLines.join('\n');
+
+        // короткий текст під карткою результату
+        const summaryShort =
+            `Полиці: ${shelvesLine}. Орієнтовна вартість комплекту ~${result.totals.grandTotal.toFixed(2)} грн.`;
+        updateLaitResult(result.totals.grandTotal, eurRate, summaryShort);
+    }
+
+    if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+            const text = document.getElementById('telegramText').value;
+            if (!text) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    const old = copyBtn.textContent;
+                    copyBtn.textContent = 'Скопійовано';
+                    setTimeout(() => {
+                        copyBtn.textContent = old;
+                    }, 1500);
+                });
+            }
+        });
+    }
+
+    // select режиму теж проходить через setLaitMode (з паролем)
+    if (modeEl) {
+        modeEl.addEventListener('change', (e) => {
+            setLaitMode(e.target.value);
+        });
+    }
+
+    // стартовий стан — клієнт, без колонок
+    document.addEventListener('DOMContentLoaded', () => {
+        setLaitMode(laitMode);
+    });
+
+    // === Оновлення картки результату (верхній блок) ===
+    function updateLaitResult(totalUah, eurRate, summaryText) {
+        const totalEur = eurRate > 0 ? totalUah / eurRate : 0;
+
+        const uahEl = document.getElementById('lait-total-uah');
+        const eurEl = document.getElementById('lait-total-eur');
+        const summaryEl = document.getElementById('lait-result-summary');
+
+        if (uahEl) uahEl.textContent = totalUah.toFixed(2);
+        if (eurEl) eurEl.textContent = totalEur.toFixed(2);
+        if (summaryEl && summaryText) summaryEl.textContent = summaryText;
+    }
+
+    // === Відправка в Telegram ===
+    async function sendLaitToTelegram() {
+        const name = document.getElementById("lait-name").value.trim();
+        const phone = document.getElementById("lait-phone").value.trim();
+        const email = document.getElementById("lait-email").value.trim();
+
+        const textArea = document.getElementById("telegramText");
+        const bodyText = textArea ? textArea.value.trim() : "";
+
+        if (!name || !phone) {
+            alert("Вкажіть, будь ласка, імʼя та телефон.");
+            return;
+        }
+        if (!bodyText) {
+            alert("Спочатку натисніть «Розрахувати», щоб сформувати текст заявки.");
+            return;
+        }
+
+        const header = laitMode === "client"
+            ? "🧮 Заявка LAIT (клієнт)\n"
+            : "🧮 Заявка LAIT (для менеджера)\n";
+
+        const contact =
+            `👤 ${name}\n` +
+            `📞 ${phone}\n` +
+            (email ? `✉️ ${email}\n` : "") +
+            `Режим: ${laitMode === "client" ? "клієнт" : "менеджер"}\n\n`;
+
+        const text = header + contact + bodyText;
+
+        try {
+            const res = await fetch(TELEGRAM_ENDPOINT, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    secret: TELEGRAM_FORM_SECRET,
+                    text: text
+                })
+            });
+
+            const data = await res.json().catch(() => ({}));
+
+            if (!res.ok || data.ok === false) {
+                console.error("Telegram error", data);
+                alert("Не вдалося надіслати заявку. Спробуйте ще раз або скопіюйте текст вручну.");
+                return;
+            }
+
+            alert("Заявку надіслано в MT × Systems. Менеджер звʼяжеться з вами.");
+        } catch (err) {
+            console.error(err);
+            alert("Сталася помилка під час відправки. Спробуйте ще раз або скопіюйте текст вручну.");
+        }
+    }
+
+    const sendBtn = document.getElementById("lait-send-btn");
+    if (sendBtn) {
+        sendBtn.addEventListener("click", sendLaitToTelegram);
     }
 </script>
+
 </body>
 </html>
