@@ -2,7 +2,7 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8" />
-    <title>MT × Systems — Виробничий центр</title>
+    <title>Volpato · фасадні системи — MT × Systems</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         :root {
@@ -85,6 +85,7 @@
             align-items: center;
             justify-content: center;
             background: #ef4444;
+            border-radius: 12px;
         }
 
         .topbar-logo img {
@@ -160,7 +161,7 @@
         }
 
         .hero-title {
-            font-size: 40px;
+            font-size: 38px;
             font-weight: 800;
             line-height: 1.2;
             color: var(--text-main);
@@ -263,7 +264,7 @@
             opacity: 0.96;
         }
 
-        /* ALT SECTION BACKGROUND (2-й фон) */
+        /* ALT SECTION BACKGROUND */
 
         .section-alt-wrap {
             margin: 40px -16px 56px;
@@ -282,7 +283,7 @@
             background: radial-gradient(circle at top left, #22c55e 0, #022c22 60%);
         }
 
-        /* SECTIONS / TYPOGRAPHY */
+        /* SECTIONS */
 
         section {
             margin-bottom: 48px;
@@ -319,6 +320,12 @@
         .three-cols {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 18px;
         }
 
@@ -370,65 +377,49 @@
         }
         .check-list li { margin-bottom: 4px; }
 
-        .grid-2 {
+        /* SERIES GRID */
+
+        .series-grid {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
         }
 
-        /* CALCULATOR CARDS */
-
-        .calc-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 18px;
+        .series-card {
+            border-radius: 16px;
+            padding: 12px 12px 10px;
+            background: rgba(255,255,255,0.98);
+            border: 1px solid rgba(148,163,184,0.4);
+            box-shadow: 0 8px 18px rgba(15,23,42,0.06);
+            font-size: 12px;
+        }
+        .dark-theme .series-card {
+            background: rgba(15,23,42,0.96);
+            border-color: rgba(148,163,184,0.55);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.6);
         }
 
-        .calc-card {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 170px;
-        }
-
-        .calc-card-header {
-            margin-bottom: 10px;
-        }
-
-        .calc-card-title {
-            font-size: 15px;
+        .series-name {
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: var(--text-main);
-            display: flex;
-            align-items: center;
-            gap: 6px;
         }
 
-        .calc-card-sub {
-            font-size: 12px;
+        .series-tagline {
+            font-size: 11px;
             color: var(--text-muted);
+            margin-bottom: 6px;
         }
 
-        .calc-card-footer {
-            margin-top: 10px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
+        .series-list {
+            padding-left: 14px;
+            margin: 0;
+            list-style: disc;
         }
 
-        .btn-outline {
-            padding: 7px 13px;
-            border-radius: 999px;
-            border: 1px solid rgba(148,163,184,0.7);
-            background: transparent;
-            font-size: 12px;
-            cursor: pointer;
-            text-decoration: none;
-            color: var(--text-main);
-        }
-        .btn-outline:hover {
-            background: rgba(148,163,184,0.08);
+        .series-list li {
+            margin-bottom: 3px;
         }
 
         /* STEPS */
@@ -467,7 +458,7 @@
         /* FINAL CTA */
 
         .hub-cta {
-            margin-top: 36px;
+            margin-top: 20px;
         }
 
         .hub-cta-inner {
@@ -582,9 +573,12 @@
                 align-self: stretch;
             }
             .three-cols,
-            .calc-grid,
+            .grid-2,
             .steps {
                 grid-template-columns: minmax(0, 1fr);
+            }
+            .series-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
@@ -603,6 +597,9 @@
 
         @media (max-width: 480px) {
             .hero-title { font-size: 30px; }
+            .series-grid {
+                grid-template-columns: minmax(0,1fr);
+            }
         }
     </style>
 </head>
@@ -617,8 +614,8 @@
                 <img src="/images/MT_logo_ua_Kubik.jpg" alt="MT logo">
             </div>
             <div>
-                <div class="topbar-title">MT × Systems</div>
-                <div class="topbar-sub">Виробничий центр · калькулятори Volpato / TRIAL / LAIT / фасади / скло</div>
+                <div class="topbar-title">Volpato · фасадні системи</div>
+                <div class="topbar-sub">MT × Systems · алюмінієві рамки зі склом та сервіс MTU</div>
             </div>
         </div>
 
@@ -628,271 +625,224 @@
     </header>
 
     <!-- HERO -->
-    <section class="hero" id="top">
+    <section class="hero">
         <div class="hero-content">
-            <div class="hero-kicker">Хаб виробництва MTU</div>
-            <h1 class="hero-title">Один центр для прорахунку профілів, фасадів та гардеробів</h1>
+            <div class="hero-kicker">Volpato · фасадні системи</div>
+            <h1 class="hero-title">Алюмінієві рамки зі склом для кухонь, гардеробів та вітрин</h1>
 
             <p class="hero-sub">
-                Тут зібрані всі ключові калькулятори MT × Systems: TRIAL, Volpato,  OSSICOLOR. Ви вводите розміри — ми даємо специфікацію, послуги та фінальний чек.
+                Системи Volpato дозволяють робити легкі, акуратні фасади зі склом — від кухонних верхніх модулів
+                до високих гардеробів. MTU бере на себе профіль, скло, розкрій та сервіс.
             </p>
 
             <div class="hero-tags">
-                <span>TRIAL · Volpato · OSSICOLOR</span>
-                <span>Фасади Cleaf / SAIB</span>
-                <span>ДСП сервіс</span>
+                <span>AV2 · AV4 · AV8 · AV9</span>
+                <span>Float / ExtraClear</span>
             </div>
 
             <div class="hero-actions">
-                <button class="btn-green" onclick="document.getElementById('calculators').scrollIntoView({behavior:'smooth'})">
-                    Обрати калькулятор
-                </button>
-                <button class="btn-white" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
-                    Як працює хаб
-                </button>
+                <a href="https://mt-volpato.vercel.app/"
+                   class="btn-green"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Запустити калькулятор фасадів
+                </a>
+                <a href="index.html"
+                   class="btn-white">
+                    Повернутися до виробничого центру
+                </a>
             </div>
         </div>
 
         <div class="hero-image">
-            <!-- Можеш замінити на свій колаж / фото виробництва -->
-            <img src="/images/mtu-workshop.jpg" alt="MT × Systems — виробничий центр">
+            <!-- заміни на свій колаж/рендер Volpato -->
+            <img src="/images/volpato-soluzioni-ante-mobile-02.jpg" alt="Volpato фасадні системи">
         </div>
     </section>
 
-    <!-- КОМУ ЦЕ ПОТРІБНО -->
-    <section id="for-whom">
-        <h2 class="section-headline">Для кого MT × Systems</h2>
+    <!-- ДЛЯ КОГО VOLPATO -->
+    <section>
+        <h2 class="section-headline">Коли пропонувати Volpato клієнту</h2>
         <p class="section-lead">
-            Головна сторінка Хабу — стартова точка для виробників, дизайнерів та салонів. Звідси ви одним кліком
-            потрапляєте в потрібний калькулятор і отримуєте повний прорахунок з послугами MT.
+            Volpato — це не «просто алюмінієва рамка», а готовий інструмент для салонів, студій і виробників, які
+            хочуть додати скляні фасади та легкі вітрини без складної розробки системи з нуля.
         </p>
 
         <div class="three-cols">
             <div class="card">
-                <div class="card-title">Виробнику меблів</div>
+                <div class="card-title">Кухні та високі пенали</div>
                 <div class="card-body">
                     <ul class="check-list">
-                        <li>Швидкий прорахунок профілів, фасадів та скла.</li>
-                        <li>Готові CSV для завантаження.</li>
-                        <li>Послуги MT (розкрій, кромка, свердління, збірка) вже закладені в калькулятори.</li>
+                        <li>Верхні модулі з підсвіткою й склом.</li>
+                        <li>Високі вітрини для сервізів та декору.</li>
+                        <li>Поєднання з фасадами Cleaf / SAIB.</li>
                     </ul>
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">Дизайнеру / архітектору</div>
+                <div class="card-title">Гардеробні та нішеві рішення</div>
                 <div class="card-body">
                     <ul class="check-list">
-                        <li>Орієнтовні бюджети на системи TRIAL / Volpato / Ossicolor.</li>
-                        <li>Підбір технічних рішень під ескізи та планування.</li>
-                        <li>Підтримка по вузлах, висотах, навантаженнях.</li>
+                        <li>Скляні дверцята для гардеробних секцій.</li>
+                        <li>Фасади для ніш у коридорі чи спальні.</li>
+                        <li>Комбінація з системами TRIAL / eTSecutive.</li>
                     </ul>
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">Салону / девелоперу</div>
+                <div class="card-title">Вітрини салонів та шоуруми</div>
                 <div class="card-body">
                     <ul class="check-list">
-                        <li>Прорахунок експозицій, шоурумів та серійних рішень.</li>
-                        <li>Готові «продукти MT» — гардеробні, кухні, фасадні системи.</li>
-                        <li>Прозора економіка кожного стенду чи об’єкта.</li>
+                        <li>Вітрини для салонів кухонь та меблів.</li>
+                        <li>Експозиції матеріалів, посуду, декору.</li>
+                        <li>Продумані допуски та захист скла.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ALT SECTION: 2-Й ФОН -->
+    <!-- ALT SECTION: ПРО СЕРІЇ -->
     <div class="section-alt-wrap">
         <div class="section-alt-inner">
-            <h2 class="section-alt-title">Два рівні: презентація + калькулятор</h2>
+            <h2 class="section-alt-title">Серії профілів Volpato, які ми підтримуємо</h2>
             <p class="section-alt-sub">
-                Для кожної системи ми будуємо <strong>вітринну сторінку</strong> (пояснення, приклади, FAQ) та
-                <strong>калькулятор</strong> з реальними прайсами MT.
+                У калькуляторі MTU використовується фіксований набір перевірених профілів Volpato. Для кожної серії
+                закладені допуски, товщина скла та сумісні вузли — щоб ви отримували коректну специфікацію з першого разу.
             </p>
 
-            <div class="grid-2">
-                <div class="card">
-                    <div class="pill">Вітрина</div>
-                    <div class="card-title">Пояснення продукту</div>
-                    <div class="card-body">
-                        <ul class="check-list">
-                            <li>Фото / рендери, технічні схеми, приклади реалізацій.</li>
-                            <li>Переваги системи, обмеження, відповіді на часті питання.</li>
-                            <li>Завершується кнопкою: <em>«Зібрати систему»</em> → перехід в калькулятор.</li>
-                        </ul>
-                    </div>
+            <div class="series-grid">
+                <div class="series-card">
+                    <div class="series-name">AV2</div>
+                    <div class="series-tagline">Класичний фасад з тонкою рамкою</div>
+                    <ul class="series-list">
+                        <li>Легка алюмінієва рамка для скла.</li>
+                        <li>Оптимально для кухонних фасадів.</li>
+                        <li>Float / ExtraClear, скло 4 мм.</li>
+                    </ul>
                 </div>
-                <div class="card">
-                    <div class="pill">Калькулятор</div>
-                    <div class="card-title">Математика + послуги MT</div>
-                    <div class="card-body">
-                        <ul class="check-list">
-                            <li>Вводимо розміри, отримуємо специфікацію та суму в € / грн.</li>
-                            <li>Сервіси MT (розкрій, кромка, свердління, збірка, упаковка).</li>
-                            <li>Експорт CSV та відправка заявки в Telegram MT × Systems.</li>
-                        </ul>
-                    </div>
+
+                <div class="series-card">
+                    <div class="series-name">AV4</div>
+                    <div class="series-tagline">Посилена рамка та великі формати</div>
+                    <ul class="series-list">
+                        <li>Для вищих фасадів та пеналів.</li>
+                        <li>Більша жорсткість по периметру.</li>
+                        <li>Сумісність з ручками-профілями.</li>
+                    </ul>
+                </div>
+
+                <div class="series-card">
+                    <div class="series-name">AV8</div>
+                    <div class="series-tagline">Мінімальна видима рамка</div>
+                    <ul class="series-list">
+                        <li>Максимальний акцент на склі.</li>
+                        <li>Добре працює з підсвіткою.</li>
+                        <li>Рекомендована для сучасних кухонь.</li>
+                    </ul>
+                </div>
+
+                <div class="series-card">
+                    <div class="series-name">AV9</div>
+                    <div class="series-tagline">Спеціальні рішення та нішеві фасади</div>
+                    <ul class="series-list">
+                        <li>Застосовується там, де потрібна особлива геометрія.</li>
+                        <li>Може комбінуватися з іншими серіями.</li>
+                        <li>Точні допуски вбудовані в калькулятор.</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- КАЛЬКУЛЯТОРИ -->
-    <section id="calculators">
-        <h2 class="section-headline">Калькулятори MT × Systems</h2>
+    <!-- ЯК ПРАЦЮЄ З BUSel / MT -->
+    <section>
+        <h2 class="section-headline">Volpato + Busel Glass + MTU: один цикл прорахунку</h2>
         <p class="section-lead">
-            Виберіть продукт, який хочете порахувати.
+            Важливо не тільки порахувати алюміній, але й правильно закласти скло, розкрій та сервіс. У калькуляторі вже
+            інтегровано методику Busel Glass v3 та послуги MTU.
         </p>
 
-        <div class="calc-grid">
-            <!-- TRIAL eTSecutive -->
-            <div class="card calc-card">
-                <div class="calc-card-header">
-                    <div class="calc-card-title">TRIAL eTSecutive · TS-603</div>
-                    <div class="calc-card-sub">
-                        Гардеробна система на профілі TS-603: стійки, панелі Cleaf / SAIB, полиці, тумби, труби гардеробни.
-                    </div>
-                </div>
-                <div class="calc-card-footer">
-                    <a href="trial-etsecutive.html"
-                       class="btn-outline"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        Відкрити калькулятор
-                    </a>
-
-                    <a href="trial-etsecutive.html"
-                       class="btn-outline"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        Вітрина системи
-                    </a>
-                </div>
-
-            </div>
-
-            <!-- Полиці LAIT / Lite -->
-            <div class="card calc-card">
-                <div class="calc-card-header">
-                    <div class="calc-card-title">Полиці LAIT / Lite</div>
-                    <div class="calc-card-sub">
-                        Підвісні полиці на профілях LA-1048/1049: довжина, навантаження, труби, підсвітка, комплектація.
-                    </div>
-                </div>
-                <div class="calc-card-footer">
-                    <a href="/lait-shelves.html" class="btn-outline">Калькулятор полиць</a>
-                    <a href="/lait" class="btn-outline" >Вітрина полиць</a>
+        <div class="grid-2">
+            <div class="card">
+                <div class="pill">Скло Busel v3</div>
+                <div class="card-title">Коректні розміри та типи скла</div>
+                <div class="card-body">
+                    <ul class="check-list">
+                        <li>Float / ExtraClear, товщина 4 мм (за потреби — інші варіанти).</li>
+                        <li>Автоматичні допуски на скло під кожну серію профілю.</li>
+                        <li>Формати під різ та оптимізація розкрою.</li>
+                    </ul>
                 </div>
             </div>
 
-            <!-- Volpato фасади -->
-            <div class="card calc-card">
-                <div class="calc-card-header">
-                    <div class="calc-card-title">Volpato · фасадні системи</div>
-                    <div class="calc-card-sub">
-                        Алюмінієві рамки, скло, розкрій профілю, вузли, послуги Busel — все в одному прорахунку.
-                    </div>
-                </div>
-                <div class="calc-card-footer">
-                    <a href="https://mt-volpato.vercel.app/" class="btn-outline"  target="_blank" rel="noopener noreferrer">Калькулятор фасадів</a>
-                    <a href="volpato-fasades.html/" class="btn-outline" target="_blank"
-                       rel="noopener noreferrer">Вітрина Volpato</a>
-                </div>
-            </div>
-
-            <!-- Volpato гардеробні / полиці -->
-            <div class="card calc-card">
-                <div class="calc-card-header">
-                    <div class="calc-card-title">Volpato · гардеробні / полиці</div>
-                    <div class="calc-card-sub">
-                        Алюмінієві системи Volpato для гардеробів, ніш, полиць — модулі, навантаження, LED-підсвітка.
-                    </div>
-                </div>
-                <div class="calc-card-footer">
-                    <a href="/volpato-wardrobes.html" class="btn-outline">Калькулятор систем</a>
-                    <a href="/volpato-ideas" class="btn-outline">Ідеї для гардеробів</a>
-                </div>
-            </div>
-
-            <!-- ONLY / IKS фасади -->
-            <div class="card calc-card">
-                <div class="calc-card-header">
-                    <div class="calc-card-title">ONLY / IKS · фасадні системи</div>
-                    <div class="calc-card-sub">
-                        Алюмінієві фасади з профілями IKS/ONLY: розміри, скло, допуски, сумісні петлі, розкрій.
-                    </div>
-                </div>
-                <div class="calc-card-footer">
-                    <a href="/only-iks-facades.html" class="btn-outline">Калькулятор фасадів</a>
-                    <a href="/only-iks" class="btn-outline">Технічні карти</a>
-                </div>
-            </div>
-
-            <!-- Скло Busel + сервіс MT -->
-            <div class="card calc-card">
-                <div class="calc-card-header">
-                    <div class="calc-card-title">Скло Busel + сервіс MT</div>
-                    <div class="calc-card-sub">
-                        Методику Busel Glass v3 інтегровано в калькулятор: формат, різи, загартоване / не загартоване, шліфовка.
-                    </div>
-                </div>
-                <div class="calc-card-footer">
-                    <a href="/glass-busel.html" class="btn-outline">Калькулятор скла</a>
-                    <a href="/glass-rules" class="btn-outline">Правила по склу</a>
+            <div class="card">
+                <div class="pill">Послуги MTU</div>
+                <div class="card-title">Від профілю до готового фасаду</div>
+                <div class="card-body">
+                    <ul class="check-list">
+                        <li>Розкрій профілю Volpato під замовлення.</li>
+                        <li>Скло Busel з обробкою кромки та, за потреби, загартуванням.</li>
+                        <li>Збірка фасадів, упаковка та комплектація по проєкту.</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ЯК ПРАЦЮЄ ХАБ -->
-    <section id="how-it-works">
-        <h2 class="section-headline">Як працює виробничий хаб MT × Systems</h2>
+    <!-- КРОКИ -->
+    <section>
+        <h2 class="section-headline">Як працювати з Volpato через MT × Systems</h2>
         <p class="section-lead">
-            Логіка однакова для всіх калькуляторів: прості вхідні дані, прозора математика, готові файли для 1С та Telegram.
+            Задача калькулятора — не замінити ваш досвід, а прибрати рутину: допуски, розрахунок метражу, сервіс та формування
+            специфікації.
         </p>
 
         <div class="steps">
             <div class="card">
                 <div class="step-num">1</div>
-                <div class="step-title">Вибір системи / продукту</div>
+                <div class="step-title">Обрати серії та тип фасадів</div>
                 <div class="step-text">
-                    З головної сторінки переходите до потрібного калькулятора: TRIAL, Volpato, LAIT, ONLY / IKS чи скло Busel.
+                    Визначаємо, які серії Volpato використовуємо: AV2/AV4/AV8/AV9, висоти фасадів, тип скла та кольори профілю.
                 </div>
             </div>
             <div class="card">
                 <div class="step-num">2</div>
-                <div class="step-title">Введення розмірів та модулів</div>
+                <div class="step-title">Задати розміри та кількість</div>
                 <div class="step-text">
-                    Вказуєте висоту, ширину, кількість секцій, типи полиць, тумб, панелей, фасадів. Математика та допуски вже
-                    закладені в логіку калікулятора.
+                    В калькуляторі вводимо габарити фасадів, кількість позицій, варіанти відкривання та, за потреби, сервіс MTU.
                 </div>
             </div>
             <div class="card">
                 <div class="step-num">3</div>
-                <div class="step-title">Результат, CSV, Telegram</div>
+                <div class="step-title">Отримати специфікацію та заявку</div>
                 <div class="step-text">
-                    Отримуєте загальну суму, повну специфікацію, CSV для 1С та можливість відправити прорахунок
-                    прямо в Telegram MT × Systems для виставлення рахунку.
+                    На виході — список профілів, скла, комплектуючих, послуг MT та сума в € / грн. Можна експортувати CSV і
+                    відправити прорахунок у MT × Systems.
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ФІНАЛЬНИЙ CTA / КОНТАКТ -->
-    <section id="contact" class="hub-cta">
+    <!-- ФІНАЛЬНИЙ CTA -->
+    <section class="hub-cta">
         <div class="hub-cta-inner">
             <div class="hub-cta-left">
-                <h2 class="hub-cta-title">Готові тестувати MT × Systems як віддалений цех?</h2>
+                <h2 class="hub-cta-title">Готові протестувати Volpato на реальному проєкті?</h2>
                 <p class="hub-cta-text">
-                    Напишіть або зателефонуйте нам. Ми допоможемо підібрати стартові продукти (TRIAL, Volpato, LAIT, фасади),
-                    налаштувати калькулятори під ваші процеси та інтегрувати прорахунки з 1С.
+                    Запустіть калькулятор фасадів Volpato, додайте перший комплект дверей і надішліть результат в MT × Systems.
+                    Ми допоможемо перевірити специфікацію та запропонуємо оптимальний формат співпраці.
                 </p>
                 <div class="hub-cta-actions">
-                    <a href="tel:+380800304404" class="hub-cta-btn hub-cta-btn--primary">
-                        Зателефонувати в MT × Systems
+                    <a href="https://mt-volpato.vercel.app/"
+                       class="hub-cta-btn hub-cta-btn--primary"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Відкрити калькулятор Volpato
                     </a>
-                    <a href="mailto:info@mt.ua" class="hub-cta-btn hub-cta-btn--ghost">
-                        Написати листа
+                    <a href="index.html"
+                       class="hub-cta-btn hub-cta-btn--ghost">
+                        Повернутися до виробничого центру MTU
                     </a>
                 </div>
             </div>
@@ -911,8 +861,8 @@
                     <div class="hub-cta-value">м. Київ, вул. Кирилівська, 102</div>
                 </div>
                 <div class="hub-cta-row">
-                    <div class="hub-cta-label">Звʼязок по калькуляторам</div>
-                    <div class="hub-cta-value">Telegram: @mt_systems (приклад, підстав свій)</div>
+                    <div class="hub-cta-label">Звʼязок по Volpato</div>
+                    <div class="hub-cta-value">Telegram: @mt_systems (вкажеш свій)</div>
                 </div>
             </div>
         </div>
@@ -921,7 +871,7 @@
 </div>
 
 <script>
-    // Єдина логіка теми (як на TRIAL eTSecutive)
+    // Тогл теми (як у хабі / TRIAL eTSecutive)
     const bodyEl = document.body;
     const themeBtn = document.getElementById('themeToggle');
 
