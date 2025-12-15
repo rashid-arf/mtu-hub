@@ -5,33 +5,31 @@
     <title>Полиці LAIT (Lite) — MT × Systems</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Спільні стилі MTU hub -->
+    <!-- Спільні стилі МТ hub -->
     <link rel="stylesheet" href="mtu-hub.css" />
 
     <style>
         /* =========================
-           1. Блок детального калькулятора LAIT
+           1. LAIT Lite — базовий (світлий) стиль
            ========================= */
 
         .lait-root {
             margin-top: 24px;
             border-radius: 26px;
             padding: 22px 22px 26px;
-            background: radial-gradient(circle at top left, #020617, #020617 55%);
-            border: 1px solid rgba(148, 163, 184, 0.4);
-            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.75);
-            color: #e5e7eb;
+            background: #ffffff; /* світла карта */
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 28px 80px rgba(15, 23, 42, 0.10);
+            color: #0f172a;
         }
 
         .lait-root-title {
             font-size: 18px;
             font-weight: 600;
             margin: 0 0 12px;
-            color: #f9fafb;
+            color: #0f172a;
         }
 
-        /* Контейнер карток калькулятора:
-           1 велика зверху (форма) + 3 нижні (результат) */
         .lait-calc-grid {
             display: grid;
             gap: 18px;
@@ -39,43 +37,48 @@
 
         .lait-panel {
             border-radius: 20px;
-            background: rgba(15, 23, 42, 0.96);
-            border: 1px solid rgba(148, 163, 184, 0.45);
-            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
+            background: #f9fafb;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
             padding: 18px 20px;
+            color: #0f172a;
         }
 
         .lait-panel--inputs {
             grid-column: 1 / -1;
         }
 
-        .lait-results-wrapper {
-            display: none;
-        }
-
-        .lait-results-wrapper.active {
-            display: block;
-        }
-
-        .results {
-            display: grid;
-            grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
-            gap: 16px;
-        }
-
-        @media (max-width: 900px) {
-            .results {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Сітка полів форми */
         .lait-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 12px 16px;
             margin-bottom: 14px;
         }
+
+        .lait-grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px 16px;
+        }
+
+        .lait-intro {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+        }
+
+        .lait-bullets {
+            margin: 0;
+            padding-left: 18px;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .lait-bullets li + li {
+            margin-top: 4px;
+        }
+
+        /* ====== поля форми ====== */
 
         .field {
             display: flex;
@@ -85,51 +88,63 @@
 
         .field label {
             font-size: 12px;
-            color: #cbd5f5;
+            color: #475569;
+        }
+
+        .field small {
+            font-size: 11px;
+            color: #9ca3af;
         }
 
         .field input,
         .field select {
-            background: rgba(15, 23, 42, 0.85);
+            background: #ffffff;
             border-radius: 10px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            padding: 6px 8px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            padding: 7px 10px;
             font-size: 13px;
-            color: #f5f5f5;
+            color: #0f172a;
             outline: none;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
 
+        .field input::placeholder {
+            color: #9ca3af;
+        }
+
         .field input:focus,
         .field select:focus {
-            border-color: #22c55e;
-            box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.55);
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.4);
         }
+
+        /* ====== кнопка "Розрахувати" ====== */
 
         .button {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 8px 18px;
+            padding: 8px 20px;
             border-radius: 999px;
             border: none;
-            background: linear-gradient(135deg, #ffffff, #d1d5db);
-            color: #000000;
+            background: #22c55e;
+            color: #052e16;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
+            box-shadow: 0 12px 30px rgba(34, 197, 94, 0.35);
             transition: transform 0.1s ease, box-shadow 0.1s ease, opacity 0.1s ease;
         }
 
         .button:hover {
             transform: translateY(-1px);
-            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.55);
+            box-shadow: 0 16px 40px rgba(34, 197, 94, 0.55);
         }
 
         .button:active {
             transform: translateY(0);
-            box-shadow: none;
-            opacity: 0.9;
+            box-shadow: 0 10px 24px rgba(34, 197, 94, 0.4);
+            opacity: 0.95;
         }
 
         .button-small {
@@ -138,99 +153,21 @@
             font-size: 12px;
         }
 
-        .row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 13px;
-        }
-
-        .rowSmall {
-            font-size: 12px;
-            color: #d0d0d0;
-            margin-top: 2px;
-        }
-
-        .rowStrong {
-            font-size: 13px;
-            font-weight: 600;
-            margin-top: 6px;
-        }
-
-        .tg-box {
-            margin-top: 4px;
-        }
-
-        .tg-textarea {
-            width: 100%;
-            min-height: 120px;
-            border-radius: 12px;
-            border: 1px solid rgba(148, 163, 184, 0.6);
-            background: rgba(15, 23, 42, 0.9);
-            color: #e5e7eb;
-            font-size: 12px;
-            padding: 8px 10px;
-            resize: vertical;
-        }
-
         /* =========================
-           2. Вітрина LAIT
+           2. Результат розрахунку
            ========================= */
 
-        .page {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 32px 16px 64px;
-        }
-
-        .lait-intro {
-            margin-bottom: 24px;
-        }
-
-        .lait-intro p {
-            margin: 0 0 6px;
-        }
-
-        .lait-grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
-        }
-
-        .lait-bullets {
-            padding-left: 18px;
-            margin: 6px 0 0;
-            font-size: 13px;
-        }
-
-        .lait-bullets li {
-            margin-bottom: 4px;
-        }
-
-        .lait-note-card {
-            margin-top: 12px;
-        }
-
-        @media (max-width: 768px) {
-            .page {
-                padding-inline: 12px;
-            }
-
-            .lait-grid-2 {
-                grid-template-columns: minmax(0, 1fr);
-            }
-        }
-
         .lait-result {
-            margin-top: 32px;
+            margin-top: 22px;
         }
 
         .lait-result-card {
             border-radius: 24px;
             padding: 20px 24px 22px;
-            background: radial-gradient(circle at top left, #064e3b, #020617 65%);
-            border: 1px solid rgba(34, 197, 94, 0.45);
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.85);
-            color: #ecfdf5;
+            background: linear-gradient(135deg, #eafff2, #f4fdf8);
+            border: 1px solid rgba(34, 197, 94, 0.40);
+            box-shadow: 0 20px 45px rgba(34, 197, 94, 0.25);
+            color: #052e16;
         }
 
         .lait-result-main {
@@ -244,21 +181,36 @@
 
         .lait-result-label {
             font-size: 13px;
-            opacity: 0.9;
+            color: #166534;
         }
 
         .lait-result-value {
             font-size: 28px;
             font-weight: 700;
+            line-height: 1.1;
         }
 
         .lait-result-note {
-            font-size: 13px;
-            max-width: 340px;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #166534;
         }
 
         .lait-result-note-sub {
-            opacity: 0.9;
+            margin-top: 4px;
+            font-size: 11px;
+            color: #15803d;
+        }
+
+        .lait-result-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #166534;
         }
 
         .lait-result-form {
@@ -272,63 +224,62 @@
             display: block;
             font-size: 12px;
             margin-bottom: 4px;
-            opacity: 0.9;
+            color: #065f46;
         }
 
         .lait-result-field input {
             width: 100%;
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.55);
-            background: rgba(15, 23, 42, 0.85);
-            color: #f9fafb;
-            padding: 7px 12px;
+            border: 1px solid rgba(22, 163, 74, 0.4);
+            padding: 7px 10px;
             font-size: 13px;
+            color: #052e16;
             outline: none;
+            background: #ffffff;
         }
 
         .lait-result-field input::placeholder {
-            color: rgba(148, 163, 184, 0.8);
+            color: #16a34a;
         }
 
-        .lait-result-bottom {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-        }
+        /* режим клієнт / менеджер */
 
         .lait-result-mode {
-            font-size: 13px;
             display: flex;
-            align-items: center;
             gap: 8px;
+            align-items: center;
+            font-size: 12px;
+            color: #065f46;
+            margin-top: 6px;
         }
 
         .lait-mode-btn {
             border-radius: 999px;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            background: transparent;
-            color: #e5e7eb;
-            padding: 5px 12px;
-            font-size: 12px;
+            border: 1px solid rgba(22, 163, 74, 0.4);
+            background: #ffffff;
+            color: #065f46;
+            padding: 4px 10px;
+            font-size: 11px;
             cursor: pointer;
         }
 
         .lait-mode-btn.active {
             background: #22c55e;
             border-color: #22c55e;
-            color: #022c22;
+            color: #052e16;
         }
 
+        /* кнопка відправки */
+
         .lait-send-btn {
+            margin-top: 6px;
+            padding: 10px 20px;
             border-radius: 999px;
             border: none;
-            padding: 9px 18px;
             background: #22c55e;
-            color: #022c22;
-            font-weight: 600;
+            color: #052e16;
             font-size: 13px;
+            font-weight: 600;
             cursor: pointer;
             box-shadow: 0 14px 30px rgba(34, 197, 94, 0.45);
         }
@@ -338,12 +289,353 @@
             box-shadow: 0 18px 40px rgba(34, 197, 94, 0.65);
         }
 
+        /* текст для Telegram */
+
+        .tg-box {
+            margin-top: 8px;
+        }
+
+        .tg-textarea {
+            width: 100%;
+            min-height: 120px;
+            border-radius: 12px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            background: #ffffff;
+            color: #0f172a;
+            font-size: 12px;
+            padding: 8px 10px;
+            resize: vertical;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        .rowSmall {
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 2px;
+        }
+
+        .rowStrong {
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
         @media (max-width: 960px) {
             .lait-result-form {
                 grid-template-columns: minmax(0, 1fr);
             }
         }
+
+        /* ===== Переваги LAIT ===== */
+
+        #lait-advantages {
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .lait-adv-header {
+            max-width: 720px;
+            margin: 0 auto 20px;
+            text-align: left;
+        }
+
+        .lait-adv-title {
+            font-size: clamp(24px, 3vw, 30px);
+            font-weight: 700;
+            margin: 0 0 6px;
+        }
+
+        .lait-adv-sub {
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .lait-adv-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        @media (min-width: 900px) {
+            .lait-adv-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        .lait-adv-card {
+            border-radius: 20px;
+            padding: 16px 18px 18px;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .lait-adv-card h3 {
+            margin: 6px 0 6px;
+            font-size: 15px;
+        }
+
+        .lait-adv-card p {
+            margin: 0 0 10px;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        .lait-adv-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px 10px;
+            border-radius: 999px;
+            background: #ecfeff;
+            color: #0e7490;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .lait-adv-media img {
+            width: 100%;
+            border-radius: 14px;
+            display: block;
+        }
+
+        /* ===== Технічні схеми LAIT ===== */
+
+        #lait-tech.section-dark {
+            padding-top: 40px;
+            padding-bottom: 48px;
+            background: radial-gradient(circle at top left, #0f172a, #020617);
+        }
+
+        .lait-tech-header {
+            max-width: 760px;
+            margin: 0 auto 24px;
+        }
+
+        .lait-tech-title {
+            font-size: clamp(24px, 3vw, 30px);
+            font-weight: 700;
+            margin: 0 0 6px;
+            color: #f9fafb;
+        }
+
+        .lait-tech-sub {
+            margin: 0;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .lait-tech-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        @media (min-width: 960px) {
+            .lait-tech-grid {
+                grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+            }
+        }
+
+        .lait-tech-text {
+          display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .lait-tech-text h3 {
+            margin: 0 0 6px;
+            font-size: 15px;
+            color: #e5e7eb;
+        }
+
+        .lait-tech-text ul {
+            margin: 0 0 14px;
+            padding-left: 18px;
+            font-size: 13px;
+            color: #cbd5f5;
+        }
+
+        .lait-tech-text li {
+            margin-top: 4px;
+            color:  #4b5563;
+        }
+
+        .lait-tech-media {
+            display: grid;
+            gap: 12px;
+        }
+
+        .lait-tech-figure {
+            margin: 0;
+            width: 56%;
+            border-radius: 18px;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            padding: 10px;
+        }
+
+        .lait-tech-figure img {
+            width: 100%;
+           display: block;
+            border-radius: 12px;
+        }
+
+        .lait-tech-figure figcaption {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #9ca3af;
+        }
+
+        /* Dark / light адаптація для верхнього блоку */
+
+        body.dark-theme #lait-advantages {
+            background: radial-gradient(circle at top left, #020617, #020617 55%);
+        }
+
+        body.dark-theme #lait-advantages .lait-adv-title {
+            color: #f9fafb;
+        }
+
+        body.dark-theme #lait-advantages .lait-adv-sub {
+            color: #9ca3af;
+        }
+
+        body.dark-theme .lait-adv-card {
+            background: rgba(15, 23, 42, 0.96);
+            border-color: rgba(148, 163, 184, 0.45);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+        }
+
+        body.dark-theme .lait-adv-card p {
+            color: #e5e7eb;
+        }
+
+        /* =========================
+           3. LAIT — DARK THEME (body.dark-theme)
+           ========================= */
+
+        body.dark-theme .lait-root {
+            background: radial-gradient(circle at top left, #020617, #020617 55%);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+        }
+
+        body.dark-theme .lait-root-title {
+            color: #f9fafb;
+        }
+
+        body.dark-theme .lait-panel {
+            background: rgba(15, 23, 42, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: 0 18px 50px rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+        }
+
+        body.dark-theme .lait-intro {
+            color: #9ca3af;
+        }
+
+        body.dark-theme .lait-bullets {
+            color: #e5e7eb;
+        }
+
+        body.dark-theme .field label {
+            color: #cbd5f5;
+        }
+
+        body.dark-theme .field input,
+        body.dark-theme .field select {
+            background: rgba(15, 23, 42, 0.85);
+            border-color: rgba(148, 163, 184, 0.7);
+            color: #f5f5f5;
+        }
+
+        body.dark-theme .field input::placeholder {
+            color: #64748b;
+        }
+
+        body.dark-theme .field input:focus,
+        body.dark-theme .field select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.6);
+        }
+
+        body.dark-theme .button {
+            background: #22c55e;
+            color: #052e16;
+            box-shadow: 0 14px 30px rgba(34, 197, 94, 0.45);
+        }
+
+        /* результат у темній темі */
+
+        body.dark-theme .lait-result-card {
+            background: radial-gradient(circle at top left, #064e3b, #020617 65%);
+            border-color: rgba(34, 197, 94, 0.45);
+            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.85);
+            color: #ecfdf5;
+        }
+
+        body.dark-theme .lait-result-label {
+            color: #bbf7d0;
+        }
+
+        body.dark-theme .lait-result-note {
+            color: #bbf7d0;
+        }
+
+        body.dark-theme .lait-result-note-sub {
+            color: #a7f3d0;
+        }
+
+        body.dark-theme .lait-result-field label {
+            color: #bbf7d0;
+        }
+
+        body.dark-theme .lait-result-field input {
+            background: rgba(15, 23, 42, 0.9);
+            border-color: rgba(74, 222, 128, 0.7);
+            color: #ecfdf5;
+        }
+
+        body.dark-theme .lait-result-field input::placeholder {
+            color: #6ee7b7;
+        }
+
+        body.dark-theme .lait-mode-btn {
+            background: transparent;
+            border-color: rgba(22, 163, 74, 0.7);
+            color: #bbf7d0;
+        }
+
+        body.dark-theme .lait-mode-btn.active {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: #052e16;
+        }
+
+        body.dark-theme .lait-send-btn {
+            background: #22c55e;
+            color: #052e16;
+            box-shadow: 0 16px 36px rgba(34, 197, 94, 0.6);
+        }
+
+        body.dark-theme .tg-textarea {
+            background: rgba(15, 23, 42, 0.9);
+            color: #e5e7eb;
+            border-color: rgba(148, 163, 184, 0.7);
+        }
+
+        body.dark-theme .rowSmall {
+            color: #d1d5db;
+        }
+
     </style>
+
 </head>
 <body>
 <div class="page">
@@ -450,9 +742,10 @@
             </div>
         </div>
 
+
         <!-- Як працювати з MTU -->
         <section style="margin-top:32px;">
-            <h2 class="section-headline">Як працювати з MTU по LAIT</h2>
+            <h2 class="section-headline">Як працювати з LAIT</h2>
             <p class="section-lead">
                 Ви можете замовити повний комплект LAIT: профіль, скло, LED та роботи в одному місці. Ми робимо різку, збірку,
                 поклейку скла та готуємо полиці до монтажу.
@@ -461,9 +754,9 @@
             <div class="card lait-note-card">
                 <div class="card-body">
                     <ul class="lait-bullets">
-                        <li><strong>Комплект «під ключ»</strong> зі складу MTU: профіль, скло, LED, конвертер, роботи.</li>
+                        <li><strong>Комплект «під ключ»</strong> зі складу: профіль, скло, LED, конвертер, роботи.</li>
                         <li><strong>Варіант «тільки профіль + сервіс»</strong> — скло від вашого постачальника, ми робимо розкрій і підготовку профілю.</li>
-                        <li><strong>Підтримка менеджера MTU</strong> на етапі проєктування полиць, перевірка навантажень та вузлів.</li>
+                        <li><strong>Підтримка менеджера</strong> на етапі проєктування полиць, перевірка навантажень та вузлів.</li>
                     </ul>
                 </div>
             </div>
@@ -474,8 +767,8 @@
     <section id="lait-lite-calculator" style="margin-top:40px;">
         <h2 class="section-headline">Калькулятор полиць LAIT (Lite)</h2>
         <p class="section-lead">
-            Вкажіть параметри полиць. Калькулятор дає детальний розрахунок профілю, скла / ДСП, LED, конвертерів та послуг MTU.
-            Менеджер MTU перевіряє результат перед виставленням рахунку.
+            Вкажіть параметри полиць. Калькулятор дає детальний розрахунок профілю, скла / ДСП, LED, конвертерів та послуг.
+            Менеджер MT перевіряє результат перед виставленням рахунку.
         </p>
 
         <div class="lait-root">
@@ -547,13 +840,6 @@
                             </select>
                         </div>
 
-                        <div class="field">
-                            <label for="mode">Режим</label>
-                            <select id="mode">
-                                <option value="client" selected>Клієнт (орієнтовний прорахунок)</option>
-                                <option value="manager">Менеджер MTU (службовий)</option>
-                            </select>
-                        </div>
                     </div>
 
                     <button id="calcBtn" class="button" type="button">Розрахувати</button>
@@ -710,6 +996,126 @@
                 </div> <!-- /resultsContainer -->
             </div> <!-- /lait-calc-grid -->
         </div> <!-- /lait-root -->
+    </section>
+    <!-- ===== ПЕРЕВАГИ СИСТЕМИ LAIT ===== -->
+    <section class="lait-root" id="lait-advantages">
+        <div class="container">
+
+                <h2 class="section-headline">Переваги системи LAIT</h2>
+                <p class="section-lead">
+                    Система LAIT H30 поєднує алюмінієвий профіль, скло або ДСП, LED-підсвітку та кріплення
+                    в одному рішенні. Полиці збираються з готових профілів LA-1048 / LA-1049, комплекту
+                    тримачів LA-B та монтажних кутників.
+                </p>
+
+
+            <div class="lait-adv-grid">
+                <!-- Карта 1 -->
+                <article class="lait-adv-card">
+                    <div class="lait-adv-pill">Конструкція полиці</div>
+                    <h3>Готова архітектура LAIT H30</h3>
+                    <p>
+                        Полиці LAIT H30 збираються з фронтального профілю LA-1048 та бічного заднього
+                        профілю LA-1049 (довжина 6100&nbsp;мм, висота 30&nbsp;мм, глибина 24&nbsp;мм).
+                        Скляна полиця виконується з відступом <strong>H/L&nbsp;−&nbsp;5&nbsp;мм</strong> від габариту
+                        профілю, товщина скла 4/5/6&nbsp;мм.
+                    </p>
+                    <div class="lait-adv-media">
+                        <img src="img25.jpg" alt="Полиця з підсвічуванням LAIT H30" loading="lazy">
+                    </div>
+                </article>
+
+                <!-- Карта 2 -->
+                <article class="lait-adv-card">
+                    <div class="lait-adv-pill">Наповнення та світло</div>
+                    <h3>Скло, ДСП та LED-підсвітка</h3>
+                    <p>
+                        У полицю LAIT можна встановити скло або плиту (ДСП/МДФ), а також LED-стрічку
+                        (Domus Apex SHE 24V чи іншу сумісну) у фронтальний профіль. Блок живлення
+                        з кабелем виноситься в окрему нішу шафи, що полегшує сервіс.
+                    </p>
+                    <div class="lait-adv-media">
+                        <img src="img27.jpg" alt="Схема полиці LAIT H30 з блоком живлення" loading="lazy">
+                    </div>
+                </article>
+
+                <!-- Карта 3 -->
+                <article class="lait-adv-card">
+                    <div class="lait-adv-pill">Монтаж та регулювання</div>
+                    <h3>Зручне кріплення та блокування</h3>
+                    <p>
+                        Кріплення полиці виконується на з’єднувальні кутники KIT-LA-G30-EL-GR та
+                        комплект тримачів LA-B (Ø14,9&nbsp;мм, виступ 5,9&nbsp;мм). Після навішування полиця
+                        блокується поворотом тримача — полиця фіксується та не вислизає зі стінки.
+                    </p>
+                    <div class="lait-adv-media">
+                        <img src="img43.jpg" alt="Монтаж та блокування полиці LAIT H30" loading="lazy">
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ТЕХНІЧНІ СХЕМИ СИСТЕМИ LAIT ===== -->
+    <section class="section" id="lait-tech">
+        <div class="lait-root">
+            <div class="container">
+                <h2 class="section-headline">Технічні схеми системи LAIT</h2>
+                <p class="section-lead">
+                    Короткі технічні схеми з каталогу LAIT показують профілі LA-1048/LA-1049, комплект LA-B,
+                    кутники KIT-LA-G30-EL-GR та послідовність монтажу полиці H30 у шафі.
+                </p>
+            </div>
+
+            <div class="lait-tech-grid">
+                <div class="lait-tech-text" >
+                    <!-- Карта 1 -->
+                    <article class="lait-adv-card">
+                        <div class="lait-adv-pill">Профілі та комплектуючі</div>
+                        <ul>
+                            <li>
+                                <strong>LA-1048 — фронтальний профіль</strong>, висота 30&nbsp;мм, глибина 24&nbsp;мм,
+                                товщина лицевої частини 2&nbsp;мм, полиця спирається на внутрішню полицю профілю.
+                            </li>
+                            <li>
+                                <strong>LA-1049 — бічний задній профіль</strong>, також 30×24&nbsp;мм, з полицею під скло/ДСП
+                                та каналом для LED-стрічки.
+                            </li>
+                            <li>
+                                <strong>LA-B — комплект тримачів</strong>: діаметр 14,9&nbsp;мм, виступ 5,9&nbsp;мм — служить
+                                для фіксації полиці в стінці. На одну полицю йде 14&nbsp;шт (по 7 на бік).
+                            </li>
+                            <li>
+                                <strong>KIT-LA-G30-EL-GR — з’єднувальний кутник</strong> для стику профілів та
+                                кріплення полиці до бокової стінки.
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="lait-adv-card">
+                        <div class="lait-adv-pill">Монтаж полиці H30</div>
+                        <ul>
+                            <li>Збірка рами з профілів LA-1048 / LA-1049 на кутниках KIT-LA-G30-EL-GR.</li>
+                            <li>Встановлення скла/плити в раму з зазором H/L&nbsp;−&nbsp;5&nbsp;мм.</li>
+                            <li>Навішування полиці на тримачі LA-B з кроком 90&nbsp;мм від переднього краю.</li>
+                            <li>Поворотом тримачів полиця блокується та не висовується зі стінки.</li>
+                        </ul>
+                    </article>
+                                   </div>
+
+                <div class="lait-tech-media">
+                    <figure class="lait-tech-figure">
+                        <img src="/images/img458.jpg" alt="Схема монтажу полиці LAIT H30 у шафі" loading="lazy">
+                        <figcaption>Монтаж та блокування полиці H30 у боковій стінці шафи.</figcaption>
+                    </figure>
+
+                    <figure class="lait-tech-figure">
+                        <img src="/images/img459.jpg" alt="Збірка рами полиці LAIT H30" loading="lazy">
+                        <figcaption>Збірка рами з профілів LA-1048/LA-1049 та монтажним кутником.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 
@@ -1604,7 +2010,7 @@
     function setLaitMode(mode) {
         // якщо хочемо ввімкнути режим менеджера — питаємо пароль
         if (mode === "manager" && laitMode !== "manager") {
-            const pwd = prompt("Введіть пароль доступу для режиму менеджера MTU:");
+            const pwd = prompt("Введіть пароль доступу для режиму менеджера MT:");
             if (!pwd) {
                 return;
             }
@@ -1623,6 +2029,22 @@
 
     infillTypeEl.addEventListener('change', updateGlassFieldVisibility);
     updateGlassFieldVisibility();
+
+    function applyPrefillFromQuery() {
+        const p = new URLSearchParams(window.location.search);
+
+        const eur = p.get('eur');
+        const len = p.get('len');
+        const dep = p.get('dep');
+        const qty = p.get('qty');
+
+        if (eur) document.getElementById('eurRate').value   = eur;
+        if (len) document.getElementById('lengthMm').value = len;
+        if (dep) document.getElementById('depthMm').value  = dep;
+        if (qty) document.getElementById('quantity').value = qty;
+    }
+
+    document.addEventListener('DOMContentLoaded', applyPrefillFromQuery);
 
     document.getElementById('calcBtn').addEventListener('click', function () {
         const eurRate = parseFloat(document.getElementById('eurRate').value || '0');
@@ -1911,7 +2333,7 @@
         );
 
         // ===== Текст для Telegram =====
-        const modeLabel = laitMode === 'manager' ? 'менеджер MTU' : 'клієнт';
+        const modeLabel = laitMode === 'manager' ? 'менеджер MT' : 'клієнт';
         const shelvesLine = result.shelves
             .map(s => `${s.label} ×${s.quantity}`)
             .join('; ');
@@ -1935,10 +2357,21 @@
         // короткий текст під карткою результату
         const summaryShort =
             `Полиці: ${shelvesLine}. Орієнтовна вартість комплекту ~${result.totals.grandTotal.toFixed(2)} грн.`;
-        updateLaitResult(result.totals.grandTotal, eurRate, summaryShort);
-    }
 
-    if (copyBtn) {
+// meta для повернення в ONLY
+        const meta = {
+            lenMm: Number(document.getElementById('lengthMm')?.value || 0),
+            depMm: Number(document.getElementById('depthMm')?.value || 0),
+            qty: Number(document.getElementById('quantity')?.value || 0),
+            infillType: String(document.getElementById('infillType')?.value || ""),
+            glassId: String(document.getElementById('glassId')?.value || ""),
+            ledId: String(document.getElementById('ledType')?.value || ""),
+            finishId: String(document.getElementById('finishId')?.value || "")
+        };
+
+        updateLaitResult(result.totals.grandTotal, eurRate, summaryShort, meta);
+
+        if (copyBtn) {
         copyBtn.addEventListener('click', () => {
             const text = document.getElementById('telegramText').value;
             if (!text) return;
@@ -1967,7 +2400,7 @@
     });
 
     // === Оновлення картки результату (верхній блок) ===
-    function updateLaitResult(totalUah, eurRate, summaryText) {
+    function updateLaitResult(totalUah, eurRate, summaryText, meta) {
         const totalEur = eurRate > 0 ? totalUah / eurRate : 0;
 
         const uahEl = document.getElementById('lait-total-uah');
@@ -1977,7 +2410,24 @@
         if (uahEl) uahEl.textContent = totalUah.toFixed(2);
         if (eurEl) eurEl.textContent = totalEur.toFixed(2);
         if (summaryEl && summaryText) summaryEl.textContent = summaryText;
+
+        // === handoff back to ONLY (фінальні цифри + валідні метадані) ===
+        localStorage.setItem("ONLY_LAIT_TOTAL_EUR", totalEur.toFixed(2));
+        localStorage.setItem("ONLY_LAIT_TOTAL_UAH", totalUah.toFixed(2));
+        localStorage.setItem("ONLY_LAIT_META", JSON.stringify({
+            lenMm: Number(meta?.lenMm || 0),
+            depMm: Number(meta?.depMm || 0),
+            qty: Number(meta?.qty || 0),
+            infillType: String(meta?.infillType || ""),
+            glassId: String(meta?.glassId || ""),
+            ledId: String(meta?.ledId || ""),
+            finishId: String(meta?.finishId || ""),
+            ts: Date.now()
+        }));
     }
+
+
+
 
     // === Відправка в Telegram ===
     async function sendLaitToTelegram() {

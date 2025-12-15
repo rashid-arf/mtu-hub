@@ -330,6 +330,32 @@
             margin-right: 6px;
         }
 
+        .hero-content {
+            max-width: 56%;
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            width: 100%;
+            flex: 0 0 auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease, opacity 0.45s ease;
+            transform-origin: center;
+            border-radius: 24px;
+            box-shadow: 0 10px 28px rgba(15,23,42,0.3);
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+            opacity: 0.96;
+        }
         /* =========================
    4. VOLPATO — DARK THEME
    ========================= */
@@ -423,9 +449,234 @@
             color: #052e16;
         }
 
+        /* =========================
+   VOLPATO · ТЕХНІЧНІ ПАРАМЕТРИ
+   ========================= */
+
+        .vt-section {
+            padding: 0 0 56px;
+        }
+
+        .vt-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 28px 30px;
+            border-radius: 28px;
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.08);
+        }
+
+        .dark-theme .vt-inner {
+            background: linear-gradient(145deg, #0f172a 0%, #111827 70%);
+            box-shadow: 0 18px 38px rgba(0,0,0,0.6);
+            color: #e5e7eb;
+        }
+
+        .vt-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .vt-sub {
+            font-size: 14px;
+            color: #4b5563;
+            margin-bottom: 24px;
+            max-width: 640px;
+        }
+        .dark-theme .vt-sub {
+            color: #9ca3af;
+        }
+
+        .vt-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        .vt-left-block {
+            border-radius: 20px;
+            background: #f9fafb;
+            padding: 18px 18px 16px;
+            margin-bottom: 14px;
+        }
+
+        .dark-theme .vt-left-block {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+
+        .vt-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+        .dark-theme .vt-kicker {
+            color: #9ca3af;
+        }
+
+        .vt-color-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .vt-swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(15,23,42,0.25);
+            background: #24232b; /* базовий чорний */
+        }
+
+        .vt-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .vt-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+        .vt-list li + li {
+            margin-top: 3px;
+        }
+        .dark-theme .vt-list {
+            color: #e5e7eb;
+        }
+
+        .vt-note {
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* ПРАВА ЧАСТИНА (серії) */
+
+        .vt-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .vt-card {
+            position: relative;
+            border-radius: 16px;
+            padding: 8px 8px 10px;
+            background: rgba(249,250,251,0.98);
+            border: 1px solid rgba(148,163,184,0.5);
+            box-shadow: 0 10px 22px rgba(15,23,42,0.06);
+            cursor: pointer;
+            text-align: left;
+            transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+        }
+        .vt-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(15,23,42,0.12);
+        }
+        .vt-card.vt-card-active {
+            border-color: #16a34a;
+            box-shadow: 0 16px 32px rgba(22,163,74,0.28);
+        }
+
+        .dark-theme .vt-card {
+            background: #1e293b; /* як у карток TRIAL */
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .dark-theme .vt-card.vt-card-active {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34,197,94,0.4);
+        }
+
+
+        .vt-thumb-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            background: #111827;
+        }
+
+        .vt-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .vt-card-caption {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Буллети праворуч під картками */
+
+        .vt-bullets {
+            list-style: disc;
+            padding-left: 18px;
+            margin: 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+        .vt-bullets li + li {
+            margin-top: 4px;
+        }
+        .dark-theme .vt-bullets {
+            color: #e5e7eb;
+        }
+
+        /* Адаптив */
+
+        @media (max-width: 960px) {
+            .vt-grid {
+                grid-template-columns: minmax(0,1fr);
+            }
+            .vt-gallery {
+                grid-template-columns: repeat(3,minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .vt-inner {
+                padding: 24px 18px 24px;
+            }
+            .vt-title {
+                font-size: 20px;
+            }
+            .vt-gallery {
+                grid-template-columns: repeat(2,minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .vt-gallery {
+                grid-template-columns: minmax(0,1fr);
+            }
+        }
+
+
     </style>
 </head>
 <body>
+
+
 <div class="page">
 
     <!-- TOPBAR (як в LAIT / eTsecutive) -->
@@ -436,7 +687,7 @@
             </div>
             <div>
                 <div class="topbar-title">MT Україна</div>
-                <div class="topbar-sub">Volpato AV2–AV6 · калькулятор без транспорту</div>
+                <div class="topbar-sub">Volpato AV2–AV6 · калькулятор</div>
             </div>
         </div>
 
@@ -444,22 +695,6 @@
             <button id="themeToggle"><span></span> Темна тема</button>
         </div>
     </header>
-
-    <!-- HERO -->
-    <section class="hero" id="top">
-        <div class="hero-content">
-            <h1 class="hero-title">Alu-фасади Volpato AV2–AV6</h1>
-            <p class="hero-sub">
-                Калькулятор Volpato на базі офіційних прайсів: профіль (EUR → грн), скло Busel (v3, загартоване,
-                поліровка завжди, без транспорту) та послуги МТ (порізка / свердління / збірка або упаковка).
-            </p>
-            <p class="hero-sub">
-                Один екран для швидкого розрахунку 1 позиції (рамки) з можливістю копіювати підсумок у КП та
-                Telegram (менеджерський режим).
-            </p>
-        </div>
-    </section>
-
     <!-- КАЛЬКУЛЯТОР VOLPATO -->
     <section class="section" id="volpato-calc">
         <div class="container">
@@ -486,7 +721,7 @@
                                         <label class="vp-label" for="vp-eur-rate">Курс EUR, грн</label>
                                         <div class="vp-hint">Зберігається локально</div>
                                     </div>
-                                    <input id="vp-eur-rate" class="vp-input" type="number" step="0.01" value="48.84" />
+                                    <input id="vp-eur-rate" class="vp-input" type="number" step="0.01" value="49.5" />
                                 </div>
 
                                 <div class="vp-field-group">
@@ -533,7 +768,7 @@
                                 <div class="vp-field-group">
                                     <div class="vp-label-row">
                                         <label class="vp-label" for="vp-glass">Скло (Busel, загартоване)</label>
-                                        <span class="vp-hint">Матеріал + поліровка, без транспорту</span>
+                                        <span class="vp-hint">Матеріал + поліровка</span>
                                     </div>
                                     <select id="vp-glass" class="vp-select">
                                         <option value="extra_clear_4">Extra Clear 4 мм (діамант)</option>
@@ -542,6 +777,16 @@
                                         <option value="satin_ec_4">Сатин Extra Clear 4 мм</option>
                                         <option value="fluted_4">Fluted 4 мм</option>
                                     </select>
+                                </div>
+                                <div class="vp-field-group">
+                                    <div class="vp-label-row">
+                                        <span class="vp-label">Тип термообробки</span>
+                                        <span class="vp-hint">Впливає на коефіцієнт Busel</span>
+                                    </div>
+                                    <div class="vp-mode-row" id="vp-glass-temp">
+                                        <button type="button" data-temp="tempered" class="vp-pill-btn active">Загартоване</button>
+                                        <button type="button" data-temp="non_tempered" class="vp-pill-btn">Не загартоване</button>
+                                    </div>
                                 </div>
 
                                 <div class="vp-field-group">
@@ -645,9 +890,9 @@
 
                             <!-- 2. Скло Busel -->
                             <div class="volpato-panel">
-                                <h3 class="volpato-panel-title">4. Скло Busel (v3)</h3>
+                                <h3 class="volpato-panel-title">4. Скло</h3>
                                 <p class="volpato-panel-sub">
-                                    Матеріал (табл. №20 Busel) + поліровка (табл. №10), −15% Busel, +30% МТ, без транспорту.
+                                    Матеріал  + поліровка .
                                 </p>
 
                                 <div class="vp-row-text">
@@ -663,7 +908,8 @@
                                     <span id="vp-glassPrice">—</span>
                                 </div>
                                 <div class="vp-row-text">
-                                    <span>Коефіцієнт за площею (загартоване)</span>
+                                    <span>Коефіцієнт (термообробка)</span>
+
                                     <span id="vp-kArea">—</span>
                                 </div>
                                 <div class="vp-row-text">
@@ -699,7 +945,7 @@
                                         <td class="vp-right" id="vp-compProfileSum">—</td>
                                     </tr>
                                     <tr>
-                                        <td>Скло (Busel v3)</td>
+                                        <td>Скло</td>
                                         <td class="vp-right" id="vp-compGlass1">—</td>
                                         <td class="vp-right" id="vp-compGlassSum">—</td>
                                     </tr>
@@ -726,7 +972,7 @@
                                     <span id="vp-qty-out">—</span>
                                 </div>
                                 <div class="vp-row-text">
-                                    <span>Орієнтовна ціна за 1 шт (без транспорту)</span>
+                                    <span>Орієнтовна ціна за 1 шт</span>
                                     <span id="vp-costPerTag">—</span>
                                 </div>
 
@@ -776,13 +1022,6 @@
 </script>
 
 <!-- ========= Математика Volpato (як було) ========= -->
-<script>
-    //  Математика Volpato (на основі TSX)
-    //  ... тут твій існуючий код без змін ...
-</script>
-</body>
-</html>
-
 <script>
     // =========================
     //  Математика Volpato (на основі TSX)
@@ -842,14 +1081,18 @@
         return { wg, hg, area: (wg * hg) / 1_000_000 };
     }
 
+    // Коефіцієнт Busel за площею для ГАРТОВАНОГО скла (табл. №2)
     function areaCoefBuselTempered(area) {
-        if (area >= 7.5) return 2.0;
-        if (area >= 6.5) return 1.5;
-        if (area >= 5.5) return 1.3;
-        if (area >= 4.5) return 1.2;
-        if (area >= 3.5) return 1.1;
-        return 1.0;
+        // до 0,25 м² +100% → множимо на 2, але площу вже беремо як 0,25
+        if (area <= 0.25) return 2.0;
+        if (area >= 7.5) return 2.0;   // від 7,5 м² +100%
+        if (area >= 6.5) return 1.5;   // 6,5–7,5 м² +50%
+        if (area >= 5.5) return 1.3;   // 5,5–6,5 м² +30%
+        if (area >= 4.5) return 1.2;   // 4,5–5,5 м² +20%
+        if (area >= 3.5) return 1.1;   // 3,5–4,5 м² +10%
+        return 1.0;                    // інші площі — без націнки
     }
+
 
     function glassWeight(area, tmm) {
         return area * UAH.config.densityGlass_t_per_m3 * tmm;
@@ -869,7 +1112,30 @@
         const qtyEl = document.getElementById('vp-qty');
         const glassEl = document.getElementById('vp-glass');
         const assemblyEl = document.getElementById('vp-assembly');
+        // Перемикач типу термообробки
+        const glassTempBlock = document.getElementById('vp-glass-temp');
+        let glassTemp = 'tempered'; // за замовчуванням — загартоване
+
+        if (glassTempBlock) {
+            glassTempBlock.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    glassTemp = btn.getAttribute('data-temp') || 'tempered';
+                    glassTempBlock.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        }
+
         const hingeHolesEl = document.getElementById('vp-hinge-holes');
+
+
+        glassTempBlock.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                glassTemp = btn.getAttribute('data-temp');
+                glassTempBlock.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
 
         const resultsWrap = document.getElementById('vp-results');
 
@@ -961,19 +1227,30 @@
             const priceM = profileUAHperM[profile] || 0;
             const costProfileRaw = Lm * priceM * (UAH.config.wasteK || 1);
 
-            // === Скло ===
+// === Скло ===
             const eff = calcGlassAreaEffective(profile, w, h);
             const wg = eff.wg;
             const hg = eff.hg;
             const area = eff.area;
+
             const g = UAH.glass_m2[glassKey] || { name: glassKey, price: 0 };
+
+// Busel рахує мінімум 0,25 м² → площу завжди підтягуємо до 0,25
             const areaFact = Math.max(area, 0.25);
-            const kArea = areaCoefBuselTempered(areaFact);
+
+// Коефіцієнт за площею:
+            let kArea = 1.0; // базово — без націнки
+            if (glassTemp === 'tempered') {
+                // тільки для загартованого включаємо таблицю №2
+                kArea = areaCoefBuselTempered(areaFact);
+            }
+
             const material = areaFact * g.price * kArea;
             const edgeLenM = (2 * (wg + hg)) / 1000;
             const polish = edgeLenM * (UAH.services.edge_polish_per_m || 0);
             const mtNet = (material + polish) * 0.85;
             const costGlass = mtNet * 1.30;
+
 
             // === Комплект/модуль ===
             const cornerEUR = profile === 'AV6'
@@ -1066,7 +1343,7 @@
             costPerEl.textContent = fmt(costPer, 0);
             totalEl.textContent = fmt(total, 0);
             qtyOutEl.textContent = String(qty);
-            costPerTagEl.textContent = fmt(costPer, 0) + ' грн/шт · без транспорту';
+            costPerTagEl.textContent = fmt(costPer, 0) + ' грн/шт ';
 
             tagProfileEl.textContent = 'Профіль: ' + fmt(compProfile, 0) + ' грн';
             tagGlassEl.textContent   = 'Скло: ' + fmt(compGlass, 0) + ' грн';
@@ -1087,7 +1364,21 @@
             hingeHolesEl.checked = false;
             resultsWrap.classList.remove('active');
         });
+        // === Технічні карти Volpato (підсвітка активної) ===
+        const techCards = document.querySelectorAll('.vt-card');
+        if (techCards.length) {
+            techCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    techCards.forEach(c => c.classList.remove('vt-card-active'));
+                    card.classList.add('vt-card-active');
+                });
+            });
+        }
+
+
     });
 </script>
 </body>
 </html>
+
+

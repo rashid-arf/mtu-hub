@@ -1,0 +1,467 @@
+{
+  "meta": {
+    "system": "TRIAL ONLY",
+    "version": "2025-12-13",
+    "currency_default": "EUR",
+    "notes": [
+      "Повний довідник ONLY з цінами (EUR): чорний мат + бронза Armani + бронза Cartier + оснащення.",
+      "UAH-конвертацію робимо в калькуляторі через курс.",
+      "IKS та LAIT — окремі сторінки/калькулятори."
+    ]
+  },
+  "defaults": {
+    "bar_length_mm": 6100,
+    "color_default": "NS"
+  },
+  "colors": [
+    {
+      "code": "NS",
+      "name_ua": "чорний мат"
+    },
+    {
+      "code": "BRA",
+      "name_ua": "бронза Armani"
+    },
+    {
+      "code": "BRC",
+      "name_ua": "бронза Cartier"
+    }
+  ],
+  "items": [
+    {
+      "id": "OL-2545",
+      "code": "трOL-2545-NS",
+      "vendor_code": "092638",
+      "name_ua": "Профіль вертикальний ONLY (глухий)",
+      "category": "PROFILE_VERTICAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "NS"
+      ],
+      "price": {
+        "eur": 233.02
+      },
+      "calc_tags": [
+        "BASE"
+      ]
+    },
+    {
+      "id": "OL-2545L",
+      "code": "трOL-2545L-NS",
+      "vendor_code": "096020",
+      "name_ua": "Профіль вертикальний ONLY (передній під LED)",
+      "category": "PROFILE_VERTICAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "NS"
+      ],
+      "price": {
+        "eur": 276.52
+      },
+      "calc_tags": [
+        "LED"
+      ]
+    },
+    {
+      "id": "OL-2545RG",
+      "code": "трOL-2545RG-NS",
+      "vendor_code": "100456",
+      "name_ua": "Профіль вертикальний ONLY (задній з пазом під скло)",
+      "category": "PROFILE_VERTICAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "NS"
+      ],
+      "price": {
+        "eur": 211.52
+      },
+      "calc_tags": [
+        "SHOWCASE",
+        "GLASS"
+      ]
+    },
+    {
+      "id": "OL-965",
+      "code": "трOL-965-NS",
+      "vendor_code": "082757",
+      "name_ua": "Профіль горизонтальний ONLY (верх / низ / перемички)",
+      "category": "PROFILE_HORIZONTAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "NS"
+      ],
+      "price": {
+        "eur": 161.64
+      },
+      "calc_tags": [
+        "BASE",
+        "SHOWCASE",
+        "LED"
+      ]
+    },
+    {
+      "id": "OL-2545_BRA",
+      "code": "трOL-2545-BRA",
+      "vendor_code": "115581",
+      "name_ua": "Профіль вертикальний ONLY, бронза Armani",
+      "category": "PROFILE_VERTICAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "BRA"
+      ],
+      "price": {
+        "eur": 223.97
+      },
+      "calc_tags": [
+        "BASE"
+      ]
+    },
+    {
+      "id": "OL-965_BRA",
+      "code": "трOL-965-BRA",
+      "vendor_code": "115584",
+      "name_ua": "Профіль горизонтальний ONLY (верх/низ/центр), бронза Armani",
+      "category": "PROFILE_HORIZONTAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "BRA"
+      ],
+      "price": {
+        "eur": 164.48
+      },
+      "calc_tags": [
+        "BASE",
+        "SHOWCASE",
+        "LED"
+      ]
+    },
+    {
+      "id": "OL-2545_BRC",
+      "code": "трOL-2545-BRC_св",
+      "vendor_code": "094129",
+      "name_ua": "Профіль вертикальний ONLY, бронза Cartier",
+      "category": "PROFILE_VERTICAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "BRC"
+      ],
+      "price": {
+        "eur": 243.98
+      },
+      "calc_tags": [
+        "BASE"
+      ]
+    },
+    {
+      "id": "OL-965_BRC",
+      "code": "трOL-965-BRC_св",
+      "vendor_code": "094130",
+      "name_ua": "Профіль горизонтальний ONLY (верх/низ/центр), бронза Cartier",
+      "category": "PROFILE_HORIZONTAL",
+      "sell_type": "BAR",
+      "unit": "шт",
+      "bar_length_mm": 6100,
+      "color_codes": [
+        "BRC"
+      ],
+      "price": {
+        "eur": 155.35
+      },
+      "calc_tags": [
+        "BASE",
+        "SHOWCASE",
+        "LED"
+      ]
+    },
+    {
+      "id": "A11.024",
+      "code": "трA11.024",
+      "vendor_code": "096276",
+      "name_ua": "Гвинт фіксуючий та опора для профілів ONLY",
+      "category": "FASTENER",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "pack_qty": 1000,
+      "warehouse": "MT",
+      "price": {
+        "eur": 4.85
+      },
+      "calc_tags": [
+        "BASE"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "GU-BAFFO-TR-PVC",
+      "code": "трGU-BAFFO-TR-PVC",
+      "vendor_code": "096274",
+      "name_ua": "Ущільнювач для скла в профіль ONLY 2545 (PVC)",
+      "category": "SEAL",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "length_mm": 3000,
+      "price": {
+        "eur": 4.59
+      },
+      "calc_tags": [
+        "SHOWCASE",
+        "GLASS"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "GU-C-RG-LISTA",
+      "code": "трGU-C-RG-LISTA",
+      "vendor_code": "100457",
+      "name_ua": "Ущільнювач для скла 5–6 мм (ONLY 2545RG)",
+      "category": "SEAL",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "length_mm": 3000,
+      "price": {
+        "eur": 6.5
+      },
+      "calc_tags": [
+        "SHOWCASE",
+        "GLASS"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "GU-O-F-LISTA",
+      "code": "трGU-O-F-LISTA",
+      "vendor_code": "096275",
+      "name_ua": "Заглушка у весь профіль ONLY 2545 (3000 мм)",
+      "category": "INSERT",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "length_mm": 3000,
+      "price": {
+        "eur": 4.39
+      },
+      "calc_tags": [
+        "BASE",
+        "SHOWCASE",
+        "LED"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "OL-GTSI",
+      "code": "трOL-GTSI.new",
+      "vendor_code": "089568",
+      "name_ua": "З’єднувальний елемент для ONLY OL-965",
+      "category": "CONNECTOR",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "pack_qty": 100,
+      "price": {
+        "eur": 14.0
+      },
+      "calc_tags": [
+        "BASE"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "OL-P",
+      "code": "трOL-P-VN",
+      "vendor_code": "094152",
+      "name_ua": "Опора регульована ONLY, чорний",
+      "category": "LEG",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "pack_qty": 100,
+      "price": {
+        "eur": 10.61
+      },
+      "calc_tags": [
+        "BASE"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "OL-V_A11.034",
+      "code": "трOL-V (A11.034)",
+      "vendor_code": "088098",
+      "name_ua": "Гвинт для кріплення (боковини/задньої стінки) ONLY / IS-954 / OL-967",
+      "category": "FASTENER",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "pack_qty": 50,
+      "price": {
+        "eur": 2.96
+      },
+      "calc_tags": [
+        "SHOWCASE"
+      ],
+      "color_codes": []
+    },
+    {
+      "id": "VITE-TSP-M4X10",
+      "code": "трVITE-TSP-M4X10",
+      "vendor_code": "088887",
+      "name_ua": "Гвинт M4×10 мм, чорний",
+      "category": "FASTENER",
+      "sell_type": "PCS",
+      "unit": "шт",
+      "pack_qty": 1000,
+      "warehouse": "MT",
+      "color_codes": [
+        "NS"
+      ],
+      "price": {
+        "eur": 0.05
+      },
+      "calc_tags": [
+        "BASE",
+        "SHOWCASE",
+        "LED"
+      ]
+    },
+    {
+      "id": "B010ZZ0001409",
+      "code": "B010ZZ0001409",
+      "name": "Вставка/камера Permo",
+      "unit": "шт",
+      "price_eur": 0.098,
+      "group": "PERMO",
+      "note": "ціна/пакування — уточнити",
+      "price": {
+        "eur": 0.098
+      },
+      "sell_type": "PCS",
+      "name_ua": "Вставка/камера Permo"
+    },
+    {
+      "id": "GR01ZZ00010M8",
+      "code": "GR01ZZ00010M8",
+      "name": "Гайка Permo M8",
+      "unit": "шт",
+      "price_eur": 0.032,
+      "group": "PERMO",
+      "note": "ціна/пакування — уточнити",
+      "price": {
+        "eur": 0.032
+      },
+      "sell_type": "PCS",
+      "name_ua": "Гайка Permo M8"
+    },
+    {
+      "id": "TF02FZ0000736",
+      "code": "TF02FZ0000736",
+      "name": "Стяжка Permo (шпилька)",
+      "unit": "шт",
+      "price_eur": 0.095,
+      "group": "PERMO",
+      "note": "ціна/пакування — уточнити",
+      "price": {
+        "eur": 0.095
+      },
+      "sell_type": "PCS",
+      "name_ua": "Стяжка Permo (шпилька)"
+    },
+    {
+      "id": "PANEL_25_MM2",
+      "code": "044531",
+      "name": "ДСП FA42 25мм Penelope (м²)",
+      "unit": "м²",
+      "price_eur": 30.5,
+      "group": "PANELS"
+    },
+    {
+      "id": "PANEL_BACK_8_MM2",
+      "code": "PANEL_BACK_8_MM2",
+      "name": "Задня стінка 8 мм (MDF/HDF) (м²)",
+      "unit": "м²",
+      "price_eur": 0,
+      "group": "PANELS",
+      "note": "додайте актуальну ціну €/м²"
+    },
+    {
+      "id": "GLASS_4_MM2",
+      "code": "GLASS_4_MM2",
+      "name_ua": "Скло 4 мм (м²)",
+      "unit": "м²",
+      "price_eur": 0,
+      "group": "GLASS"
+    },
+    {
+      "id": "GLASS_6_MM2",
+      "code": "GLASS_6_MM2",
+      "name_ua": "Скло 6 мм (м²)",
+      "unit": "м²",
+      "price_eur": 0,
+      "group": "GLASS"
+    },
+    {
+      "id": "PIATTO_25x2",
+      "code": "PIATTO-25x2",
+      "name_ua": "Пластина PIATTO-25x2",
+      "unit": "шт",
+      "price_eur": 0,
+      "group": "ONLY"
+    },
+    {
+      "id": "PIATTO_25x10",
+      "code": "PIATTO-25x10",
+      "name_ua": "Пластина PIATTO-25x10",
+      "unit": "шт",
+      "price_eur": 0,
+      "group": "ONLY"
+    },
+    {
+      "id": "PANEL_SIDE_MM2",
+      "code": "PANEL_SIDE_MM2",
+      "name_ua": "Боковина ДСП (в паз) (м²)",
+      "unit": "м²",
+      "price_eur": 0,
+      "group": "PANELS"
+    }
+  ],
+  "ui_sections": [
+    {
+      "id": "only-base",
+      "label_ua": "Каркас",
+      "tags": [
+        "BASE"
+      ]
+    },
+    {
+      "id": "only-showcase",
+      "label_ua": "Вітрина",
+      "tags": [
+        "SHOWCASE",
+        "GLASS"
+      ]
+    },
+    {
+      "id": "only-led",
+      "label_ua": "LED",
+      "tags": [
+        "LED"
+      ]
+    },
+    {
+      "id": "only-iks",
+      "label_ua": "ONLY + IKS",
+      "tags": [
+        "IKS_LINK"
+      ]
+    }
+  ]
+}

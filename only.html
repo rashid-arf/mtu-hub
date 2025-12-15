@@ -1,0 +1,1909 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MTU Hub · TRIAL ONLY</title>
+    <style>
+
+        :root {
+            --bg: #f4f5fb;
+            --bg-elevated: #ffffff;
+            --bg-hero: #f9fafb;
+            --text: #020617;
+            --text-main: #141414;
+            --text-muted: #555;
+            --accent: #16a34a;
+            --accent-soft: rgba(22, 163, 74, 0.08);
+            --border: rgba(148, 163, 184, 0.4);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+            --radius-lg: 22px;
+        }
+        .dark-theme {
+            --bg: #020617;
+            --bg-elevated: #020617;
+            --bg-hero: #020617;
+            --text: #e5e7eb;
+            --text-main: #ffffff;
+            --text-muted: #cfcfcf;
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.12);
+            --border: rgba(148, 163, 184, 0.25);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+            "Segoe UI", sans-serif;
+            background:
+                    radial-gradient(circle at top left, #e0f2fe 0, transparent 40%),
+                    radial-gradient(circle at bottom right, #dcfce7 0, transparent 45%),
+                    var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 16px 48px;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            backdrop-filter: blur(10px);
+            margin-bottom: 28px;
+        }
+        .dark-theme .topbar {
+            background: rgba(15, 23, 42, 0.92);
+            border-color: rgba(148, 163, 184, 0.35);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .topbar-logo {
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ef4444;
+        }
+
+        .topbar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .topbar-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle button {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            padding: 8px 14px;
+            font-size: 13px;
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--text);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .theme-toggle button span {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+
+        /* HERO */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 40px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .dark-theme .hero {
+            background: linear-gradient(135deg, #020617 0%, #020617 100%);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+            margin-bottom: 18px;
+        }
+        .dark-theme .hero-title {
+            color: #f9fafb;
+        }
+
+        .hero-grid {
+            display: flex;
+
+        }
+        .hero-sub {
+            font-size: 18px;
+            line-height: 1.55;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+        .dark-theme .hero-sub {
+            color: #e5e7eb;
+        }
+
+        .hero-content {
+            max-width: 50%;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .hero-tags span {
+            padding: 6px 14px;
+            border-radius: 12px;
+            font-size: 14px;
+            opacity: 1;
+            background: #f0f2f5;
+            border: 1px solid rgba(148,163,184,0.6);
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+         width: 100%;
+            border-radius: 24px;        /* якщо потрібно згладити */
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease, opacity 0.45s ease;
+            transform-origin: center;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.1);
+            opacity: 0.9;
+        }
+
+
+
+        .dark-theme .hero-tags span {
+            background: rgba(15,23,42,0.4);
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.7);
+        }
+
+        .btn-green {
+            padding: 12px 22px;
+            background: #00b05a;
+            color: #ffffff;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-green:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(34,197,94,0.45);
+        }
+
+        .btn-white {
+            padding: 12px 22px;
+            background: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #dce0e5;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .btn-white:hover {
+            background: rgba(255,255,255,0.9);
+        }
+        .dark-theme .btn-white {
+            background: rgba(15,23,42,0.95);
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.6);
+        }
+        .dark-theme .btn-white:hover {
+            background: rgba(15,23,42,1);
+        }
+
+        .hero-image img {
+            width: 460px;
+            height: auto;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+        }
+
+        /* Для великих екранів */
+        @media (min-width: 1400px) {
+            .hero-image img { width: 520px; }
+        }
+
+        /* Для мобільних */
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+        }
+        /* MOBILE FIX */
+        @media (max-width: 480px) {
+
+            .hero-image {
+                width: 100%;
+                height: auto !important;
+                border-radius: 16px !important;
+                overflow: hidden;
+            }
+
+            .hero-image img {
+                width: 100%;
+                height: auto !important;
+                object-fit: cover;
+                border-radius: 16px !important;
+            }
+
+        }
+
+        /* SECTIONS */
+
+        section {
+            margin-bottom: 48px;
+        }
+
+        .section-headline {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+        .section-lead {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            max-width: 720px;
+        }
+
+        .three-cols {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            border-radius: 18px;
+            padding: 16px 16px 14px;
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+        }
+        .dark-theme .card {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+        .card-body {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .check-list {
+            padding-left: 16px;
+            margin: 8px 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .check-list li { margin-bottom: 4px; }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .ts603-advantages {
+            margin-top: 80px;
+        }
+
+        .ts603-advantages .section-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .ts603-advantages .section-sub {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 750px;
+            line-height: 1.55;
+        }
+
+        .adv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 28px;
+        }
+
+        .adv-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            transition: 0.25s;
+        }
+
+        .adv-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .adv-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .adv-tag.green { background: #dfffe0; color: #0a7d24; }
+        .adv-tag.blue { background: #e0f1ff; color: #0b61c9; }
+        .adv-tag.orange { background: #fff3df; color: #d27a00; }
+        .adv-tag.purple { background: #f2e7ff; color: #7935d1; }
+
+        .adv-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .adv-card p {
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 18px;
+        }
+
+        .adv-img {
+            width: 100%;
+
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: #fff;
+        }
+
+        /* ---- Технічні схеми ---- */
+
+        .tech-section {
+            margin-top: 80px;
+        }
+
+        .tech-section .section-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 12px;
+        }
+
+        .tech-section .section-sub {
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            max-width: 820px;
+            line-height: 1.55;
+        }
+
+        .accordion {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .accordion-item {
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        .accordion-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .accordion-icon {
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-panel {
+            display: none;
+            padding: 0 20px 18px 20px;
+            gap: 20px;
+        }
+
+        .accordion-item.open .accordion-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+        }
+
+        .accordion-text ul {
+            padding-left: 18px;
+            margin: 10px 0 0;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .accordion-image {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .tech-img {
+            max-width: 100%;
+            max-height: 260px;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            background: #fff;
+            object-fit: contain;
+        }
+
+        /* Адаптив */
+        @media (max-width: 900px) {
+            .accordion-item.open .accordion-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .accordion-image {
+                justify-content: center;
+                margin-top: 10px;
+            }
+        }
+
+        /* ---- Невеликий твік для зображень у блоці "Переваги" ---- */
+
+        .adv-img {
+            display: block;
+            margin: 10px auto 0;
+            max-height: 220px;
+            width: 100%;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+
+        /* CONFIG CARDS */
+
+        .config-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .config-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .config-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .config-card-footer {
+            margin-top: 8px;
+        }
+        .tag-small {
+            display: inline-block;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 999px;
+            background: rgba(15, 23, 42, 0.03);
+            border: 1px solid rgba(148, 163, 184, 0.4);
+        }
+
+        /* картка-конфігурація */
+        #configs .config-card {
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* блок під картинку */
+        .config-card-image {
+            position: relative;
+            height: 260px;                 /* можна 240–280, як ляже по сітці */
+            padding: 12px 0;
+            background: radial-gradient(circle at top,
+            rgba(148, 163, 184, 0.28),
+            rgba(15, 23, 42, 0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* показуємо всю модель цілком */
+        .config-card-image img {
+            max-height: 100%;
+            max-width: 90%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* контент під картинкою */
+        .config-card-content {
+            padding: 12px 16px 10px;
+        }
+
+        /* Трішки підправимо дрібний текст */
+        #configs .config-card-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        #configs .config-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        #configs .card-body {
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        #configs .config-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 32px rgba(15,23,42,0.35);
+        }
+        #configs .config-card {
+            transition: transform .18s ease, box-shadow .18s ease;
+        }
+
+        /* Тема dark лишається з твоїми існуючими стилями .dark-theme .card */
+
+
+        /* CALCULATOR WRAPPER */
+
+        .calc-wrapper {
+            border-radius: 24px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: var(--shadow-soft);
+        }
+        .dark-theme .calc-wrapper {
+            background: rgba(15, 23, 42, 0.96);
+        }
+
+        /* Режими клієнт / менеджер в результатах */
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .results-mode {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 20px;
+        }
+
+        .btn-manager {
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.6);
+            background: transparent;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .dark-theme .btn-manager {
+            background: rgba(15,23,42,0.6);
+            color: #e5e7eb;
+        }
+
+        .client-total-card {
+            border-radius: 18px;
+            padding: 14px 18px;
+            background: rgba(22,163,74,0.06);
+            border: 1px solid rgba(22,163,74,0.35);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .client-total-label {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .client-total-eur {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .client-total-extra {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .client-note {
+            font-size: 12px;
+            margin-top: 4px;
+            max-width: 260px;
+        }
+
+        .manager-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        .manager-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        .manager-details table {
+            font-size: 13px;
+        }
+
+        /* ===== Приклади реалізації eTSecutive ===== */
+
+        .etse-examples {
+            padding: 72px 0 80px;
+        }
+
+        .etse-examples__inner {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        .etse-examples__header {
+            max-width: 720px;
+            margin-bottom: 32px;
+        }
+
+        .etse-examples__title {
+            font-size: 28px;
+            line-height: 1.25;
+            font-weight: 700;
+            margin: 0 0 8px;
+        }
+
+        .etse-examples__subtitle {
+            margin: 0;
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.85;
+        }
+
+        /* grid */
+
+        .etse-examples__grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .etse-examples__card {
+            margin: 0;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(5, 14, 35, 0.8);          /* темний фон для dark */
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        /* якщо є світла тема з класом .light-theme на body */
+        body.light-theme .etse-examples__card {
+            background: #ffffff;
+            border-color: rgba(15, 23, 42, 0.08);
+        }
+
+        .etse-examples__image-wrap {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+        }
+
+        .etse-examples__image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .etse-examples__card:hover .etse-examples__image-wrap img {
+            transform: scale(1.04);
+            filter: brightness(1.05);
+        }
+
+        .etse-examples__caption {
+            background: rgba(6, 19, 34, 0.85);   /* м’який темний фон */
+            color: #f1f5f9;                      /* світлий текст */
+            padding: 14px 18px;
+            border-radius: 0 0 20px 20px;
+            font-size: 15px;
+            line-height: 1.35;
+            font-weight: 400;                    /* краще читається */
+            min-height: 68px;                    /* однакова висота підписів */
+            display: flex;
+            align-items: center;
+        }
+
+        /* ------- адаптив ------- */
+
+        @media (max-width: 1100px) {
+            .etse-examples__grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            .etse-examples {
+                padding: 56px 0 64px;
+            }
+            .etse-examples__grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .etse-examples__grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+
+        /* FAQ */
+
+        .faq-item {
+            border-radius: 16px;
+            overflow: hidden;
+            background: rgba(6, 19, 34, 0.96);            /* темна плитка */
+            border: 1px solid rgba(15, 23, 42, 0.7);
+            color: #e5e7eb;                                /* базовий світлий текст всередині */
+        }
+
+        /* Якщо потім захочеш окрему світлу тему — повернемось до body.light-theme ... */
+
+        .faq-header {
+            width: 100%;
+            padding: 18px 24px;
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: #f9fafb;                                /* питання – майже білим */
+        }
+
+        .faq-icon {
+            font-size: 20px;
+            line-height: 1;
+            opacity: 0.85;
+            color: #cbd5f5;                                /* плюсик – світлий, але не кричить */
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item.open .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            padding: 0 24px 0 24px;
+            transition: max-height 0.25s ease, padding-bottom 0.25s ease;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #e2e8f0;                                /* текст відповіді трохи м’якший */
+        }
+
+
+
+
+        /* ===== eTSecutive CTA ===== */
+
+        .etse-cta {
+            margin-top: 40px;
+        }
+
+        .etse-cta__inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: stretch;
+
+            padding: 26px 30px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            box-shadow: 0 22px 40px rgba(22, 163, 74, 0.45);
+            color: #f9fafb;
+        }
+
+        .etse-cta__left {
+            flex: 1 1 260px;
+            min-width: 260px;
+            max-width: 520px;
+        }
+
+        .etse-cta__title {
+            margin: 0 0 8px;
+            font-size: 24px;
+            line-height: 1.25;
+        }
+
+        .etse-cta__text {
+            margin: 0 0 18px;
+            font-size: 14px;
+            opacity: 0.96;
+        }
+
+        .etse-cta__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .etse-cta__btn {
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease,
+            background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .etse-cta__btn--primary {
+            background: #f9fafb;
+            color: #15803d;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+        }
+
+        .etse-cta__btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 35px rgba(15, 23, 42, 0.26);
+        }
+
+        .etse-cta__btn--ghost {
+            background: rgba(15, 23, 42, 0.08);
+            color: #ecfdf5;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .etse-cta__btn--ghost:hover {
+            background: rgba(15, 23, 42, 0.16);
+        }
+
+        /* Контактна картка справа */
+
+        .etse-cta__contacts {
+            flex: 0 0 280px;
+            max-width: 320px;
+            padding: 18px 20px;
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #0f172a;
+
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .etse-cta__contacts-row + .etse-cta__contacts-row {
+            margin-top: 10px;
+        }
+
+        .etse-cta__contacts-label {
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+
+        .etse-cta__contacts-value {
+            font-weight: 500;
+        }
+
+        /* Мобільна адаптація */
+
+        @media (max-width: 768px) {
+            .etse-cta__inner {
+                padding: 20px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .etse-cta__title {
+                font-size: 20px;
+            }
+
+            .etse-cta__contacts {
+                width: 100%;
+                max-width: none;
+            }
+
+            .etse-cta__actions {
+                justify-content: flex-start;
+            }
+        }
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+            .three-cols,
+            .config-grid,
+            .grid-2 { grid-template-columns: minmax(0, 1fr); }
+            .topbar {
+                border-radius: 20px;
+                flex-direction: column;
+                gap: 8px;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page { padding-inline: 12px; }
+        }
+
+        .client-contact {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: flex-end;
+            font-size: 13px;
+        }
+
+        .client-contact-fields {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .client-contact-fields > div {
+            min-width: 150px;
+            flex: 1 1 150px;
+        }
+
+        .client-contact input {
+            width: 100%;
+            padding: 6px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(148,163,184,0.6);
+            font-size: 13px;
+        }
+
+        .client-contact button {
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: none;
+            background: #16a34a;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .client-contact button:hover {
+            box-shadow: 0 10px 25px rgba(22,163,74,0.45);
+            transform: translateY(-1px);
+        }
+
+        /* ===== базові стилі калькулятора (як у твоєму index.html) ===== */
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 18px;
+        }
+        @media (max-width: 960px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+        input, select {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(148,163,184,0.6);
+            font-size: 14px;
+            background: #ffffff;
+        }
+        .dark-theme input,
+        .dark-theme select {
+            background: #020617;
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.6);
+        }
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .muted {
+            color: var(--text-muted);
+        }
+        .btn {
+            margin-top: 14px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: #16a34a;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        table th,
+        table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(148,163,184,0.4);
+            text-align: left;
+        }
+        table thead th {
+            background: rgba(148,163,184,0.12);
+        }
+
+        .single-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px; /* якщо треба така сама форма, як в hero */
+        }
+
+        .single-image-frame {
+            overflow: hidden;
+        }
+
+        .single-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease, opacity 0.45s ease;
+            transform-origin: center;
+        }
+
+        .single-image-wrapper:hover .single-image {
+            transform: scale(1.06);
+            opacity: 0.96;
+        }
+    
+    
+/* ONLY page additions */
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.two-cols{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+@media (max-width: 980px){
+  .gallery,.two-cols{grid-template-columns:1fr;}
+}
+.img-fluid{
+  width:100%;
+  height:auto;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.08);
+}
+.num-list{
+  margin:0;
+  padding-left:18px;
+}
+.num-list li{margin:8px 0;}
+
+</style>
+</head>
+<body>
+<div class="page">
+    <!-- Topbar -->
+    <div class="topbar" id="header">
+        <div class="topbar-left">
+            <div class="topbar-logo">
+                <img src="/images/logo_ua.svg" alt="MT Україна" class="logo-img" onerror="this.style.display='none'">
+                <div class="logo-text">
+                    <div class="logo-title">MT Україна · HUB</div>
+                    <div class="logo-sub">TRIAL ONLY · Вітрина системи</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="topbar-right">
+            <a class="btn-outline" href="index.html#calculators">← Назад до HUB</a>
+            <a class="btn-outline" href="only-calc.html" target="_blank" rel="noopener noreferrer">Калькулятор</a>
+            <button id="themeToggle" class="btn-outline" type="button">Темна тема</button>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="badge">TRIAL · Aluminium system</div>
+                <h1 class="hero-title">ONLY</h1>
+                <p class="hero-lead">
+                    Система алюмінієвих профілів для «острівного» гардеробу / шафи з прозорими боковинами.
+                    На цій сторінці — базові схеми складання та ключові профілі/аксесуари з каталогу.
+                </p>
+
+                <div class="chips">
+                    <a class="chip" href="#schemes">Схеми</a>
+                    <a class="chip" href="#profiles">Профілі та аксесуари</a>
+                    <a class="chip" href="#calc">Калькулятор</a>
+                    <a class="chip" href="#next">Що далі</a>
+                </div>
+
+                <div class="hero-actions">
+                    <a class="btn-primary" href="#schemes">Дивитися схеми</a>
+                    <a class="btn-outline" href="#calc">Перейти до калькулятора</a>
+                </div>
+            </div>
+
+            <div class="hero-right">
+                <div class="hero-image-card">
+                    <img src="images/only/img48.jpg" alt="ONLY brochure cover" class="hero-image" loading="lazy">
+                    <div class="hero-image-caption">Каталог ONLY · Armadio a isola</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =========================
+         ONLY · Каркас (база)
+    ========================== -->
+    <section id="only-base" class="section">
+        <div class="section-head">
+            <div class="kicker">TRIAL ONLY</div>
+            <h2 class="title">1) Каркас (база)</h2>
+            <p class="lead">
+                Базова логіка ONLY: 4 вертикалі + верх/низ (горизонталі) + регульовані опори.
+                Це “скелет”, на який далі додаються боковини (скло/ДСП), задня стінка, LED та двері (IKS — окремо).
+            </p>
+
+            <div class="chips">
+                <span class="chip">Вертикалі 6100 мм</span>
+                <span class="chip">Горизонталі 6100 мм</span>
+                <span class="chip">Опори / кріплення</span>
+                <span class="chip">Без IKS (окремо)</span>
+            </div>
+        </div>
+
+        <!-- Схема / візуал -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-title">Схема: каркас ONLY (база)</div>
+                    <div class="card-sub">Додаємо ключову схему з каталогу для “бази”.</div>
+                </div>
+
+                <div class="img-wrap">
+                    <img src="/images/only/img224.jpg" alt="ONLY каркас база схема" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                    <ul class="list">
+                        <li><b>Вертикалі</b> — 4 шт (кути модуля)</li>
+                        <li><b>Горизонталі</b> — верх/низ (і за потреби перемички)</li>
+                        <li><b>Опори</b> — регульовані, встановлюємо по базі</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-title">Комплектація (логіка, без розрахунку)</div>
+                    <div class="card-sub">Це “що входить” у каркас. Ціни та математику підключимо пізніше.</div>
+                </div>
+
+                <div class="card-body">
+                    <div class="spec-grid">
+                        <div class="spec-row"><span>Вертикаль (глуха)</span><span class="muted">OL-2545</span></div>
+                        <div class="spec-row"><span>Вертикаль (передня під LED)</span><span class="muted">OL-2545L</span></div>
+                        <div class="spec-row"><span>Вертикаль (задня під скло)</span><span class="muted">OL-2545RG</span></div>
+                        <div class="spec-row"><span>Горизонталь верх/низ</span><span class="muted">OL-965</span></div>
+                        <div class="spec-row"><span>З’єднувач горизонталі</span><span class="muted">OL-GTSI</span></div>
+                        <div class="spec-row"><span>Опора регульована</span><span class="muted">OL-P</span></div>
+                        <div class="spec-row"><span>Кріплення / гвинт</span><span class="muted">OL-V (A11.034)</span></div>
+                    </div>
+
+                    <div class="note">
+                        ⚠️ Двері IKS, петлі, формули скла — окрема сторінка/калькулятор. Полиці LAIT — окрема сторінка (вже є).
+                    </div>
+                </div>
+
+                <div class="card-foot">
+                    <a class="btn-outline" href="index.html" title="Назад до HUB">← Назад до HUB</a>
+                    <a class="btn-primary" href="#only-base-next">Далі: базові вузли →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Міні-галерея (опційно) -->
+        <div id="only-base-next" class="card" style="margin-top:14px;">
+            <div class="card-head">
+                <div class="card-title">Вузли каркаса (якщо є на сторінках каталогу)</div>
+                <div class="card-sub">Додамо 2–4 зображення вузлів: кріплення горизонталі, опора, з’єднувач тощо.</div>
+            </div>
+
+            <div class="gallery">
+                <figure class="g-item">
+                    <img src="/images/only/img72.jpg" alt="ONLY вузол 1" loading="lazy">
+                    <figcaption>Вузол 1 (приклад)</figcaption>
+                </figure>
+                <figure class="g-item">
+                    <img src="/images/only/img71.jpg" alt="ONLY вузол 2" loading="lazy">
+                    <figcaption>Вузол 2 (приклад)</figcaption>
+                </figure>
+                <figure class="g-item">
+                    <img src="/images/only/img104.jpg" alt="ONLY вузол 3" loading="lazy">
+                    <figcaption>Вузол 3 (приклад)</figcaption>
+                </figure>
+                <figure class="g-item">
+                    <img src="/images/only/img105.jpg" alt="ONLY вузол 4" loading="lazy">
+                    <figcaption>Вузол 4 (приклад)</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Мінімальні стилі (якщо в проєкті немає загальних класів для цього блоку) -->
+    <style>
+        .section { margin: 18px 0 26px; }
+        .section-head .kicker{ opacity:.75; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:12px; }
+        .section-head .title{ margin:8px 0 6px; font-size:28px; line-height:1.1; }
+        .section-head .lead{ margin:0 0 10px; opacity:.9; max-width:980px; }
+        .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+        .chip{ padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); font-size:12px; }
+        .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+        @media (max-width: 980px){ .grid-2{ grid-template-columns:1fr; } }
+        .card{ border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); border-radius:18px; overflow:hidden; }
+        .card-head{ padding:14px 14px 0; }
+        .card-title{ font-weight:700; font-size:16px; margin:0; }
+        .card-sub{ opacity:.75; margin-top:6px; font-size:13px; }
+        .card-body{ padding:12px 14px 14px; }
+        .card-foot{ padding:12px 14px 14px; display:flex; gap:10px; flex-wrap:wrap; }
+        .img-wrap{ padding:12px 14px 0; }
+        .img-wrap img{ width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+        .list{ margin:0; padding-left:18px; }
+        .list li{ margin:6px 0; opacity:.92; }
+        .spec-grid{ display:grid; gap:8px; }
+        .spec-row{ display:flex; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+        .muted{ opacity:.75; white-space:nowrap; }
+        .note{ margin-top:12px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); opacity:.9; }
+        .gallery{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; padding:12px 14px 14px; }
+        @media (max-width: 980px){ .gallery{ grid-template-columns:repeat(2, 1fr);} }
+        @media (max-width: 560px){ .gallery{ grid-template-columns:1fr;} }
+        .g-item{ margin:0; }
+        .g-item img{ width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+        .g-item figcaption{ margin-top:6px; font-size:12px; opacity:.7; padding-left:2px; }
+        .btn-outline{ padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:transparent; color:inherit; text-decoration:none; display:inline-block; }
+        .btn-primary{ padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(34,197,94,.18); color:inherit; text-decoration:none; display:inline-block; }
+    </style>
+    <!-- =========================
+         ONLY · Вітрина (скло / задні стінки)
+    ========================== -->
+    <section id="only-showcase" class="section">
+        <div class="section-head">
+            <div class="kicker">TRIAL ONLY</div>
+            <h2 class="title">2) Вітрина (скло / задні стінки)</h2>
+            <p class="lead">
+                Вітрина ONLY — це розвиток базового каркаса: додаються боковини та/або задня стінка зі скла або плитного матеріалу.
+                Конструкція залишається модульною та відкритою для подальшого встановлення LED та дверей (IKS — окремо).
+            </p>
+
+            <div class="chips">
+                <span class="chip">Боковини зі скла</span>
+                <span class="chip">Задня стінка</span>
+                <span class="chip">Паз + ущільнювач</span>
+                <span class="chip">Без дверей (IKS окремо)</span>
+            </div>
+        </div>
+
+        <div class="grid-2">
+            <!-- Схема -->
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-title">Схема: вітрина ONLY</div>
+                    <div class="card-sub">
+                        Приклад застосування каркаса ONLY з боковинами та задньою стінкою.
+                    </div>
+                </div>
+
+                <div class="img-wrap">
+                    <img src="/images/only/img120.jpg" alt="ONLY вітрина схема" loading="lazy">
+                </div>
+
+                <div class="card-body">
+                    <ul class="list">
+                        <li><b>Боковини</b> — скло або ДСП</li>
+                        <li><b>Задня стінка</b> — скло або плитний матеріал</li>
+                        <li><b>Каркас</b> — без змін (з розділу «Каркас»)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Логіка комплектації -->
+            <div class="card">
+                <div class="card-head">
+                    <div class="card-title">Логіка комплектації (без розрахунку)</div>
+                    <div class="card-sub">
+                        Перелік елементів, які додаються до каркаса для формування вітрини.
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="spec-grid">
+                        <div class="spec-row"><span>Вертикаль з пазом під скло</span><span class="muted">OL-2545RG</span></div>
+                        <div class="spec-row"><span>Профіль для фіксації скла</span><span class="muted">інтегровано в вертикаль</span></div>
+                        <div class="spec-row"><span>Ущільнювач під скло 5–6 мм</span><span class="muted">GU-C-RG-LISTA</span></div>
+                        <div class="spec-row"><span>Заглушка профілю</span><span class="muted">GU-O-F-LISTA</span></div>
+                        <div class="spec-row"><span>Кріплення задньої стінки</span><span class="muted">OL-V (A11.034)</span></div>
+                    </div>
+
+                    <div class="note">
+                        ℹ️ Скло: товщина та формат визначаються окремо. Розрахунок скла та дверей — у відповідних калькуляторах.
+                    </div>
+                </div>
+
+                <div class="card-foot">
+                    <a class="btn-outline" href="#only-base">← Назад: Каркас</a>
+                    <a class="btn-primary" href="#only-showcase-next">Далі: LED →</a>
+                </div>
+            </div>
+        </div>
+        <!-- =========================
+             ONLY · LED (передній профіль / логіка)
+        ========================== -->
+        <section id="only-led" class="section">
+            <div class="section-head">
+                <div class="kicker">TRIAL ONLY</div>
+                <h2 class="title">3) LED (передній профіль / логіка)</h2>
+                <p class="lead">
+                    LED у системі ONLY реалізується через передню вертикаль під LED та відповідні вузли монтажу.
+                    Це окремий сценарій: каркас залишається той самий, а підсвітка додається як опція в модулі.
+                </p>
+
+                <div class="chips">
+                    <span class="chip">Передня вертикаль під LED</span>
+                    <span class="chip">Кабель-канал / розміщення стрічки</span>
+                    <span class="chip">Розсіювач (за потреби)</span>
+                    <span class="chip">Без розрахунку електрики</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- Схема LED -->
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">Схема: ONLY з вертикальною підсвіткою</div>
+                        <div class="card-sub">
+                            Приклад вузла/перерізу профілю під LED (з каталогу). Підключення та блоки живлення не рахуємо тут.
+                        </div>
+                    </div>
+
+                    <div class="img-wrap">
+                        <img src="/images/only/img125.jpg" alt="ONLY LED профіль схема" loading="lazy">
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list">
+                            <li><b>Каркас</b> — як у розділі «1) Каркас (база)»</li>
+                            <li><b>LED</b> — додається опцією (передня вертикаль + компоненти)</li>
+                            <li><b>Скло / вітрина</b> — незалежно (розділ «2) Вітрина»)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Логіка комплектації LED -->
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">Комплектація LED (логіка, без розрахунку)</div>
+                        <div class="card-sub">
+                            Тільки перелік того, що додається для LED-сценарію. Точні позиції LED (стрічка/драйвер) — окремим модулем.
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="spec-grid">
+                            <div class="spec-row"><span>Передня вертикаль під LED</span><span class="muted">OL-2545L</span></div>
+                            <div class="spec-row"><span>Заглушка профілю</span><span class="muted">GU-O-F-LISTA</span></div>
+                            <div class="spec-row"><span>Ущільнювач / елементи фіксації</span><span class="muted">за вузлом</span></div>
+                            <div class="spec-row"><span>LED-стрічка / комплект</span><span class="muted">окремо (LED модуль)</span></div>
+                        </div>
+
+                        <div class="note">
+                            ⚠️ Тут ми не рахуємо: блоки живлення, дроти, вимикачі, підключення. Це буде окремий LED-блок/калькулятор.
+                        </div>
+                    </div>
+
+                    <div class="card-foot">
+                        <a class="btn-outline" href="#only-showcase">← Назад: Вітрина</a>
+                        <a class="btn-primary" href="#only-application">Далі: Застосування →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Міні-блок застосування -->
+            <div id="only-application" class="card" style="margin-top:14px;">
+                <div class="card-head">
+                    <div class="card-title">Як LED підключається у ONLY (коротко)</div>
+                    <div class="card-sub">
+                        Вибір LED як опції: “без LED / вертикальна підсвітка”. Далі це буде підключено до специфікації модуля.
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <ul class="list">
+                        <li>Клієнт обирає: <b>LED = так/ні</b></li>
+                        <li>Якщо “так” → додаємо <b>OL-2545L</b> + комплектуючі LED</li>
+                        <li>LED-комплект — окремий блок (як у LAIT, але для ONLY)</li>
+                    </ul>
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+                        <a class="btn-outline" href="#only-base">Каркас</a>
+                        <a class="btn-outline" href="#only-showcase">Вітрина</a>
+                        <a class="btn-outline" href="index.html">До HUB</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- =========================
+     ONLY + IKS · як рішення
+========================== -->
+        <section id="only-iks" class="section">
+            <div class="section-head">
+                <div class="kicker">TRIAL ONLY × IKS</div>
+                <h2 class="title">4) ONLY + IKS (як рішення під ключ)</h2>
+                <p class="lead">
+                    ONLY — це каркас/вітрина/острів. IKS — це двері (скло/дерево) зі своїми правилами, формулами скла та петлями.
+                    Ми не змішуємо ці розрахунки: на цій сторінці показуємо зв’язку як рішення, а калькулятор IKS — окремо.
+                </p>
+
+                <div class="chips">
+                    <span class="chip">ONLY = каркас</span>
+                    <span class="chip">IKS = двері</span>
+                    <span class="chip">Окремі калькулятори</span>
+                    <span class="chip">Єдина специфікація (пізніше)</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <!-- Що рахує ONLY -->
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">Що рахуємо в ONLY</div>
+                        <div class="card-sub">
+                            Каркас + вітрина + LED як опції. Двері не рахуються тут.
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list">
+                            <li><b>Каркас (база)</b>: вертикалі/горизонталі/опори</li>
+                            <li><b>Вітрина</b>: паз під скло, ущільнювачі, фіксація задньої стінки</li>
+                            <li><b>LED</b>: передня вертикаль під LED + комплектуючі (без електрики)</li>
+                        </ul>
+
+                        <div class="note">
+                            ✅ Результат ONLY: специфікація профілів/вузлів + підготовка до інтеграції з дверима.
+                        </div>
+                    </div>
+
+                    <div class="card-foot">
+                        <a class="btn-outline" href="#only-base">Каркас</a>
+                        <a class="btn-outline" href="#only-showcase">Вітрина</a>
+                        <a class="btn-outline" href="#only-led">LED</a>
+                    </div>
+                </div>
+
+                <!-- Що рахує IKS -->
+                <div class="card">
+                    <div class="card-head">
+                        <div class="card-title">Що рахуємо в IKS</div>
+                        <div class="card-sub">
+                            Двері IKS — окремий модуль зі своїми правилами.
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <ul class="list">
+                            <li><b>Габарит дверей</b> → <b>розмір скла</b> (формули)</li>
+                            <li><b>Комплект дверей</b>: профілі, кутики, петлі, ущільнювачі, ручки</li>
+                            <li><b>Підготовка виробництва</b>: пази/фрезерування/комплектація</li>
+                        </ul>
+
+                        <div class="note">
+                            ✅ Результат IKS: специфікація дверей + CSV/Telegram (як у інших калькуляторах MTU HUB).
+                        </div>
+                    </div>
+
+                    <div class="card-foot">
+                        <!-- ЗАМІНИ посилання, якщо файл називається інакше -->
+                        <a class="btn-primary" href="iks.html" target="_blank" rel="noopener noreferrer">Відкрити сторінку IKS</a>
+                        <a class="btn-outline" href="index.html">До HUB</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Як будемо інтегрувати пізніше -->
+            <div class="card" style="margin-top:14px;">
+                <div class="card-head">
+                    <div class="card-title">Як це з’єднаємо пізніше (логіка інтеграції)</div>
+                    <div class="card-sub">
+                        Не зараз, але одразу закладаємо правильну структуру даних.
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <div class="spec-grid">
+                        <div class="spec-row"><span>ONLY дає</span><span class="muted">специфікацію каркаса + опції (вітрина/LED)</span></div>
+                        <div class="spec-row"><span>IKS дає</span><span class="muted">специфікацію дверей + розміри скла + петлі</span></div>
+                        <div class="spec-row"><span>HUB збирає</span><span class="muted">єдину партію/замовлення (майбутній етап)</span></div>
+                    </div>
+
+                    <div class="note">
+                        ⚠️ Важливо: полиці LAIT (Lite) — окремо. Їх можна додавати як опцію до модуля ONLY,
+                        але рахувати — через готовий калькулятор LAIT.
+                    </div>
+
+                    <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+                        <a class="btn-outline" href="lait-lite.html" target="_blank" rel="noopener noreferrer">Полиці LAIT (калькулятор)</a>
+                        <a class="btn-outline" href="#only-base">На початок ONLY</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Додаткові вузли / приклади -->
+        <div id="only-showcase-next" class="card" style="margin-top:14px;">
+            <div class="card-head">
+                <div class="card-title">Вузли вітрини</div>
+                <div class="card-sub">
+                    Паз під скло, ущільнювач, фіксація задньої стінки.
+                </div>
+            </div>
+
+            <div class="gallery">
+                <figure class="g-item">
+                    <img src="/images/only/p09.png" alt="ONLY паз під скло" loading="lazy">
+                    <figcaption>Вертикаль з пазом під скло</figcaption>
+                </figure>
+                <figure class="g-item">
+                    <img src="/images/only/p11.png" alt="ONLY ущільнювач" loading="lazy">
+                    <figcaption>Ущільнювач скла (5–6 мм)</figcaption>
+                </figure>
+                <figure class="g-item">
+                    <img src="/images/only/p12.png" alt="ONLY задня стінка" loading="lazy">
+                    <figcaption>Фіксація задньої стінки</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase blocks -->
+    <section class="section">
+        <div class="section-inner">
+            <h2 class="section-headline">Що в ONLY важливо для MTU HUB</h2>
+            <p class="section-lead">
+                Розділяємо систему на 2 частини: <b>вітрина (схеми/комплектація)</b> і <b>калькулятор</b>.
+                Системи <b>IKS</b> (фасади) — окремою сторінкою пізніше. Полички <b>LAIT Lite</b> — вже є окремо.
+            </p>
+
+            <div class="three-cols">
+                <div class="card">
+                    <div class="card-title">1) Схеми складання</div>
+                    <div class="card-body">
+                        З каталогу беремо сторінки з поетапним монтажем модулів, варіантами задньої стінки (скло/ДСП),
+                        та схемою електрифікації.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">2) Номенклатура</div>
+                    <div class="card-body">
+                        Для калькулятора потрібні: профілі (вертикалі/горизонталі/рейка), з’єднувальні блоки,
+                        опори, ущільнювачі, електрофурнітура.
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">3) Калькулятор</div>
+                    <div class="card-body">
+                        Після фіксації схеми (наступний крок) зробимо вводи: висота/ширина/секції/матеріали,
+                        і сформуємо CSV + Telegram як у TRIAL eTSecutive.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schemes -->
+    <section class="section" id="schemes">
+        <div class="section-inner">
+            <h2 class="section-headline">Схеми з каталогу (ONLY)</h2>
+            <p class="section-lead">
+                Базові сторінки для старту (монтаж, задня стінка, електрифікація).
+            </p>
+
+            <div class="gallery">
+                <div class="card">
+                    <div class="card-title">Монтаж · крок 1</div>
+                    <div class="card-body">
+                        <img src="images/only/assembly_1.png" alt="ONLY assembly step 1" class="img-fluid" loading="lazy">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Монтаж · крок 2</div>
+                    <div class="card-body">
+                        <img src="images/only/assembly_2.png" alt="ONLY assembly step 2" class="img-fluid" loading="lazy">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Монтаж · задня стінка (скло/дерево)</div>
+                    <div class="card-body">
+                        <img src="images/only/assembly_3.png" alt="ONLY back side options" class="img-fluid" loading="lazy">
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Електрифікація · схема підключення</div>
+                    <div class="card-body">
+                        <img src="images/only/assembly_4.png" alt="ONLY electrification wiring" class="img-fluid" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profiles -->
+    <section class="section" id="profiles">
+        <div class="section-inner">
+            <h2 class="section-headline">Профілі та аксесуари</h2>
+            <p class="section-lead">
+                Цей блок — «карта номенклатури» для майбутнього JSON/прайсу.
+            </p>
+
+            <div class="two-cols">
+                <div class="card">
+                    <div class="card-title">Огляд профілів / кодів</div>
+                    <div class="card-body">
+                        <img src="images/only/profiles_overview.png" alt="ONLY profiles overview" class="img-fluid" loading="lazy">
+                        <div class="muted" style="margin-top:10px;">
+                            Витяг з каталогу: OL-2545, OL-2570, OL-2545RG, OL-965, OL-2530, OL-2535, OL-GTSI, OL-GTC/OL-GTC2D, OL-SE/OL-SED, OL-ER, OL-P-VN, OL-P70-VN.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Електрика / опори / конектор</div>
+                    <div class="card-body">
+                        <img src="images/only/electrification_parts.png" alt="ONLY electrification parts" class="img-fluid" loading="lazy">
+                        <div class="muted" style="margin-top:10px;">
+                            Потрібно для калькулятора: підтримки OL-SE / OL-SED, конектор OL-CONN-N, вставки OL-ER, опори OL-P-VN / OL-P70-VN / PIE-REG-ONLY.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator placeholder -->
+    <section class="section" id="calc">
+        <div class="section-inner">
+            <h2 class="section-headline">Калькулятор ONLY</h2>
+            <p class="section-lead">
+                Тут буде калькулятор (як у TRIAL eTSecutive): розрахунок профілів, комплектуючих, скла/панелей,
+                послуг MTU, CSV та Telegram.
+            </p>
+
+            <div class="card">
+                <div class="card-title">Статус</div>
+                <div class="card-body">
+                    <ul class="check-list">
+                        <li>✅ Вітрина + схеми з каталогу — додано.</li>
+                        <li>⏳ Наступний крок: зібрати прайс/JSON по ONLY (позиції + коди + упаковка + ціна).</li>
+                        <li>⏳ Після цього — математика (формули) і інтерфейс калькулятора.</li>
+                    </ul>
+
+                    <div class="hero-actions" style="margin-top:16px;">
+                        <button class="btn-primary" disabled style="opacity:.6; cursor:not-allowed;">
+                            Розрахувати (скоро)
+                        </button>
+                        <a class="btn-outline" href="index.html#calculators">Повернутися в HUB</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next steps -->
+    <section class="section" id="next">
+        <div class="section-inner">
+            <h2 class="section-headline">Що далі</h2>
+            <div class="card">
+                <div class="card-body">
+                    <ol class="num-list">
+                        <li><b>ONLY-JSON:</b> витягнути всі позиції з каталогу/прайсу (коди, назви, одиниці, упаковка, ціна).</li>
+                        <li><b>ONLY-logic:</b> зафіксувати «базовий модуль» (геометрія, панелі/скло, варіанти задньої стінки, електрика).</li>
+                        <li><b>ONLY-calc:</b> зробити калькулятор з режимами клієнт/менеджер, CSV, Telegram.</li>
+                        <li><b>IKS:</b> окрема сторінка (фасадні системи) після ONLY.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="muted">MT Україна · HUB · ONLY (v0.1) · 2025</div>
+            <a class="btn-outline" href="#header">↑ Вгору</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const id = a.getAttribute('href');
+    const el = document.querySelector(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({behavior:'smooth', block:'start'});
+    history.replaceState(null, '', id);
+  });
+});
+</script>
+
+<script>
+  // Єдина логіка теми (як у інших сторінках HUB)
+  const bodyEl = document.body;
+  const themeBtn = document.getElementById('themeToggle');
+
+  function applyTheme(mode){
+    const isDark = mode === 'dark';
+    if(isDark){
+      bodyEl.classList.add('dark-theme');
+      themeBtn.textContent = 'Світла тема';
+    }else{
+      bodyEl.classList.remove('dark-theme');
+      themeBtn.textContent = 'Темна тема';
+    }
+  }
+
+  const savedTheme = localStorage.getItem('onlyTheme') || 'light';
+  applyTheme(savedTheme);
+
+  themeBtn.addEventListener('click', ()=>{
+    const newTheme = bodyEl.classList.contains('dark-theme') ? 'light' : 'dark';
+    localStorage.setItem('onlyTheme', newTheme);
+    applyTheme(newTheme);
+  });
+</script>
+
+</body>
+</html>

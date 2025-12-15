@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="uk">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TRIAL ONLY — Калькулятор (MVP) | MT Україна</title>
+
+    <style>
+        :root{
+            --bg:#f6f7fb;
+            --card:#ffffff;
+            --text:#0f172a;
+            --muted:#475569;
+            --border:rgba(15,23,42,.12);
+            --chip:rgba(2,132,199,.10);
+            --accent:rgba(34,197,94,.18);
+            --accent2:rgba(2,132,199,.12);
+            --btn:#0f172a;
+            --btnText:#fff;
+        }
+        body.dark-theme{
+            --bg:#0b1220;
+            --card:rgba(255,255,255,.05);
+            --text:#e5e7eb;
+            --muted:#94a3b8;
+            --border:rgba(255,255,255,.12);
+            --chip:rgba(2,132,199,.18);
+            --accent:rgba(34,197,94,.18);
+            --accent2:rgba(2,132,199,.18);
+            --btn:#e5e7eb;
+            --btnText:#0b1220;
+        }
+        body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial;}
+        .wrap{max-width:1180px;margin:0 auto;padding:18px;}
+        .topbar{
+            display:flex;align-items:center;justify-content:space-between;gap:14px;
+            padding:14px 16px;border:1px solid var(--border);border-radius:18px;background:var(--card);
+            position:sticky;top:10px;z-index:20;backdrop-filter: blur(10px);
+        }
+        .brand{display:flex;align-items:center;gap:12px;}
+        .logo{width:44px;height:44px;border-radius:12px;background:var(--accent2);display:grid;place-items:center;font-weight:800;}
+        .brand h1{margin:0;font-size:16px;}
+        .brand .sub{margin:2px 0 0;color:var(--muted);font-size:12px;}
+        .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+        .btn{
+            border:1px solid var(--border);background:var(--card);color:var(--text);
+            padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;
+        }
+        .btn.primary{background:var(--btn);color:var(--btnText);border-color:transparent;}
+        .btn.ghost{background:transparent;}
+        .grid{display:grid;grid-template-columns:420px 1fr;gap:14px;margin-top:14px;}
+        @media(max-width:980px){.grid{grid-template-columns:1fr;}}
+        .card{border:1px solid var(--border);background:var(--card);border-radius:18px;overflow:hidden;}
+        .cardHead{padding:14px 14px 0;}
+        .cardTitle{margin:0;font-size:15px;font-weight:800;}
+        .cardSub{margin:6px 0 0;color:var(--muted);font-size:12px;}
+        .cardBody{padding:14px;}
+        .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+        label{display:block;font-weight:700;margin:0 0 6px;}
+        select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text);outline:none;}
+        input[type="number"]{
+            width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);
+            background:transparent;color:var(--text);outline:none;
+        }
+        .toggles{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+        .toggle{
+            display:flex;align-items:center;gap:8px;border:1px solid var(--border);
+            border-radius:999px;padding:8px 12px;background:transparent;
+        }
+        .chip{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 10px;background:var(--chip);color:var(--text);border:1px solid var(--border);font-size:12px;}
+        table{width:100%;border-collapse:separate;border-spacing:0;}
+        th,td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
+        th{text-align:left;color:var(--muted);font-size:12px;font-weight:800;}
+        .muted{color:var(--muted);}
+        .kpi{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
+        .kpi .chip b{font-size:13px;}
+        .warn{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:rgba(245,158,11,.10);margin-top:10px;}
+        .ok{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--accent);margin-top:10px;}
+        .small{font-size:12px;}
+    </style>
+</head>
+
+<body>
+<div class="wrap">
+    <div class="topbar">
+        <div class="brand">
+            <div class="logo">MT</div>
+            <div>
+                <h1>TRIAL ONLY — Калькулятор (MVP)</h1>
+                <div class="sub">Каркас / Вітрина / LED · без IKS (LAIT — лише як тип полиць для ліміту W)</div>
+            </div>
+        </div>
+        <div class="actions">
+            <a class="btn ghost" href="only.html">← Назад до ONLY</a>
+            <button class="btn" id="themeToggle">Тема</button>
+        </div>
+    </div>
+
+    <div class="grid">
+        <!-- INPUTS -->
+        <div class="card">
+            <div class="cardHead">
+                <div class="cardTitle">Параметри модуля</div>
+                <div class="cardSub">Геометрія: 4 вертикалі + 2 горизонталі + опори + з’єднувачі.</div>
+            </div>
+            <div class="cardBody">
+                <div class="row">
+                    <div>
+                        <label for="H">Висота H (мм)</label>
+                        <input id="H" type="number" min="300" step="1" value="2200">
+                    </div>
+                    <div>
+                        <label for="W">Ширина W (мм)</label>
+                        <input id="W" type="number" min="300" step="1" value="1200">
+                    </div>
+                </div>
+
+                <div style="margin-top:10px;">
+                    <label for="D">Глибина D (мм)</label>
+                    <input id="D" type="number" min="200" step="1" value="450">
+                    <div class="small muted" style="margin-top:6px;">
+                        D зараз довідково (специфікація каркаса рахується по H та W).
+                    </div>
+                </div>
+
+                <div style="margin-top:10px;">
+                    <label for="trimEachSide">Торцювання з кожного боку (мм)</label>
+                    <input id="trimEachSide" type="number" min="0" max="120" step="1" value="60">
+                    <div class="small muted" style="margin-top:6px;">
+                        Торцюємо <b>палки</b> (корисна довжина = 6100 − 2×торцювання). Деталі не “коротимо”.
+                    </div>
+                </div>
+                <div style="margin-top:10px;">
+                    <label for="colorCode">Колір профілю</label>
+                    <select id="colorCode" style="width:100%;padding:10px 12px;border-radius:12px;">
+                        <option value="NS">Чорний мат</option>
+                        <option value="BRA">Бронза Armani</option>
+                        <option value="BRC">Бронза Cartier</option>
+                    </select>
+                </div>
+
+                <div style="margin-top:10px;">
+                    <label for="shelfType">Тип полиць</label>
+                    <select id="shelfType" style="width:100%;padding:10px 12px;border-radius:12px;">
+<!--                        <option value="chipboard" selected>Полиці ДСП/МДФ (робоча ширина 600–900 мм)</option>-->
+                        <option value="lait">Полиці LAIT (Lite) (робоча ширина 600–1000 мм)</option>
+                    </select>
+                    <div class="small muted" style="margin-top:6px;">
+                        Обмеження W — бізнес-правило для MVP-2 (за прогином полиць).
+                    </div>
+                    <div id="wRangeWarn" class="warn small" style="display:none;margin-top:8px;"></div>
+                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <button type="button" id="openLaitBtn" class="btn">
+                            Розрахувати полиці LAIT
+                        </button>
+                        <div class="small muted" id="laitHint" style="align-self:center;"></div>
+                    </div>
+
+                </div>
+
+                <div style="margin-top:10px;">
+                    <label for="shelvesCount">Кількість полиць (шт)</label>
+                    <input id="shelvesCount" type="number" min="0" max="12" step="1" value="0">
+                    <div class="small muted" style="margin-top:6px;">
+                        Горизонталі OL-965 = 2 (верх/низ) + N полиць. Зʼєднувачі OL-GTSI = 2 шт на 1 горизонталь.
+                    </div>
+                </div>
+
+                <div class="field" style="margin-top:10px;">
+                    <label class="toggle">
+                        <input id="topBottom25" type="checkbox" checked>
+                        Дно + кришка (ДСП/МДФ 25 мм) — кріплення Permo
+                    </label>
+                    <div class="small muted" style="margin-top:6px;">
+                        Рахуємо площу 2 панелей (W×D) та комплект кріплення Permo для кожної рамки (4 точки на панель).
+                    </div>
+                </div>
+
+                <div class="field" style="margin-top:10px;">
+                    <label class="toggle">
+                        <input id="frameMode" type="checkbox">
+                        Режим рамок (прольоти по ширині)
+                    </label>
+                    <div class="small muted" style="margin-top:6px;">
+                        Розбиваємо загальну ширину W на прольоти: ДСП ≤900 мм, LAIT ≤1000 мм. Рамок = прольоти + 1.
+                    </div>
+                </div>
+
+                <div style="margin-top:10px;">
+                    <label for="sideGlass">Скло в боковинах</label>
+                    <select id="sideGlass" style="width:100%;padding:10px 12px;border-radius:12px;">
+                        <option value="none" selected>Нема</option>
+                        <option value="left">Ліва боковина (скло в паз)</option>
+                        <option value="right">Права боковина (скло в паз)</option>
+                        <option value="both">Обидві боковини (скло в паз)</option>
+                    </select>
+                    <div class="small muted" style="margin-top:6px;">
+                        MVP-3+: рахуємо площу бокового скла 4 мм за каталогом. PIATTO додаються автоматично (по секціях).
+                    </div>
+                </div>
+
+                <div class="toggles">
+                    <label for="backPanelType">Тип задньої стінки</label>
+                    <select id="backPanelType" style="width:100%;padding:10px 12px;border-radius:12px;">
+                        <option value="none">Нема (глухий каркас)</option>
+                        <option value="opaque8">Непрозоре 8 мм (MDF/HDF) — без ущільнювача</option>
+                        <option value="glass6" selected>Скло 6 мм (в паз) — з ущільнювачем GU-C-RG</option>
+                    </select>
+                    <label class="toggle">
+                        <input id="isLed" type="checkbox">
+                        LED (передня вертикаль)
+                    </label>
+                </div>
+
+                <div class="warn small">
+                    ⚠️ MVP: скло (розміри) та електрика LED не рахуються. IKS/LAIT — окремо.<br/>
+                    ✅ Оплата профілю BAR: <b>0.5 палки</b> якщо використано ≤ половини корисної довжини, інакше <b>1 палка</b>.
+                </div>
+
+                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+                    <button class="btn primary" id="btnCalc">Розрахувати</button>
+                    <button class="btn" id="btnCsv">Завантажити CSV</button>
+                </div>
+
+                <div class="ok small">
+                    Прайс/ціни беруться з <b>only.data.json</b> (EUR).
+                </div>
+            </div>
+        </div>
+
+        <!-- OUTPUT -->
+        <div class="card">
+            <div class="cardHead">
+                <div class="cardTitle">Специфікація</div>
+                <div class="cardSub">Порізка по палках + оплата 0.5/1 + сума €.</div>
+            </div>
+            <div class="cardBody">
+                <div class="kpi" id="kpi"></div>
+
+                <div style="overflow:auto;margin-top:10px;">
+                    <table id="tbl">
+                        <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Найменування</th>
+                            <th>Деталі</th>
+                            <th>Порізка / Оплата</th>
+                            <th>Ціна (€)</th>
+                            <th>Сума (€)</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div class="small muted" style="margin-top:10px;">
+                    BAR-рядки рахуються як: <b>ціна палки × (0.5 або 1)</b> по кожній палці, на основі фактичного використання.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./glass-engine.js"></script>
+<script>
+    // ===== Busel v3 config for ONLY =====
+    if (window.GlassEngine && GlassEngine.setBuselConfig) {
+        GlassEngine.setBuselConfig({
+            // мінімалки Busel
+            temperMinFloatUAH: 750,
+            temperMinOtherUAH: 999,
+
+            // політика МТ
+            mtDiscount: 0.85,
+            mtMarkup: 1.30,
+
+            // поки без надбавок за габарити
+            applySizeSurcharge: false
+        });
+    }
+</script>
+<script>
+    // ====== theme ======
+    const body = document.body;
+    const themeBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'dark') body.classList.add('dark-theme');
+    themeBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-theme');
+        localStorage.setItem('theme', body.classList.contains('dark-theme') ? 'dark' : 'light');
+    });
+
+    // ====== data ======
+    let DB = null;
+    async function loadDB() {
+        if (DB) return DB;
+
+        const candidates = [
+            './only.data.json',      // основний файл у проєкті
+
+        ];
+
+        let lastErr = null;
+        for (const url of candidates) {
+            try {
+                const res = await fetch(url, { cache: 'no-store' });
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const data = await res.json(); // тут впаде, якщо файл невалідний JSON
+                if (!data || !Array.isArray(data.items)) throw new Error('Невірний формат прайсу (немає items).');
+                DB = data;
+                return DB;
+            } catch (e) {
+                lastErr = e;
+            }
+        }
+        throw new Error('Не можу завантажити прайс ONLY (only.data.json). Перевір: 1) файл поруч з HTML, 2) валідний JSON, 3) назва без помилок. ' + (lastErr ? ('(' + lastErr.message + ')') : ''));
+    }
+    function getItemByIdOrCode(db, key) {
+        return db.items.find(x => x.id === key || x.code === key) || null;
+    }
+    // Safe money formatter (prevents NaN in UI if a price is missing/undefined)
+    function eur(v){
+      const n = Number(v);
+      if (!Number.isFinite(n)) return "0.00";
+      return (Math.round(n * 100) / 100).toFixed(2);
+    }
+
+    // Read EUR price from different schema variants (price.eur, price_eur, eur, etc.)
+    function eurPrice(item){
+      if (!item) return 0;
+      const v = (item.price && (item.price.eur ?? item.price.EUR)) ?? item.price_eur ?? item.priceEUR ?? item.eur ?? item.EUR;
+      const n = Number(v);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    // ====== BAR CUTTING (FFD) ======
+    function packCutsFFD(cuts, barLenEff, kerfMm = 0) {
+        const sorted = [...cuts].sort((a,b) => b - a);
+        const bars = []; // { used:number, cuts:number[] }
+
+        for (const len of sorted) {
+            let placed = false;
+            for (const bar of bars) {
+                const extra = (bar.cuts.length > 0) ? kerfMm : 0;
+                if (bar.used + extra + len <= barLenEff) {
+                    bar.used += extra + len;
+                    bar.cuts.push(len);
+                    placed = true;
+                    break;
+                }
+            }
+            if (!placed) bars.push({ used: len, cuts: [len] });
+        }
+
+        const detailed = bars.map((b, idx) => ({
+            index: idx + 1,
+            cuts: b.cuts,
+            used: b.used,
+            offcut: barLenEff - b.used
+        }));
+
+        return {
+            barLenEff,
+            kerfMm,
+            bars: detailed,
+            barsCount: detailed.length,
+            offcutTotal: detailed.reduce((s, b) => s + b.offcut, 0),
+            usedTotal: detailed.reduce((s, b) => s + b.used, 0),
+        };
+    }
+
+    function paymentUnitsForPlan(plan) {
+        // 0.5 якщо використано <= половини корисної довжини, інакше 1.0
+        const half = plan.barLenEff / 2;
+        let pay = 0;
+        for (const b of plan.bars) pay += (b.used <= half ? 0.5 : 1.0);
+        return pay;
+    }
+
+    function formatCutPlanWithPay(plan) {
+        const half = plan.barLenEff / 2;
+        const parts = plan.bars.map(b => {
+            const pay = (b.used <= half ? 0.5 : 1.0);
+            const cutsStr = b.cuts.join("+");
+            return `Палка #${b.index}: ${cutsStr} = ${b.used} мм; залишок ${b.offcut} мм; оплата ${pay}`;
+        });
+        return parts.join(" | ");
+    }
+
+    function mapProfileIdByColor(baseId, colorCode) {
+        if (colorCode === "NS") return baseId;
+
+        const colorMap = {
+            "OL-2545": {
+                "BRA": "OL-2545_BRA",
+                "BRC": "OL-2545_BRC"
+            },
+            "OL-965": {
+                "BRA": "OL-965_BRA",
+                "BRC": "OL-965_BRC"
+            }
+        };
+
+        return colorMap[baseId]?.[colorCode] || baseId;
+    }
+
+    // ====== build spec ======
+    function buildSpec(db, opts) {
+        const { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, frameMode, topBottom25 } = opts;
+        const barLen = db.defaults?.bar_length_mm || 6100;
+        const kerfMm = 0; // фіксуємо 0, щоб не плодити помилки
+
+        const barLenEff = barLen - 2 * trimEachSide;
+        if (barLenEff <= 0) throw new Error("Торцювання занадто велике — немає корисної довжини палки.");
+
+        // Обмеження кольорів у MVP: OL-2545L та OL-2545RG доступні лише в чорному мат (NS).
+        // Якщо обрано інший колір — базові профілі фарбуємо, але LED/RG залишаємо NS та показуємо попередження.
+        const colorWarnings = [];
+        const colorSafe = (colorCode === "NS");
+
+        // Vertical types
+        const baseVert = "OL-2545";
+        const baseHor  = "OL-965";
+
+// LED / RG тільки NS
+        const frontVertId = isLed
+            ? "OL-2545L"
+            : mapProfileIdByColor(baseVert, colorCode);
+
+        const rearVertId = (backPanelType !== "none")
+            ? "OL-2545RG" // якщо є задня стінка (скло або непрозоре) — беремо профіль з пазом
+            : mapProfileIdByColor(baseVert, colorCode);
+
+        const horId = mapProfileIdByColor(baseHor, colorCode);
+
+        if (!colorSafe && isLed) colorWarnings.push("LED-профіль OL-2545L доступний лише в чорному (NS).");
+        if (!colorSafe && backPanelType !== "none") colorWarnings.push("Профіль з пазом OL-2545RG доступний лише в чорному (NS).");
+
+        const items = [];
+        function addRow(itemId, qty, pieceLenMm=null, extra={}) {
+            const it = getItemByIdOrCode(db, itemId);
+            if (!it) throw new Error(`Немає позиції в only.data.json: ${itemId}`);
+            items.push({
+                id: it.id || itemId,
+                code: it.code || it.id || itemId,
+                name: it.name_ua || it.name || extra.name || (it.code || it.id || itemId),
+                qtyPieces: qty,
+                unit: it.unit || extra.unit || "шт",
+                pieceLenMm,
+                sell_type: it.sell_type || it.sellType || extra.sell_type || "PCS",
+                priceEur: eurPrice(it),
+                cutInfo: null,
+                qtyPay: null,
+                sumEur: null,
+                bars: null,
+                offcut: null,
+                group: extra.group,
+                note: extra.note
+            });
+        }
+        // ===== counts (MVP-2) =====
+        const nShelves = Math.max(0, Math.floor(Number(shelvesCount || 0)));
+
+        // Frame-mode: W розбиваємо на прольоти, рамок = прольоти + 1.
+        const wRange = getWRange(shelfType);
+        const spanMax = wRange.max; // 900 (ДСП) або 1000 (LAIT)
+
+        const numSpans  = frameMode ? Math.max(1, Math.ceil(W / spanMax)) : 1;
+        const numFrames = frameMode ? (numSpans + 1) : 2; // базовий модуль без рамок = 2 рамки
+        const spanW     = Math.ceil(W / numSpans);        // ширина одного прольоту (≈ довжина перемички)
+
+        // Вертикалі (на рамку: 1 передня + 1 задня)
+        if (frameMode) {
+            addRow(frontVertId, numFrames, H);
+            addRow(rearVertId,  numFrames, H);
+        } else {
+            // базовий MVP-2: 4 вертикалі
+            addRow(frontVertId, 2, H);
+            addRow(rearVertId,  2, H);
+        }
+
+        // Горизонталі (перемички)
+        let nHor;
+        if (frameMode) {
+            // На кожну рамку: 2 (верх/низ) + N полиць
+            nHor = (2 + nShelves) * numFrames;
+            addRow(horId, nHor, spanW);
+        } else {
+            // базовий MVP-2: 2 (верх/низ) + N полиць (на модуль)
+            nHor = 2 + nShelves;
+            addRow(horId, nHor, W);
+        }
+
+        // Опори (по 1 на вертикаль)
+        const legs = frameMode ? (2 * numFrames) : 4;
+        addRow("OL-P", legs, null);
+
+        // З’єднувачі: 2 шт на 1 горизонталь
+        addRow("OL-GTSI", 2 * nHor, null);
+
+        // Кріплення задньої стінки (якщо вона є)
+        if (backPanelType !== "none") {
+            // OL-V — норма 8 шт на 1 модуль (MVP-2). Для frame-mode поки залишаємо як MVP (без масштабування).
+            addRow("OL-V_A11.034", 8, null);
+            addRow("VITE-TSP-M4X10", 8, null);
+
+            // Ущільнювач тільки якщо скло 6 мм в паз
+            if (backPanelType === "glass6") {
+                const gasketPcs = Math.ceil((numFrames * 2 * H) / 3000); // numFrames задніх стійок; ущільнювач з 2 сторін; LISTA 3000 мм
+                addRow("GU-C-RG-LISTA", gasketPcs, null);
+            }
+        } else {
+            // Якщо задньої стінки немає — базовий набір гвинтів (MVP-2)
+            addRow("VITE-TSP-M4X10", 4, null);
+        }
+
+        // Заглушки GU-O-F: 2 LISTA (3000 мм) на 1 вертикаль (2 пази)
+        const plugs = frameMode ? (4 * numFrames) : 8;
+        addRow("GU-O-F-LISTA", plugs, null);
+
+        // ====== ATTACHED MATERIALS (MVP-3+) ======
+        // Каталог ONLY:
+        // 1) Бокове скло 4 мм: L_fianco - 3.5 мм | H_montante = H_vetro
+        // 2) Спинка: H = H_montante - 38 мм
+        //    - дерево 8 мм: L_vano + 16 мм
+        //    - скло 6 мм:  L_vano + 11 мм
+        // Правило: якщо frameMode ON — і спинка, і боковини рахуються ПО СЕКЦІЯХ (vano) окремо.
+
+        // KPI areas (catalog-based)
+        let rearAreaM2 = 0;
+        let sideAreaM2 = 0;
+
+        // helper: fallback row if SKU missing (price=0) so spec won't break
+        function addFallback(code, name, qty, unit, group, note){
+            items.push({
+                id: code,
+                code,
+                name,
+                qtyPieces: qty,
+                unit: unit || "шт",
+                pieceLenMm: null,
+                sell_type: "VIRTUAL",
+                priceEur: 0,
+                cutInfo: "—",
+                qtyPay: qty,
+                sumEur: 0,
+                bars: null,
+                offcut: null,
+                group: group || "ATTACHED",
+                note
+            });
+        }
+
+        function addMaterialM2(itemKey, qtyM2, fallbackName, note){
+            const it = getItemByIdOrCode(db, itemKey);
+            if (it){
+                const pu = eurPrice(it);
+                items.push({
+                    id: it.id || itemKey,
+                    code: it.code || it.id || itemKey,
+                    name: it.name_ua || it.name || fallbackName,
+                    qtyPieces: qtyM2,
+                    unit: it.unit || "м²",
+                    pieceLenMm: null,
+                    sell_type: it.sell_type || it.sellType || "PCS",
+                    priceEur: pu,
+                    cutInfo: "—",
+                    qtyPay: qtyM2,
+                    sumEur: qtyM2 * pu,
+                    bars: null,
+                    offcut: null,
+                    group: it.group || "PANELS",
+                    note
+                });
+            } else {
+                addFallback(itemKey, fallbackName || itemKey, qtyM2, "м²", "PANELS",
+                    (note || "") + " (позиція/ціна не знайдена в only.data.json)");
+            }
+        }
+
+        function addMaterialPCS(itemKey, qty, fallbackName, note, groupOverride){
+            const it = getItemByIdOrCode(db, itemKey);
+            if (it){
+                const pu = eurPrice(it);
+                items.push({
+                    id: it.id || itemKey,
+                    code: it.code || it.id || itemKey,
+                    name: it.name_ua || it.name || fallbackName,
+                    qtyPieces: qty,
+                    unit: it.unit || "шт",
+                    pieceLenMm: null,
+                    sell_type: it.sell_type || it.sellType || "PCS",
+                    priceEur: pu,
+                    cutInfo: "—",
+                    qtyPay: qty,
+                    sumEur: qty * pu,
+                    bars: null,
+                    offcut: null,
+                    group: groupOverride || it.group || "ONLY",
+                    note
+                });
+            } else {
+                addFallback(itemKey, fallbackName || itemKey, qty, "шт", groupOverride || "ONLY",
+                    (note || "") + " (позиція/ціна не знайдена в only.data.json)");
+            }
+        }
+
+        function addPermoKit(pointsTotal){
+            const permoNote = "Стяжка Permo для панелей 25 мм (кришка/дно)";
+            const addPermo = (code, fallbackName, qty) => {
+                const it = getItemByIdOrCode(db, code);
+                if (it) {
+                    const pu = eurPrice(it);
+                    items.push({
+                        id: it.id || code,
+                        code: it.code || code,
+                        name: it.name_ua || it.name || fallbackName,
+                        qtyPieces: qty,
+                        unit: it.unit || "шт",
+                        pieceLenMm: null,
+                        sell_type: it.sell_type || it.sellType || "PCS",
+                        priceEur: pu,
+                        cutInfo: "—",
+                        qtyPay: qty,
+                        sumEur: qty * pu,
+                        bars: null,
+                        offcut: null,
+                        group: it.group || "PERMO",
+                        note: permoNote
+                    });
+                } else {
+                    addFallback(code, `${fallbackName} (Permo)`, qty, "шт", "PERMO",
+                        permoNote + " — додайте позицію в only.data.json, щоб підтягнулась ціна.");
+                }
+            };
+
+            addPermo("B010ZZ0001409", "Вставка/камера Permo", pointsTotal);
+            addPermo("GR01ZZ00010M8", "Гайка Permo M8", pointsTotal);
+            addPermo("TF02FZ0000736", "Стяжка Permo (шпилька)", pointsTotal);
+        }
+
+        // Рахуємо vano/секції: у frameMode їх = numSpans, ширина vano = spanW
+        const sectionsCount = frameMode ? numSpans : 1;
+        const Lv = frameMode ? spanW : W;   // L_vano
+        const Hmont = H;                    // H_montante
+
+        // 1) Дно + кришка 25 мм (м²) + Permo (не залежить від задньої стінки)
+        if (topBottom25) {
+            const panelAreaOne = (W * D) / 1e6;       // м² однієї панелі
+            const panelsM2 = panelAreaOne * 2;        // 2 панелі: дно + кришка
+            addMaterialM2(
+                "PANEL_25_MM2",
+                panelsM2,
+                "ДСП/МДФ 25 мм (м²)",
+                `Розмір 1 шт: ${W}×${D} мм · К-сть: 2 шт · Разом: ${eur(panelsM2)} м²`
+            );
+
+
+            // Permo: 4 точки на панель у рамці; 2 панелі => 8 точок/рамка
+            const permoPointsPerPanel = 4;
+            const permoPointsTotal = numFrames * 2 * permoPointsPerPanel;
+            addPermoKit(permoPointsTotal);
+        }
+
+        // 2) Задня стінка — ПО СЕКЦІЯХ (catalog dims)
+        if (backPanelType === "opaque8") {
+            const backH = Hmont - 38;
+            const backW = Lv + 16;
+            const oneM2 = (backH * backW) / 1e6;
+            rearAreaM2 = oneM2 * sectionsCount;
+
+            addMaterialM2("PANEL_BACK_8_MM2", rearAreaM2, "Задня стінка 8 мм (MDF/HDF) (м²)",
+                `Спинка 8 мм: ${sectionsCount}×(Lv+16)×(H-38) = ${backW}×${backH} мм → ${eur(rearAreaM2)} м²`);
+        }
+
+        if (backPanelType === "glass6") {
+            const backH = Hmont - 38;
+            const backW = Lv + 11;
+            const oneM2 = (backH * backW) / 1e6;
+            rearAreaM2 = oneM2 * sectionsCount;
+
+            addMaterialM2("GLASS_6_MM2", rearAreaM2, "Скло 6 мм (м²)",
+                `Спинка скло 6 мм: ${sectionsCount}×(Lv+11)×(H-38) = ${backW}×${backH} мм → ${eur(rearAreaM2)} м²`);
+        }
+
+        // 3) Бокові панелі (скло в паз 4 мм) — ПО СЕКЦІЯХ (catalog dims)
+        const sidesCount = (sideGlass === "both") ? 2 : ((sideGlass === "left" || sideGlass === "right") ? 1 : 0);
+
+        if (sidesCount > 0) {
+            const sideH = Hmont;        // catalog: Hmontante = Hvetro
+            const sideW = D - 3.5;      // catalog: Lfianco - 3.5mm
+
+            // кількість деталей (по секціях + по сторонах)
+            const pieces = sectionsCount * sidesCount;
+
+            // площа
+            const oneM2 = (sideH * sideW) / 1e6;     // м² однієї боковини (1 шт)
+            sideAreaM2 = oneM2 * pieces;             // загальна площа
+
+            // ✅ ВИВІД РОЗМІРУ (мм) + КІЛЬКОСТІ (шт)
+            addMaterialM2(
+                "GLASS_4_MM2",
+                sideAreaM2,
+                "Скло 4 мм (м²)",
+                `Розмір 1 шт: ${sideH.toFixed(1)}×${sideW.toFixed(1)} мм · К-сть: ${pieces} шт · Разом: ${eur(sideAreaM2)} м²`
+            );
+
+            // ✅ PIATTO — 1 шт на кожну боковину (тобто на кожну деталь)
+            addMaterialPCS("PIATTO_25x2",  pieces, "Пластина PIATTO-25x2",  "1 шт на боковину (по секціях)", "ONLY");
+            addMaterialPCS("PIATTO_25x10", pieces, "Пластина PIATTO-25x10", "1 шт на боковину (по секціях)", "ONLY");
+        }
+
+        function setRowPriceByCode(code, priceEur, sumEur, extraDetail) {
+            const r = rows.find(x => x && x.code === code);
+            if (!r) return;
+            r.priceEur = priceEur;
+            r.sumEur   = sumEur;
+            if (extraDetail) {
+                r.detail = (r.detail ? (r.detail + "\n") : "") + extraDetail;
+            }
+        }
+
+// ВАЖЛИВО: Busel v3 ціна — рахуємо як tempered always ON
+        function calcBuselForPanel({ wMm, hMm, qty, thicknessMm, temperMinType }) {
+            return GlassEngine.calcBuselV3Piece({
+                widthMm: wMm,
+                heightMm: hMm,
+                qty,
+                materialPricePerM2UAH: 0,   // ПОКИ 0 → потім підставимо з прайсу Busel v3
+                edgePolishPerMUAH: 0,       // ПОКИ 0 → потім підставимо з прайсу Busel v3
+
+                tempered: true,
+                temperTariffPerM2UAH: 0,    // ПОКИ 0 → потім підставимо з прайсу Busel v3
+                temperMinType: temperMinType || "other",
+                temperMinFloatUAH: GlassEngine.BUSEL_CFG.temperMinFloatUAH,
+                temperMinOtherUAH: GlassEngine.BUSEL_CFG.temperMinOtherUAH,
+
+                applySizeSurcharge: GlassEngine.BUSEL_CFG.applySizeSurcharge
+            });
+        }
+
+        if (backPanelType === "glass6" && backW > 0 && backH > 0) {
+            const r6 = calcBuselForPanel({
+                wMm: backW,
+                hMm: backH,
+                qty: sectionsCount,
+                thicknessMm: 6,
+                temperMinType: "other"
+            });
+
+            const sumEur = r6.mtRetailUAH / eurRate;
+            // ефективна €/м² (для виводу в таблиці)
+            const effEurM2 = sumEur / Math.max(0.0001, r6.billingArea * r6.qty);
+
+            setRowPriceByCode(
+                "GLASS_6_MM2",
+                effEurM2,
+                sumEur,
+                `Busel v3 (гарт.): ${sectionsCount} шт · bill=${r6.billingArea.toFixed(3)}м²/шт · kArea=${r6.kArea} · kBatch=${r6.kBatch} · min=${r6.temperMinUAH} грн`
+            );
+        }
+        if (sidesCount > 0 && sideW > 0 && sideH > 0) {
+            const qtyPanels = sectionsCount * sidesCount;
+
+            const r4 = calcBuselForPanel({
+                wMm: sideW,
+                hMm: sideH,
+                qty: qtyPanels,
+                thicknessMm: 4,
+                temperMinType: "other"
+            });
+
+            const sumEur = r4.mtRetailUAH / eurRate;
+            const effEurM2 = sumEur / Math.max(0.0001, r4.billingArea * r4.qty);
+
+            setRowPriceByCode(
+                "GLASS_4_MM2",
+                effEurM2,
+                sumEur,
+                `Busel v3 (гарт.): ${qtyPanels} шт · bill=${r4.billingArea.toFixed(3)}м²/шт · kArea=${r4.kArea} · kBatch=${r4.kBatch} · min=${r4.temperMinUAH} грн`
+            );
+        }
+
+
+        // ====== Cutting plans per BAR item ======
+
+        const cutsByBar = {};
+        items.forEach(r => {
+            if (r.sell_type === "BAR" && r.pieceLenMm) {
+                if (!cutsByBar[r.id]) cutsByBar[r.id] = [];
+                for (let i = 0; i < r.qtyPieces; i++) cutsByBar[r.id].push(r.pieceLenMm);
+            }
+        });
+
+        const barPlans = {};
+        Object.keys(cutsByBar).forEach(id => {
+            barPlans[id] = packCutsFFD(cutsByBar[id], barLenEff, kerfMm);
+        });
+
+        // Fill BAR rows: bars/offcut/pay
+        items.forEach(r => {
+            if (r.sell_type === "BAR" && r.pieceLenMm) {
+                const plan = barPlans[r.id];
+                r.bars = plan.barsCount;
+                r.offcut = plan.offcutTotal;
+                r.qtyPay = paymentUnitsForPlan(plan); // 0.5/1 per bar
+                r.cutInfo = formatCutPlanWithPay(plan);
+                r.sumEur = r.qtyPay * r.priceEur; // ціна за палку * оплата в палках
+            } else {
+                r.qtyPay = r.qtyPieces;
+                r.sumEur = r.qtyPieces * r.priceEur;
+                r.cutInfo = "—";
+            }
+        });
+
+        const totalEur = items.reduce((s, r) => s + (r.sumEur || 0), 0);
+        const barsTotal = Object.values(barPlans).reduce((s, p) => s + p.barsCount, 0);
+        const offcutTotal = Object.values(barPlans).reduce((s, p) => s + p.offcutTotal, 0);
+        const payBarsTotal = items
+            .filter(r => r.sell_type === "BAR")
+            .reduce((s, r) => s + (r.qtyPay || 0), 0);
+
+        return { items, totalEur, barsTotal, offcutTotal, barLen, barLenEff, payBarsTotal, trimEachSide, rearAreaM2, sideAreaM2, nHor, nShelves, shelfType, sideGlass, colorWarnings };
+    }
+
+    // ====== render ======
+    
+    function render(spec) {
+        const kpi = document.getElementById('kpi');
+        const rearTxt = (spec.rearAreaM2 && spec.rearAreaM2 > 0) ? `${eur(spec.rearAreaM2)} м²` : "—";
+        const sideTxt = (spec.sideAreaM2 && spec.sideAreaM2 > 0) ? `${eur(spec.sideAreaM2)} м²` : "—";
+
+        let kpiHtml = ""
+          + `<span class="chip"><b>Разом:</b> ${eur(spec.totalEur)} €</span>`
+          + `<span class="chip"><b>Палки (факт):</b> ${spec.barsTotal} шт</span>`
+          + `<span class="chip"><b>Оплата (0.5/1):</b> ${eur(spec.payBarsTotal)} пал.</span>`
+          + `<span class="chip"><b>Залишок:</b> ${spec.offcutTotal} мм</span>`
+          + `<span class="chip"><b>Корисна довжина:</b> ${spec.barLenEff} мм</span>`
+          + `<span class="chip"><b>Горизонталі:</b> ${spec.nHor} шт</span>`
+          + `<span class="chip"><b>Задня стінка:</b> ${rearTxt}</span>`
+          + `<span class="chip"><b>Бокове скло:</b> ${sideTxt}</span>`;
+
+        if (spec.colorWarnings && spec.colorWarnings.length) {
+            kpiHtml += spec.colorWarnings.map(t =>
+                `<span class="chip" style="background:rgba(245,158,11,.12)"><b>⚠</b> ${t}</span>`
+            ).join("");
+        }
+
+        kpi.innerHTML = kpiHtml;
+
+        const tbody = document.querySelector('#tbl tbody');
+        tbody.innerHTML = '';
+        spec.items.forEach(r => {
+            const tr = document.createElement('tr');
+            const detailsCell =
+                `<b>${r.qtyPieces}</b>` +
+                (r.note ? `<div class="muted small">${r.note}</div>` : "") +
+                ((r.sell_type === "BAR" && r.pieceLenMm)
+                    ? `<div class="muted small">${eur(r.qtyPay || 0)} пал. до оплати</div>`
+                    : "");
+            tr.innerHTML = `
+        <td><b>${r.code || r.id}</b></td>
+        <td>${(r.name || r.name_ua || '')}<div class="muted small">${r.unit}</div></td>
+        <td>${detailsCell}</td>
+        <td class="muted">${r.cutInfo || '—'}</td>
+        <td>${eur(r.priceEur)}</td>
+        <td><b>${eur(r.sumEur || 0)}</b></td>
+      `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ====== CSV ======
+    function toCSV(spec) {
+        const lines = [];
+        lines.push(["Код","Найменування","Деталі","Оплата (пал.)","Одиниця","Ціна EUR","Сума EUR","Опис різки"].join(";"));
+        spec.items.forEach(r => {
+            lines.push([
+                (r.code || r.id),
+                (r.name || "").replaceAll(";", ","),
+                r.qtyPieces,
+                (r.sell_type === "BAR" ? eur(r.qtyPay || 0) : ""),
+                r.unit || "шт",
+                eur(r.priceEur || 0),
+                eur(r.sumEur || 0),
+                (r.cutInfo || "").replaceAll(";", ",")
+            ].join(";"));
+        });
+        return lines.join("\n");
+    }
+    function download(filename, text) {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(new Blob([text], {type: 'text/csv;charset=utf-8;'}));
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    }
+
+    // ====== W range validation (MVP-2) ======
+    function getWRange(shelfType){
+        if (shelfType === "lait") return {min: 600, max: 1000, label: "LAIT (600–1000 мм)"};
+        return {min: 600, max: 900, label: "ДСП/МДФ (600–900 мм)"};
+    }
+    function updateWRangeUI(W, shelfType, frameMode){
+    const warn = document.getElementById("wRangeWarn");
+    const r = getWRange(shelfType);
+    if (!warn) return;
+
+    if (frameMode){
+        const numSpans = Math.max(1, Math.ceil(W / r.max));
+        const spanW = Math.ceil(W / numSpans);
+
+        warn.style.display = "block";
+        if (W < r.min){
+            warn.innerHTML = `⚠️ Ширина W = <b>${W}</b> мм менша за мінімум для полиць: <b>${r.min}</b> мм.`;
+        } else if (spanW < r.min){
+            warn.innerHTML = `⚠️ Режим рамок: ширина прольоту <b>${spanW}</b> мм менша за мінімум <b>${r.min}</b> мм.`;
+        } else {
+            warn.innerHTML = `ℹ️ Режим рамок: <b>${numSpans}</b> прольоти (~<b>${spanW}</b> мм) · рамок: <b>${numSpans+1}</b> · полиці: <b>${r.label}</b>.`;
+        }
+        return;
+    }
+
+    if (W < r.min || W > r.max){
+        warn.style.display = "block";
+        warn.innerHTML = `⚠️ Ширина W = <b>${W}</b> мм виходить за робочу ширину для полиць: <b>${r.label}</b>.`;
+    } else {
+        warn.style.display = "none";
+        warn.innerHTML = "";
+    }
+}
+
+// ====== events ======
+    async function calculate() {
+        const db = await loadDB();
+        const H = Number(document.getElementById('H').value);
+        const W = Number(document.getElementById('W').value);
+        const D = Number(document.getElementById('D').value);
+        const trimEachSide = Number(document.getElementById('trimEachSide').value || 0);
+        const backPanelType = document.getElementById('backPanelType').value; // none | opaque8 | glass6
+        const isLed = document.getElementById('isLed').checked;
+        const colorCode = document.getElementById('colorCode').value;
+
+        // ===== LAIT handoff (ONLY -> LAIT Lite) =====
+// IMPORTANT: ONLY не має інпутів sectionsCount/eurRate, тому НЕ читаємо їх з DOM.
+
+        (function initLaitHandoff(){
+            const openLaitBtn = document.getElementById('openLaitBtn');
+            const laitHint    = document.getElementById('laitHint');
+
+            // Повертає "кількість прольотів" (рамок по ширині) за твоїм бізнес-правилом
+            function getSpansCount(W, shelfType, frameMode){
+                if (!frameMode) return 1;
+
+                // правило: ДСП <= 900, LAIT <= 1000 (як у твоїх підказках)
+                const maxSpan = (shelfType === 'lait') ? 1000 : 900;
+                return Math.max(1, Math.ceil(W / maxSpan));
+            }
+
+            // Ширина одного прольоту (Lvano). Тут важливо: беремо ширину W і ділимо на проліт.
+            // Якщо пізніше додаси "торці/зазори" — правиш тут в одному місці.
+            function getSectionClearWidthMm(W, spansCount){
+                return W / spansCount;
+            }
+
+            function getEurRateSafe(){
+                // у ONLY EUR-курса немає як інпута (ціни в EUR з only.data.json),
+                // тому беремо з localStorage (якщо є) або дефолт 49.5
+                const v = Number(localStorage.getItem('eurRate') || 49.5);
+                return Number.isFinite(v) ? v : 49.5;
+            }
+
+            function openLaitCalcFromOnly(){
+                const W = parseFloat(document.getElementById('W').value || '0');
+                const D = parseFloat(document.getElementById('D').value || '0');
+                const shelfType    = document.getElementById('shelfType').value;
+                const shelvesCount = parseInt(document.getElementById('shelvesCount').value || '0', 10);
+                const frameMode    = !!document.getElementById('frameMode')?.checked;
+
+                if (W <= 0 || D <= 0) { alert('Заповни W та D'); return; }
+                if (shelvesCount <= 0) { alert('Вкажи кількість полиць > 0'); return; }
+                if (shelfType !== 'lait') { alert('LAIT доступний лише коли "Тип полиць" = LAIT'); return; }
+
+                const spansCount = getSpansCount(W, shelfType, frameMode);
+                const Lv = getSectionClearWidthMm(W, spansCount);
+                const eurRate = getEurRateSafe();
+
+                const url =
+                    `lait-lite.backup.html` +
+                    `?eur=${encodeURIComponent(eurRate.toFixed(2))}` +
+                    `&len=${encodeURIComponent(Math.round(Lv))}` +
+                    `&dep=${encodeURIComponent(Math.round(D))}` +
+                    `&qty=${encodeURIComponent(shelvesCount)}`;
+
+                window.open(url, '_blank');
+            }
+
+            function updateLaitUI(){
+                const shelfType    = document.getElementById('shelfType')?.value;
+                const shelvesCount = parseInt(document.getElementById('shelvesCount')?.value || '0', 10);
+                const W = parseFloat(document.getElementById('W')?.value || '0');
+                const D = parseFloat(document.getElementById('D')?.value || '0');
+                const frameMode = !!document.getElementById('frameMode')?.checked;
+
+                const show = shelfType === 'lait';
+                if (openLaitBtn) openLaitBtn.style.display = show ? 'inline-flex' : 'none';
+
+                if (laitHint){
+                    if (!show) { laitHint.textContent = ''; return; }
+
+                    const spansCount = getSpansCount(W, shelfType, frameMode);
+                    const Lv = (W > 0 ? getSectionClearWidthMm(W, spansCount) : 0);
+
+                    laitHint.textContent =
+                        `LAIT рахуємо в окремому калькуляторі: ` +
+                        `передамо проліт (≈${Math.round(Lv)} мм) + глибину (${Math.round(D)} мм) + к-сть полиць (${shelvesCount}).`;
+                }
+            }
+
+            window.__addLaitTotalRowIfAny = function(rows){
+                const totalEur = Number(localStorage.getItem("ONLY_LAIT_TOTAL_EUR") || 0);
+                if (!totalEur) return 0;
+
+                const meta = JSON.parse(localStorage.getItem("ONLY_LAIT_META") || "{}");
+
+                // прибрати дубль при повторному перерахунку
+                for (let i = rows.length - 1; i >= 0; i--) {
+                    if (rows[i]?.code === "LAIT_TOTAL") rows.splice(i, 1);
+                }
+
+                rows.push({
+                    code: "LAIT_TOTAL",
+                    name: "Полиці LAIT (підсумок з LAIT калькулятора)",
+                    qtyPieces: 1,
+                    unit: "компл.",
+                    sell_type: "PCS",
+                    priceEur: totalEur,
+                    sumEur: totalEur,
+                    group: "LAIT",
+                    note: meta?.lenMm ? `L=${meta.lenMm} мм · D=${meta.depMm} мм · Qty=${meta.qty}` : ""
+                });
+
+                return totalEur;
+            };
+
+
+// attach once
+            if (openLaitBtn) openLaitBtn.addEventListener('click', openLaitCalcFromOnly);
+
+            document.getElementById('shelfType')?.addEventListener('change', updateLaitUI);
+            document.getElementById('shelvesCount')?.addEventListener('input', updateLaitUI);
+            document.getElementById('W')?.addEventListener('input', updateLaitUI);
+            document.getElementById('D')?.addEventListener('input', updateLaitUI);
+            document.getElementById('frameMode')?.addEventListener('change', updateLaitUI);
+
+            updateLaitUI();
+        })();
+
+
+if (!H || !W || !D) throw new Error("Заповни H/W/D.");
+        if (H < 300 || W < 300 || D < 200) throw new Error("Нереальні габарити. Перевір H/W/D.");
+
+        const shelfType = document.getElementById('shelfType').value;
+        const shelvesCount = Number(document.getElementById('shelvesCount').value || 0);
+        const sideGlass = document.getElementById('sideGlass').value;
+
+        const frameMode = document.getElementById('frameMode').checked;
+        const topBottom25 = document.getElementById('topBottom25')?.checked ?? true;
+
+        updateWRangeUI(W, shelfType, frameMode);
+
+        const spec = buildSpec(db, { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, frameMode, topBottom25 });
+// + LAIT total (якщо є з lait-lite.backup.html)
+try {
+    const laitAdd = window.__addLaitTotalRowIfAny ? window.__addLaitTotalRowIfAny(spec.items) : 0;
+    if (laitAdd) {
+        spec.totals.totalEur = (spec.totals.totalEur || 0) + laitAdd;
+        spec.totals.grandEur = (spec.totals.grandEur || 0) + laitAdd;
+    }
+} catch (e) {
+    console.warn("LAIT total handoff skipped:", e);
+}
+
+        window.__onlySpec = spec;
+        render(spec);
+    }
+
+    document.getElementById('btnCalc').addEventListener('click', () => {
+        calculate().catch(err => alert(err.message || String(err)));
+    });
+
+    document.getElementById('btnCsv').addEventListener('click', () => {
+        const spec = window.__onlySpec;
+        if (!spec) return alert("Спочатку натисни «Розрахувати».");
+        download("ONLY_spec.csv", toCSV(spec));
+    });
+
+    // auto recalc on input change
+    ["H","W","D","trimEachSide","backPanelType","isLed","colorCode","shelfType","shelvesCount","sideGlass","frameMode","topBottom25"].forEach(id => {
+        const el = document.getElementById(id);
+        el.addEventListener('input', () => calculate().catch(()=>{}));
+        el.addEventListener('change', () => calculate().catch(()=>{}));
+    });
+
+    // initial
+    calculate().catch(()=>{});
+</script>
+
+</body>
+</html>
