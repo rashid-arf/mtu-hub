@@ -1,0 +1,459 @@
+{
+  "meta": {
+    "name": "ONLY master glass catalog (Busel + AbstractGlass)",
+    "version": "only.glass.master.v1",
+    "generated_at": "2025-12-15T19:45:20",
+    "timezone": "Europe/Kyiv",
+    "notes": [
+      "This file merges supplier catalogs for ONLY and adds default supplier and auto-selection rules.",
+      "All prices are UAH; material prices are per m²; services have their own units.",
+      "Commercial multipliers are included as references; apply in your ONLY pricing pipeline as needed."
+    ]
+  },
+  "suppliers": [
+    {
+      "id": "BUSEL",
+      "name": "Busel"
+    },
+    {
+      "id": "ABSTRACT",
+      "name": "AbstractGlass"
+    }
+  ],
+  "catalogs": {
+    "BUSEL": {
+      "glass_items": [
+        {
+          "id": "BUSEL_FLOAT_CLEAR_4_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "non-china",
+          "thickness_mm": 4,
+          "type": "Float Clear",
+          "label": "Скло флоат прозоре 4 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 507.9,
+          "tempering_group": "FLOAT"
+        },
+        {
+          "id": "BUSEL_ULTRACLEAR_4_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "non-china",
+          "thickness_mm": 4,
+          "type": "Ultra Clear",
+          "label": "Скло надпрозоре (Ultra Clear) 4 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 879.3,
+          "tempering_group": "ULTRACLEAR_TINTED"
+        },
+        {
+          "id": "BUSEL_CHINA_DARKGREY_4_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "china",
+          "thickness_mm": 4,
+          "type": "Dark Grey",
+          "label": "CHINA GLASS Dark Grey 4 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 996.42,
+          "tempering_group": "ULTRACLEAR_TINTED"
+        },
+        {
+          "id": "BUSEL_PLANIBEL_BRONZE_GREY_4_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "non-china",
+          "thickness_mm": 4,
+          "type": "Bronze/Grey",
+          "label": "PLANIBEL Bronze/Grey 4 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1060.68,
+          "tempering_group": "ULTRACLEAR_TINTED"
+        },
+        {
+          "id": "BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Float Clear",
+          "label": "CHINA GLASS Float 6 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 749.4,
+          "tempering_group": "FLOAT"
+        },
+        {
+          "id": "BUSEL_ULTRACLEAR_6_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "non-china",
+          "thickness_mm": 6,
+          "type": "Ultra Clear",
+          "label": "Скло надпрозоре (Ultra Clear) 6 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1403.4,
+          "tempering_group": "ULTRACLEAR_TINTED"
+        },
+        {
+          "id": "BUSEL_CHINA_DARKGREY_6_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Dark Grey",
+          "label": "CHINA GLASS Dark Grey 6 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1976.4,
+          "tempering_group": "ULTRACLEAR_TINTED"
+        },
+        {
+          "id": "BUSEL_CHINA_BRONZE_6_RIZKA",
+          "supplier": "BUSEL",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Bronze",
+          "label": "CHINA GLASS Bronze 6 мм (#Різка#)",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 986.1,
+          "tempering_group": "ULTRACLEAR_TINTED"
+        }
+      ],
+      "services": {
+        "tempering": {
+          "id": "BUSEL_TEMPERING",
+          "label": "Загартування (Busel)",
+          "unit": "м²",
+          "sell_type": "M2",
+          "base_pricePerM2_uah": {
+            "FLOAT": 217.68,
+            "ULTRACLEAR_TINTED": 282.96,
+            "PYROLYTIC_COATED": 326.46
+          },
+          "batch_coefficients": [
+            {
+              "range_m2": [
+                0.0,
+                0.25
+              ],
+              "multiplier": 2.0,
+              "note": "If you enforce min billable area as per Busel rules for tiny parts."
+            },
+            {
+              "range_m2": [
+                0.25,
+                2.0
+              ],
+              "multiplier": 1.5,
+              "note": "Batch 0.25–2 m² (+50%)."
+            },
+            {
+              "range_m2": [
+                2.0,
+                10.0
+              ],
+              "multiplier": 1.3,
+              "note": "Batch 2–10 m² (+30%)."
+            }
+          ]
+        },
+        "edge_polish": {
+          "id": "BUSEL_EDGE_POLISH",
+          "label": "Полірування кромки (Busel)",
+          "unit": "п.м.",
+          "sell_type": "LM",
+          "pricePerLm_uah": {
+            "THK_4": 70.62,
+            "THK_3_5_6": 99.66
+          },
+          "notes": [
+            "THK_4 for 4 mm.",
+            "THK_3_5_6 for 5–6 mm."
+          ]
+        }
+      },
+      "commercial_rules": {
+        "busel_discount_multiplier": 0.85,
+        "busel_markup_multiplier": 1.3,
+        "busel_total_multiplier": 1.105,
+        "abstract_markup_multiplier_reference": 1.15
+      }
+    },
+    "ABSTRACT": {
+      "glass_items": [
+        {
+          "id": "ABS_FLOAT_4",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 4,
+          "type": "Float Clear",
+          "label": "Скло звичайне (Float) 4 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 690,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_DIAMOND_4",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 4,
+          "type": "Diamond / Extra Clear",
+          "label": "Скло Діамант (Extra Clear) 4 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 980,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_GRAPHITE_4",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 4,
+          "type": "Graphite",
+          "label": "Скло Графіт 4 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1180,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_BRONZE_4",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 4,
+          "type": "Bronze",
+          "label": "Скло Бронза 4 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1180,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_FLOAT_5",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 5,
+          "type": "Float Clear",
+          "label": "Скло звичайне (Float) 5 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 890,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_DIAMOND_5",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 5,
+          "type": "Diamond / Extra Clear",
+          "label": "Скло Діамант (Extra Clear) 5 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1285,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_GRAPHITE_5",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 5,
+          "type": "Graphite",
+          "label": "Скло Графіт 5 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1500,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_BRONZE_5",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 5,
+          "type": "Bronze",
+          "label": "Скло Бронза 5 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1500,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_FLOAT_6",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Float Clear",
+          "label": "Скло звичайне (Float) 6 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1100,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_DIAMOND_6",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Diamond / Extra Clear",
+          "label": "Скло Діамант (Extra Clear) 6 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1590,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_GRAPHITE_6",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Graphite",
+          "label": "Скло Графіт 6 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1795,
+          "tempering_group": "ALL"
+        },
+        {
+          "id": "ABS_BRONZE_6",
+          "supplier": "ABSTRACT",
+          "origin": "china",
+          "thickness_mm": 6,
+          "type": "Bronze",
+          "label": "Скло Бронза 6 мм",
+          "sell_type": "M2",
+          "unit": "м²",
+          "pricePerM2_uah": 1795,
+          "tempering_group": "ALL"
+        }
+      ],
+      "services": {
+        "tempering": {
+          "id": "ABS_TEMPERING",
+          "label": "Загартування (AbstractGlass)",
+          "unit": "м²",
+          "sell_type": "M2",
+          "pricePerM2_uah": {
+            "THK_4": 265,
+            "THK_5": 275,
+            "THK_6": 290
+          }
+        },
+        "edge_polish": {
+          "id": "ABS_EDGE_POLISH",
+          "label": "Полірування кромки (AbstractGlass)",
+          "unit": "п.м.",
+          "sell_type": "LM",
+          "pricePerLm_uah": {
+            "THK_3_4_5": 55,
+            "THK_6": 65
+          }
+        },
+        "adhesion_prep": {
+          "id": "ABS_ART_PAINT",
+          "label": "Худ. фарбування / підготовка під профіль (1 колір)",
+          "unit": "м²",
+          "sell_type": "M2",
+          "pricePerM2_uah": 485,
+          "notes": [
+            "Технологічна підготовка поверхні скла під приклейку профілю",
+            "Використовується для покращення адгезії"
+          ]
+        }
+      },
+      "commercial_rules": {
+        "abstract_markup_multiplier": 1.15
+      }
+    }
+  },
+  "defaults": {
+    "default_supplier": "ABSTRACT",
+    "default_policy": {
+      "kitchen_upper": "ABSTRACT",
+      "wardrobe_large": "BUSEL"
+    },
+    "assumptions": {
+      "edge_polish_always_on": true,
+      "tempering_for_large_wardrobe": true
+    }
+  },
+  "selector_rules": {
+    "description": "Rule-based supplier selector for glass in ONLY",
+    "rules_ordered": [
+      {
+        "id": "R1_CHINA_6MM_PREFERRED_BUSEL",
+        "when": {
+          "thickness_mm_in": [
+            6
+          ],
+          "origin_preference": "china",
+          "glass_type_in": [
+            "Float Clear",
+            "Bronze",
+            "Dark Grey"
+          ]
+        },
+        "pick_supplier": "BUSEL",
+        "reason": "China 6 mm is typically cheaper and present as explicit CHINA GLASS in Busel price lists."
+      },
+      {
+        "id": "R2_4_5MM_DEFAULT_ABSTRACT",
+        "when": {
+          "thickness_mm_in": [
+            4,
+            5
+          ]
+        },
+        "pick_supplier": "ABSTRACT",
+        "reason": "Default mass supplier for 4–5 mm."
+      },
+      {
+        "id": "R3_ULTRACLEAR_PREMIUM_BUSEL_OPTION",
+        "when": {
+          "glass_type_in": [
+            "Ultra Clear",
+            "Diamond / Extra Clear",
+            "Скло надпрозоре (Ultra Clear) 4 мм (#Різка#)",
+            "Скло надпрозоре (Ultra Clear) 6 мм (#Різка#)"
+          ],
+          "premium_client": true
+        },
+        "pick_supplier": "BUSEL",
+        "reason": "Premium client path may prefer Busel ultraclear control and assortment."
+      },
+      {
+        "id": "R4_FALLBACK_DEFAULT",
+        "when": {},
+        "pick_supplier": "ABSTRACT",
+        "reason": "Fallback to default supplier."
+      }
+    ],
+    "service_policy": {
+      "edge_polish": {
+        "enabled": true,
+        "default": {
+          "BUSEL": "BUSEL_EDGE_POLISH",
+          "ABSTRACT": "ABS_EDGE_POLISH"
+        }
+      },
+      "tempering": {
+        "enabled": "conditional",
+        "default": {
+          "BUSEL": "BUSEL_TEMPERING",
+          "ABSTRACT": "ABS_TEMPERING"
+        },
+        "enable_when": {
+          "is_wardrobe_large": true
+        }
+      },
+      "adhesion_prep": {
+        "enabled": "conditional",
+        "supplier": "ABSTRACT",
+        "service_id": "ABS_ART_PAINT",
+        "enable_when": {
+          "needs_profile_adhesion_prep": true
+        }
+      }
+    }
+  }
+}

@@ -641,7 +641,7 @@
 <div class="page">
 
     <!-- TOPBAR -->
-    <header class="topbar">
+    <header class="topbar" >
         <div class="topbar-left">
             <div class="topbar-logo">
                 <img src="/images/MT_logo_ua_Kubik.jpg" alt="MT logo">
@@ -764,7 +764,7 @@
     </section>
 
     <!-- КАЛЬКУЛЯТОР LAIT (Lite) -->
-    <section id="lait-lite-calculator" style="margin-top:40px;">
+    <section id="lait-lite-calculator" style="margin-top:40px;" id="lait-calc">
         <h2 class="section-headline">Калькулятор полиць LAIT (Lite)</h2>
         <p class="section-lead">
             Вкажіть параметри полиць. Калькулятор дає детальний розрахунок профілю, скла / ДСП, LED, конвертерів та послуг.
@@ -2357,21 +2357,10 @@
         // короткий текст під карткою результату
         const summaryShort =
             `Полиці: ${shelvesLine}. Орієнтовна вартість комплекту ~${result.totals.grandTotal.toFixed(2)} грн.`;
+        updateLaitResult(result.totals.grandTotal, eurRate, summaryShort);
+    }
 
-// meta для повернення в ONLY
-        const meta = {
-            lenMm: Number(document.getElementById('lengthMm')?.value || 0),
-            depMm: Number(document.getElementById('depthMm')?.value || 0),
-            qty: Number(document.getElementById('quantity')?.value || 0),
-            infillType: String(document.getElementById('infillType')?.value || ""),
-            glassId: String(document.getElementById('glassId')?.value || ""),
-            ledId: String(document.getElementById('ledType')?.value || ""),
-            finishId: String(document.getElementById('finishId')?.value || "")
-        };
-
-        updateLaitResult(result.totals.grandTotal, eurRate, summaryShort, meta);
-
-        if (copyBtn) {
+    if (copyBtn) {
         copyBtn.addEventListener('click', () => {
             const text = document.getElementById('telegramText').value;
             if (!text) return;
@@ -2400,7 +2389,7 @@
     });
 
     // === Оновлення картки результату (верхній блок) ===
-    function updateLaitResult(totalUah, eurRate, summaryText, meta) {
+    function updateLaitResult(totalUah, eurRate, summaryText) {
         const totalEur = eurRate > 0 ? totalUah / eurRate : 0;
 
         const uahEl = document.getElementById('lait-total-uah');
@@ -2411,21 +2400,16 @@
         if (eurEl) eurEl.textContent = totalEur.toFixed(2);
         if (summaryEl && summaryText) summaryEl.textContent = summaryText;
 
-        // === handoff back to ONLY (фінальні цифри + валідні метадані) ===
+        // === handoff back to ONLY (ЗАВЖДИ ФІНАЛЬНІ ЦИФРИ) ===
         localStorage.setItem("ONLY_LAIT_TOTAL_EUR", totalEur.toFixed(2));
         localStorage.setItem("ONLY_LAIT_TOTAL_UAH", totalUah.toFixed(2));
         localStorage.setItem("ONLY_LAIT_META", JSON.stringify({
-            lenMm: Number(meta?.lenMm || 0),
-            depMm: Number(meta?.depMm || 0),
-            qty: Number(meta?.qty || 0),
-            infillType: String(meta?.infillType || ""),
-            glassId: String(meta?.glassId || ""),
-            ledId: String(meta?.ledId || ""),
-            finishId: String(meta?.finishId || ""),
+            lenMm: Number(window.lengthMm),
+            depMm: Number(window.depthMm),
+            qty: Number(window.quantity),
             ts: Date.now()
         }));
     }
-
 
 
 

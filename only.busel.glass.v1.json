@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "name": "BUSel glass list for ONLY (tempered) 4mm & 6mm",
+    "version": "only.busel.glass.v1",
+    "generated_at": "2025-12-15T19:21:42",
+    "notes": [
+      "pricePerM2_uah corresponds to BUSel '#Різка#' (material + standard cutting), without tempering or edge-polish.",
+      "Tempering and edge-polish are modeled as separate services.",
+      "origin=china is set only where BUSel price list explicitly shows CHINA GLASS."
+    ]
+  },
+  "supplier": {
+    "id": "BUSEL",
+    "name": "Busel"
+  },
+  "glass_items": [
+    {
+      "id": "BUSEL_FLOAT_CLEAR_4_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "non-china",
+      "thickness_mm": 4,
+      "type": "Float Clear",
+      "label": "Скло флоат прозоре 4 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 507.9,
+      "tempering_group": "FLOAT"
+    },
+    {
+      "id": "BUSEL_ULTRACLEAR_4_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "non-china",
+      "thickness_mm": 4,
+      "type": "Ultra Clear",
+      "label": "Скло надпрозоре (Ultra Clear) 4 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 879.3,
+      "tempering_group": "ULTRACLEAR_TINTED"
+    },
+    {
+      "id": "BUSEL_CHINA_DARKGREY_4_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "china",
+      "thickness_mm": 4,
+      "type": "Dark Grey",
+      "label": "CHINA GLASS Dark Grey 4 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 996.42,
+      "tempering_group": "ULTRACLEAR_TINTED"
+    },
+    {
+      "id": "BUSEL_PLANIBEL_BRONZE_GREY_4_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "non-china",
+      "thickness_mm": 4,
+      "type": "Bronze/Grey",
+      "label": "PLANIBEL Bronze/Grey 4 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1060.68,
+      "tempering_group": "ULTRACLEAR_TINTED"
+    },
+    {
+      "id": "BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Float Clear",
+      "label": "CHINA GLASS Float 6 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 749.4,
+      "tempering_group": "FLOAT"
+    },
+    {
+      "id": "BUSEL_ULTRACLEAR_6_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "non-china",
+      "thickness_mm": 6,
+      "type": "Ultra Clear",
+      "label": "Скло надпрозоре (Ultra Clear) 6 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1403.4,
+      "tempering_group": "ULTRACLEAR_TINTED"
+    },
+    {
+      "id": "BUSEL_CHINA_DARKGREY_6_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Dark Grey",
+      "label": "CHINA GLASS Dark Grey 6 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1976.4,
+      "tempering_group": "ULTRACLEAR_TINTED"
+    },
+    {
+      "id": "BUSEL_CHINA_BRONZE_6_RIZKA",
+      "supplier": "BUSEL",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Bronze",
+      "label": "CHINA GLASS Bronze 6 мм (#Різка#)",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 986.1,
+      "tempering_group": "ULTRACLEAR_TINTED"
+    }
+  ],
+  "services": {
+    "tempering": {
+      "id": "BUSEL_TEMPERING",
+      "label": "Загартування (Busel)",
+      "unit": "м²",
+      "sell_type": "M2",
+      "base_pricePerM2_uah": {
+        "FLOAT": 217.68,
+        "ULTRACLEAR_TINTED": 282.96,
+        "PYROLYTIC_COATED": 326.46
+      },
+      "batch_coefficients": [
+        {
+          "range_m2": [
+            0.0,
+            0.25
+          ],
+          "multiplier": 2.0,
+          "note": "If you enforce min billable area as per Busel rules for tiny parts."
+        },
+        {
+          "range_m2": [
+            0.25,
+            2.0
+          ],
+          "multiplier": 1.5,
+          "note": "Batch 0.25–2 m² (+50%)."
+        },
+        {
+          "range_m2": [
+            2.0,
+            10.0
+          ],
+          "multiplier": 1.3,
+          "note": "Batch 2–10 m² (+30%)."
+        }
+      ]
+    },
+    "edge_polish": {
+      "id": "BUSEL_EDGE_POLISH",
+      "label": "Полірування кромки (Busel)",
+      "unit": "п.м.",
+      "sell_type": "LM",
+      "pricePerLm_uah": {
+        "THK_4": 70.62,
+        "THK_3_5_6": 99.66
+      },
+      "notes": [
+        "THK_4 for 4 mm.",
+        "THK_3_5_6 for 5–6 mm."
+      ]
+    }
+  },
+  "commercial_rules": {
+    "busel_discount_multiplier": 0.85,
+    "busel_markup_multiplier": 1.3,
+    "busel_total_multiplier": 1.105,
+    "abstract_markup_multiplier_reference": 1.15
+  }
+}

@@ -116,6 +116,36 @@
   background:#16a34a; color:#fff; font-weight:600; cursor:pointer; white-space:nowrap;
 }
 .client-contact button:hover{ box-shadow: 0 10px 25px rgba(22,163,74,0.45); transform: translateY(-1px); }
+        /* Таблиця не роздувається через довгий текст */
+        .spec-table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .spec-table th, .spec-table td {
+            vertical-align: top;
+        }
+
+        /* Колонка "Порізка / оплата" — перенос + адекватна ширина */
+        .spec-table th:nth-child(4),
+        .spec-table td:nth-child(4) {
+            width: 32%;
+            max-width: 520px;
+            white-space: normal;
+            overflow-wrap: anywhere;   /* ламає довгі шматки */
+            word-break: break-word;
+            line-height: 1.25;
+        }
+
+        /* Трохи підтиснемо на менших екранах */
+        @media (max-width: 1100px) {
+            .spec-table th:nth-child(4),
+            .spec-table td:nth-child(4) { width: 26%; max-width: 360px; }
+        }
+        @media (max-width: 900px) {
+            .spec-table th:nth-child(4),
+            .spec-table td:nth-child(4) { width: 22%; max-width: 280px; }
+        }
 
 </style>
 </head>
@@ -190,7 +220,7 @@
                     </div>
                     <div id="wRangeWarn" class="warn small" style="display:none;margin-top:8px;"></div>
                     <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
-                        <button type="button" id="openLaitBtn" class="btn primary">
+                        <button type="button" id="openLaitBtn" class="btn">
                             Розрахувати полиці LAIT
                         </button>
                         <div class="small muted" id="laitHint" style="align-self:center;"></div>
@@ -330,7 +360,7 @@
                                 <div class="kpi" id="kpi"></div>
 
                                 <div style="overflow:auto;margin-top:10px;">
-                                    <table id="tbl">
+                                    <table  class="spec-table" id="tbl">
                                         <thead>
                                         <tr>
                                             <th>Код</th>
@@ -918,20 +948,6 @@
             // ✅ PIATTO — 1 шт на кожну боковину (тобто на кожну деталь)
             addMaterialPCS("PIATTO_25x2",  pieces, "Пластина PIATTO-25x2",  "1 шт на боковину (по секціях)", "ONLY");
             addMaterialPCS("PIATTO_25x10", pieces, "Пластина PIATTO-25x10", "1 шт на боковину (по секціях)", "ONLY");
-            // ✅ ONLY-SIDE-GLASS-GASKET-FREEZE:
-            // Ущільнювач для бокового скла 4 мм у вузлі ONLY 2545 — tpGU-BAFFO-TR-PVC (3000 мм)
-            // Рахуємо по периметру боковини: P = 2×(H + D) на 1 шт, далі × к-сть деталей, далі /3000 і ceil.
-            const sidePerimMm = 2 * (sideH + sideW);
-            const sideGasketTotalMm = sidePerimMm * pieces;
-            const sideGasketBars = Math.ceil(sideGasketTotalMm / 3000);
-            addMaterialPCS(
-                "GU-BAFFO-TR-PVC",
-                sideGasketBars,
-                "Ущільнювач для бокового скла (ONLY 2545) 3000 мм",
-                `Боковини: P=2×(${sideH.toFixed(1)}+${sideW.toFixed(1)})=${sidePerimMm.toFixed(1)} мм · Деталей: ${pieces} · Разом: ${sideGasketTotalMm.toFixed(0)} мм → ${sideGasketBars} шт (по 3000 мм)`,
-                "ONLY"
-            );
-
         }
 
 

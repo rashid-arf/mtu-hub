@@ -1,0 +1,199 @@
+{
+  "meta": {
+    "name": "AbstractGlass list for ONLY (tempered) 4mm / 5mm / 6mm",
+    "version": "only.abstract.glass.v1",
+    "generated_at": "2025-12-15T19:40:10",
+    "notes": [
+      "pricePerM2_uah corresponds to AbstractGlass material price per m².",
+      "Tempering, edge polish and adhesion prep (art paint) are modeled as separate services.",
+      "All glass assumed China origin as per supplier clarification."
+    ]
+  },
+  "supplier": {
+    "id": "ABSTRACT",
+    "name": "AbstractGlass"
+  },
+  "glass_items": [
+    {
+      "id": "ABS_FLOAT_4",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 4,
+      "type": "Float Clear",
+      "label": "Скло звичайне (Float) 4 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 690,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_DIAMOND_4",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 4,
+      "type": "Diamond / Extra Clear",
+      "label": "Скло Діамант (Extra Clear) 4 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 980,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_GRAPHITE_4",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 4,
+      "type": "Graphite",
+      "label": "Скло Графіт 4 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1180,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_BRONZE_4",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 4,
+      "type": "Bronze",
+      "label": "Скло Бронза 4 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1180,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_FLOAT_5",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 5,
+      "type": "Float Clear",
+      "label": "Скло звичайне (Float) 5 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 890,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_DIAMOND_5",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 5,
+      "type": "Diamond / Extra Clear",
+      "label": "Скло Діамант (Extra Clear) 5 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1285,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_GRAPHITE_5",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 5,
+      "type": "Graphite",
+      "label": "Скло Графіт 5 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1500,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_BRONZE_5",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 5,
+      "type": "Bronze",
+      "label": "Скло Бронза 5 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1500,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_FLOAT_6",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Float Clear",
+      "label": "Скло звичайне (Float) 6 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1100,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_DIAMOND_6",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Diamond / Extra Clear",
+      "label": "Скло Діамант (Extra Clear) 6 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1590,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_GRAPHITE_6",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Graphite",
+      "label": "Скло Графіт 6 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1795,
+      "tempering_group": "ALL"
+    },
+    {
+      "id": "ABS_BRONZE_6",
+      "supplier": "ABSTRACT",
+      "origin": "china",
+      "thickness_mm": 6,
+      "type": "Bronze",
+      "label": "Скло Бронза 6 мм",
+      "sell_type": "M2",
+      "unit": "м²",
+      "pricePerM2_uah": 1795,
+      "tempering_group": "ALL"
+    }
+  ],
+  "services": {
+    "tempering": {
+      "id": "ABS_TEMPERING",
+      "label": "Загартування (AbstractGlass)",
+      "unit": "м²",
+      "sell_type": "M2",
+      "pricePerM2_uah": {
+        "THK_4": 265,
+        "THK_5": 275,
+        "THK_6": 290
+      }
+    },
+    "edge_polish": {
+      "id": "ABS_EDGE_POLISH",
+      "label": "Полірування кромки (AbstractGlass)",
+      "unit": "п.м.",
+      "sell_type": "LM",
+      "pricePerLm_uah": {
+        "THK_3_4_5": 55,
+        "THK_6": 65
+      }
+    },
+    "adhesion_prep": {
+      "id": "ABS_ART_PAINT",
+      "label": "Худ. фарбування / підготовка під профіль (1 колір)",
+      "unit": "м²",
+      "sell_type": "M2",
+      "pricePerM2_uah": 485,
+      "notes": [
+        "Технологічна підготовка поверхні скла під приклейку профілю",
+        "Використовується для покращення адгезії"
+      ]
+    }
+  },
+  "commercial_rules": {
+    "abstract_markup_multiplier": 1.15
+  }
+}

@@ -1219,6 +1219,39 @@
 .num-list li{margin:8px 0;}
 
 </style>
+    <!-- Мінімальні стилі (якщо в проєкті немає загальних класів для цього блоку) -->
+    <style>
+        .section { margin: 18px 0 26px; }
+        .section-head .kicker{ opacity:.75; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:12px; }
+        .section-head .title{ margin:8px 0 6px; font-size:28px; line-height:1.1; }
+        .section-head .lead{ margin:0 0 10px; opacity:.9; max-width:980px; }
+        .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
+        .chip{ padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); font-size:12px; }
+        .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+        @media (max-width: 980px){ .grid-2{ grid-template-columns:1fr; } }
+        .card{ border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); border-radius:18px; overflow:hidden; }
+        .card-head{ padding:14px 14px 0; }
+        .card-title{ font-weight:700; font-size:16px; margin:0; }
+        .card-sub{ opacity:.75; margin-top:6px; font-size:13px; }
+        .card-body{ padding:12px 14px 14px; }
+        .card-foot{ padding:12px 14px 14px; display:flex; gap:10px; flex-wrap:wrap; }
+        .img-wrap{ padding:12px 14px 0; }
+        .img-wrap img{ width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+        .list{ margin:0; padding-left:18px; }
+        .list li{ margin:6px 0; opacity:.92; }
+        .spec-grid{ display:grid; gap:8px; }
+        .spec-row{ display:flex; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+        .muted{ opacity:.75; white-space:nowrap; }
+        .note{ margin-top:12px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); opacity:.9; }
+        .gallery{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; padding:12px 14px 14px; }
+        @media (max-width: 980px){ .gallery{ grid-template-columns:repeat(2, 1fr);} }
+        @media (max-width: 560px){ .gallery{ grid-template-columns:1fr;} }
+        .g-item{ margin:0; }
+        .g-item img{ width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
+        .g-item figcaption{ margin-top:6px; font-size:12px; opacity:.7; padding-left:2px; }
+        .btn-outline{ padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:transparent; color:inherit; text-decoration:none; display:inline-block; }
+        .btn-primary{ padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(34,197,94,.18); color:inherit; text-decoration:none; display:inline-block; }
+    </style>
 </head>
 <body>
 <div class="page">
@@ -1226,17 +1259,17 @@
     <div class="topbar" id="header">
         <div class="topbar-left">
             <div class="topbar-logo">
-                <img src="/images/logo_ua.svg" alt="MT Україна" class="logo-img" onerror="this.style.display='none'">
-                <div class="logo-text">
-                    <div class="logo-title">MT Україна · HUB</div>
-                    <div class="logo-sub">TRIAL ONLY · Вітрина системи</div>
-                </div>
+                <img src="/images/MT_logo_ua_Kubik.jpg" alt="MT Україна" class="logo-img" onerror="this.style.display='none'">
+            </div>
+            <div class="logo-text">
+                <div class="logo-title">MT Україна · HUB</div>
+                <div class="logo-sub">TRIAL ONLY · Вітрина системи</div>
             </div>
         </div>
 
         <div class="topbar-right">
             <a class="btn-outline" href="index.html#calculators">← Назад до HUB</a>
-            <a class="btn-outline" href="only-calc.html" target="_blank" rel="noopener noreferrer">Калькулятор</a>
+            <a class="btn-outline" href="only-calc.final.html" target="_blank" rel="noopener noreferrer">Калькулятор</a>
             <button id="themeToggle" class="btn-outline" type="button">Темна тема</button>
         </div>
     </div>
@@ -1252,22 +1285,22 @@
                     На цій сторінці — базові схеми складання та ключові профілі/аксесуари з каталогу.
                 </p>
 
-                <div class="chips">
-                    <a class="chip" href="#schemes">Схеми</a>
-                    <a class="chip" href="#profiles">Профілі та аксесуари</a>
-                    <a class="chip" href="#calc">Калькулятор</a>
-                    <a class="chip" href="#next">Що далі</a>
-                </div>
+<!--                <div class="chips">-->
+<!--                    <a class="chip" href="#schemes">Схеми</a>-->
+<!--                    <a class="chip" href="#profiles">Профілі та аксесуари</a>-->
+<!--                    <a class="chip" href="#calc">Калькулятор</a>-->
+<!--                    <a class="chip" href="#next">Що далі</a>-->
+<!--                </div>-->
 
                 <div class="hero-actions">
                     <a class="btn-primary" href="#schemes">Дивитися схеми</a>
-                    <a class="btn-outline" href="#calc">Перейти до калькулятора</a>
+                    <a class="btn-outline" href="only-calc.final.html">Перейти до калькулятора</a>
                 </div>
             </div>
 
             <div class="hero-right">
                 <div class="hero-image-card">
-                    <img src="images/only/img48.jpg" alt="ONLY brochure cover" class="hero-image" loading="lazy">
+                    <img src="/images/only.png" alt="ONLY brochure cover" class="hero-image" loading="lazy">
                     <div class="hero-image-caption">Каталог ONLY · Armadio a isola</div>
                 </div>
             </div>
@@ -1302,7 +1335,7 @@
                 </div>
 
                 <div class="img-wrap">
-                    <img src="/images/only/img224.jpg" alt="ONLY каркас база схема" loading="lazy">
+                    <img src="/images/img123.jpg" alt="ONLY каркас база схема" loading="lazy">
                 </div>
 
                 <div class="card-body">
@@ -1352,58 +1385,26 @@
 
             <div class="gallery">
                 <figure class="g-item">
-                    <img src="/images/only/img72.jpg" alt="ONLY вузол 1" loading="lazy">
+                    <img src="/images/img105.jpg" alt="ONLY вузол 1" loading="lazy">
                     <figcaption>Вузол 1 (приклад)</figcaption>
                 </figure>
                 <figure class="g-item">
-                    <img src="/images/only/img71.jpg" alt="ONLY вузол 2" loading="lazy">
+                    <img src="/images/img120.jpg" alt="ONLY вузол 2" loading="lazy">
                     <figcaption>Вузол 2 (приклад)</figcaption>
                 </figure>
                 <figure class="g-item">
-                    <img src="/images/only/img104.jpg" alt="ONLY вузол 3" loading="lazy">
+                    <img src="/images/img104.jpg" alt="ONLY вузол 3" loading="lazy">
                     <figcaption>Вузол 3 (приклад)</figcaption>
                 </figure>
                 <figure class="g-item">
-                    <img src="/images/only/img105.jpg" alt="ONLY вузол 4" loading="lazy">
+                    <img src="/images/img114.jpg" alt="ONLY вузол 4" loading="lazy">
                     <figcaption>Вузол 4 (приклад)</figcaption>
                 </figure>
             </div>
         </div>
     </section>
 
-    <!-- Мінімальні стилі (якщо в проєкті немає загальних класів для цього блоку) -->
-    <style>
-        .section { margin: 18px 0 26px; }
-        .section-head .kicker{ opacity:.75; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:12px; }
-        .section-head .title{ margin:8px 0 6px; font-size:28px; line-height:1.1; }
-        .section-head .lead{ margin:0 0 10px; opacity:.9; max-width:980px; }
-        .chips{ display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 0; }
-        .chip{ padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); font-size:12px; }
-        .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-        @media (max-width: 980px){ .grid-2{ grid-template-columns:1fr; } }
-        .card{ border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.04); border-radius:18px; overflow:hidden; }
-        .card-head{ padding:14px 14px 0; }
-        .card-title{ font-weight:700; font-size:16px; margin:0; }
-        .card-sub{ opacity:.75; margin-top:6px; font-size:13px; }
-        .card-body{ padding:12px 14px 14px; }
-        .card-foot{ padding:12px 14px 14px; display:flex; gap:10px; flex-wrap:wrap; }
-        .img-wrap{ padding:12px 14px 0; }
-        .img-wrap img{ width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
-        .list{ margin:0; padding-left:18px; }
-        .list li{ margin:6px 0; opacity:.92; }
-        .spec-grid{ display:grid; gap:8px; }
-        .spec-row{ display:flex; justify-content:space-between; gap:12px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
-        .muted{ opacity:.75; white-space:nowrap; }
-        .note{ margin-top:12px; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); opacity:.9; }
-        .gallery{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; padding:12px 14px 14px; }
-        @media (max-width: 980px){ .gallery{ grid-template-columns:repeat(2, 1fr);} }
-        @media (max-width: 560px){ .gallery{ grid-template-columns:1fr;} }
-        .g-item{ margin:0; }
-        .g-item img{ width:100%; height:auto; border-radius:14px; border:1px solid rgba(255,255,255,.10); background:rgba(0,0,0,.18); }
-        .g-item figcaption{ margin-top:6px; font-size:12px; opacity:.7; padding-left:2px; }
-        .btn-outline{ padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.16); background:transparent; color:inherit; text-decoration:none; display:inline-block; }
-        .btn-primary{ padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.12); background:rgba(34,197,94,.18); color:inherit; text-decoration:none; display:inline-block; }
-    </style>
+
     <!-- =========================
          ONLY · Вітрина (скло / задні стінки)
     ========================== -->
@@ -1435,7 +1436,7 @@
                 </div>
 
                 <div class="img-wrap">
-                    <img src="/images/only/img120.jpg" alt="ONLY вітрина схема" loading="lazy">
+                    <img src="/images/img147.jpg" alt="ONLY вітрина схема" loading="lazy">
                 </div>
 
                 <div class="card-body">
@@ -1507,7 +1508,7 @@
                     </div>
 
                     <div class="img-wrap">
-                        <img src="/images/only/img125.jpg" alt="ONLY LED профіль схема" loading="lazy">
+                        <img src="/images/img125.jpg" alt="ONLY LED профіль схема" loading="lazy">
                     </div>
 
                     <div class="card-body">
@@ -1691,15 +1692,15 @@
 
             <div class="gallery">
                 <figure class="g-item">
-                    <img src="/images/only/p09.png" alt="ONLY паз під скло" loading="lazy">
+                    <img src="/images/118-1.png" alt="ONLY паз під скло" loading="lazy">
                     <figcaption>Вертикаль з пазом під скло</figcaption>
                 </figure>
                 <figure class="g-item">
-                    <img src="/images/only/p11.png" alt="ONLY ущільнювач" loading="lazy">
-                    <figcaption>Ущільнювач скла (5–6 мм)</figcaption>
+                    <img src="/images/img119.jpg" alt="ONLY" loading="lazy">
+                    <figcaption>Фіксація нижньої частки</figcaption>
                 </figure>
                 <figure class="g-item">
-                    <img src="/images/only/p12.png" alt="ONLY задня стінка" loading="lazy">
+                    <img src="/images/img117.jpg" alt="ONLY задня стінка" loading="lazy">
                     <figcaption>Фіксація задньої стінки</figcaption>
                 </figure>
             </div>
@@ -1816,52 +1817,28 @@
     <section class="section" id="calc">
         <div class="section-inner">
             <h2 class="section-headline">Калькулятор ONLY</h2>
-            <p class="section-lead">
-                Тут буде калькулятор (як у TRIAL eTSecutive): розрахунок профілів, комплектуючих, скла/панелей,
-                послуг MTU, CSV та Telegram.
-            </p>
-
             <div class="card">
-                <div class="card-title">Статус</div>
-                <div class="card-body">
+                  <div class="card-body">
                     <ul class="check-list">
-                        <li>✅ Вітрина + схеми з каталогу — додано.</li>
-                        <li>⏳ Наступний крок: зібрати прайс/JSON по ONLY (позиції + коди + упаковка + ціна).</li>
-                        <li>⏳ Після цього — математика (формули) і інтерфейс калькулятора.</li>
+                        <li>Розрахунок профілів, комплектуючих, скла/панелей,
+                            послуг MT, CSV та Telegram.</li>
+                        <li>ONLY (позиції + коди + упаковка + ціна).</li>
+                        <li>Математика і інтерфейс калькулятора.</li>
                     </ul>
 
                     <div class="hero-actions" style="margin-top:16px;">
-                        <button class="btn-primary" disabled style="opacity:.6; cursor:not-allowed;">
-                            Розрахувати (скоро)
-                        </button>
-                        <a class="btn-outline" href="index.html#calculators">Повернутися в HUB</a>
+                        <a class="btn-primary" href="only-calc.final.html" target="_blank" rel="noopener noreferrer">
+                            Розрахувати
+                        </a>
+                        <a class="btn-outline" href="index.html#calculators" target="_blank">Повернутися в HUB</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Next steps -->
-    <section class="section" id="next">
-        <div class="section-inner">
-            <h2 class="section-headline">Що далі</h2>
-            <div class="card">
-                <div class="card-body">
-                    <ol class="num-list">
-                        <li><b>ONLY-JSON:</b> витягнути всі позиції з каталогу/прайсу (коди, назви, одиниці, упаковка, ціна).</li>
-                        <li><b>ONLY-logic:</b> зафіксувати «базовий модуль» (геометрія, панелі/скло, варіанти задньої стінки, електрика).</li>
-                        <li><b>ONLY-calc:</b> зробити калькулятор з режимами клієнт/менеджер, CSV, Telegram.</li>
-                        <li><b>IKS:</b> окрема сторінка (фасадні системи) після ONLY.</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <footer class="footer">
         <div class="footer-inner">
-            <div class="muted">MT Україна · HUB · ONLY (v0.1) · 2025</div>
-            <a class="btn-outline" href="#header">↑ Вгору</a>
+               <a class="btn-outline" href="#header">↑ Вгору</a>
         </div>
     </footer>
 </div>
