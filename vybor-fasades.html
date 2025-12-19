@@ -1,0 +1,3293 @@
+<!DOCTYPE html>
+
+<html lang="uk">
+<head>
+<meta charset="utf-8"/>
+<title>MTU • Фасади Vybor — калькулятор</title>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<style>
+        :root {
+            --bg: #f4f5fb;
+            --bg-elevated: #ffffff;
+            --bg-hero: #f9fafb;
+            --text: #020617;
+            --text-main: #141414;
+            --text-muted: #555;
+            --accent: #16a34a;
+            --accent-soft: rgba(22, 163, 74, 0.08);
+            --border: rgba(148, 163, 184, 0.4);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+            --radius-lg: 22px;
+        }
+
+        .dark-theme {
+            --bg: #545c7d;
+            --bg-elevated: #020617;
+            --bg-hero: #020617;
+            --text: #e5e7eb;
+            --text-main: #ffffff;
+            --text-muted: #cfcfcf;
+            --accent: #22c55e;
+            --accent-soft: rgba(34, 197, 94, 0.12);
+            --border: rgba(148, 163, 184, 0.25);
+            --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.9);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+            "Segoe UI", sans-serif;
+            background:
+                    radial-gradient(circle at top left, #e0f2fe 0, transparent 40%),
+                    radial-gradient(circle at bottom right, #dcfce7 0, transparent 45%),
+                    var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 16px 64px;
+        }
+
+        /* TOPBAR */
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            backdrop-filter: blur(10px);
+            margin-bottom: 28px;
+        }
+        .dark-theme .topbar {
+            background: rgba(15, 23, 42, 0.92);
+            border-color: rgba(148, 163, 184, 0.35);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .topbar-logo {
+            width: 42px;
+            height: 42px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ef4444;
+            border-radius: 12px;
+        }
+
+        .topbar-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .topbar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .topbar-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .theme-toggle button {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            padding: 8px 14px;
+            font-size: 13px;
+            background: rgba(15, 23, 42, 0.03);
+            color: var(--text);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .theme-toggle button span {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: #8b5cf6;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+        }
+
+        /* HERO */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 48px 40px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .dark-theme .hero {
+            background: radial-gradient(circle at top left, #0f172a, #020617 55%);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.7);
+        }
+
+        .hero-content {
+            max-width: 56%;
+        }
+
+        .hero-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: 38px;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+        .dark-theme .hero-title { color: #f9fafb; }
+
+        .hero-sub {
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+        }
+        .dark-theme .hero-sub { color: #e5e7eb; }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hero-tags span {
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            background: #f0f2f5;
+            border: 1px solid rgba(148,163,184,0.5);
+        }
+        .dark-theme .hero-tags span {
+            background: rgba(15,23,42,0.5);
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.7);
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .btn-green {
+            padding: 11px 20px;
+            background: #00b05a;
+            color: #ffffff;
+            border-radius: 999px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-green:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 30px rgba(34,197,94,0.45);
+        }
+
+        .btn-white {
+            padding: 11px 18px;
+            background: #ffffff;
+            border-radius: 999px;
+            border: 1px solid #dce0e5;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn-white:hover {
+            background: rgba(255,255,255,0.9);
+        }
+        .dark-theme .btn-white {
+            background: rgba(15,23,42,0.95);
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.6);
+        }
+        .dark-theme .btn-white:hover {
+            background: rgba(15,23,42,1);
+        }
+
+        .hero-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            max-width: 360px;
+            flex: 0 0 auto;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.45s ease, opacity 0.45s ease;
+            transform-origin: center;
+            border-radius: 24px;
+            box-shadow: 0 10px 28px rgba(15,23,42,0.3);
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.05);
+            opacity: 0.96;
+        }
+
+        /* SECTIONS */
+
+        section {
+            margin-bottom: 48px;
+        }
+
+        .section-headline {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .section-lead {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 18px;
+            max-width: 720px;
+        }
+
+        /* GRID / CARDS */
+
+        .three-cols {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            border-radius: 18px;
+            padding: 16px 16px 14px;
+            background: rgba(255, 255, 255, 0.96);
+            border: 1px solid rgba(148, 163, 184, 0.45);
+            box-shadow: 0 10px 24px rgba(15,23,42,0.06);
+        }
+        .dark-theme .card {
+            background: rgba(15, 23, 42, 0.96);
+            border-color: rgba(148,163,184,0.5);
+            box-shadow: 0 18px 35px rgba(0,0,0,0.7);
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-body {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .check-list {
+            padding-left: 16px;
+            margin: 8px 0 0;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .check-list li { margin-bottom: 4px; }
+
+        /* SERIES GRID */
+
+        .series-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .series-card {
+            border-radius: 16px;
+            padding: 12px 12px 10px;
+            background: rgba(255,255,255,0.98);
+            border: 1px solid rgba(148,163,184,0.4);
+            box-shadow: 0 8px 18px rgba(15,23,42,0.06);
+            font-size: 12px;
+        }
+        .dark-theme .series-card {
+            background: rgba(15,23,42,0.96);
+            border-color: rgba(148,163,184,0.55);
+            box-shadow: 0 14px 30px rgba(0,0,0,0.6);
+        }
+
+        .series-name {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: var(--text-main);
+        }
+
+        .series-tagline {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .series-list {
+            padding-left: 14px;
+            margin: 0;
+            list-style: disc;
+        }
+
+        .series-list li {
+            margin-bottom: 3px;
+        }
+
+        /* STEPS */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .step-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            margin-bottom: 6px;
+        }
+
+        .step-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .step-text {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* FINAL CTA */
+
+        .hub-cta {
+            margin-top: 20px;
+        }
+
+        .hub-cta-inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: stretch;
+            padding: 24px 28px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            box-shadow: 0 22px 40px rgba(22, 163, 74, 0.45);
+            color: #f9fafb;
+        }
+
+        .hub-cta-left {
+            flex: 1 1 260px;
+            min-width: 260px;
+            max-width: 520px;
+        }
+
+        .hub-cta-title {
+            margin: 0 0 8px;
+            font-size: 22px;
+            line-height: 1.25;
+        }
+
+        .hub-cta-text {
+            margin: 0 0 18px;
+            font-size: 14px;
+            opacity: 0.96;
+        }
+
+        .hub-cta-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hub-cta-btn {
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .hub-cta-btn--primary {
+            background: #f9fafb;
+            color: #15803d;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+        }
+
+        .hub-cta-btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 35px rgba(15, 23, 42, 0.26);
+        }
+
+        .hub-cta-btn--ghost {
+            background: rgba(15, 23, 42, 0.08);
+            color: #ecfdf5;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .hub-cta-btn--ghost:hover {
+            background: rgba(15, 23, 42, 0.16);
+        }
+
+        .hub-cta-contacts {
+            flex: 0 0 280px;
+            max-width: 320px;
+            padding: 16px 18px;
+            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #0f172a;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            font-size: 13px;
+        }
+
+        .hub-cta-row + .hub-cta-row { margin-top: 8px; }
+
+        .hub-cta-label {
+            opacity: 0.7;
+            margin-bottom: 1px;
+            font-size: 12px;
+        }
+
+        .hub-cta-value {
+            font-weight: 500;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 960px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: left;
+                padding: 32px 20px;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .hero-image {
+                max-width: 100%;
+                align-self: stretch;
+            }
+            .three-cols,
+            .grid-2,
+            .steps {
+                grid-template-columns: minmax(0, 1fr);
+            }
+            .series-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page { padding-inline: 12px; }
+            .hub-cta-inner {
+                padding: 20px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .hub-cta-contacts {
+                width: 100%;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 30px; }
+            .series-grid {
+                grid-template-columns: minmax(0,1fr);
+            }
+        }
+
+        /* =========================
+VOLPATO · ТЕХНІЧНІ ПАРАМЕТРИ
+========================= */
+
+        .vt-section {
+            padding: 0 0 56px;
+        }
+
+        .vt-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 32px 28px 30px;
+            border-radius: 28px;
+            background: rgba(255,255,255,0.98);
+            box-shadow: 0 18px 40px rgba(15,23,42,0.08);
+        }
+
+        .dark-theme .vt-inner {
+            background: linear-gradient(145deg, #0f172a 0%, #111827 70%);
+            box-shadow: 0 18px 38px rgba(0,0,0,0.6);
+            color: #e5e7eb;
+        }
+
+        .vt-title {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 4px;
+        }
+
+        .vt-sub {
+            font-size: 14px;
+            color: #4b5563;
+            margin-bottom: 24px;
+            max-width: 640px;
+        }
+        .dark-theme .vt-sub {
+            color: #9ca3af;
+        }
+
+        .vt-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        .vt-left-block {
+            border-radius: 20px;
+            background: #f9fafb;
+            padding: 18px 18px 16px;
+            margin-bottom: 14px;
+        }
+
+        .dark-theme .vt-left-block {
+            background: #1e293b;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .vt-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 600;
+            color: #6b7280;
+            margin-bottom: 6px;
+        }
+        .dark-theme .vt-kicker {
+            color: #9ca3af;
+        }
+
+        .vt-color-line {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .vt-swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 999px;
+            border: 1px solid rgba(15,23,42,0.25);
+            background: #24232b;
+        }
+
+        .vt-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .vt-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+        .vt-list li + li {
+            margin-top: 3px;
+        }
+        .dark-theme .vt-list {
+            color: #e5e7eb;
+        }
+
+        .vt-note {
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* ПРАВА ЧАСТИНА (серії) */
+
+        .vt-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .vt-card {
+            position: relative;
+            border-radius: 16px;
+            padding: 8px 8px 10px;
+            background: rgba(249,250,251,0.98);
+            border: 1px solid rgba(148,163,184,0.5);
+            box-shadow: 0 10px 22px rgba(15,23,42,0.06);
+            cursor: pointer;
+            text-align: left;
+            transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease, background .12s ease;
+        }
+        .vt-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(15,23,42,0.12);
+        }
+        .vt-card.vt-card-active {
+            border-color: #16a34a;
+            box-shadow: 0 16px 32px rgba(22,163,74,0.28);
+        }
+
+        .dark-theme .vt-card {
+            background: #1e293b;
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .dark-theme .vt-card.vt-card-active {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 2px rgba(34,197,94,0.4);
+        }
+
+        .vt-thumb-box {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            background: #111827;
+        }
+
+        .vt-thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            opacity: 0.9;
+        }
+
+        .vt-card-caption {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .vt-bullets {
+            list-style: disc;
+            padding-left: 18px;
+            margin: 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+        .vt-bullets li + li {
+            margin-top: 4px;
+        }
+        .dark-theme .vt-bullets {
+            color: #e5e7eb;
+        }
+
+        @media (max-width: 960px) {
+            .vt-grid {
+                grid-template-columns: minmax(0,1fr);
+            }
+            .vt-gallery {
+                grid-template-columns: repeat(3,minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            .vt-inner {
+                padding: 24px 18px 24px;
+            }
+            .vt-title {
+                font-size: 20px;
+            }
+            .vt-gallery {
+                grid-template-columns: repeat(2,minmax(0,1fr));
+            }
+        }
+
+        @media (max-width: 480px) {
+            .vt-gallery {
+                grid-template-columns: minmax(0,1fr);
+            }
+        }
+
+        /* =========================
+           Vybor калькулятор
+           ========================= */
+
+        .volpato-root {
+            margin-top: 24px;
+            border-radius: 28px;
+            padding: 24px 24px 28px;
+            background: #ffffff;
+            border: 1px solid rgba(15, 23, 42, 0.06);
+            box-shadow: 0 30px 80px rgba(15, 23, 42, 0.10);
+            color: #0f172a;
+        }
+        .dark-theme .volpato-root {
+            background: #181b29;
+            border-color: rgba(148,163,184,0.45);
+            box-shadow: 0 30px 80px rgba(0,0,0,0.75);
+            color: #e5e7eb;
+        }
+
+        .volpato-root-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0 0 10px;
+            color: inherit;
+        }
+
+        .volpato-root-sub {
+            margin: 0 0 18px;
+            font-size: 13px;
+            color: #6b7280;
+            max-width: 680px;
+        }
+        .dark-theme .volpato-root-sub {
+            color: #9ca3af;
+        }
+
+        .volpato-calc-grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .volpato-panel {
+            border-radius: 20px;
+            background: #f9fafb;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+            padding: 18px 20px;
+            color: #0f172a;
+        }
+        .volpato-panel--inputs {
+            grid-column: 1 / -1;
+        }
+
+        .dark-theme .volpato-panel {
+            background: #020617;
+            border-color: rgba(148,163,184,0.6);
+            box-shadow: 0 18px 40px rgba(0,0,0,0.65);
+            color: #e5e7eb;
+        }
+
+        .volpato-results-wrapper {
+            display: none;
+        }
+        .volpato-results-wrapper.active {
+            display: block;
+        }
+
+        .volpato-results-grid {
+            display: grid;
+            grid-template-columns: minmax( 1.2fr) minmax( 1.2fr) minmax( 1.3fr);
+            gap: 16px;
+        }
+        @media (max-width: 900px) {
+            .volpato-results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .volpato-panel-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 0 0 8px;
+            color: inherit;
+        }
+        .volpato-panel-sub {
+            margin: 0 0 12px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+        .dark-theme .volpato-panel-sub {
+            color: #9ca3af;
+        }
+
+        .vp-form-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 16px;
+            align-items: flex-start;
+        }
+        @media (max-width: 900px) {
+            .vp-form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .vp-field-group {
+            margin-bottom: 12px;
+        }
+        .vp-label-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 4px;
+        }
+        .vp-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+        .vp-hint {
+            font-size: 11px;
+            color: #9ca3af;
+            text-align: right;
+        }
+        .dark-theme .vp-hint {
+            color: #9ca3af;
+        }
+
+        .vp-input,
+        .vp-select {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.5);
+            padding: 9px 11px;
+            background: #ffffff;
+            color: #0f172a;
+            font-size: 13px;
+            outline: none;
+        }
+        .vp-input::placeholder {
+            color: #9ca3af;
+        }
+        .vp-input:focus,
+        .vp-select:focus {
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.35);
+        }
+
+        .dark-theme .vp-input,
+        .dark-theme .vp-select {
+            background: #020617;
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.8);
+        }
+        .dark-theme .vp-input::placeholder {
+            color: #6b7280;
+        }
+        .dark-theme .vp-input:focus,
+        .dark-theme .vp-select:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 1px rgba(34,197,94,0.45);
+        }
+
+        .vp-row {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+        }
+        @media (max-width: 640px) {
+            .vp-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .vp-badge,
+        .vp-tag {
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            font-size: 11px;
+            color: #6b7280;
+            background: #ffffff;
+        }
+        .vp-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #9ca3af;
+        }
+        .dark-theme .vp-badge,
+        .dark-theme .vp-tag {
+            background: #020617;
+            border-color: rgba(148,163,184,0.7);
+            color: #9ca3af;
+        }
+
+        .vp-check-row {
+            font-size: 12px;
+            color: #374151;
+        }
+        .dark-theme .vp-check-row {
+            color: #e5e7eb;
+        }
+
+        .vp-check {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .vp-check input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            border-radius: 4px;
+            border: 1px solid rgba(148, 163, 184, 0.8);
+            background: #ffffff;
+            appearance: none;
+            position: relative;
+        }
+        .vp-check input[type="checkbox"]:checked {
+            background: #22c55e;
+            border-color: #22c55e;
+        }
+        .vp-check input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            inset: 3px;
+            border-radius: 3px;
+            background: #0b1120;
+        }
+        .dark-theme .vp-check input[type="checkbox"] {
+            background: #020617;
+        }
+
+        .vp-mode-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .vp-pill-btn {
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            background: transparent;
+            color: #111827;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .vp-pill-btn.active {
+            background: #22c55e;
+            border-color: #22c55e;
+            color: #0b1120;
+        }
+        .dark-theme .vp-pill-btn {
+            color: #e5e7eb;
+            background: rgba(15,23,42,0.9);
+        }
+
+        .vp-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .vp-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 9px 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.7);
+            font-size: 13px;
+            cursor: pointer;
+            background: #ffffff;
+            color: #111827;
+            transition: background 0.12s ease-out, transform 0.06s ease-out,
+            box-shadow 0.06s ease-out;
+        }
+        .vp-btn:hover {
+            background: #e5e7eb;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.15);
+            transform: translateY(-0.5px);
+        }
+
+        .vp-btn-primary {
+            background: #22c55e;
+            border-color: #16a34a;
+            color: #0b1120;
+        }
+        .vp-btn-primary:hover {
+            background: #16a34a;
+        }
+
+        .dark-theme .vp-btn {
+            background: #111827;
+            color: #e5e7eb;
+            border-color: rgba(148,163,184,0.9);
+        }
+        .dark-theme .vp-btn:hover {
+            background: #1f2937;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.7);
+        }
+        .dark-theme .vp-btn-primary {
+            background: #22c55e;
+            color: #0b1120;
+        }
+
+        .vp-row-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            margin-top: 2px;
+        }
+        .vp-row-text small {
+            color: #9ca3af;
+        }
+
+        .vp-strong {
+            font-weight: 600;
+            margin-top: 6px;
+        }
+
+        .vp-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 4px;
+            font-size: 12px;
+            color: #0f172a;
+        }
+
+        .vp-table th,
+        .vp-table td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(209, 213, 219, 0.9);
+        }
+
+        .vp-table th {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #6b7280;
+            text-align: left;
+        }
+
+        .vp-table td.vp-right {
+            text-align: right;
+        }
+
+        .vp-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 2px 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(148, 163, 184, 0.6);
+            font-size: 11px;
+            color: #9ca3af;
+            margin-right: 6px;
+        }
+
+        .dark-theme .vp-table {
+            color: #e5e7eb;
+        }
+        .dark-theme .vp-table th {
+            color: #9ca3af;
+            border-bottom-color: rgba(55,65,81,0.9);
+        }
+        .dark-theme .vp-table td {
+            border-bottom-color: rgba(55,65,81,0.9);
+        }
+        .dark-theme .vp-tag {
+            background: #020617;
+            border-color: rgba(148,163,184,0.9);
+        }
+
+        .results-cta {
+            margin-top: 32px;
+            padding: 24px;
+            border-radius: 24px;
+            background: var(--bg-elevated);
+            box-shadow: 0 18px 45px rgba(15,23,42,0.22);
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: minmax(1, 1.2fr) minmax(0, 1.4fr);
+            gap: 24px;
+        }
+
+        .results-card {
+            border-radius: 20px;
+            padding: 20px 22px;
+            background: var(--bg-elevated);
+            box-shadow: 0 12px 35px rgba(15,23,42,0.22);
+        }
+
+        .results-card--contacts {
+            align-self: flex-start;
+        }
+
+        .results-mode {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .btn-primary-wide {
+            width: 100%;
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            border: none;
+            font-weight: 600;
+            background: #16a34a;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .btn-manager,
+        .btn-white {
+            border-radius: 999px;
+            border: 1px solid rgba(148,163,184,0.6);
+            padding: 6px 14px;
+            font-size: 13px;
+            background: rgba(15,23,42,0.02);
+            cursor: pointer;
+        }
+
+        .btn-white {
+            background: #ffffff;
+        }
+
+        .manager-details {
+            margin-top: 8px;
+        }
+
+        .manager-table-wrapper {
+            margin-top: 8px;
+            max-height: 280px;
+            overflow: auto;
+        }
+
+        #resultsTable {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        #resultsTable th,
+        #resultsTable td {
+            padding: 6px 8px;
+            border-bottom: 1px solid rgba(148,163,184,0.3);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: rgba(22,163,74,0.12);
+            color: #16a34a;
+            font-size: 12px;
+        }
+
+        .tg-status {
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+        .client-total {
+            margin: 16px 0 12px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(22,163,74,0.08);
+            text-align: center;
+        }
+
+        .client-total-label {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .client-total-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #16a34a;
+        }
+
+
+        /* 3/4/5 показуємо тільки в менеджер-режимі */
+        #vp-results { display: none !important; }
+        body.manager-mode #vp-results.active { display: block !important; }
+
+        .field-error{
+            margin-top: 6px;
+            font-size: 12px;
+            color: #ef4444;
+            min-height: 14px;
+        }
+        .vp-input.invalid, input.invalid{
+            border-color: rgba(239, 68, 68, 0.9) !important;
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15) !important;
+        }
+
+
+
+/* === FIX visibility (client/manager) === */
+.manager-only{display:none;}
+body.manager-mode .manager-only{display:block;}
+#batchSummary.active{display:block !important;}
+
+.volpato-results-wrapper{display:none;}
+.volpato-results-wrapper.active{display:block;}
+#batchSummary{display:none;}
+#batchSummary.active{display:block;}
+/* Keep right card stable when batch summary appears */
+#batchSummary table{width:100%; border-collapse:collapse;}
+#batchSummary th,#batchSummary td{border-bottom:1px solid rgba(0,0,0,.06);}
+body.dark #batchSummary th, body.dark #batchSummary td{border-bottom:1px solid rgba(255,255,255,.08);}
+.invalid{border-color:#e23b3b !important; box-shadow:0 0 0 3px rgba(226,59,59,.12) !important;}
+.field-error{color:#e23b3b; font-size:12px; margin-top:4px;}
+
+
+.btn-icon-x{width:28px;height:28px;border-radius:8px;border:1px solid rgba(0,0,0,.15);background:#fff;cursor:pointer;font-size:18px;line-height:24px;}
+body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.15);color:#fff;}
+</style>
+</head>
+<body>
+<div class="page">
+<!-- TOPBAR -->
+<header class="topbar">
+<div class="topbar-left">
+<div class="topbar-logo">
+<img alt="MT logo" src="/images/MT_logo_ua_Kubik.jpg"/>
+</div>
+<div>
+<div class="topbar-title">Vybor · фасадні системи</div>
+<div class="topbar-sub">MT × Systems · алюмінієві рамки зі склом та сервіс </div>
+</div>
+</div>
+<div class="theme-toggle">
+<button id="themeToggle"><span></span> Темна тема</button>
+</div>
+</header>
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+<div class="hero-kicker">Vybor · фасадні системи</div>
+<h1 class="hero-title">Калькулятор фасадів Vybor (аналог Vybor)</h1>
+<p class="hero-sub">
+                Системи Vybor дозволяють робити легкі, акуратні фасади зі склом — від кухонних верхніх модулів
+                до високих гардеробів. МТ бере на себе профіль, скло, розкрій та сервіс.
+            </p>
+<div class="hero-tags">
+<span>M1N · M21 · M23N</span>
+<span>Float / ExtraClear</span>
+</div>
+<div class="hero-actions">
+<a class="btn-green" href="#volpato-calc">
+                    Запустити калькулятор фасадів
+                </a>
+<a class="btn-white" href="index.html">
+                    Повернутися до виробничого центру
+                </a>
+</div>
+</div>
+<div class="hero-image">
+<img alt="Vybor фасадні системи" src="/images/img113.jpg"/>
+</div>
+</section>
+<!-- ДЛЯ КОГО VOLPATO -->
+<section>
+<h2 class="section-headline">Коли пропонувати Vybor клієнту</h2>
+<p class="section-lead">
+            Vybor — це не «просто алюмінієва рамка», а готовий інструмент для салонів, студій і виробників, які
+            хочуть додати скляні фасади та легкі вітрини без складної розробки системи з нуля.
+        </p>
+<div class="three-cols">
+<div class="card">
+<div class="card-title">Кухні та високі пенали</div>
+<div class="card-body">
+<ul class="check-list">
+<li>Верхні модулі з підсвіткою й склом.</li>
+<li>Високі вітрини для сервізів та декору.</li>
+<li>Поєднання з фасадами Cleaf / SAIB.</li>
+</ul>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Гардеробні та нішеві рішення</div>
+<div class="card-body">
+<ul class="check-list">
+<li>Скляні дверцята для гардеробних секцій.</li>
+<li>Фасади для ніш у коридорі чи спальні.</li>
+<li>Комбінація з системами TRIAL / eTSecutive.</li>
+</ul>
+</div>
+</div>
+<div class="card">
+<div class="card-title">Вітрини салонів та шоуруми</div>
+<div class="card-body">
+<ul class="check-list">
+<li>Вітрини для салонів кухонь та меблів.</li>
+<li>Експозиції матеріалів, посуду, декору.</li>
+<li>Продумані допуски та захист скла.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- ТЕХНІЧНІ ПАРАМЕТРИ VOLPATO -->
+<section class="section vt-section" id="volpato-tech">
+<div class="vt-inner">
+<h2 class="vt-title">Технічні параметри фасадів Vybor</h2>
+<p class="vt-sub">
+                Коротко по габаритах та перерізах профілів AV2–AV6/AV9. Дані застосовуються у калькуляторі:
+                максимальні розміри фасадів, допустима ширина/висота та тип скла.
+            </p>
+<div class="vt-grid">
+<!-- LEFT -->
+<div>
+<div class="vt-left-block">
+<div class="vt-kicker">Колір</div>
+<div class="vt-color-line">
+<span aria-hidden="true" class="vt-swatch"></span>
+<span>Основний складський колір: чорний анодований (Black anod.).</span>
+</div>
+</div>
+<div class="vt-left-block">
+<div class="vt-kicker">Ширина фасаду</div>
+<h3 class="vt-subtitle">Максимальна ширина фасаду</h3>
+<ul class="vt-list">
+<li>600 мм</li>
+
+</ul>
+</div>
+<div class="vt-left-block">
+<div class="vt-kicker">Висота фасаду</div>
+<h3 class="vt-subtitle">Максимальна висота фасаду</h3>
+<ul class="vt-list">
+<li>2400 мм </li>
+
+</ul>
+</div>
+<div class="vt-left-block">
+<div class="vt-kicker">Переріз профілю</div>
+<h3 class="vt-subtitle">Переріз профілю (довідково)</h3>
+<ul class="vt-list">
+<li>M1N — 19×20,3 мм</li>
+    <li>M4 — 44,5×20 мм</li>
+    <li>M7 — 44,5×13 мм</li>
+    <li>M11 — 44,5×20 мм</li>
+<li>M21 — 44.5×21 мм</li>
+<li>M23N — 50×21 мм</li>
+</ul>
+</div>
+</div>
+<!-- RIGHT -->
+<div>
+<div aria-label="Серії профілів Vybor" class="vt-gallery">
+<button class="vt-card vt-card-active" data-series="M1N" type="button">
+<div class="vt-thumb-box">
+<img alt="M1N — класична рамка" class="vt-thumb" src="/images/img150.jpg"/>
+</div>
+<div class="vt-kicker">M1N — класична рамка</div>
+</button>
+<button class="vt-card" data-series="M4" type="button">
+<div class="vt-thumb-box">
+<img alt="M4 — класична рамка" class="vt-thumb" src="/images/img136.jpg"/>
+</div>
+<div class="vt-kicker">M4 — широкий фасад під скло в паз</div>
+</button>
+<button class="vt-card" data-series="M7" type="button">
+<div class="vt-thumb-box">
+<img alt="M7 — профіль 44,5×13" class="vt-thumb" src="/images/img146.jpg"/>
+</div>
+<div class="vt-kicker">M7 — профіль 44,5×13, скло врівень (клей)</div>
+</button>
+<button class="vt-card" data-series="M11" type="button">
+<div class="vt-thumb-box">
+<img alt="M11 — профіль 44,5×20" class="vt-thumb" src="/images/img148.jpg"/>
+</div>
+<div class="vt-kicker">M11 — профіль 44,5×20 скло під приклеювання, торець скла закритий</div>
+</button>
+<button class="vt-card" data-series="M21" type="button">
+<div class="vt-thumb-box">
+<img alt="M21 — профіль 44,5×21" class="vt-thumb" src="/images/img138.jpg"/>
+</div>
+<div class="vt-kicker">M21 - широкий профіль з мінімальним обхватом, скло в паз</div>
+</button>
+<button class="vt-card" data-series="AV9" type="button">
+<div class="vt-thumb-box">
+<img alt="M23N — 50×21 мм" class="vt-thumb" src="/images/img142.jpg"/>
+</div>
+<div class="vt-kicker">M23 N - широкий профіль з мінімальним обхватом, скло в паз</div>
+</button>
+</div>
+<ul class="vt-bullets">
+<li>Скло 4 мм загартоване/не загартоване з обробкою торців по периметру.</li>
+<li>Кути 45°: кутники зі сталі, гвинти М5 / М4.</li>
+<li>Опції: ущільнювач , підготовка під петлі.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- КАЛЬКУЛЯТОР  -->
+<section class="section" id="vybor-calc">
+<div class="volpato-root">
+<h2 class="volpato-root-title">Vybor — розрахунок однієї рамки</h2>
+<p class="volpato-root-sub">
+                Крок 1 — вкажіть параметри рамки та скла. Крок 2 — натисніть <b>«Розрахувати»</b>:
+                калькулятор покаже габарити скла, вагу, рекомендовану кількість петель та повний склад ціни.
+            </p>
+<div class="volpato-calc-grid">
+<!-- ВХІДНІ ДАНІ -->
+<div class="volpato-panel volpato-panel--inputs">
+<div class="vp-form-grid">
+<div>
+<h3 class="volpato-panel-title">1. Вхідні дані</h3>
+<p class="volpato-panel-sub">
+                                Профіль Vybor (M-серія), розміри рамки по алюмінію, тип скла, кількість, опції
+                                (збірка / упаковка, отвори під петлі / підвіси).
+                            </p>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<label class="vp-label" for="vp-eur-rate">Курс EUR, грн</label>
+<div class="vp-hint">Зберігається локально</div>
+</div>
+<input class="vp-input" id="vp-eur-rate" step="0.01" type="number" value="49.5"/>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<span class="vp-label">Колір профілю Vybor</span>
+<span class="vp-hint">Підтягує €/м з прайсу (роздріб)</span>
+</div>
+<div class="vp-mode-row" id="vp-vybor-color"></div>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<label class="vp-label" for="vp-profile">Профіль Vybor</label>
+<span class="vp-hint">Обмеження розмірів з техкарти</span>
+</div>
+<select class="vp-select" id="vp-profile"><option value="M1N">M1 N — рамка/кант 19</option><option value="M4">M4 — профіль 44.5</option><option value="M7">M7 — профіль 44.5</option><option value="M11">M11 — профіль 44.5</option><option value="M12">M12 — профіль 50</option><option value="M21">M21 — профіль 44.5</option><option value="M23N">M23 N — профіль 50</option><option value="M41">M41 — профіль 51</option></select>
+<div class="vp-badges">
+<span class="vp-badge">Мін. ширина 250 мм</span>
+<span class="vp-badge">Макс. висота 2400 мм (AV6 — 1800)</span>
+</div>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<span class="vp-label">Габарити рамки по алюмінію, мм</span>
+<span class="vp-hint">Ширина × висота, кількість</span>
+</div>
+<div class="vp-row">
+<input class="vp-input" id="vp-w" placeholder="Ширина, мм" step="1" type="number" value="455"/>
+<input class="vp-input" id="vp-h" placeholder="Висота, мм" step="1" type="number" value="705"/>
+<input class="vp-input" id="vp-qty" placeholder="Кількість, шт" step="1" type="number" value="1"/>
+</div>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<label class="vp-label" for="vp-glass">Скло</label>
+<span class="vp-hint">Матеріал + поліровка</span>
+</div>
+<select class="vp-select" id="vp-glass">
+<option value="extra_clear_4">Extra Clear 4 мм (діамант)</option>
+<option value="float_clear_4">Float прозоре 4 мм</option>
+<option value="dark_grey_4">Dark Grey 4 мм (тоноване)</option>
+<option value="satin_ec_4">Сатин Extra Clear 4 мм</option>
+<option value="fluted_4">Fluted 4 мм</option>
+</select>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<span class="vp-label">Тип термообробки</span>
+<span class="vp-hint">Впливає на коефіцієнт</span>
+</div>
+<div class="vp-mode-row" id="vp-glass-temp">
+<button class="vp-pill-btn active" data-temp="tempered" type="button">Загартоване</button>
+<button class="vp-pill-btn" data-temp="non_tempered" type="button">Не загартоване</button>
+</div>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<span class="vp-label">Опції послуг</span>
+<span class="vp-hint">Впливають на блок «Послуги МТ»</span>
+</div>
+<div class="vp-check-row">
+<label class="vp-check">
+<input id="vp-assembly" type="checkbox"/>
+<span>Збірка в МТ (замість упаковки/відвантаження)</span>
+</label>
+<label class="vp-check">
+<input id="vp-hinge-holes" type="checkbox"/>
+<span>Отвори під петлі / підвіси (2 шт)</span>
+</label>
+</div>
+</div>
+<div class="vp-actions">
+<button class="vp-btn vp-btn-primary" id="vp-calc-btn" type="button">Розрахувати</button>
+<button class="vp-btn" id="vp-reset-btn" type="button">Скинути</button>
+</div>
+<!-- Прев'ю -->
+<div>
+<h3 class="volpato-panel-title">2. Прев’ю рамки та скла</h3>
+<p class="volpato-panel-sub">
+                                Після розрахунку тут з’являться габарити скла (dimensionamento vetro),
+                                орієнтовна площа та вага скла.
+                            </p>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<span class="vp-label">Габарити скла, мм</span>
+<span class="vp-hint">Ш × В, з урахуванням відступів Vybor</span>
+</div>
+<div class="vp-row">
+<input class="vp-input" id="vp-wg" placeholder="Ширина скла" readonly="" type="text"/>
+<input class="vp-input" id="vp-hg" placeholder="Висота скла" readonly="" type="text"/>
+<input class="vp-input" id="vp-area" placeholder="Площа, м²" readonly="" type="text"/>
+</div>
+</div>
+<div class="vp-field-group">
+<div class="vp-label-row">
+<span class="vp-label">Вага та петлі</span>
+<span class="vp-hint">Розрахунок по товщині скла</span>
+</div>
+<div class="vp-row">
+<input class="vp-input" id="vp-kg" placeholder="Вага скла, кг (≈)" readonly="" type="text"/>
+<input class="vp-input" id="vp-hinges" placeholder="Рекомендовані петлі, шт" readonly="" type="text"/>
+</div>
+</div>
+
+
+</div>
+    <!-- БЛОК "Заявка + режими" -->
+    <section class="results-cta">
+        <div class="results-header">
+            <h2 class="results-title">Заявка в MT × Systems</h2>
+            <p class="results-subtitle">
+                Вкажіть контакти та надішліть прорахунок фасаду Vybor у Telegram.
+                Кнопка «Менеджер» відкриває повну специфікацію та CSV.
+            </p>
+        </div>
+        <div class="results-grid">
+            <!-- Ліва картка: контакти клієнта -->
+            <div class="results-card results-card--contacts">
+                <h3>Контакти</h3>
+                <div class="form-row">
+                    <label for="contactName">Імʼя</label>
+                    <input id="contactName" placeholder="Ваше імʼя" type="text"/>
+                    <div class="field-error" id="nameError"></div>
+                </div>
+                <div class="form-row">
+                    <label for="contactPhone">Телефон</label>
+                    <input id="contactPhone" placeholder="+380..." type="tel"/>
+                    <div class="field-error" id="phoneError"></div>
+                </div>
+                <div class="form-row">
+                    <label for="contactEmail">Email (необовʼязково)</label>
+                    <input id="contactEmail" placeholder="email@example.com" type="email"/>
+                </div>
+                <div class="client-total" id="clientTotalBox">
+                    <div class="client-total-label">Орієнтовна вартість</div>
+                    
+<div id="polishDebugLine" style="margin-top:8px; font-size:12px; opacity:0.85; display:none;">
+    Полірування (Busel): —
+</div>
+<div class="client-total-value" id="clientTotalUAH">— грн</div>
+                </div>
+                <button class="btn-primary-wide" id="sendToTelegramBtn" type="button">
+                    Надіслати прорахунок в MT × Systems
+                </button>
+
+            </div>
+            <!-- Права картка: режими та менеджерська таблиця -->
+            <div class="results-card results-card--manager">
+                <div class="results-mode">
+                    <span id="currentModeLabel">Режим: клієнт</span>
+                    <button class="btn-manager vp-btn-primary" id="managerToggleBtn" type="button">
+                        Менеджер
+                    </button>
+                </div>
+<div class="manager-details" id="managerDetails" style="display:none;">
+  <div class="manager-actions">
+    <div class="manager-badges">
+      <span class="badge">🔒 Режим менеджера</span>
+    </div>
+    <div class="manager-buttons">
+      <button class="btn btn-secondary btn-sm" id="toClientModeBtn" type="button">Режим клієнта</button>
+      <button class="btn btn-secondary btn-sm" id="downloadCsvBtn" type="button">CSV</button>
+    </div>
+  </div>
+
+  <div class="manager-table-wrap">
+    <table class="manager-table">
+      <thead>
+        <tr>
+          <th style="width: 180px;">Артикул</th>
+          <th>Назва</th>
+          <th style="width: 70px; text-align:right;">К-сть</th>
+          <th style="width: 110px; text-align:right;">Ціна, €/од.</th>
+          <th style="width: 110px; text-align:right;">Сума, €</th>
+        </tr>
+      </thead>
+      <tbody id="itemsBody"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4" style="text-align:left;">Разом, €</td>
+          <td id="totalEurCell" style="text-align:right;">0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<!--                        <div class="manager-buttons">-->
+<!--                            <button class="btn-white" id="toClientModeBtn" type="button">-->
+<!--                                Режим клієнта-->
+<!--                            </button>-->
+<!--                            <button class="btn-white" id="exportCsvBtn" type="button">-->
+<!--                                CSV-->
+<!--                            </button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="manager-table-wrapper">-->
+<!--                        <table id="resultsTable">-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th>Артикул</th>-->
+<!--                                <th>Назва</th>-->
+<!--                                <th>К-сть</th>-->
+<!--                                <th>Ціна, €/од.</th>-->
+<!--                                <th>Сума, €</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody id="itemsBody"></tbody>-->
+<!--                            <tfoot>-->
+<!--                            <tr>-->
+<!--                                <td colspan="4">Разом, €</td>-->
+<!--                                <td id="totalEurCell">0.00</td>-->
+<!--                            </tr>-->
+<!--                            </tfoot>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+    </section>
+    <button class="btn-white" id="addToBatchBtn" style="width:100%; margin-top:10px;" type="button">
+        ➕ Додати в партію
+    </button>
+    <div class="tg-status" id="batchStatus" style="margin-top:10px;">
+        Партія: 0 позицій · 0 грн
+    </div>
+    <div class="manager-only" id="batchSummary" style="margin-top:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+            <div style="font-weight:700;">Підсумок партії</div>
+            <button class="btn-white" id="clearBatchBtn" style="padding:8px 10px;" type="button">
+                Очистити партію
+            </button>
+        </div>
+        <div style="margin-top:10px; overflow:auto; border:1px solid rgba(0,0,0,0.06); border-radius:12px;">
+            <table style="width:100%; border-collapse:collapse; min-width:520px;">
+                <thead>
+                <tr style="background:rgba(0,0,0,0.03);">
+                    <th style="text-align:left; padding:10px;">Позиція</th>
+                    <th style="text-align:right; padding:10px;">К-сть</th>
+                    <th style="text-align:right; padding:10px;">За 1 шт, грн</th>
+                    <th style="text-align:right; padding:10px;">Сума, грн</th>
+                    <th style="text-align:right; padding:10px;"></th>
+                </tr>
+                </thead>
+                <tbody id="batchItemsBody"></tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3" style="padding:10px; font-weight:700;">Разом</td>
+                    <td id="batchTotalUAHCell" style="padding:10px; font-weight:800; text-align:right;">0</td>
+                    <td></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="margin-top:8px; font-size:12px; opacity:0.7;">
+            * Позиція = один прорахунок (з урахуванням “К-сть”)
+        </div>
+    </div>
+    <div aria-live="polite" class="tg-status" id="tgStatus"></div>
+</div>
+
+</div>
+<!-- РЕЗУЛЬТАТИ -->
+<div class="volpato-results-wrapper manager-only" id="vp-results">
+<div class="volpato-results-grid">
+<!-- 1. Профіль + комплектуючі -->
+<div class="volpato-panel">
+<h3 class="volpato-panel-title">3. Профіль Vybor + комплект</h3>
+<p class="volpato-panel-sub">
+                                Профіль (грн/м, з урахуванням курсу EUR), комплект кутників і гвинтів, модулі AV4/AV5
+                                та ущільнювач по периметру.
+                            </p>
+<div class="vp-row-text">
+<span>Довжина профілю з запасом, м</span>
+<span id="vp-Lm">—</span>
+</div>
+<div class="vp-row-text">
+<span>Ціна профілю, грн/м</span>
+<span id="vp-priceM">—</span>
+</div>
+<div class="vp-row-text">
+<span>Профіль (із запасом, закупка)</span>
+<span id="vp-costProfileRaw">—</span>
+</div>
+<div class="vp-row-text">
+<span>Комплект кутників + гвинти</span>
+<span id="vp-kitUAH">—</span>
+</div>
+<div class="vp-row-text">
+<span>Модуль AV4/AV5 (якщо застосовується)</span>
+<span id="vp-moduleUAH">—</span>
+</div>
+<div class="vp-row-text">
+<span>Ущільнювач, закупка, м</span>
+<span id="vp-gasketM">—</span>
+</div>
+<div class="vp-row-text vp-strong">
+<span>Разом профіль + комплект, грн / 1 шт</span>
+<span id="vp-compProfile">—</span>
+</div>
+</div>
+<!-- 2. Скло -->
+<div class="volpato-panel">
+<h3 class="volpato-panel-title">4. Скло</h3>
+<p class="volpato-panel-sub">
+                                Матеріал + поліровка.
+                            </p>
+<div class="vp-row-text">
+<span>Тип скла</span>
+<span id="vp-glassName">—</span>
+</div>
+<div class="vp-row-text">
+<span>Розрахункова площа (мін. 0,25 м²)</span>
+<span id="vp-areaFact">—</span>
+</div>
+<div class="vp-row-text">
+<span>Тариф, грн/м²</span>
+<span id="vp-glassPrice">—</span>
+</div>
+<div class="vp-row-text">
+<span>Коефіцієнт (термообробка)</span>
+<span id="vp-kArea">—</span>
+</div>
+<div class="vp-row-text">
+<span>Поліровка кромки, грн</span>
+<span id="vp-polishUAH">—</span>
+</div>
+<div class="vp-row-text vp-strong">
+<span>Скло (МТ, з маржею), грн / 1 шт</span>
+<span id="vp-compGlass">—</span>
+</div>
+</div>
+<!-- Ущільнювач Vybor -->
+<div class="input-row" style="margin-top:10px;">
+  <div class="input-col">
+    <label class="label">Ущільнювач (Vybor)</label>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      <label style="display:flex; gap:8px; align-items:center;">
+        <input type="checkbox" id="gasketEnabled" checked />
+        <span>Додати в розрахунок</span>
+      </label>
+      <select id="gasketColor" class="select" style="min-width:180px;">
+        <option value="transparent">Прозорий</option>
+        <option value="black">Чорний</option>
+      </select>
+      <select id="gasketMode" class="select" style="min-width:220px;">
+        <option value="per_m">По метражу (€/м.п.)</option>
+        <option value="stick_4m">Палками 4 м (€/шт)</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- 3. Послуги + підсумок -->
+<div class="volpato-panel">
+<h3 class="volpato-panel-title">5. Послуги МТ + підсумок</h3>
+<p class="volpato-panel-sub">
+                                Порізка / свердління, збірка або упаковка (залежно від режиму), підсумкова ціна за 1 шт
+                                і за партію.
+                            </p>
+<table class="vp-table">
+<thead>
+<tr>
+<th>Категорія</th>
+<th class="vp-right">За 1 шт, грн</th>
+<th class="vp-right">За партію, грн</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Профіль + комплект</td>
+<td class="vp-right" id="vp-compProfile1">—</td>
+<td class="vp-right" id="vp-compProfileSum">—</td>
+</tr>
+<tr>
+<td>Скло</td>
+<td class="vp-right" id="vp-compGlass1">—</td>
+<td class="vp-right" id="vp-compGlassSum">—</td>
+</tr>
+<tr>
+<td>Послуги МТ</td>
+<td class="vp-right" id="vp-compServices1">—</td>
+<td class="vp-right" id="vp-compServicesSum">—</td>
+</tr>
+<tr>
+<td><strong>Разом за 1 шт</strong></td>
+<td class="vp-right" id="vp-costPer">—</td>
+<td class="vp-right"></td>
+</tr>
+<tr>
+<td><strong>Разом за партію</strong></td>
+<td></td>
+<td class="vp-right" id="vp-total">—</td>
+</tr>
+</tbody>
+</table>
+<div class="vp-row-text vp-strong">
+<span>Кількість у партії</span>
+<span id="vp-qty-out">—</span>
+</div>
+<div class="vp-row-text">
+<span>Орієнтовна ціна за 1 шт</span>
+<span id="vp-costPerTag">—</span>
+</div>
+<div class="vp-badges" style="margin-top: 10px;">
+<span class="vp-tag" id="vp-tag-profile">Профіль: —</span>
+<span class="vp-tag" id="vp-tag-glass">Скло: —</span>
+<span class="vp-tag" id="vp-tag-services">Послуги: —</span>
+</div>
+</div>
+</div>
+</div>
+</div> <!-- /volpato-calc-grid -->
+</div>
+</section>
+<!-- ЯК ПРАЦЮЄ З GLASS / МТ -->
+<section>
+<h2 class="section-headline">Vybor + скло + МТ: один цикл прорахунку</h2>
+<p class="section-lead">
+            Важливо не тільки порахувати алюміній, але й правильно закласти скло, розкрій та сервіс. У калькуляторі вже
+            інтегровано методику скла та послуги МТ.
+        </p>
+<div class="grid-2">
+<div class="card">
+<div class="pill">Скло Busel v3</div>
+<div class="card-title">Коректні розміри та типи скла</div>
+<div class="card-body">
+<ul class="check-list">
+<li>Float / ExtraClear, товщина 4 мм (за потреби — інші варіанти).</li>
+<li>Автоматичні допуски на скло під кожну серію профілю.</li>
+<li>Формати під різ та оптимізація розкрою.</li>
+</ul>
+</div>
+</div>
+<div class="card">
+<div class="pill">Послуги МТ</div>
+<div class="card-title">Від профілю до готового фасаду</div>
+<div class="card-body">
+<ul class="check-list">
+<li>Розкрій профілю Vybor під замовлення.</li>
+<li>Скло з обробкою кромки та, за потреби, загартуванням.</li>
+<li>Збірка фасадів, упаковка та комплектація по проєкту.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- КРОКИ -->
+<section>
+<h2 class="section-headline">Як працювати з Vybor через MT × Systems</h2>
+<p class="section-lead">
+            Задача калькулятора — не замінити ваш досвід, а прибрати рутину: допуски, розрахунок метражу, сервіс та формування
+            специфікації.
+        </p>
+<div class="steps">
+<div class="card">
+<div class="step-num">1</div>
+<div class="step-title">Обрати серії та тип фасадів</div>
+<div class="step-text">
+                    Визначаємо, які серії Vybor використовуємо: AV2/AV4/AV8/AV9, висоти фасадів, тип скла та кольори профілю.
+                </div>
+</div>
+<div class="card">
+<div class="step-num">2</div>
+<div class="step-title">Задати розміри та кількість</div>
+<div class="step-text">
+                    В калькуляторі вводимо габарити фасадів, кількість позицій, варіанти відкривання та, за потреби, сервіс МТ.
+                </div>
+</div>
+<div class="card">
+<div class="step-num">3</div>
+<div class="step-title">Отримати специфікацію та заявку</div>
+<div class="step-text">
+                    На виході — список профілів, скла, комплектуючих, послуг MT та сума в € / грн. Можна експортувати CSV і
+                    відправити прорахунок у MT × Systems.
+                </div>
+</div>
+</div>
+</section>
+<!-- ФІНАЛЬНИЙ CTA -->
+<section class="hub-cta">
+<div class="hub-cta-inner">
+<div class="hub-cta-left">
+<h2 class="hub-cta-title">Готові протестувати Vybor на реальному проєкті?</h2>
+<p class="hub-cta-text">
+                    Запустіть калькулятор фасадів Vybor, додайте перший комплект дверей і надішліть результат в MT × Systems.
+                    Ми допоможемо перевірити специфікацію та запропонуємо оптимальний формат співпраці.
+                </p>
+<div class="hub-cta-actions">
+<a class="hub-cta-btn hub-cta-btn--primary" href="/Фасадный%20алюм%20профиль%20каталог_compressed.pdf">
+                        Завантажити PDF про Vybor
+                    </a>
+<a class="hub-cta-btn hub-cta-btn--ghost" href="index.html">
+                        Повернутися до виробничого центру МТ
+                    </a>
+</div>
+</div>
+<div class="hub-cta-contacts">
+<div class="hub-cta-row">
+<div class="hub-cta-label">Телефон</div>
+<div class="hub-cta-value">0-800-304-404</div>
+</div>
+<div class="hub-cta-row">
+<div class="hub-cta-label">Email</div>
+<div class="hub-cta-value">info@mt.ua</div>
+</div>
+<div class="hub-cta-row">
+<div class="hub-cta-label">Адреса виробництва</div>
+<div class="hub-cta-value">м. Київ, вул. Кирилівська, 102</div>
+</div>
+<div class="hub-cta-row">
+<div class="hub-cta-label">Звʼязок по Vybor</div>
+<div class="hub-cta-value">Telegram: @mt_systems</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ========= ТЕМА ========= -->
+<script>
+
+// =========================
+// BUSel polishing rules (Price #10)
+// Large batch threshold: >= 75 lm of perimeter (sum for whole batch).
+// =========================
+const BUSEL_POLISH = {
+  THRESHOLD_LM: 75,
+  rates_uah_per_lm: {
+    thk4:  { large: 35.10, small: 70.62 },  // 4 mm
+    thk356:{ large: 50.22, small: 99.66 }   // 5–6 mm group
+  }
+};
+
+function parseThicknessFromGlassKey(glassKey) {
+  const m = String(glassKey || "").match(/_(\d)\b/);
+  return m ? Number(m[1]) : 4;
+}
+
+function getBuselPolishRate(thicknessMm, perimeterTotalLm) {
+  const isLarge = perimeterTotalLm >= BUSEL_POLISH.THRESHOLD_LM;
+
+  if (Number(thicknessMm) === 4) {
+    return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk4.large
+                   : BUSEL_POLISH.rates_uah_per_lm.thk4.small;
+  }
+
+  if (Number(thicknessMm) === 5 || Number(thicknessMm) === 6) {
+    return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk356.large
+                   : BUSEL_POLISH.rates_uah_per_lm.thk356.small;
+  }
+
+  return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk356.large
+                 : BUSEL_POLISH.rates_uah_per_lm.thk356.small;
+}
+
+// =========================
+// Vybor glass gasket (seal) from Price №21-1 (EUR)
+// - Transparent: 0.310 €/m
+// - Black:       0.400 €/m
+// - Stick 4m:    0.920 €/pc (4000 mm)
+// =========================
+const VYBOR_GASKET = {
+  per_m: { transparent: 0.310, black: 0.400 },
+  stick_4m_eur: 0.920,
+  stick_len_m: 4.0
+};
+
+    const bodyEl = document.body;
+    const themeBtn = document.getElementById('themeToggle');
+
+    function applyTheme(mode) {
+        const isDark = mode === 'dark';
+        if (isDark) {
+            bodyEl.classList.add('dark-theme');
+            if (themeBtn) themeBtn.innerHTML = '<span></span> Світла тема';
+        } else {
+            bodyEl.classList.remove('dark-theme');
+            if (themeBtn) themeBtn.innerHTML = '<span></span> Темна тема';
+        }
+    }
+
+    const savedTheme = localStorage.getItem('mtHubTheme') || 'light';
+    applyTheme(savedTheme);
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const newTheme = bodyEl.classList.contains('dark-theme') ? 'light' : 'dark';
+            localStorage.setItem('mtHubTheme', newTheme);
+            applyTheme(newTheme);
+        });
+    }
+</script>
+<!-- ========= Математика Vybor ========= -->
+<script>
+    const GLASS_DELTA_MAP_MM = {
+    M1N: 30,
+    M8: 30,
+    M9: 7,
+    M4: 24,
+    M41: 22,
+    M21: 3,
+    M23N: 3,
+    M11: 3,
+    M7: 0,
+    M12: 92
+};
+const DEFAULT_GLASS_DELTA_MM = 30;
+function glassDeltaMM(profileKey){
+    return (GLASS_DELTA_MAP_MM[profileKey] ?? VYBOR.profiles?.[profileKey]?.glass_delta_mm ?? DEFAULT_GLASS_DELTA_MM);
+}
+const VYBOR = {
+        bar_len_m: 5.95,
+        discount: 0.0, // від роздрібного прайсу (€)
+        // ціни з прайсу Vybor №21-1 (01.03.2024), одиниця: €/м.п.
+        profiles: {
+            M1N: {
+                glass_delta_mm: 30,
+                label: "M1 N",
+                corner_type: "narrow",
+                gasket_type: "type1",
+                colors: {
+                    "алюминий": 4.02,
+                    "алюминий BRUSH": 5.54,
+                    "графит BRUSH": 8.02,
+                    "золото": 4.26,
+                    "золото полированное": 6.79,
+                    "коньяк": 4.64,
+                    "черный BRUSH": 7.24,
+                    "белый": 4.66,
+                    "неанодированный": 3.12,
+                    "неанодированный (вариант)": 5.02
+                }
+            },
+            M4: {
+                glass_delta_mm: 24,
+                label: "M4",
+                corner_type: "wide",
+                gasket_type: "type1",
+                colors: {
+                    "алюминий": 6.21,
+                    "белый": 6.69,
+                    "алюминий BRUSH": 7.70,
+                    "графит BRUSH": 10.73,
+                    "золото": 6.54,
+                    "коньяк": 7.06,
+                    "черный BRUSH": 9.65,
+                    "золото полированное": 9.03
+                }
+            },
+
+M41: {
+    label: "M41",
+    corner_type: "wide",
+    gasket_type: "type1",
+    glass_delta_mm: 22,
+    colors: {
+        "алюминий": 7.25,
+        "алюминий BRUSH": 8.73,
+        "золото": 7.61,
+        "коньяк": 8.18,
+        "черный BRUSH": 10.76,
+        "неанодированный": 5.94
+    }
+},
+
+M8: {
+    label: "M8",
+    corner_type: "narrow",
+    gasket_type: "type1",
+    glass_delta_mm: 30,
+    colors: {
+        // ⚠️ Ціни не знайдені в наданому PDF №21-1 (додайте з каталогу/прайсу Vybor)
+    },
+    note: "ціна уточнити"
+},
+M9: {
+    label: "M9",
+    corner_type: "narrow",
+    gasket_type: "type1",
+    glass_delta_mm: 7,
+    colors: {
+        // ⚠️ Ціни не знайдені в наданому PDF №21-1 (додайте з каталогу/прайсу Vybor)
+    },
+    note: "ціна уточнити"
+},
+            M7: {
+                glass_delta_mm: 0,
+                label: "M7",
+                corner_type: "narrow",
+                gasket_type: "type1",
+                colors: {
+                    "алюминий": 6.17,
+                    "золото": 6.44,
+                    "коньяк": 6.87,
+                    "алюминий BRUSH": 7.68,
+                    "черный BRUSH": 9.47
+                }
+            },
+            M11: {
+                glass_delta_mm: 3,
+                label: "M11",
+                corner_type: "wide",
+                gasket_type: "type1",
+                colors: {
+                    "алюминий": 6.00,
+                    "алюминий BRUSH": 7.10,
+                    "черный BRUSH": 8.98
+                }
+            },
+            M12: {
+                glass_delta_mm: 92,
+                label: "M12",
+                corner_type: "wide",
+                gasket_type: "type1",
+                colors: {
+                    "алюминий": 7.25,
+                    "алюминий BRUSH": 8.74,
+                    "белый": 7.69,
+                    "коньяк": 8.17,
+                    "черный BRUSH": 10.76
+                }
+            },
+            M21: {
+                glass_delta_mm: 3,
+                label: "M21",
+                corner_type: "wide",
+                gasket_type: "type7",
+                colors: {
+                    "алюминий": 6.45,
+                    "алюминий BRUSH": 7.94,
+                    "белый": 6.93,
+                    "золото полированное": 9.28,
+                    "коньяк": 7.32,
+                    "черный BRUSH": 9.91,
+                    "неанодированный": 5.66
+                }
+            },
+            M23N: {
+                glass_delta_mm: 3,
+                label: "M23 N",
+                corner_type: "wide",
+                gasket_type: "type7",
+                colors: {
+                    "алюминий": 7.02,
+                    "графит BRUSH": 11.82,
+                    "белый (под пленкой)": 7.43,
+                    "золото": 7.40,
+                    "коньяк": 7.99,
+                    "черный BRUSH": 10.58
+                }
+            }
+        },
+        corners: { narrow: 0.65, wide: 0.75 }, // €/шт
+        gaskets: { type1: 0.310, type7: 0.920, black: 0.400 } // €/м.п.
+    };
+
+
+    const EUR = {
+        profile_per_m_base: { AV2: 21.17, AV3: 16.40, AV4: 18.46, AV5: 18.46, AV6: 8.43 },
+        av4_modules_piece: {
+            AV4_H397: 24.86, AV4_H447: 25.61, AV4_H497: 26.80, AV4_H547: 19.10, AV4_H597: 29.59
+        },
+        fasteners: { screw_m4x8: 0.07, screw_4_2x25: 0.59 },
+        corners: { corner_av2_67x67: 1.02, corner_av6_37x37: 1.67 },
+        gasket_per_m: { AV2: 1.26, AV3: 1.19, ANTE: 4.35 }
+    };
+
+    const UAH = {
+        glass_m2: {
+            float_clear_4:   { name: 'Скло Float прозоре 4 мм',                    price: 507.90 },
+            extra_clear_4:   { name: 'Скло Extra-clear 4 мм (Діамант / low-iron)', price: 904.92 },
+            dark_grey_4:     { name: 'Скло Dark Grey 4 мм (тоноване)',             price: 1683.00 },
+            satin_ec_4:      { name: 'Скло Сатин Extra Clear 4 мм',                price: 1306.26 },
+            fluted_4:        { name: 'Скло Fluted 4 мм',                           price: 2622.00 },
+        },
+
+        // Тариф на гартування, грн/м² (прайс-лист Busel №20, ТАБЛИЦЯ №1)
+        // TODO: перевір та за потреби онови цифри по прайсу.
+        temper_m2: {
+            float_clear_4: 217.68,  // прозоре флоат 4 мм
+            extra_clear_4: 282.96,  // діамант / low-iron 4 мм
+            dark_grey_4:  326.46,   // тоноване 4 мм
+            satin_ec_4:   326.46,   // сатин Extra Clear 4 мм
+            fluted_4:     315.54,   // флута 4 мм
+        },
+
+        // Мінімальне замовлення на гартування партії одного типу скла (прайс №20)
+        temper_min: {
+            float_clear_4: 750.00,  // прозорий флоат
+            other:        999.00,   // інші типи скла
+        },
+
+
+        services: {
+            cut_vertical_av5_av4: 50.00,
+            cut_drill_one_frame: 270.00,
+            assembly_upto_1000: 450.00,
+            assembly_1001_2000: 600.00,
+            assembly_2001_2200: 680.00,
+            drill_35mm_26mm_hanger: 50.00,
+            drill_square_profile: 50.00,
+            ship_pack_upto_1000: 120.00,
+            ship_pack_1001_2000: 180.00,
+            ship_pack_2001_2500: 230.00,
+            edge_polish_per_m: 100.00
+        },
+        config: {
+            wasteK: 1.03,
+            densityGlass_t_per_m3: 2.5
+        }
+    };
+
+    function pickAv4Module(width) {
+        const sizes = [397, 447, 497, 547, 597];
+        const s = sizes.reduce((b, c) => (c <= width && c > b ? c : b), 0) || sizes[0];
+        const code = 'AV4_H' + s;
+        const eur = EUR.av4_modules_piece[code] || 0;
+        return { code, size: s, eur };
+    }
+
+    function calcGlassAreaEffective(profile, Wmm, Hmm) {
+        const off = glassDeltaMM(profile); // Vybor: A-Δ / B-Δ (Δ = загальний вичет)
+        const wg = Math.max(0, Wmm - off);
+        const hg = Math.max(0, Hmm - off);
+        return { wg, hg, area: (wg * hg) / 1_000_000 };
+    }
+
+    // Коефіцієнт Busel за площею для ЗАГАРТОВАНОГО скла (табл. №2)
+    function areaCoefBuselTempered(area) {
+        if (area <= 0.25) return 2.0;   // до 0,25 м² +100%
+        if (area >= 7.5)  return 2.0;   // від 7,5 м² +100%
+        if (area >= 6.5)  return 1.5;   // 6,5–7,5 м² +50%
+        if (area >= 5.5)  return 1.3;   // 5,5–6,5 м² +30%
+        if (area >= 4.5)  return 1.2;   // 4,5–5,5 м² +20%
+        if (area >= 3.5)  return 1.1;   // 3,5–4,5 м² +10%
+        return 1.0;                     // інші площі — без націнки
+    }
+
+    // Коефіцієнт до вартості гартування за обсяг партії (ТАБЛИЦЯ №3 Busel №20)
+    function batchCoefTempered(totalArea) {
+        if (totalArea < 0.25) return 2.0;      // менше 0,25 м²  → +100%
+        if (totalArea < 2.0)  return 1.5;      // 0,25–2 м²      → +50%
+        if (totalArea < 10.0) return 1.3;      // 2–10 м²        → +30%
+        if (totalArea < 50.0) return 1.1;      // 10–50 м²       → +10%
+        if (totalArea <= 100.0) return 1.05;   // 50–100 м²      → +5% (умовно)
+        return 1.0;                            // понад 100 м²   → ціна індивідуально
+    }
+
+
+    function glassWeight(area, tmm) {
+        const density = UAH.config.densityGlass_t_per_m3 || 2.5; // т/м³
+        const thicknessM = (tmm || 4) / 1000;                    // м
+        // результат у кг: area [м²] * thickness [м] * density [т/м³] * 1000
+        return area * thicknessM * density * 1000;
+    }
+
+    function fmt(x, digits = 2) {
+        if (!isFinite(x)) return '—';
+        return x.toLocaleString('uk-UA', { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const eurInput = document.getElementById('vp-eur-rate');
+                const profileEl = document.getElementById('vp-profile');
+                const calcBtn = document.getElementById('vp-calc-btn');
+                const resetBtn = document.getElementById('vp-reset-btn');
+
+
+        // === Vybor: колір (динамічно з прайсу) ===
+        let vyborColor = null;
+        const vyborColorBlock = document.getElementById('vp-vybor-color');
+
+        function renderVyborColors(profileCode){
+            const cfg = VYBOR.profiles[profileCode];
+            vyborColorBlock.innerHTML = '';
+            if(!cfg){
+                vyborColor = null;
+                return;
+            }
+            const colorKeys = Object.keys(cfg.colors || {});
+            vyborColor = colorKeys[0] ?? null;
+
+            colorKeys.forEach((key, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'vp-pill-btn' + (idx===0 ? ' active' : '');
+                btn.textContent = key;
+
+                btn.addEventListener('click', () => {
+                    vyborColor = key;
+                    [...vyborColorBlock.querySelectorAll('button')].forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+
+                vyborColorBlock.appendChild(btn);
+            });
+        }
+
+        // ініціалізація кольорів Vybor
+        renderVyborColors(profileEl.value);
+        profileEl.addEventListener('change', () => renderVyborColors(profileEl.value));
+
+
+        const wEl = document.getElementById('vp-w');
+        const hEl = document.getElementById('vp-h');
+        const qtyEl = document.getElementById('vp-qty');
+        const glassEl = document.getElementById('vp-glass');
+        const assemblyEl = document.getElementById('vp-assembly');
+        const hingeHolesEl = document.getElementById('vp-hinge-holes');
+        const glassTempBlock = document.getElementById('vp-glass-temp');
+        let glassTemp = 'tempered'; // за замовчуванням — загартоване
+
+        if (glassTempBlock) {
+            glassTempBlock.querySelectorAll('button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    glassTemp = btn.getAttribute('data-temp') || 'tempered';
+                    glassTempBlock.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                });
+            });
+        }
+
+        const resultsWrap = document.getElementById('vp-results');
+
+        const wgEl = document.getElementById('vp-wg');
+        const hgEl = document.getElementById('vp-hg');
+        const areaEl = document.getElementById('vp-area');
+        const kgEl = document.getElementById('vp-kg');
+        const hingesEl = document.getElementById('vp-hinges');
+
+        const LmEl = document.getElementById('vp-Lm');
+        const priceMEl = document.getElementById('vp-priceM');
+        const costProfileRawEl = document.getElementById('vp-costProfileRaw');
+        const kitUAHEl = document.getElementById('vp-kitUAH');
+        const moduleUAHEl = document.getElementById('vp-moduleUAH');
+        const gasketMEl = document.getElementById('vp-gasketM');
+        const compProfileEl = document.getElementById('vp-compProfile');
+        const compGlassEl = document.getElementById('vp-compGlass');
+
+        // === Summary table bindings (Vybor) ===
+        const compProfile1El   = document.getElementById('vp-compProfile1');
+        const compProfileSumEl = document.getElementById('vp-compProfileSum');
+        const compGlass1El     = document.getElementById('vp-compGlass1');
+        const compGlassSumEl   = document.getElementById('vp-compGlassSum');
+        const compServices1El  = document.getElementById('vp-compServices1');
+        const compServicesSumEl= document.getElementById('vp-compServicesSum');
+
+        const costPerEl        = document.getElementById('vp-costPer');
+        const totalEl          = document.getElementById('vp-total');
+        const qtyOutEl         = document.getElementById('vp-qty-out');
+        const costPerTagEl     = document.getElementById('vp-costPerTag');
+        const tagProfileEl     = document.getElementById('vp-tag-profile');
+        const tagGlassEl       = document.getElementById('vp-tag-glass');
+        const tagServicesEl    = document.getElementById('vp-tag-services');
+
+
+        const glassNameEl = document.getElementById('vp-glassName');
+        const areaFactEl = document.getElementById('vp-areaFact');
+        const glassPriceEl = document.getElementById('vp-glassPrice');
+        const kAreaEl = document.getElementById('vp-kArea');
+        const polishUAHEl = document.getElementById('vp-polishUAH');
+        
+
+        function calcOnce() {
+            const eurRate = parseFloat(eurInput.value.replace(',', '.')) || 0;
+            const profile = profileEl.value;
+            let w = parseFloat(wEl.value.replace(',', '.')) || 0;
+            let h = parseFloat(hEl.value.replace(',', '.')) || 0;
+            const qty = Math.max(1, parseInt(qtyEl.value, 10) || 1);
+            const glassKey = glassEl.value;
+            const assembly = assemblyEl.checked;
+            const hingeHoles = hingeHolesEl.checked;
+
+            // === (Vybor) Обмеження габаритів (техкарта) ===
+// У Vybor профілі інші назви (M1N/M4/M7 тощо), тому не використовуємо старі AV2–AV6 правила.
+// Ставимо базові граничні значення, щоб калькулятор не падав, а габарити були в межах технічного поля.
+const r = { minW: 250, maxW: 2400, minH: 300, maxH: 2400 };
+if (w < r.minW) w = r.minW;
+if (w > r.maxW) w = r.maxW;
+if (h < r.minH) h = r.minH;
+if (h > r.maxH) h = r.maxH;
+            wEl.value = String(Math.round(w));
+            hEl.value = String(Math.round(h));
+
+                        // (Vybor) ціна профілю рахуємо напряму з VYBOR.profiles (роздріб)
+
+// === Профіль ===
+            const Lm = Math.ceil((2 * (w + h) + 20) / 10) / 100; // м.п. профілю з округленням
+            const priceEurM_retail = (VYBOR.profiles[profile] && VYBOR.profiles[profile].colors && vyborColor) ? (VYBOR.profiles[profile].colors[vyborColor] || 0) : 0;
+            const priceEurM_net = priceEurM_retail;
+            const priceM = priceEurM_net * eurRate; // грн/м.п. (закупівля)
+            const costProfileRaw = Lm * priceM * (UAH.config.wasteK || 1);
+
+            // === Скло ===
+            const eff = calcGlassAreaEffective(profile, w, h);
+            const wg = eff.wg;
+            const hg = eff.hg;
+            const area = eff.area;
+
+            const g = UAH.glass_m2[glassKey] || { name: glassKey, price: 0 };
+
+            const areaFact = Math.max(area, 0.25);
+
+// Коефіцієнт за площею елемента (ТАБЛИЦЯ №2 Busel №20)
+            let kArea = 1.0;
+            if (glassTemp === 'tempered') {
+                kArea = areaCoefBuselTempered(areaFact);
+            }
+
+// Розрахунок гартування за партію
+            let kBatch = 1.0;
+            let temperPerFrame = 0;
+
+            if (glassTemp === 'tempered') {
+                const tempTariff = (UAH.temper_m2 && UAH.temper_m2[glassKey]) || 0;
+                const partyArea = areaFact * qty;
+                kBatch = batchCoefTempered(partyArea);
+
+                let totalTemper = tempTariff * areaFact * kArea * qty * kBatch;
+
+                const minCfg = UAH.temper_min || {};
+                const minOrder = glassKey === 'float_clear_4'
+                    ? (minCfg.float_clear_4 || 750)
+                    : (minCfg.other || 999);
+
+                if (totalTemper < minOrder) {
+                    totalTemper = minOrder;
+                }
+
+                temperPerFrame = totalTemper / qty;
+            }
+
+// Матеріал скла + поліровка + гартування → знижка Busel −15% → маржа MT +30%
+            const material = areaFact * g.price;
+            const edgeLenM = (2 * (wg + hg)) / 1000;
+            // BUSel: polish rate depends on total batch perimeter (>=75 lm = large batch) and thickness
+const thicknessMm = parseThicknessFromGlassKey(glassKey);
+const perimeterTotalLm = edgeLenM * qty;
+const polishRate = getBuselPolishRate(thicknessMm, perimeterTotalLm);
+const polishTotal = perimeterTotalLm * polishRate;
+const polish = polishTotal / qty; // add per-frame polish cost
+// debug for UI
+const polishDebug = { thicknessMm, perimeterTotalLm, polishRate, isLarge: perimeterTotalLm >= BUSEL_POLISH.THRESHOLD_LM };
+window.__polishDebugLast = polishDebug;
+const mtNet = (material + temperPerFrame + polish) * 0.85;
+            const costGlass = mtNet * 1.30;
+
+
+            // === Комплект/модуль ===
+            const cornerEUR = profile === 'AV6'
+                ? EUR.corners.corner_av6_37x37
+                : EUR.corners.corner_av2_67x67;
+            const kitUAH = (4 * cornerEUR + 8 * EUR.fasteners.screw_m4x8) * eurRate;
+
+            let moduleInfo = null;
+            let costModule = 0;
+            if (profile === 'AV4' || profile === 'AV5') {
+                moduleInfo = pickAv4Module(w);
+                costModule = (moduleInfo.eur || 0) * eurRate;
+            }
+
+            
+// === Ущільнювач Vybor (з прайсу №21-1) ===
+// Рахуємо по периметру скла (edgeLenM) і закуповуємо кратно 2.5 м (або палками 4 м).
+const gasketEnabled = document.getElementById("gasketEnabled") ? document.getElementById("gasketEnabled").checked : true;
+const gasketColor = document.getElementById("gasketColor") ? document.getElementById("gasketColor").value : "transparent";
+const gasketMode  = document.getElementById("gasketMode") ? document.getElementById("gasketMode").value : "per_m";
+
+const perimM = edgeLenM; // периметр 1 скла, м.п.
+let gasketPurchasedM = 0;
+let costGasket = 0;
+
+if (gasketEnabled) {
+    if (gasketMode === "stick_4m") {
+        const pcs = Math.ceil(perimM / VYBOR_GASKET.stick_len_m);
+        gasketPurchasedM = pcs * VYBOR_GASKET.stick_len_m;
+        costGasket = pcs * VYBOR_GASKET.stick_4m_eur * eurRate;
+    } else {
+        const rateEurPerM = (VYBOR_GASKET.per_m[gasketColor] ?? VYBOR_GASKET.per_m.transparent);
+        const mult = 2.5; // закупівля кратно 2.5 м
+        gasketPurchasedM = Math.ceil((perimM / mult) - 1e-9) * mult;
+        costGasket = gasketPurchasedM * rateEurPerM * eurRate;
+    }
+}
+
+// === Послуги ===
+            let costWork = UAH.services.cut_drill_one_frame || 0;
+            if (profile === 'AV4' || profile === 'AV5') {
+                costWork += UAH.services.cut_vertical_av5_av4 || 0;
+            }
+            if (hingeHoles) {
+                const perHole = profile === 'AV6'
+                    ? UAH.services.drill_square_profile
+                    : UAH.services.drill_35mm_26mm_hanger;
+                costWork += 2 * (perHole || 0);
+            }
+            if (assembly) {
+                if (h <= 1000) costWork += UAH.services.assembly_upto_1000 || 0;
+                else if (h <= 2000) costWork += UAH.services.assembly_1001_2000 || 0;
+                else costWork += UAH.services.assembly_2001_2200 || 0;
+            } else {
+                if (h <= 1000) costWork += UAH.services.ship_pack_upto_1000 || 0;
+                else if (h <= 2000) costWork += UAH.services.ship_pack_1001_2000 || 0;
+                else costWork += UAH.services.ship_pack_2001_2500 || 0;
+            }
+
+            const compProfile = costProfileRaw + kitUAH + costModule + costGasket;
+            const compGlass = costGlass;
+            const compServices = costWork;
+            const costPer = compProfile + compGlass + compServices;
+            const total = costPer * qty;
+
+            const tmm = glassKey.indexOf('_6') !== -1 ? 6 : 4;
+            const kg = glassWeight(area, tmm);
+            const hinges = kg <= 7 ? 2 : kg <= 12 ? 3 : 4;
+
+            // === Прев'ю ===
+            wgEl.value = wg ? fmt(wg, 0) : '—';
+            hgEl.value = hg ? fmt(hg, 0) : '—';
+            areaEl.value = area ? fmt(area, 3) : '—';
+            kgEl.value = kg ? fmt(kg, 1) : '—';
+            hingesEl.value = hinges ? String(hinges) : '—';
+
+            // === Профіль + комплект ===
+            LmEl.textContent = fmt(Lm, 2);
+            priceMEl.textContent = fmt(priceM, 2);
+            costProfileRawEl.textContent = fmt(costProfileRaw, 0);
+            kitUAHEl.textContent = fmt(kitUAH, 0);
+            moduleUAHEl.textContent = costModule ? fmt(costModule, 0) + (moduleInfo ? ' (' + moduleInfo.code + ')' : '') : '—';
+            gasketMEl.textContent = fmt(gasketPurchasedM, 2) + ' м · ' + fmt(costGasket, 0) + ' грн';
+            compProfileEl.textContent = fmt(compProfile, 0);
+
+            // === Скло ===
+            glassNameEl.textContent = g.name;
+            areaFactEl.textContent = fmt(areaFact, 3) + ' м²';
+            glassPriceEl.textContent = fmt(g.price, 2);
+// для загартованого скла показуємо добуток коефіцієнтів за площею та партією
+            if (glassTemp === 'tempered') {
+                kAreaEl.textContent = fmt(kArea, 2) + ' × ' + fmt(kBatch, 2);
+            } else {
+                kAreaEl.textContent = '—';
+            }
+            polishUAHEl.textContent = fmt(polish, 0);
+            compGlassEl.textContent = fmt(compGlass, 0);
+
+
+            // === Послуги + підсумок ===
+            const qSum = qty;
+            compProfile1El.textContent = fmt(compProfile, 0);
+            compProfileSumEl.textContent = fmt(compProfile * qSum, 0);
+            compGlass1El.textContent = fmt(compGlass, 0);
+            compGlassSumEl.textContent = fmt(compGlass * qSum, 0);
+            compServices1El.textContent = fmt(compServices, 0);
+            compServicesSumEl.textContent = fmt(compServices * qSum, 0);
+
+            costPerEl.textContent = fmt(costPer, 0);
+            totalEl.textContent = fmt(total, 0);
+            const clientTotalEl = document.getElementById("clientTotalUAH");
+            if (clientTotalEl) {
+                clientTotalEl.textContent = fmt(total, 0) + " грн";
+            }
+
+// --- BUSel polish debug (visible line under total)
+const dbgEl = document.getElementById("polishDebugLine");
+const dbg = window.__polishDebugLast;
+if (dbgEl && dbg) {
+    const batchLabel = dbg.isLarge ? "велика партія" : "мала партія";
+    dbgEl.textContent =
+        `Полірування (Busel): ${batchLabel}, ${dbg.polishRate.toFixed(2)} грн/м.п., P_total=${dbg.perimeterTotalLm.toFixed(2)} м.п. (товщ. ${dbg.thicknessMm} мм)`;
+            if (typeof costGasket !== "undefined") {
+              dbgEl.textContent += ` · Ущільнювач: ${fmt(costGasket,0)} грн/шт`;
+            }
+
+    dbgEl.style.display = "";
+}
+
+            qtyOutEl.textContent = String(qty);
+            costPerTagEl.textContent = fmt(costPer, 0) + ' грн/шт';
+
+            tagProfileEl.textContent = 'Профіль: ' + fmt(compProfile, 0) + ' грн';
+            tagGlassEl.textContent   = 'Скло: ' + fmt(compGlass, 0) + ' грн';
+            tagServicesEl.textContent= 'Послуги: ' + fmt(compServices, 0) + ' грн';
+
+            resultsWrap.classList.add('active');
+
+            // === TELEGRAM payload (после всех расчётов) ===
+            const profileName = profile;            // 'AV2' | 'AV3' ...
+            const glassType   = g.name;             // читаемое имя стекла
+            const widthMm     = Math.round(w);
+            const heightMm    = Math.round(h);
+
+            const profileTotalEur  = eurRate ? (compProfile / eurRate) : 0;
+            const glassTotalEur    = eurRate ? (compGlass / eurRate) : 0;
+            const servicesTotalEur = eurRate ? (compServices / eurRate) : 0;
+
+            const totalPerPieceUah = costPer;
+            const totalPerPieceEur = eurRate ? (costPer / eurRate) : 0;
+
+// короткий текст “подсумок” (как в TRIAL)
+            const summaryText =
+                `Профіль ${profileName} · ${widthMm}×${heightMm} мм · К-сть ${qty}\n` +
+                `Lm=${fmt(Lm,2)} м · Скло=${fmt(areaFact,3)} м² · ${glassTemp === "tempered" ? "Загартоване" : "Не загартоване"}`;
+
+// CSV-строки (минимально: профиль/комплект/стекло/послуги)
+            const csvLines = [
+                `VYBOR-${profileName};Профіль рамки (${profileName});${qty};${profileTotalEur.toFixed(2)};${(profileTotalEur*qty).toFixed(2)}`,
+                `GLASS-${glassKey};${glassType} (${glassTemp === "tempered" ? "загарт." : "не загарт."});${qty};${glassTotalEur.toFixed(2)};${(glassTotalEur*qty).toFixed(2)}`,
+                `MT-SERV;Послуги MT (порізка/свердління/збірка/упаковка);${qty};${servicesTotalEur.toFixed(2)};${(servicesTotalEur*qty).toFixed(2)}`
+            ];
+
+            saveLastCalcForTelegram({
+                eurRate: +eurRate.toFixed(2),
+                profileName,
+                vyborColor,                       // у тебя это уже есть
+                glassType,
+                tempered: glassTemp === "tempered",
+
+                widthMm,
+                heightMm,
+                quantity: qty,
+
+                profileTotalEur: +profileTotalEur.toFixed(2),
+                glassTotalEur: +glassTotalEur.toFixed(2),
+                servicesTotalEur: +servicesTotalEur.toFixed(2),
+
+                totalPerPieceEur: +totalPerPieceEur.toFixed(2),
+                totalPerPieceUah: +totalPerPieceUah.toFixed(0),
+
+                summaryText,
+                csvLines
+            });
+
+
+        }
+
+        calcBtn.addEventListener('click', calcOnce);
+
+        resetBtn.addEventListener('click', () => {
+            // inputs
+            profileEl.value = 'M1N';
+            renderVyborColors(profileEl.value);
+            wEl.value = '455';
+            hEl.value = '705';
+            qtyEl.value = '1';
+            glassEl.value = 'extra_clear_4';
+            assemblyEl.checked = false;
+            hingeHolesEl.checked = false;
+            // ініціалізація кольору Vybor робимо в renderVyborColors
+
+            // glass tempered -> tempered
+            glassTemp = 'tempered';
+            if (glassTempBlock){
+                glassTempBlock.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                const bt = glassTempBlock.querySelector('[data-temp="tempered"]');
+                if (bt) bt.classList.add('active');
+            }
+
+            // preview clear
+            [wgEl, hgEl, areaEl, kgEl, hingesEl].forEach(el => { if (el) el.value = ""; });
+
+            // totals/status clear
+            const clientTotalEl = document.getElementById("clientTotalUAH");
+            if (clientTotalEl) clientTotalEl.textContent = "— грн";
+            const tgStatus = document.getElementById("tgStatus");
+            if (tgStatus) tgStatus.textContent = "";
+
+            // contacts clear + error clear
+            const nameInput  = document.getElementById("contactName");
+            const phoneInput = document.getElementById("contactPhone");
+            const emailInput = document.getElementById("contactEmail");
+            if (nameInput) nameInput.value = "";
+            if (phoneInput) phoneInput.value = "";
+            if (emailInput) emailInput.value = "";
+            const nameErr = document.getElementById("nameError");
+            const phoneErr = document.getElementById("phoneError");
+            if (nameErr) nameErr.textContent = "";
+            if (phoneErr) phoneErr.textContent = "";
+            if (nameInput) nameInput.classList.remove("invalid");
+            if (phoneInput) phoneInput.classList.remove("invalid");
+
+            // manager table clear
+            const itemsBody = document.getElementById("itemsBody");
+            const totalEurCell = document.getElementById("totalEurCell");
+            if (itemsBody) itemsBody.innerHTML = "";
+            if (totalEurCell) totalEurCell.textContent = "0.00";
+
+            // calculation state
+            resultsWrap.classList.remove('active');
+            lastCalc = null;
+            hasCalculated = false;
+            if (typeof syncVisibility === "function") syncVisibility();
+
+            // batch state (якщо додамо нижче)
+            if (typeof resetBatchUI === "function") resetBatchUI();
+        });
+
+
+        // підсвітка техкарт
+        const techCards = document.querySelectorAll('.vt-card');
+        if (techCards.length) {
+            techCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    techCards.forEach(c => c.classList.remove('vt-card-active'));
+                    card.classList.add('vt-card-active');
+                });
+            });
+        }
+    });
+</script>
+<script>
+/* ========= UI / MODE / BATCH / TELEGRAM (Vybor Fasades) =========
+   ✅ Валідація імʼя/телефон
+   ✅ Кнопка "Скинути" чистить усе + партію
+   ✅ Кнопка "Додати в партію" (клієнт і менеджер)
+   ✅ Підсумок партії показуємо текстом + таблиця
+   ✅ Надсилання в Telegram через webhook (встав URL)
+*/
+
+// === 0) CONFIG: встав свій webhook (Make.com / Pipedream / Cloudflare Worker) ===
+const TELEGRAM_FORM_SECRET = "mtx-volpato-2025"; // ← встав сюди. Якщо пусто — кнопка покаже помилку.
+
+// === 1) Режими (клієнт / менеджер) ===
+let currentMode = "client";
+let hasCalculated = false;
+let lastCalc = null;
+
+// === 2) Партія ===
+let batch = []; // items: {id, title, qty, totalUah, totalEur, calc}
+
+// DOM
+const currentModeLabel = document.getElementById("currentModeLabel");
+const managerToggleBtn = document.getElementById("managerToggleBtn");
+const managerDetails   = document.getElementById("managerDetails");
+
+const vpResults   = document.getElementById("vp-results");
+const addToBatchBtn = document.getElementById("addToBatchBtn");
+const batchStatus = document.getElementById("batchStatus");
+const batchSummary = document.getElementById("batchSummary");
+const batchItemsBody = document.getElementById("batchItemsBody");
+const batchTotalUAHCell = document.getElementById("batchTotalUAHCell");
+const clearBatchBtn = document.getElementById("clearBatchBtn");
+
+const sendToTelegramBtn = document.getElementById("sendToTelegramBtn");
+const tgStatus = document.getElementById("tgStatus");
+
+const nameInput  = document.getElementById("contactName");
+const phoneInput = document.getElementById("contactPhone");
+const emailInput = document.getElementById("contactEmail");
+const nameErr  = document.getElementById("nameError");
+const phoneErr = document.getElementById("phoneError");
+
+// helpers
+function fmtUah(n){ return (Number(n)||0).toLocaleString("uk-UA",{maximumFractionDigits:0}); }
+function fmtEur(n){ return (Number(n)||0).toLocaleString("uk-UA",{minimumFractionDigits:2, maximumFractionDigits:2}); }
+
+function setMode(mode){
+  currentMode = (mode === "manager") ? "manager" : "client";
+  document.body.classList.toggle("manager-mode", currentMode === "manager");
+  if (currentModeLabel) currentModeLabel.textContent = (currentMode === "manager") ? "Режим: менеджер" : "Режим: клієнт";
+  if (managerToggleBtn) managerToggleBtn.textContent = (currentMode === "manager") ? "Режим клієнта" : "Менеджер";
+
+  // таблиця менеджера (нижній блок)
+  if (managerDetails) managerDetails.style.display = (currentMode === "manager") ? "block" : "none";
+
+  syncVisibility();
+}
+
+function syncVisibility(){
+  // 3/4/5 показуємо тільки якщо: є розрахунок + менеджер
+  if (vpResults) {
+    const shouldShow = hasCalculated && currentMode === "manager";
+    vpResults.classList.toggle("active", shouldShow);
+  }
+
+  // підсумок партії показуємо всім, але тільки якщо є позиції
+  if (batchSummary) {
+    batchSummary.classList.toggle("active", batch.length > 0);
+  }
+
+  // "Додати в партію" активна тільки якщо є lastCalc
+  if (addToBatchBtn){
+    addToBatchBtn.disabled = !lastCalc;
+  }
+}
+
+function normalizePhone(raw){
+  const digits = String(raw||"").replace(/[^\d]/g,"");
+  // дозволимо: 10-12 цифр, напр. 067..., 38067..., +380...
+  if (digits.length < 10) return { ok:false, digits };
+  return { ok:true, digits };
+}
+
+function validateContacts(){
+  let ok = true;
+
+  const nameVal = (nameInput?.value || "").trim();
+  if (!nameVal || nameVal.length < 2){
+    ok = false;
+    if (nameErr) nameErr.textContent = "Вкажіть імʼя (мін. 2 символи).";
+    nameInput?.classList.add("invalid");
+  } else {
+    if (nameErr) nameErr.textContent = "";
+    nameInput?.classList.remove("invalid");
+  }
+
+  const {ok:phoneOk} = normalizePhone(phoneInput?.value);
+  if (!phoneOk){
+    ok = false;
+    if (phoneErr) phoneErr.textContent = "Вкажіть коректний телефон (мін. 10 цифр).";
+    phoneInput?.classList.add("invalid");
+  } else {
+    if (phoneErr) phoneErr.textContent = "";
+    phoneInput?.classList.remove("invalid");
+  }
+
+  return ok;
+}
+
+// === 3) Партія логіка ===
+function recalcBatch(){
+  if (!batchStatus) return;
+
+  const totalUah = batch.reduce((s,it)=>s+(it.totalUah||0),0);
+  const totalEur = batch.reduce((s,it)=>s+(it.totalEur||0),0);
+
+  batchStatus.textContent = `Партія: ${batch.length} позицій · ${fmtUah(totalUah)} грн (~ ${fmtEur(totalEur)} €)`;
+
+  // таблиця
+  if (batchItemsBody){
+    batchItemsBody.innerHTML = "";
+    batch.forEach((it, idx) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td style="padding:10px; vertical-align:top;">
+          ${idx+1}. ${it.title}
+        </td>
+        <td style="padding:10px; text-align:center;">${it.qty}</td>
+        <td style="padding:10px; text-align:right; font-weight:700;">${fmtUah(it.totalUah/it.qty)}</td>
+        <td style="padding:10px; text-align:right; font-weight:800;">${fmtUah(it.totalUah)}</td>
+        <td style="padding:10px; text-align:right;">
+          <button type="button" class="btn-icon-x" data-remove="${it.id}" aria-label="remove">×</button>
+        </td>
+      `;
+      batchItemsBody.appendChild(tr);
+    });
+
+    // remove handlers
+    batchItemsBody.querySelectorAll("[data-remove]").forEach(btn=>{
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-remove");
+        batch = batch.filter(x => x.id !== id);
+        recalcBatch();
+        syncVisibility();
+      });
+    });
+  }
+
+  if (batchTotalUAHCell){
+    batchTotalUAHCell.textContent = fmtUah(totalUah);
+  }
+
+  syncVisibility();
+}
+
+function resetBatchUI(){
+  batch = [];
+  recalcBatch();
+  syncVisibility();
+}
+
+function addLastCalcToBatch(){
+  if (!lastCalc) return;
+
+  const id = `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const qty = Number(lastCalc.quantity || 1);
+
+  // заголовок позиції як в UI
+  const tempLabel = lastCalc.tempered ? "Загартоване" : "Не загартоване";
+  const title = `${lastCalc.profileName}. ${lastCalc.widthMm}×${lastCalc.heightMm} мм · ${lastCalc.glassType} · ${tempLabel}`;
+
+  // ⚠️ в партію кладемо TOTAL (UAH) за розрахунок *qty
+  const totalUah = Number(lastCalc.totalPerPieceUah || 0) * qty;
+  const totalEur = Number(lastCalc.totalPerPieceEur || 0) * qty;
+
+  batch.push({ id, title, qty, totalUah, totalEur, calc: lastCalc });
+  recalcBatch();
+}
+
+// === 4) Telegram payload ===
+function buildTelegramPayload(){
+  if (!lastCalc) return null;
+
+  const nameVal = (nameInput?.value || "").trim();
+  const {digits} = normalizePhone(phoneInput?.value);
+  const emailVal = (emailInput?.value || "").trim();
+
+  // якщо є партія — відправляємо партію; інакше — lastCalc
+  const useBatch = batch.length > 0;
+
+  const eurRate = Number(lastCalc.eurRate || 0);
+  const modeLabel = (currentMode === "manager") ? "менеджер" : "клієнт";
+
+  let message = `🧾 Нова заявка: Vybor фасади\n`;
+  message += `👤 Клієнт: *${nameVal || "—"}*\n`;
+  message += `📞 Телефон: *${digits || "—"}*\n`;
+  if (emailVal) message += `✉️ Email: ${emailVal}\n`;
+  message += `🔁 Режим: *${modeLabel}*\n\n`;
+  message += `Курс EUR: *${eurRate}*\n`;
+
+  let csvLines = [`Артикул;Назва;Кількість;Ціна €/од.;Сума €`];
+
+  if (useBatch){
+    const totalUah = batch.reduce((s,it)=>s+(it.totalUah||0),0);
+    const totalEur = batch.reduce((s,it)=>s+(it.totalEur||0),0);
+
+    message += `\n📦 Партія: *${batch.length} позицій*\n`;
+    batch.forEach((it, i) => {
+      message += `${i+1}) ${it.title} · К-сть ${it.qty} · ${fmtUah(it.totalUah)} грн (~${fmtEur(it.totalEur)} €)\n`;
+      // CSV агрегуємо позицію однією строкою (можна деталізувати при потребі)
+      const art = `BATCH-${i+1}`;
+      csvLines.push(`${art};${it.title};${it.qty};${(it.totalEur/it.qty).toFixed(2)};${it.totalEur.toFixed(2)}`);
+    });
+
+    message += `\n💰 Разом за партію: *${fmtUah(totalUah)} грн* (~ *${fmtEur(totalEur)} €*)\n`;
+  } else {
+    // одиночний розрахунок — детальний CSV з математики
+    message += `Профіль: *${lastCalc.profileName}*\n`;
+    message += `Колір AV2: *${lastCalc.vyborColor || "—"}*\n`;
+    message += `Скло: *${lastCalc.glassType}* (${lastCalc.tempered ? "загартоване" : "не загартоване"})\n`;
+    message += `Габарити: *${lastCalc.widthMm}×${lastCalc.heightMm} мм* × *${lastCalc.quantity} шт*\n\n`;
+    message += `Профіль + комплект: *${lastCalc.profileTotalEur} €*\n`;
+    message += `Скло: *${lastCalc.glassTotalEur} €*\n`;
+    message += `Послуги MT: *${lastCalc.servicesTotalEur} €*\n`;
+    message += `Разом за 1 шт: *${lastCalc.totalPerPieceEur} €* (~ *${fmtUah(lastCalc.totalPerPieceUah)} грн*)\n`;
+
+    // CSV з математики
+    if (Array.isArray(lastCalc.csvLines)){
+      csvLines = [`Артикул;Назва;Кількість;Ціна €/од.;Сума €`, ...lastCalc.csvLines];
+    }
+  }
+
+  return { message, csv: csvLines.join("\n") };
+}
+
+async function sendToTelegram(){
+  if (!hasCalculated || !lastCalc){
+    if (tgStatus) tgStatus.textContent = "Спочатку натисніть «Розрахувати».";
+    return;
+  }
+  if (!validateContacts()) return;
+
+  if (!TELEGRAM_FORM_SECRET){
+    if (tgStatus) tgStatus.textContent = "Не задано TELEGRAM_FORM_SECRET у коді.";
+    return;
+  }
+
+  const payload = buildTelegramPayload();
+  if (!payload) return;
+
+  if (tgStatus) tgStatus.textContent = "Надсилаю…";
+
+  try{
+    const TELEGRAM_API_URL = "https://mt-volpato.vercel.app/api/telegram";
+
+    // 1) summary
+    const res1 = await fetch(TELEGRAM_API_URL, {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({
+        secret: TELEGRAM_FORM_SECRET,
+        text: payload.message
+      })
+    });
+    const json1 = await res1.json().catch(()=>({}));
+    if (!res1.ok || json1.ok === false) throw new Error("Telegram summary error");
+
+    // 2) CSV (optional)
+    if (payload.csv) {
+      const res2 = await fetch(TELEGRAM_API_URL, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({
+          secret: TELEGRAM_FORM_SECRET,
+          text: "📎 CSV по розрахунку Vybor:\n\n```\n" + payload.csv + "\n```"
+        })
+      });
+      // не валимо весь процес, якщо CSV не пройшов
+      await res2.json().catch(()=>({}));
+    }
+    if (tgStatus) tgStatus.textContent = "✅ Заявка надіслана в Telegram.";
+  }catch(err){
+    if (tgStatus) tgStatus.textContent = "❌ Помилка надсилання (перевір webhook/консоль).";
+    console.error(err);
+  }
+}
+
+
+
+function downloadTextFile(filename, content, mime="text/plain;charset=utf-8"){
+  try{
+    const blob = new Blob([content], {type: mime});
+    // IE / old Edge
+    if (window.navigator && window.navigator.msSaveOrOpenBlob){
+      window.navigator.msSaveOrOpenBlob(blob, filename);
+      return;
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.style.display = "none";
+    a.href = url;
+    a.download = filename;
+    a.rel = "noopener";
+    document.body.appendChild(a);
+
+    a.click();
+    setTimeout(()=>{ URL.revokeObjectURL(url); a.remove(); }, 250);
+}catch(e){
+    console.error(e);
+    alert("Не вдалося згенерувати файл. Перевірте консоль.");
+  }
+}
+
+
+// === CSV helpers ===
+function normalizeCsvLines(lines) {
+  if (!Array.isArray(lines)) return [];
+  return lines
+    .map(x => String(x || "").trim())
+    .filter(Boolean)
+    .filter(x => !x.startsWith("Артикул;"));
+}
+
+function batchToCsvLines() {
+  const out = ["Артикул;Назва;Кількість;Ціна €/од.;Сума €"];
+  batch.forEach((b) => {
+    const lines = normalizeCsvLines(b.calc?.csvLines || []);
+    lines.forEach(line => out.push(line));
+  });
+  return out;
+}
+
+function renderManagerTableFromLines(linesWithHeader) {
+  const tbody = document.getElementById("itemsBody");
+  const totalCell = document.getElementById("totalEurCell");
+  if (!tbody || !totalCell) return;
+
+  // clear
+  tbody.innerHTML = "";
+
+  const lines = Array.isArray(linesWithHeader) ? linesWithHeader : String(linesWithHeader || "").split("\n");
+  const dataLines = normalizeCsvLines(lines);
+
+  let total = 0;
+  dataLines.forEach((line) => {
+    const parts = line.split(";");
+    const sku = (parts[0] || "").trim();
+    const name = (parts[1] || "").trim();
+    const qty = (parts[2] || "").trim();
+    const eur = (parts[3] || "").trim();
+    const sum = (parts[4] || "").trim();
+    const sumNum = Number(String(sum).replace(",", "."));
+    if (!Number.isNaN(sumNum)) total += sumNum;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${escapeHtml(sku)}</td>
+      <td>${escapeHtml(name)}</td>
+      <td style="text-align:right;">${escapeHtml(qty)}</td>
+      <td style="text-align:right;">${escapeHtml(eur)}</td>
+      <td style="text-align:right;">${escapeHtml(sum)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  totalCell.textContent = fmtEur(total);
+}
+
+
+function exportCsv() {
+  const calc = lastCalc;
+  if (!calc) { alert("Спочатку натисніть «Розрахувати»."); return; }
+
+  // Якщо є партія — експортуємо партію (детально: профіль/скло/послуги по кожній позиції)
+  if (batch.length > 0) {
+    const csv = batchToCsvLines().join("\n") + "\n";
+    downloadTextFile("vybor_batch.csv", csv);
+    return;
+  }
+
+  // Інакше — один поточний розрахунок
+  const lines = ["Артикул;Назва;Кількість;Ціна €/од.;Сума €", ...normalizeCsvLines(calc.csvLines || [])];
+  const csv = lines.join("\n") + "\n";
+  downloadTextFile("vybor_calc.csv", csv);
+}
+
+window.exportCsv = exportCsv;
+
+// === 5) Events ===
+if (managerToggleBtn){
+  managerToggleBtn.addEventListener("click", () => {
+    setMode(currentMode === "manager" ? "client" : "manager");
+  });
+}
+
+
+const exportCsvBtn = document.getElementById("downloadCsvBtn");
+if (exportCsvBtn){
+  exportCsvBtn.addEventListener("click", exportCsv);
+}
+
+
+if (addToBatchBtn){
+  addToBatchBtn.addEventListener("click", () => {
+    addLastCalcToBatch();
+  });
+}
+
+if (clearBatchBtn){
+  clearBatchBtn.addEventListener("click", () => {
+    resetBatchUI();
+  });
+}
+
+if (sendToTelegramBtn){
+  sendToTelegramBtn.addEventListener("click", () => {
+    sendToTelegram();
+  });
+}
+
+// ========= 6) Звʼязок з “Математика Vybor” =========
+// Математика викликає window.saveLastCalcForTelegram(calc)
+window.saveLastCalcForTelegram = function(calc){
+  lastCalc = calc;
+      if (currentMode === "manager") { renderManagerTableFromLines(["Артикул;Назва;Кількість;Ціна €/од.;Сума €", ...normalizeCsvLines(calc.csvLines || [])]); }
+  hasCalculated = true;
+
+  // якщо є таблиця менеджера — оновимо (якщо твоя функція існує)
+  if (typeof window.renderManagerTable === "function") {
+    window.renderManagerTable(calc);
+  }
+
+  // якщо партія порожня — показати одиночний total у статусі
+  recalcBatch();
+  syncVisibility();
+};
+
+
+
+
+
+
+// ========= init =========
+document.addEventListener("DOMContentLoaded", () => {
+
+  // CSV download
+  const exportCsvBtn2 = document.getElementById("downloadCsvBtn");
+  if (exportCsvBtn2){
+    exportCsvBtn2.addEventListener("click", (e)=>{ e.preventDefault(); exportCsv(); });
+  }
+  setMode(currentMode);
+  recalcBatch();
+  syncVisibility();
+
+  // live-validate
+  nameInput?.addEventListener("input", ()=>validateContacts());
+  phoneInput?.addEventListener("input", ()=>validateContacts());
+});
+</script>
+</body>
+</html>
