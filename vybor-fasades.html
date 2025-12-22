@@ -1657,11 +1657,7 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
                 </div>
                 <div class="client-total" id="clientTotalBox">
                     <div class="client-total-label">Орієнтовна вартість</div>
-                    
-<div id="polishDebugLine" style="margin-top:8px; font-size:12px; opacity:0.85; display:none;">
-    Полірування (Busel): —
-</div>
-<div class="client-total-value" id="clientTotalUAH">— грн</div>
+                    <div class="client-total-value" id="clientTotalUAH">— грн</div>
                 </div>
                 <button class="btn-primary-wide" id="sendToTelegramBtn" type="button">
                     Надіслати прорахунок в MT × Systems
@@ -1853,27 +1849,6 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
 <span id="vp-compGlass">—</span>
 </div>
 </div>
-<!-- Ущільнювач Vybor -->
-<div class="input-row" style="margin-top:10px;">
-  <div class="input-col">
-    <label class="label">Ущільнювач (Vybor)</label>
-    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-      <label style="display:flex; gap:8px; align-items:center;">
-        <input type="checkbox" id="gasketEnabled" checked />
-        <span>Додати в розрахунок</span>
-      </label>
-      <select id="gasketColor" class="select" style="min-width:180px;">
-        <option value="transparent">Прозорий</option>
-        <option value="black">Чорний</option>
-      </select>
-      <select id="gasketMode" class="select" style="min-width:220px;">
-        <option value="per_m">По метражу (€/м.п.)</option>
-        <option value="stick_4m">Палками 4 м (€/шт)</option>
-      </select>
-    </div>
-  </div>
-</div>
-
 <!-- 3. Послуги + підсумок -->
 <div class="volpato-panel">
 <h3 class="volpato-panel-title">5. Послуги МТ + підсумок</h3>
@@ -2041,53 +2016,6 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
 </div>
 <!-- ========= ТЕМА ========= -->
 <script>
-
-// =========================
-// BUSel polishing rules (Price #10)
-// Large batch threshold: >= 75 lm of perimeter (sum for whole batch).
-// =========================
-const BUSEL_POLISH = {
-  THRESHOLD_LM: 75,
-  rates_uah_per_lm: {
-    thk4:  { large: 35.10, small: 70.62 },  // 4 mm
-    thk356:{ large: 50.22, small: 99.66 }   // 5–6 mm group
-  }
-};
-
-function parseThicknessFromGlassKey(glassKey) {
-  const m = String(glassKey || "").match(/_(\d)\b/);
-  return m ? Number(m[1]) : 4;
-}
-
-function getBuselPolishRate(thicknessMm, perimeterTotalLm) {
-  const isLarge = perimeterTotalLm >= BUSEL_POLISH.THRESHOLD_LM;
-
-  if (Number(thicknessMm) === 4) {
-    return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk4.large
-                   : BUSEL_POLISH.rates_uah_per_lm.thk4.small;
-  }
-
-  if (Number(thicknessMm) === 5 || Number(thicknessMm) === 6) {
-    return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk356.large
-                   : BUSEL_POLISH.rates_uah_per_lm.thk356.small;
-  }
-
-  return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk356.large
-                 : BUSEL_POLISH.rates_uah_per_lm.thk356.small;
-}
-
-// =========================
-// Vybor glass gasket (seal) from Price №21-1 (EUR)
-// - Transparent: 0.310 €/m
-// - Black:       0.400 €/m
-// - Stick 4m:    0.920 €/pc (4000 mm)
-// =========================
-const VYBOR_GASKET = {
-  per_m: { transparent: 0.310, black: 0.400 },
-  stick_4m_eur: 0.920,
-  stick_len_m: 4.0
-};
-
     const bodyEl = document.body;
     const themeBtn = document.getElementById('themeToggle');
 
@@ -2115,29 +2043,16 @@ const VYBOR_GASKET = {
 </script>
 <!-- ========= Математика Vybor ========= -->
 <script>
-    const GLASS_DELTA_MAP_MM = {
-    M1N: 30,
-    M8: 30,
-    M9: 7,
-    M4: 24,
-    M41: 22,
-    M21: 3,
-    M23N: 3,
-    M11: 3,
-    M7: 0,
-    M12: 92
-};
-const DEFAULT_GLASS_DELTA_MM = 30;
-function glassDeltaMM(profileKey){
-    return (GLASS_DELTA_MAP_MM[profileKey] ?? VYBOR.profiles?.[profileKey]?.glass_delta_mm ?? DEFAULT_GLASS_DELTA_MM);
-}
-const VYBOR = {
+    const DEFAULT_GLASS_DELTA_MM = 30; // за техкартами Vybor (A-30 / B-30)
+    function glassDeltaMM(profileKey){
+        return (VYBOR.profiles?.[profileKey]?.glass_delta_mm ?? DEFAULT_GLASS_DELTA_MM);
+    }
+    const VYBOR = {
         bar_len_m: 5.95,
         discount: 0.0, // від роздрібного прайсу (€)
         // ціни з прайсу Vybor №21-1 (01.03.2024), одиниця: €/м.п.
         profiles: {
             M1N: {
-                glass_delta_mm: 30,
                 label: "M1 N",
                 corner_type: "narrow",
                 gasket_type: "type1",
@@ -2152,10 +2067,11 @@ const VYBOR = {
                     "белый": 4.66,
                     "неанодированный": 3.12,
                     "неанодированный (вариант)": 5.02
-                }
+                },
+            glass_delta_mm: 30
+
             },
             M4: {
-                glass_delta_mm: 24,
                 label: "M4",
                 corner_type: "wide",
                 gasket_type: "type1",
@@ -2168,70 +2084,69 @@ const VYBOR = {
                     "коньяк": 7.06,
                     "черный BRUSH": 9.65,
                     "золото полированное": 9.03
-                }
+                },
+            glass_delta_mm: 24
+
             },
-
-M41: {
-    label: "M41",
-    corner_type: "wide",
-    gasket_type: "type1",
-    glass_delta_mm: 22,
-    colors: {
-        "алюминий": 7.25,
-        "алюминий BRUSH": 8.73,
-        "золото": 7.61,
-        "коньяк": 8.18,
-        "черный BRUSH": 10.76,
-        "неанодированный": 5.94
-    }
-},
-
-M8: {
-    label: "M8",
-    corner_type: "narrow",
-    gasket_type: "type1",
-    glass_delta_mm: 30,
-    colors: {
-        // ⚠️ Ціни не знайдені в наданому PDF №21-1 (додайте з каталогу/прайсу Vybor)
-    },
-    note: "ціна уточнити"
-},
-M9: {
-    label: "M9",
-    corner_type: "narrow",
-    gasket_type: "type1",
-    glass_delta_mm: 7,
-    colors: {
-        // ⚠️ Ціни не знайдені в наданому PDF №21-1 (додайте з каталогу/прайсу Vybor)
-    },
-    note: "ціна уточнити"
-},
             M7: {
-                glass_delta_mm: 0,
                 label: "M7",
-                corner_type: "narrow",
-                gasket_type: "type1",
+                corner_type: "wide",
+                gasket_type: null,
                 colors: {
                     "алюминий": 6.17,
                     "золото": 6.44,
                     "коньяк": 6.87,
                     "алюминий BRUSH": 7.68,
                     "черный BRUSH": 9.47
-                }
+                },
+            glass_delta_mm: 0
+
             },
+
+            M8: {
+                label: "M8",
+                group: "narrow",
+                min_w: 250,
+                max_h: 2400,
+                note: "рамка/кант 19",
+                gasket_type: "type1",
+                corner_type: "narrow",
+                glass_delta_mm: 30
+            },
+            M9: {
+                label: "M9",
+                group: "wide",
+                min_w: 250,
+                max_h: 2400,
+                note: "широкий профіль",
+                gasket_type: "type1",
+                corner_type: "narrow",
+                glass_delta_mm: 7
+            },
+            M41: {
+                label: "M41",
+                group: "wide",
+                min_w: 250,
+                max_h: 2400,
+                note: "широкий профіль",
+                gasket_type: "type1",
+                corner_type: "wide",
+                glass_delta_mm: 22
+            },
+
             M11: {
-                glass_delta_mm: 3,
                 label: "M11",
                 corner_type: "wide",
-                gasket_type: "type1",
+                gasket_type: null,
                 colors: {
                     "алюминий": 6.00,
                     "алюминий BRUSH": 7.10,
                     "черный BRUSH": 8.98
-                }
+                },
+            glass_delta_mm: 3
+
             },
             M12: {
-                glass_delta_mm: 92,
                 label: "M12",
                 corner_type: "wide",
                 gasket_type: "type1",
@@ -2241,10 +2156,11 @@ M9: {
                     "белый": 7.69,
                     "коньяк": 8.17,
                     "черный BRUSH": 10.76
-                }
+                },
+            glass_delta_mm: 92
+
             },
             M21: {
-                glass_delta_mm: 3,
                 label: "M21",
                 corner_type: "wide",
                 gasket_type: "type7",
@@ -2256,13 +2172,15 @@ M9: {
                     "коньяк": 7.32,
                     "черный BRUSH": 9.91,
                     "неанодированный": 5.66
-                }
+                },
+            glass_delta_mm: 3
+
             },
             M23N: {
-                glass_delta_mm: 3,
                 label: "M23 N",
                 corner_type: "wide",
                 gasket_type: "type7",
+                glass_delta_mm: 3,
                 colors: {
                     "алюминий": 7.02,
                     "графит BRUSH": 11.82,
@@ -2272,9 +2190,51 @@ M9: {
                     "черный BRUSH": 10.58
                 }
             }
+            ,
+            M11: {
+                label: "M11",
+                corner_type: "wide",
+                gasket_type: null,
+                glass_delta_mm: 3,
+                colors: {
+                    "алюминий": 7.25,
+                    "алюминий BRUSH": 8.73,
+                    "золото": 7.61,
+                    "коньяк": 8.18,
+                    "черный BRUSH": 10.76
+                }
+            },
+            M7: {
+                label: "M7",
+                corner_type: "wide",
+                gasket_type: null,
+                glass_delta_mm: 0,
+                colors: {
+                    "алюминий": 7.25,
+                    "алюминий BRUSH": 8.73,
+                    "золото": 7.61,
+                    "коньяк": 8.18,
+                    "черный BRUSH": 10.76
+                }
+            },
+            M12: {
+                label: "M12",
+                corner_type: "wide",
+                gasket_type: "type1",
+                glass_delta_mm: 92,
+                colors: {
+                    "алюминий": 7.25,
+                    "алюминий BRUSH": 8.73,
+                    "золото": 7.61,
+                    "коньяк": 8.18,
+                    "черный BRUSH": 10.76
+                }
+            }
+
+
         },
         corners: { narrow: 0.65, wide: 0.75 }, // €/шт
-        gaskets: { type1: 0.310, type7: 0.920, black: 0.400 } // €/м.п.
+gaskets: { type1: 0.310, type7: 0.920, black: 0.400 } // €/м.п.
     };
 
 
@@ -2299,13 +2259,8 @@ M9: {
 
         // Тариф на гартування, грн/м² (прайс-лист Busel №20, ТАБЛИЦЯ №1)
         // TODO: перевір та за потреби онови цифри по прайсу.
-        temper_m2: {
-            float_clear_4: 217.68,  // прозоре флоат 4 мм
-            extra_clear_4: 282.96,  // діамант / low-iron 4 мм
-            dark_grey_4:  326.46,   // тоноване 4 мм
-            satin_ec_4:   326.46,   // сатин Extra Clear 4 мм
-            fluted_4:     315.54,   // флута 4 мм
-        },
+        temper_add_m2: 282.96,
+
 
         // Мінімальне замовлення на гартування партії одного типу скла (прайс №20)
         temper_min: {
@@ -2381,6 +2336,14 @@ M9: {
         if (!isFinite(x)) return '—';
         return x.toLocaleString('uk-UA', { minimumFractionDigits: digits, maximumFractionDigits: digits });
     }
+
+
+    function round2(x){
+        x = Number(x);
+        if (!isFinite(x)) return 0;
+        return Math.round((x + Number.EPSILON) * 100) / 100;
+    }
+
 
     document.addEventListener('DOMContentLoaded', () => {
         const eurInput = document.getElementById('vp-eur-rate');
@@ -2535,7 +2498,7 @@ if (h > r.maxH) h = r.maxH;
             let temperPerFrame = 0;
 
             if (glassTemp === 'tempered') {
-                const tempTariff = (UAH.temper_m2 && UAH.temper_m2[glassKey]) || 0;
+                const tempTariff = (UAH.temper_m2 && UAH.temper_add_m2) || 0;
                 const partyArea = areaFact * qty;
                 kBatch = batchCoefTempered(partyArea);
 
@@ -2556,16 +2519,8 @@ if (h > r.maxH) h = r.maxH;
 // Матеріал скла + поліровка + гартування → знижка Busel −15% → маржа MT +30%
             const material = areaFact * g.price;
             const edgeLenM = (2 * (wg + hg)) / 1000;
-            // BUSel: polish rate depends on total batch perimeter (>=75 lm = large batch) and thickness
-const thicknessMm = parseThicknessFromGlassKey(glassKey);
-const perimeterTotalLm = edgeLenM * qty;
-const polishRate = getBuselPolishRate(thicknessMm, perimeterTotalLm);
-const polishTotal = perimeterTotalLm * polishRate;
-const polish = polishTotal / qty; // add per-frame polish cost
-// debug for UI
-const polishDebug = { thicknessMm, perimeterTotalLm, polishRate, isLarge: perimeterTotalLm >= BUSEL_POLISH.THRESHOLD_LM };
-window.__polishDebugLast = polishDebug;
-const mtNet = (material + temperPerFrame + polish) * 0.85;
+            const polish = edgeLenM * (UAH.services.edge_polish_per_m || 0);
+            const mtNet = (material + temperPerFrame + polish) * 0.85;
             const costGlass = mtNet * 1.30;
 
 
@@ -2582,31 +2537,35 @@ const mtNet = (material + temperPerFrame + polish) * 0.85;
                 costModule = (moduleInfo.eur || 0) * eurRate;
             }
 
-            
-// === Ущільнювач Vybor (з прайсу №21-1) ===
-// Рахуємо по периметру скла (edgeLenM) і закуповуємо кратно 2.5 м (або палками 4 м).
-const gasketEnabled = document.getElementById("gasketEnabled") ? document.getElementById("gasketEnabled").checked : true;
-const gasketColor = document.getElementById("gasketColor") ? document.getElementById("gasketColor").value : "transparent";
-const gasketMode  = document.getElementById("gasketMode") ? document.getElementById("gasketMode").value : "per_m";
+            // === Ущільнювач Vybor (за прайсом) ===
+            const perimM = (2 * (w + h)) / 1000; // периметр по алюмінію, м
 
-const perimM = edgeLenM; // периметр 1 скла, м.п.
-let gasketPurchasedM = 0;
-let costGasket = 0;
+            const gasketType = VYBOR.profiles[profile]?.gasket_type || "none";
+            const colorKeyLower = String(vyborColor || "").toLowerCase();
 
-if (gasketEnabled) {
-    if (gasketMode === "stick_4m") {
-        const pcs = Math.ceil(perimM / VYBOR_GASKET.stick_len_m);
-        gasketPurchasedM = pcs * VYBOR_GASKET.stick_len_m;
-        costGasket = pcs * VYBOR_GASKET.stick_4m_eur * eurRate;
-    } else {
-        const rateEurPerM = (VYBOR_GASKET.per_m[gasketColor] ?? VYBOR_GASKET.per_m.transparent);
-        const mult = 2.5; // закупівля кратно 2.5 м
-        gasketPurchasedM = Math.ceil((perimM / mult) - 1e-9) * mult;
-        costGasket = gasketPurchasedM * rateEurPerM * eurRate;
-    }
-}
+            let gasketPerMEUR = 0;
+            let gasketPackM = 0; // 0 = продаємо по метражу; >0 = кратність (напр. 4.0 м)
+            let gasketLabel = "—";
 
-// === Послуги ===
+            if (gasketType === "type1") {
+                gasketPerMEUR = Number(VYBOR.gaskets.type1) || 0;
+                gasketLabel = "Ущільнювач тип 1 (прозорий)";
+                gasketPackM = 0;
+            } else if (gasketType === "type7") {
+                const isBlack = colorKeyLower.includes("чер") || colorKeyLower.includes("black");
+                gasketPerMEUR = isBlack ? (Number(VYBOR.gaskets.black) || 0) : (Number(VYBOR.gaskets.type7) || 0);
+                gasketLabel = isBlack ? "Ущільнювач тип 7 (чорний)" : "Ущільнювач тип 7 (прозорий)";
+                gasketPackM = 4.0; // у прайсі 4000 мм
+            }
+
+            const gasketNeedM = perimM;
+            const gasketPurchasedM = gasketPerMEUR > 0
+                ? (gasketPackM > 0 ? Math.ceil(gasketNeedM / gasketPackM) * gasketPackM : round2(gasketNeedM))
+                : 0;
+
+            const costGasket = gasketPurchasedM * gasketPerMEUR * eurRate; // грн
+
+            // === Послуги ===
             let costWork = UAH.services.cut_drill_one_frame || 0;
             if (profile === 'AV4' || profile === 'AV5') {
                 costWork += UAH.services.cut_vertical_av5_av4 || 0;
@@ -2657,13 +2616,13 @@ if (gasketEnabled) {
             glassNameEl.textContent = g.name;
             areaFactEl.textContent = fmt(areaFact, 3) + ' м²';
             glassPriceEl.textContent = fmt(g.price, 2);
-// для загартованого скла показуємо добуток коефіцієнтів за площею та партією
-            if (glassTemp === 'tempered') {
-                kAreaEl.textContent = fmt(kArea, 2) + ' × ' + fmt(kBatch, 2);
-            } else {
-                kAreaEl.textContent = '—';
-            }
-            polishUAHEl.textContent = fmt(polish, 0);
+// Коефіцієнти Busel: коеф. по площі (kArea) × коеф. по партії (kBatch).
+            // Загартування рахуємо як доплату +282,96 грн/м² (не множник).
+            kAreaEl.textContent =
+                (glassTemp === 'tempered')
+                    ? '+ 282,96 грн/м² (загартування)'
+                    : 'без загартування';
+polishUAHEl.textContent = fmt(polish, 0);
             compGlassEl.textContent = fmt(compGlass, 0);
 
 
@@ -2682,20 +2641,6 @@ if (gasketEnabled) {
             if (clientTotalEl) {
                 clientTotalEl.textContent = fmt(total, 0) + " грн";
             }
-
-// --- BUSel polish debug (visible line under total)
-const dbgEl = document.getElementById("polishDebugLine");
-const dbg = window.__polishDebugLast;
-if (dbgEl && dbg) {
-    const batchLabel = dbg.isLarge ? "велика партія" : "мала партія";
-    dbgEl.textContent =
-        `Полірування (Busel): ${batchLabel}, ${dbg.polishRate.toFixed(2)} грн/м.п., P_total=${dbg.perimeterTotalLm.toFixed(2)} м.п. (товщ. ${dbg.thicknessMm} мм)`;
-            if (typeof costGasket !== "undefined") {
-              dbgEl.textContent += ` · Ущільнювач: ${fmt(costGasket,0)} грн/шт`;
-            }
-
-    dbgEl.style.display = "";
-}
 
             qtyOutEl.textContent = String(qty);
             costPerTagEl.textContent = fmt(costPer, 0) + ' грн/шт';
@@ -3266,11 +3211,6 @@ window.saveLastCalcForTelegram = function(calc){
   recalcBatch();
   syncVisibility();
 };
-
-
-
-
-
 
 // ========= init =========
 document.addEventListener("DOMContentLoaded", () => {

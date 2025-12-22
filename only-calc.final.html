@@ -6,152 +6,201 @@
     <title>TRIAL ONLY — Калькулятор (MVP) | MT Україна</title>
 
     <style>
-        :root{
-            --bg:#f6f7fb;
-            --card:#ffffff;
-            --text:#0f172a;
-            --muted:#475569;
-            --border:rgba(15,23,42,.12);
-            --chip:rgba(2,132,199,.10);
-            --accent:rgba(34,197,94,.18);
-            --accent2:rgba(2,132,199,.12);
-            --btn:#0f172a;
-            --btnText:#fff;
-        }
-        body.dark-theme{
-            --bg:#0b1220;
-            --card:rgba(255,255,255,.05);
-            --text:#e5e7eb;
-            --muted:#94a3b8;
-            --border:rgba(255,255,255,.12);
-            --chip:rgba(2,132,199,.18);
-            --accent:rgba(34,197,94,.18);
-            --accent2:rgba(2,132,199,.18);
-            --btn:#e5e7eb;
-            --btnText:#0b1220;
-        }
-        body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial;}
-        .wrap{max-width:1180px;margin:0 auto;padding:18px;}
-        .topbar{
-            display:flex;align-items:center;justify-content:space-between;gap:14px;
-            padding:14px 16px;border:1px solid var(--border);border-radius:18px;background:var(--card);
-            position:sticky;top:10px;z-index:20;backdrop-filter: blur(10px);
-        }
-        .brand{display:flex;align-items:center;gap:12px;}
-        .logo{width:44px;height:44px;border-radius:12px;background:var(--accent2);display:grid;place-items:center;font-weight:800;}
-        .brand h1{margin:0;font-size:16px;}
-        .brand .sub{margin:2px 0 0;color:var(--muted);font-size:12px;}
-        .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
-        .btn{
-            border:1px solid var(--border);background:var(--card);color:var(--text);
-            padding:10px 12px;border-radius:12px;cursor:pointer;font-weight:700;
-        }
-        .btn.primary{background:var(--btn);color:var(--btnText);border-color:transparent;}
-        .btn.ghost{background:transparent;}
-        .grid{display:grid;grid-template-columns:420px 1fr;gap:14px;margin-top:14px;}
-        @media(max-width:980px){.grid{grid-template-columns:1fr;}}
-        .card{border:1px solid var(--border);background:var(--card);border-radius:18px;overflow:hidden;}
-        .cardHead{padding:14px 14px 0;}
-        .cardTitle{margin:0;font-size:15px;font-weight:800;}
-        .cardSub{margin:6px 0 0;color:var(--muted);font-size:12px;}
-        .cardBody{padding:14px;}
-        .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-        label{display:block;font-weight:700;margin:0 0 6px;}
-        select{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:transparent;color:var(--text);outline:none;}
-        input[type="number"]{
-            width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);
-            background:transparent;color:var(--text);outline:none;
-        }
-        .toggles{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
-        .toggle{
-            display:flex;align-items:center;gap:8px;border:1px solid var(--border);
-            border-radius:999px;padding:8px 12px;background:transparent;
-        }
-        .chip{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 10px;background:var(--chip);color:var(--text);border:1px solid var(--border);font-size:12px;}
-        table{width:100%;border-collapse:separate;border-spacing:0;}
-        th,td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top;}
-        th{text-align:left;color:var(--muted);font-size:12px;font-weight:800;}
-        .muted{color:var(--muted);}
-        .kpi{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;}
-        .kpi .chip b{font-size:13px;}
-        .warn{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:rgba(245,158,11,.10);margin-top:10px;}
-        .ok{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--accent);margin-top:10px;}
-        .small{font-size:12px;}
-    
-/* ===== Режими клієнт/менеджер + заявка в Telegram (1:1 як eTSecutive) ===== */
-.results-mode{
-  display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px;
+:root{
+  --bg:#f4f5fb;
+  --panel:rgba(255,255,255,.80);
+  --panel2:rgba(255,255,255,.92);
+  --text:#020617;
+  --text-main:#020617;
+  --muted:rgba(2,6,23,.62);
+  --border:rgba(148,163,184,.40);
+  --border2:rgba(148,163,184,.50);
+  --chip:rgba(22,163,74,.10);
+  --accent:#16a34a;
+  --accent2:#16a34a;
+  --shadow:0 18px 45px rgba(15,23,42,.14);
+  --radius:22px;
+  --radius-sm:14px;
 }
-.btn-manager{
-  padding:10px 12px; border-radius:12px; border:1px solid rgba(148,163,184,0.35);
-  background: rgba(255,255,255,0.55); cursor:pointer; font-size:13px; font-weight:600;
-}
-.dark .btn-manager, .dark-theme .btn-manager{
-  background: rgba(15,23,42,0.6); color:#e5e7eb;
-}
-.client-summary{ margin-top:12px; }
-.client-total-card{
-  border-radius:18px; padding:14px 18px; background: rgba(22,163,74,0.06);
-  border:1px solid rgba(22,163,74,0.35);
-  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
-}
-.client-total-label{ font-size:13px; opacity:0.75; }
-.client-total-eur{ font-size:24px; font-weight:800; }
-.client-contact{
-  margin-top:12px; display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end; font-size:13px;
-}
-.client-contact-fields{ display:flex; flex-wrap:wrap; gap:8px; }
-.client-contact-fields > div{ display:flex; flex-direction:column; gap:6px; }
-.client-contact input{
-  min-width: 180px;
-  padding:10px 12px; border-radius:12px;
-  border:1px solid rgba(148,163,184,0.35);
-  background: rgba(255,255,255,0.55);
-}
-.dark .client-contact input, .dark-theme .client-contact input{
-  background: rgba(15,23,42,0.55); color:#e5e7eb;
-}
-.client-contact button{
-  padding:12px 14px; border:0; border-radius:14px;
-  background:#16a34a; color:#fff; font-weight:600; cursor:pointer; white-space:nowrap;
-}
-.client-contact button:hover{ box-shadow: 0 10px 25px rgba(22,163,74,0.45); transform: translateY(-1px); }
-        /* Таблиця не роздувається через довгий текст */
-        .spec-table {
-            table-layout: fixed;
-            width: 100%;
-        }
 
-        .spec-table th, .spec-table td {
-            vertical-align: top;
-        }
+.dark-theme{
+  --bg:#545c7d;
+  --panel:rgba(15,23,42,.65);
+  --panel2:rgba(15,23,42,.85);
+  --text:#e5e7eb;
+  --text-main:#ffffff;
+  --muted:rgba(229,231,235,.72);
+  --border:rgba(148,163,184,.22);
+  --border2:rgba(148,163,184,.32);
+  --chip:rgba(34,197,94,.12);
+  --accent:#22c55e;
+  --accent2:#16a34a;
+  --shadow:0 18px 45px rgba(0,0,0,.55);
+}
 
-        /* Колонка "Порізка / оплата" — перенос + адекватна ширина */
-        .spec-table th:nth-child(4),
-        .spec-table td:nth-child(4) {
-            width: 32%;
-            max-width: 520px;
-            white-space: normal;
-            overflow-wrap: anywhere;   /* ламає довгі шматки */
-            word-break: break-word;
-            line-height: 1.25;
-        }
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif;
+    color:var(--text);
+    background:
+            radial-gradient(
+                    1200px 800px at 20% -10%,
+                    rgba(34,197,94,.12),
+                    transparent 60%
+            ),
+            radial-gradient(
+                    1000px 700px at 80% 110%,
+                    rgba(14,165,233,.10),
+                    transparent 65%
+            ),
+            linear-gradient(
+                    180deg,
+                    #545c7d 0%,
+                    #545c7d 100%
+            );
+    background-attachment: fixed;
+}
 
-        /* Трохи підтиснемо на менших екранах */
-        @media (max-width: 1100px) {
-            .spec-table th:nth-child(4),
-            .spec-table td:nth-child(4) { width: 26%; max-width: 360px; }
-        }
-        @media (max-width: 900px) {
-            .spec-table th:nth-child(4),
-            .spec-table td:nth-child(4) { width: 22%; max-width: 280px; }
-        }
 
+
+.page{max-width:1120px;margin:0 auto;padding:28px 16px 44px}
+
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:14px 18px;border-radius:999px;
+  background:var(--panel2);border:1px solid var(--border2);
+  box-shadow:0 12px 35px rgba(15,23,42,.18);
+  backdrop-filter:blur(10px);
+  position:sticky;top:12px;z-index:20;
+}
+.dark-theme .topbar{box-shadow:0 18px 45px rgba(0,0,0,.45)}
+
+.brand{display:flex;align-items:center;gap:14px;min-width:240px}
+.logo{
+  width:42px;height:42px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;letter-spacing:.4px;
+  background:rgba(239,68,68,.92);color:#fff;
+  box-shadow:0 10px 24px rgba(239,68,68,.22);
+}
+.brand h1{margin:0;font-size:18px;line-height:1.1;color:var(--text-main)}
+.brand .sub{margin-top:3px;font-size:12px;color:var(--muted)}
+.actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+
+.btn{
+  appearance:none;border:1px solid var(--border2);
+  background:rgba(2,6,23,.04);
+  color:var(--text);
+  padding:10px 14px;border-radius:999px;
+  cursor:pointer;font-weight:700;font-size:13px;
+  transition:transform .08s ease, background .15s ease, border-color .15s ease;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.dark-theme .btn{background:rgba(15,23,42,.12)}
+.btn:hover{transform:translateY(-1px);border-color:rgba(34,197,94,.35)}
+.btn:active{transform:translateY(0)}
+.btn.primary{background:linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);border-color:transparent;color:#06210f}
+.btn.ghost{background:transparent}
+
+.grid{display:grid;grid-template-columns:420px 1fr;gap:18px;margin-top:18px}
+@media (max-width: 980px){.grid{grid-template-columns:1fr}.topbar{position:static}}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+max-width:1090px;margin:18px auto;padding:28px 16px 44px
+}
+.card h2{margin:0 0 8px 0;font-size:18px;color:var(--text-main)}
+.card .cardSub{color:var(--muted);font-size:12.5px;margin-bottom:12px}
+
+label{display:block;color:var(--muted);font-size:12px;font-weight:800;margin:12px 0 6px}
+input[type="text"], input[type="tel"], input[type="number"], select{
+  width:100%;
+  padding:10px 12px;border-radius:14px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.75);
+  color:var(--text);
+  outline:none;
+}
+.dark-theme input, .dark-theme select{background:rgba(0,0,0,.18)}
+input::placeholder{color:rgba(2,6,23,.35)}
+.dark-theme input::placeholder{color:rgba(229,231,235,.45)}
+
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width: 520px){.row2{grid-template-columns:1fr}}
+
+.toggles{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+.toggle{display:flex;align-items:center;gap:8px;border:1px solid var(--border);border-radius:999px;padding:8px 12px;background:rgba(2,6,23,.03)}
+.dark-theme .toggle{background:rgba(0,0,0,.10)}
+
+.chip{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:7px 10px;background:rgba(22,163,74,.10);color:var(--text);border:1px solid rgba(22,163,74,.25);font-size:12px}
+.dark-theme .chip{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25)}
+.kpi{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 0}
+
+.warn{
+  padding:10px 12px;border:1px solid rgba(245,158,11,.35);
+  border-radius:14px;background:rgba(245,158,11,.10);
+  margin-top:10px;color:rgba(2,6,23,.80);
+}
+.dark-theme .warn{color:rgba(255,255,255,.88)}
+
+.requestCard{
+  margin-top:14px;padding:16px;border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:linear-gradient(135deg, rgba(22,163,74,.10) 0%, rgba(14,165,233,.06) 100%);
+}
+.dark-theme .requestCard{background:linear-gradient(135deg, rgba(34,197,94,.10) 0%, rgba(14,165,233,.06) 100%)}
+.requestCard h3{margin:0 0 6px 0;color:var(--text-main);font-size:16px}
+.requestCard p{margin:0 0 10px 0;color:var(--muted);font-size:12.5px}
+.mode-row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:10px 0 8px}
+.mode-pill{padding:6px 10px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.65);font-size:12px}
+.dark-theme .mode-pill{background:rgba(0,0,0,.22)}
+.btn-sm{padding:9px 12px;border-radius:999px;font-size:12px}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px}
+@media (max-width: 980px){.contact-grid{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:separate;border-spacing:0}
+th,td{padding:10px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spacing:.2px}
+
+.spec-wrap{max-height:560px;overflow:auto;border-radius:16px;border:1px solid var(--border)}
+.spec-table{width:100%;table-layout:auto;min-width:860px}
+.spec-table td:nth-child(4), .spec-table th:nth-child(4){
+  /*width:420px;min-width:360px;*/
+  white-space:normal;word-break:break-word;overflow-wrap: break-word;line-height:1.25;
+}
+.spec-table td:nth-child(1), .spec-table th:nth-child(1){min-width:150px}
+/*.spec-table td:nth-child(2), .spec-table th:nth-child(2){min-width:260px}*/
+.spec-table td:nth-child(3), .spec-table th:nth-child(3){min-width:130px}
+.spec-table td:nth-child(5), .spec-table th:nth-child(5){min-width:110px;text-align:right}
+.spec-table td:nth-child(6), .spec-table th:nth-child(6){min-width:120px;text-align:right}
+@media (max-width: 980px){.spec-table{min-width:980px}}
+
+/* Responsive cut/pay column */
+.cutHead{min-width:320px;white-space:normal}
+.cutCell{min-width:320px;white-space:normal;line-height:1.25}
+.cutMobile{display:none;margin-top:6px}
+.small{font-size:12px}
+@media (max-width: 980px){
+  th.cutHead, td.cutCell{display:none;}
+  .cutMobile{display:block;}
+}
+
+
+/* Layout ordering: 2-column tech, then request, then spec */
+.topGrid{grid-template-columns: 1fr 1fr; align-items:start;}
+@media (max-width: 980px){.topGrid{grid-template-columns:1fr;}}
+.card.requestCard{max-width:1090px;margin:0 auto;padding:28px 16px 44px}
+/*.card + .card{margin-top:18px;}*/
 </style>
 </head>
 
 <body>
-<div class="wrap">
+<div class="page">
     <div class="topbar">
         <div class="brand">
             <div class="logo">MT</div>
@@ -166,12 +215,10 @@
         </div>
     </div>
 
-    <div class="grid">
-        <!-- INPUTS -->
-        <div class="card">
+    <div class="grid topGrid">
+<div class="card">
             <div class="cardHead">
                 <div class="cardTitle">Параметри модуля</div>
-                <div class="cardSub">Геометрія: 4 вертикалі + 2 горизонталі + опори + з’єднувачі.</div>
             </div>
             <div class="cardBody">
                 <div class="row">
@@ -194,12 +241,19 @@
                 </div>
 
                 <div style="margin-top:10px;">
-                <label for="trimEachSide">Торцювання з кожного боку (мм)</label>
-                <input id="trimEachSide" type="number" min="0" max="120" step="1" value="60">
-                <div class="small muted" style="margin-top:6px;">
-                    Торцюємо <b>палки</b> (корисна довжина = 6100 − 2×торцювання). Деталі не “коротимо”.
+                    <label for="trimEachSide">Торцювання з кожного боку (мм)</label>
+                    <input id="trimEachSide" type="number" min="0" max="120" step="1" value="60">
+                    <div class="small muted" style="margin-top:6px;">
+                        Торцюємо <b>палки</b> (корисна довжина = 6100 − 2×торцювання). Деталі не “коротимо”.
+                    </div>
                 </div>
-            </div>
+                <div style="margin-top:10px;">
+                    <label for="eurRateInput">Курс EUR → грн</label>
+                    <input id="eurRateInput" type="number" min="1" step="0.1" value="50.0">
+
+                </div>
+
+
                 <div style="margin-top:10px;">
                     <label for="colorCode">Колір профілю</label>
                     <select id="colorCode" style="width:100%;padding:10px 12px;border-radius:12px;">
@@ -215,9 +269,7 @@
 <!--                        <option value="chipboard" selected>Полиці ДСП/МДФ (робоча ширина 600–900 мм)</option>-->
                         <option value="lait">Полиці LAIT (Lite) (робоча ширина 600–1000 мм)</option>
                     </select>
-                    <div class="small muted" style="margin-top:6px;">
-                        Обмеження W — бізнес-правило для MVP-2 (за прогином полиць).
-                    </div>
+
                     <div id="wRangeWarn" class="warn small" style="display:none;margin-top:8px;"></div>
                     <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
                         <button type="button" id="openLaitBtn" class="btn">
@@ -232,11 +284,19 @@
                     <label for="shelvesCount">Кількість полиць (шт)</label>
                     <input id="shelvesCount" type="number" min="0" max="12" step="1" value="0">
                     <div class="small muted" style="margin-top:6px;">
-                        Горизонталі OL-965 = 2 (верх/низ) + N полиць. Зʼєднувачі OL-GTSI = 2 шт на 1 горизонталь.
+                        Горизонталі OL-965 = 2 (верх/низ) + N полиць. Зʼєднувачі OL-GTSI = 2 шт.
                     </div>
                 </div>
 
-                <div class="field" style="margin-top:10px;">
+                
+            </div>
+        </div>
+<div class="card">
+            <div class="cardHead">
+                <div class="cardTitle">Панелі, скло, LED</div>
+                <div class="cardSub">Панелі (25 мм), бокове/заднє скло та LED.</div>
+            </div>
+            <div class="cardBody"><div class="field" style="margin-top:10px;">
                     <label class="toggle">
                         <input id="topBottom25" type="checkbox" checked>
                         Дно + кришка (ДСП/МДФ 25 мм) — кріплення Permo
@@ -265,18 +325,40 @@
                         <option value="both">Обидві боковини (скло в паз)</option>
                     </select>
                 <div style="margin-top:10px;">
-                    <label for="buselSideGlassId">Busel: скло для боковин (4 мм)</label>
+                    <label for="glassSupplier">Постачальник скла</label>
+                    <select id="glassSupplier" style="width:100%;padding:10px 12px;border-radius:12px;">
+                        <option value="ABSTRACT" selected>Варіант A</option>
+                        <option value="BUSEL">Варіант B</option>
+                    </select>
+                </div>
+
+                <div id="abstractGlassSelectors" style="margin-top:10px;">
+                    <label for="abstractSideGlassId">Варіант A: скло для боковин (4 мм)</label>
+                    <select id="abstractSideGlassId" style="width:100%;padding:10px 12px;border-radius:12px;">
+                        <option value="ABS_FLOAT_4" selected>Float 4 мм</option>
+                        <option value="ABS_DIAMOND_4">Діамант / Extra Clear 4 мм</option>
+                        <option value="ABS_GRAPHITE_4">Графіт 4 мм</option>
+                        <option value="ABS_BRONZE_4">Бронза 4 мм</option>
+                    </select>
+                </div>
+
+                <div id="buselSideWrap" style="margin-top:10px;">
+                    <label for="buselSideGlassId">Варіант B: скло для боковин (4 мм)</label>
                     <select id="buselSideGlassId" style="width:100%;padding:10px 12px;border-radius:12px;">
                         <option value="BUSEL_FLOAT_CLEAR_4_RIZKA" selected>Float Clear 4 мм</option>
                         <option value="BUSEL_ULTRACLEAR_4_RIZKA">UltraClear 4 мм</option>
                         <option value="BUSEL_CHINA_DARKGREY_4_RIZKA">DarkGrey 4 мм</option>
                         <option value="BUSEL_PLANIBEL_BRONZE_GREY_4_RIZKA">Planibel Bronze Grey 4 мм</option>
                     </select>
-                </div>
+<!--                </div>-->
+<!--                    <select id="buselSideGlassId" style="width:100%;padding:10px 12px;border-radius:12px;">-->
+<!--                        <option value="BUSEL_FLOAT_CLEAR_4_RIZKA" selected>Float Clear 4 мм</option>-->
+<!--                        <option value="BUSEL_ULTRACLEAR_4_RIZKA">UltraClear 4 мм</option>-->
+<!--                        <option value="BUSEL_CHINA_DARKGREY_4_RIZKA">DarkGrey 4 мм</option>-->
+<!--                        <option value="BUSEL_PLANIBEL_BRONZE_GREY_4_RIZKA">Planibel Bronze Grey 4 мм</option>-->
+<!--                    </select>-->
+<!--                </div>-->
 
-                    <div class="small muted" style="margin-top:6px;">
-                        MVP-3+: рахуємо площу бокового скла 4 мм за каталогом. PIATTO додаються автоматично (по секціях).
-                    </div>
                 </div>
 
                 <div class="toggles">
@@ -287,7 +369,18 @@
                         <option value="glass6" selected>Скло 6 мм (в паз) — з ущільнювачем GU-C-RG</option>
                     </select>
                 <div class="toggles" style="margin-top:10px;">
-                    <label for="buselBackGlassId">Busel: скло для спинки (6 мм)</label>
+                    <div id="abstractBackWrap" class="toggles" style="margin-top:10px;">
+                    <label for="abstractBackGlassId">Варіант A: скло для спинки (6 мм)</label>
+                    <select id="abstractBackGlassId" style="width:100%;padding:10px 12px;border-radius:12px;">
+                        <option value="ABS_FLOAT_6" selected>Float 6 мм</option>
+                        <option value="ABS_DIAMOND_6">Діамант / Extra Clear 6 мм</option>
+                        <option value="ABS_GRAPHITE_6">Графіт 6 мм</option>
+                        <option value="ABS_BRONZE_6">Бронза 6 мм</option>
+                    </select>
+                </div>
+
+                <div id="buselBackWrap" class="toggles" style="margin-top:10px;">
+                    <label for="buselBackGlassId">Варіант B: скло для спинки (6 мм)</label>
                     <select id="buselBackGlassId" style="width:100%;padding:10px 12px;border-radius:12px;">
                         <option value="BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA" selected>Float Clear 6 мм</option>
                         <option value="BUSEL_ULTRACLEAR_6_RIZKA">UltraClear 6 мм</option>
@@ -303,91 +396,82 @@
                 </div>
 
                 <div class="warn small">
-                    ⚠️ MVP: скло (розміри) та електрика LED не рахуються. IKS/LAIT — окремо.<br/>
-                    ✅ Оплата профілю BAR: <b>0.5 палки</b> якщо використано ≤ половини корисної довжини, інакше <b>1 палка</b>.
+                    ⚠️ Електрика LED не рахуються. IKS/LAIT — окремо.<br/>
                 </div>
 
-                <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
-                    <button class="btn primary" id="btnCalc">Розрахувати</button>
-                    <button class="btn" id="btnCsv">Завантажити CSV</button>
-                </div>
-
-<!--                <div class="ok small">-->
-<!--                    Прайс/ціни беруться з <b>only.data.json</b> (EUR).-->
-<!--                </div>-->
+                   
+                    
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+  <button class="btn primary" id="btnCalc">Розрахувати</button>
+  <button class="btn" id="btnCsv">Завантажити CSV</button>
+</div>
             </div>
         </div>
 
-
-
-                <!-- 🔁 Режим + контакти (як у eTSecutive) -->
-<!--                <div class="results-mode">-->
-<!--                  <span id="currentModeLabel">Режим: клієнт</span>-->
-<!--                  <button type="button" class="btn-manager" id="managerToggleBtn">Менеджер</button>-->
-<!--                </div>-->
-
-                <div id="clientSummary" class="client-summary" style="display:none;">
-                  <div class="client-total-card">
-                    <div>
-                      <div class="client-total-label">Орієнтовна вартість</div>
-                      <div class="client-total-eur"><span id="clientTotalEur">0.00</span> €</div>
-                    </div>
-                    <div class="client-total-extra">або <span id="clientTotalUah">0</span> грн</div>
-                  </div>
-
-                  <div class="client-contact">
-                    <div class="client-contact-fields">
-                      <div><label>Імʼя</label><input id="contactFirstName" placeholder="Ім'я"></div>
-                      <div><label>Прізвище</label><input id="contactLastName" placeholder=""></div>
-                      <div><label>Телефон</label><input id="contactPhone" placeholder="0XXXXXXXXX"></div>
-                    </div>
-
-                    <button type="button" id="sendToTelegramBtn">Надіслати заявку в MT × Systems</button>
-                  </div>
-                    <div class="results-mode">
-                        <span id="currentModeLabel">Режим: клієнт</span>
-                        <button type="button" class="btn-manager" id="managerToggleBtn">Менеджер</button>
-                    </div>
-
-                    <!-- OUTPUT -->
-                    <div class="card">
-                        <div class="cardHead">
-                            <div class="cardTitle">Специфікація</div>
-                            <div class="cardSub">Порізка по палках + оплата 0.5/1 + сума €.</div>
-                        </div>
-                        <div class="cardBody">
-                            <div id="managerDetails" style="display:none;">
-                                <div class="kpi" id="kpi"></div>
-
-                                <div style="overflow:auto;margin-top:10px;">
-                                    <table  class="spec-table" id="tbl">
-                                        <thead>
-                                        <tr>
-                                            <th>Код</th>
-                                            <th>Найменування</th>
-                                            <th>Деталі</th>
-                                            <th>Порізка / Оплата</th>
-                                            <th>Ціна (€)</th>
-                                            <th>Сума (€)</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-
-                                <div class="small muted" style="margin-top:10px;">
-                                    BAR-рядки рахуються як: <b>ціна палки × (0.5 або 1)</b> по кожній палці, на основі фактичного використання.
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+        
+            </div>
+        </div>
 </div>
 
+<div class="card requestCard">
+  <h3 style="margin:0 0 6px 0;">Орієнтовна вартість + заявка</h3>
+  <div class="small muted">Після «Розрахувати» сума оновиться, далі можна одразу надіслати в Telegram.</div>
 
-    <!-- /#managerDetails -->
+  <div class="mode-row">
+    <div class="mode-pill" id="currentModeLabel">Режим: клієнт</div>
+    <button class="btn btn-sm" id="managerToggleBtn" type="button">Менеджер</button>
+  </div>
+
+  <div class="contact-grid">
+    <div>
+      <div class="small muted">Імʼя</div>
+      <input id="contactFirstName" placeholder="Імʼя">
+    </div>
+    <div>
+      <div class="small muted">Прізвище</div>
+      <input id="contactLastName" placeholder="">
+    </div>
+    <div>
+      <div class="small muted">Телефон</div>
+      <input id="contactPhone" placeholder="0XXXXXXXXX">
+    </div>
+  </div>
+
+  <button class="btn primary" style="margin-top:12px;" id="sendToTelegramBtn" type="button">
+    Надіслати заявку в MT × Systems
+  </button>
+  <div class="small muted" style="margin-top:8px;">В менеджер-режимі видно повну специфікацію.</div>
+</div>
+
+<div class="card">
+            <div class="cardHead">
+                <div class="cardTitle">Специфікація</div>
+                <div class="cardSub">Порізка по палках + оплата 0.5/1 + сума €.</div>
+            </div>
+            <div class="cardBody">
+                <div class="kpi" id="kpi"></div>
+
+                <div style="overflow:auto;margin-top:10px;">
+                    <div class="spec-wrap"><table id="tbl" class="spec-table"><colgroup><col style="width:160px"><col style="width:280px"><col style="width:140px"><col style="width:420px"><col style="width:120px"><col style="width:130px"></colgroup>
+                        <thead>
+                        <tr>
+                            <th>Код</th>
+                            <th>Найменування</th>
+                            <th>Деталі</th>
+                            <th class="cutHead">Порізка / Оплата</th>
+                            <th>Ціна (€)</th>
+                            <th>Сума (€)</th>
+                        </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table></div>
+                </div>
+
+                <div class="small muted" style="margin-top:10px;">
+                    BAR-рядки рахуються як: <b>ціна палки × (0.5 або 1)</b> по кожній палці, на основі фактичного використання.
+                </div>
+            </div>
+        </div>
 </div>
 
 <script src="./glass-engine.busel.v3.js"></script>
@@ -397,7 +481,7 @@
   if (window.GlassEngine && typeof GlassEngine.setBuselConfig === "function") {
     GlassEngine.setBuselConfig({
       tempered: true,
-      eurRate: 49.50,
+      eurRate: 50.0,
       minAreaM2: 0.25,
       temperMinFloatUAH: 750,
       temperMinOtherUAH: 999,
@@ -424,6 +508,84 @@
         BUSEL = await res.json();
         return BUSEL;
     }
+
+    // ===== AbstractGlass price list (UAH) =====
+    let ABSTRACT = null;
+
+    async function loadAbstract() {
+        if (ABSTRACT) return ABSTRACT;
+        const res = await fetch('./only.abstract.glass.v1.json', { cache: 'no-store' });
+        if (!res.ok) throw new Error(`AbstractGlass JSON HTTP ${res.status}`);
+        ABSTRACT = await res.json();
+        return ABSTRACT;
+    }
+
+    function abstractFindGlassItem(abs, id){
+        return abs?.glass_items?.find(x => x.id === id) || null;
+    }
+
+    function abstractEdgePolishPerLm(abs, thicknessMm){
+        const map = abs?.services?.edge_polish?.pricePerLm_uah || {};
+        return (thicknessMm === 6) ? (map.THK_6 || 0) : (map.THK_3_4_5 || 0);
+    }
+
+    function abstractTemperingPerM2(abs, thicknessMm){
+        const map = abs?.services?.tempering?.pricePerM2_uah || {};
+        if (thicknessMm === 4) return map.THK_4 || 0;
+        if (thicknessMm === 5) return map.THK_5 || 0;
+        if (thicknessMm === 6) return map.THK_6 || 0;
+        return 0;
+    }
+
+    function abstractMarkup(abs){
+        return Number(abs?.commercial_rules?.abstract_markup_multiplier || 1.15) || 1.15;
+    }
+
+    function perimeterM(wMm, hMm){
+        return (2 * ((Number(wMm)||0) + (Number(hMm)||0))) / 1000;
+    }
+
+    function calcAbstractForPanel({ wMm, hMm, qty, thicknessMm, glassItemId, abs }){
+        const absData = abs || ABSTRACT;
+        if (!absData) return null;
+        const item = abstractFindGlassItem(absData, glassItemId);
+        if (!item) return null;
+
+        const q = Math.max(1, Math.floor(Number(qty)||1));
+        const area = Math.max(0, (Number(wMm)||0) * (Number(hMm)||0)) / 1e6; // m² per piece
+        const totalArea = area * q;
+        const edgeLm = perimeterM(wMm, hMm) * q;
+
+        const matUAH = totalArea * (Number(item.pricePerM2_uah)||0);
+
+        const edgeUAH = edgeLm * abstractEdgePolishPerLm(absData, thicknessMm);
+
+        // AbstractGlass: tempering modeled as separate service; for ONLY беремо як tempered=ON
+        const tempUAH = totalArea * abstractTemperingPerM2(absData, thicknessMm);
+
+        const netUAH = (matUAH + edgeUAH + tempUAH) * abstractMarkup(absData);
+
+        return {
+            q, areaPerPiece: area, totalArea, edgeLm,
+            matUAH, edgeUAH, tempUAH, netUAH,
+            item
+        };
+    }
+
+    // ===== Glass supplier UI =====
+    function updateGlassSupplierUI(){
+        const supSel = document.getElementById("glassSupplier");
+        const sup = supSel ? supSel.value : "ABSTRACT";
+        const absA = document.getElementById("abstractGlassSelectors");
+        const absB = document.getElementById("abstractBackWrap");
+        const busA = document.getElementById("buselSideWrap");
+        const busB = document.getElementById("buselBackWrap");
+        if (absA) absA.style.display = (sup === "ABSTRACT") ? "" : "none";
+        if (absB) absB.style.display = (sup === "ABSTRACT") ? "" : "none";
+        if (busA) busA.style.display = (sup === "BUSEL") ? "" : "none";
+        if (busB) busB.style.display = (sup === "BUSEL") ? "" : "none";
+    }
+
 
     function buselFindGlassItem(busel, id){
         return busel?.glass_items?.find(x => x.id === id) || null;
@@ -567,7 +729,8 @@
 
     // ====== build spec ======
     function buildSpec(db, opts) {
-        const { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, frameMode, topBottom25, busel } = opts;
+        const { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, glassSupplier, abstractSideGlassId, abstractBackGlassId, buselBackGlassId, buselSideGlassId, eurRate, abstract, frameMode, topBottom25, busel } = opts;
+        const EUR_RATE = (Number(eurRate) && Number(eurRate)>0) ? Number(eurRate) : 50.0;
         const barLen = db.defaults?.bar_length_mm || 6100;
         const kerfMm = 0; // фіксуємо 0, щоб не плодити помилки
 
@@ -617,7 +780,7 @@
             if (!busel) return null;
 
             const cfg = GlassEngine.BUSEL_CFG || {};
-            const eurRate = Number(cfg.eurRate) || 49.5;
+            const eurRate = Number(cfg.eurRate) || 50.0;
 
             const item = buselFindGlassItem(busel, glassItemId);
             if (!item) throw new Error(`Busel: не знайдено glass_item id=${glassItemId}`);
@@ -698,11 +861,11 @@
         if (frameMode) {
             // На кожну рамку: 2 (верх/низ) + N полиць
             nHor = (2 + nShelves) * numFrames;
-            addRow(horId, nHor, D);
+            addRow(horId, nHor, spanW);
         } else {
             // базовий MVP-2: 2 (верх/низ) + N полиць (на модуль)
             nHor = 2 + nShelves;
-            addRow(horId, nHor, D);
+            addRow(horId, nHor, W);
         }
 
         // Опори (по 1 на вертикаль)
@@ -895,17 +1058,31 @@
 
             addMaterialM2("GLASS_6_MM2", rearAreaM2, "Скло 6 мм (м²)",
                 `Спинка скло 6 мм: ${sectionsCount}×(Lv+11)×(H-38) = ${backW}×${backH} мм → ${eur(rearAreaM2)} м²`);
-            // === Busel v3 price for back glass 6mm (tempered) ===
-            const b6 = calcBuselForPanel({ wMm: backW, hMm: backH, qty: sectionsCount, thicknessMm: 6, glassItemId: (opts.buselBackGlassId || "BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA"), temperMinType: "float" });
-            if (b6){
-                const sumEur6 = b6.mtRetailUAH / Math.max(0.0001, b6._eurRate);
-                const effEurM26 = sumEur6 / Math.max(0.0001, (b6.billingArea * b6.qty));
-                setRowPriceByCode(
-                    "GLASS_6_MM2",
-                    effEurM26,
-                    sumEur6,
-                    `Busel v3 гарт.: ${b6.qty} шт · bill=${b6.billingArea.toFixed(3)} м²/шт · kArea=${b6.kArea} · kBatch=${b6.kBatch} · min=${b6.temperMinUAH} грн`
-                );
+            // === Glass price for back glass 6mm (tempered) ===
+            if (glassSupplier === "BUSEL") {
+                const b6 = calcBuselForPanel({ wMm: backW, hMm: backH, qty: sectionsCount, thicknessMm: 6, glassItemId: (buselBackGlassId || "BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA"), temperMinType: "float" });
+                if (b6){
+                    const sumEur6 = b6.mtRetailUAH / Math.max(0.0001, b6._eurRate);
+                    const effEurM26 = sumEur6 / Math.max(0.0001, (b6.billingArea * b6.qty));
+                    setRowPriceByCode(
+                        "GLASS_6_MM2",
+                        effEurM26,
+                        sumEur6,
+                        `Busel v3 гарт.: ${b6.qty} шт · bill=${b6.billingArea.toFixed(3)}м² · kArea=${b6.kArea} · kBatch=${b6.kBatch} · min=${b6.temperMinUAH} грн`
+                    );
+                }
+            } else {
+                const a6 = calcAbstractForPanel({ wMm: backW, hMm: backH, qty: sectionsCount, thicknessMm: 6, glassItemId: (abstractBackGlassId || "ABS_FLOAT_6"), abs: abstract });
+                if (a6){
+                    const sumEur6 = a6.netUAH / Math.max(0.0001, EUR_RATE);
+                    const effEurM26 = sumEur6 / Math.max(0.0001, a6.totalArea);
+                    setRowPriceByCode(
+                        "GLASS_6_MM2",
+                        effEurM26,
+                        sumEur6,
+                        `Abstract гарт.+полір.: ${a6.q} шт · A=${a6.totalArea.toFixed(3)}м² · L=${a6.edgeLm.toFixed(2)}м`
+                    );
+                }
             }
 
         }
@@ -931,19 +1108,32 @@
                 "Скло 4 мм (м²)",
                 `Розмір 1 шт: ${sideH.toFixed(1)}×${sideW.toFixed(1)} мм · К-сть: ${pieces} шт · Разом: ${eur(sideAreaM2)} м²`
             );
-            // === Busel v3 price for side glass 4mm (tempered) ===
-            const b4 = calcBuselForPanel({ wMm: sideW, hMm: sideH, qty: pieces, thicknessMm: 4, glassItemId: (opts.buselSideGlassId || "BUSEL_FLOAT_CLEAR_4_RIZKA"), temperMinType: "float" });
-            if (b4){
-                const sumEur4 = b4.mtRetailUAH / Math.max(0.0001, b4._eurRate);
-                const effEurM24 = sumEur4 / Math.max(0.0001, (b4.billingArea * b4.qty));
-                setRowPriceByCode(
-                    "GLASS_4_MM2",
-                    effEurM24,
-                    sumEur4,
-                    `Busel v3 гарт.: ${b4.qty} шт · bill=${b4.billingArea.toFixed(3)} м²/шт · kArea=${b4.kArea} · kBatch=${b4.kBatch} · min=${b4.temperMinUAH} грн`
-                );
+            // === Glass price for side glass 4mm (tempered) ===
+            if (glassSupplier === "BUSEL") {
+                const b4 = calcBuselForPanel({ wMm: sideW, hMm: sideH, qty: pieces, thicknessMm: 4, glassItemId: (buselSideGlassId || "BUSEL_FLOAT_CLEAR_4_RIZKA"), temperMinType: "float" });
+                if (b4){
+                    const sumEur4 = b4.mtRetailUAH / Math.max(0.0001, b4._eurRate);
+                    const effEurM24 = sumEur4 / Math.max(0.0001, (b4.billingArea * b4.qty));
+                    setRowPriceByCode(
+                        "GLASS_4_MM2",
+                        effEurM24,
+                        sumEur4,
+                        `Busel v3 гарт.: ${b4.qty} шт · bill=${b4.billingArea.toFixed(3)}м² · kArea=${b4.kArea} · kBatch=${b4.kBatch} · min=${b4.temperMinUAH} грн`
+                    );
+                }
+            } else {
+                const a4 = calcAbstractForPanel({ wMm: sideW, hMm: sideH, qty: pieces, thicknessMm: 4, glassItemId: (abstractSideGlassId || "ABS_FLOAT_4"), abs: abstract });
+                if (a4){
+                    const sumEur4 = a4.netUAH / Math.max(0.0001, EUR_RATE);
+                    const effEurM24 = sumEur4 / Math.max(0.0001, a4.totalArea);
+                    setRowPriceByCode(
+                        "GLASS_4_MM2",
+                        effEurM24,
+                        sumEur4,
+                        `Abstract гарт.+полір.: ${a4.q} шт · A=${a4.totalArea.toFixed(3)}м² · L=${a4.edgeLm.toFixed(2)}м`
+                    );
+                }
             }
-
 
             // ✅ PIATTO — 1 шт на кожну боковину (тобто на кожну деталь)
             addMaterialPCS("PIATTO_25x2",  pieces, "Пластина PIATTO-25x2",  "1 шт на боковину (по секціях)", "ONLY");
@@ -1026,12 +1216,12 @@
                 (r.note ? `<div class="muted small">${r.note}</div>` : "") +
                 ((r.sell_type === "BAR" && r.pieceLenMm)
                     ? `<div class="muted small">${eur(r.qtyPay || 0)} пал. до оплати</div>`
-                    : "");
+                    : "") + ((r.cutInfo && r.cutInfo !== "—") ? `<div class="cutMobile muted small">${r.cutInfo}</div>` : "");
             tr.innerHTML = `
         <td><b>${r.code || r.id}</b></td>
         <td>${(r.name || r.name_ua || '')}<div class="muted small">${r.unit}</div></td>
         <td>${detailsCell}</td>
-        <td class="muted">${r.cutInfo || '—'}</td>
+        <td class="cutCell">${r.cutInfo || '—'}</td>
         <td>${eur(r.priceEur)}</td>
         <td><b>${eur(r.sumEur || 0)}</b></td>
       `;
@@ -1127,10 +1317,11 @@
         return W / spansCount;
     }
      function getEurRateSafe(){
-        // у ONLY EUR-курса немає як інпута (ціни в EUR з only.data.json),
-        // тому беремо з localStorage (якщо є) або дефолт 49.5
-        const v = Number(localStorage.getItem('eurRate') || 49.5);
-        return Number.isFinite(v) ? v : 49.5;
+        // беремо курс з інпута (якщо є), інакше localStorage, інакше 50.0
+        const domVal = Number(document.getElementById('eurRateInput')?.value);
+        if (Number.isFinite(domVal) && domVal > 0) return domVal;
+        const v = Number(localStorage.getItem('eurRate') || 50.0);
+        return Number.isFinite(v) ? v : 50.0;
     }
      function openLaitCalcFromOnly(){
         const W = parseFloat(document.getElementById('W').value || '0');
@@ -1145,7 +1336,7 @@
         const Lv = getSectionClearWidthMm(W, spansCount);
         const eurRate = getEurRateSafe();
          const url =
-            `lait-lite.html` +
+            `lait-lite.backup.html` +
             `?eur=${encodeURIComponent(eurRate.toFixed(2))}` +
             `&len=${encodeURIComponent(Math.round(Lv))}` +
             `&dep=${encodeURIComponent(Math.round(D))}` +
@@ -1200,6 +1391,8 @@
     document.getElementById('D')?.addEventListener('input', updateLaitUI);
     document.getElementById('frameMode')?.addEventListener('change', updateLaitUI);
      updateLaitUI();
+    document.getElementById('glassSupplier')?.addEventListener('change', updateGlassSupplierUI);
+    updateGlassSupplierUI();
 })();
 
 
@@ -1207,14 +1400,25 @@
     async function calculate() {
         const db = await loadDB();
         const busel = await loadBusel();
+        const abstract = await loadAbstract();
+        updateGlassSupplierUI();
         const H = Number(document.getElementById('H').value);
         const W = Number(document.getElementById('W').value);
         const D = Number(document.getElementById('D').value);
+        const eurRate = Number(document.getElementById('eurRateInput')?.value || localStorage.getItem('eurRate') || 50.0);
+        try { localStorage.setItem('eurRate', String(eurRate)); } catch(e) {}
+
+        // Sync Busel engine config with current EUR rate
+        if (window.GlassEngine && typeof GlassEngine.setBuselConfig === "function") {
+            const prev = GlassEngine.BUSEL_CFG || {};
+            GlassEngine.setBuselConfig({ ...prev, eurRate: eurRate });
+        }
+
         const trimEachSide = Number(document.getElementById('trimEachSide').value || 0);
         const backPanelType = document.getElementById('backPanelType').value; // none | opaque8 | glass6
         const buselBackGlassId = document.getElementById('buselBackGlassId')?.value || "BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA";
         const buselSideGlassId = document.getElementById('buselSideGlassId')?.value || "BUSEL_FLOAT_CLEAR_4_RIZKA";
-        const isLed = document.getElementById('isLed').checked;
+        const isLed = (document.getElementById('isLed')?.checked ?? false);
         const colorCode = document.getElementById('colorCode').value;
 
         // ===== LAIT handoff (ONLY -> LAIT Lite) =====
@@ -1227,14 +1431,17 @@ if (!H || !W || !D) throw new Error("Заповни H/W/D.");
         const shelfType = document.getElementById('shelfType').value;
         const shelvesCount = Number(document.getElementById('shelvesCount').value || 0);
         const sideGlass = document.getElementById('sideGlass').value;
+        const glassSupplier = (document.getElementById('glassSupplier')?.value) || 'ABSTRACT';
+        const abstractSideGlassId = (document.getElementById('abstractSideGlassId')?.value) || 'ABS_FLOAT_4';
+        const abstractBackGlassId = (document.getElementById('abstractBackGlassId')?.value) || 'ABS_FLOAT_6';
 
-        const frameMode = document.getElementById('frameMode').checked;
+        const frameMode = (document.getElementById('frameMode')?.checked ?? false);
         const topBottom25 = document.getElementById('topBottom25')?.checked ?? true;
 
         updateWRangeUI(W, shelfType, frameMode);
 
-        const spec = buildSpec(db, { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, buselBackGlassId, buselSideGlassId, frameMode, topBottom25, busel });
-// + LAIT total (якщо є з lait-lite.backup.html)
+        const spec = buildSpec(db, { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, glassSupplier, buselBackGlassId, buselSideGlassId, abstractBackGlassId, abstractSideGlassId, frameMode, topBottom25, busel, abstract, eurRate });
+// + LAIT total (якщо є з lait-lite.html)
 try {
     const laitAdd = window.__addLaitTotalRowIfAny ? window.__addLaitTotalRowIfAny(spec.items) : 0;
     if (laitAdd) {
@@ -1245,25 +1452,7 @@ try {
 }
 
         window.__onlySpec = spec;
-
         render(spec);
-
-        // --- totals for client block + Telegram ---
-        const rate = eurRateValue();
-        lastCalc = {
-          items: spec.items || [],
-          totalEur: Number(spec.totalEur || 0),
-          totalUah: Number(spec.totalEur || 0) * rate
-        };
-
-        const eurEl = document.getElementById("clientTotalEur");
-        const uahEl = document.getElementById("clientTotalUah");
-        if (eurEl) eurEl.textContent = lastCalc.totalEur.toFixed(2);
-        if (uahEl) uahEl.textContent = Math.round(lastCalc.totalUah).toString();
-
-        if (clientSummaryEl) clientSummaryEl.style.display = "block";
-        if (currentMode !== "manager") setMode("client");
-
     }
 
     document.getElementById('btnCalc').addEventListener('click', () => {
@@ -1278,7 +1467,7 @@ try {
 
         // auto recalc on input change
     [
-        "H","W","D","trimEachSide",
+        "H","W","D","eurRateInput","trimEachSide",
         "backPanelType","buselBackGlassId",
         "sideGlass","buselSideGlassId",
         "isLed","colorCode",
@@ -1292,122 +1481,106 @@ try {
     });
 
 
-
-    // ====== Режим (клієнт/менеджер) + Telegram (1:1 як eTSecutive) ======
-    let currentMode = "client";        // client | manager
-    let managerUnlocked = false;
-    let lastCalc = null;
-
-    const managerToggleBtn = document.getElementById("managerToggleBtn");
-    const currentModeLabel = document.getElementById("currentModeLabel");
-    const managerDetailsEl = document.getElementById("managerDetails");
-    const clientSummaryEl  = document.getElementById("clientSummary");
-
-    const contactFirstName = document.getElementById("contactFirstName");
-    const contactLastName  = document.getElementById("contactLastName");
-    const contactPhone     = document.getElementById("contactPhone");
-    const sendToTelegramBtn= document.getElementById("sendToTelegramBtn");
-
-    const TELEGRAM_FORM_SECRET = "mtx-volpato-2025";
-    const EUR_RATE_FALLBACK = 49.50;
-
-    function eurRateValue(){
-      // якщо десь зʼявиться інпут eurRate — підхопимо автоматом
-      const el = document.getElementById("eurRate");
-      const v = el ? Number(el.value || 0) : 0;
-      return (v && v > 0) ? v : (window.__EUR_RATE || EUR_RATE_FALLBACK);
-    }
-
-    function setMode(mode){
-      currentMode = mode;
-      currentModeLabel.textContent = (mode === "manager") ? "Режим: менеджер" : "Режим: клієнт";
-      if (managerDetailsEl) managerDetailsEl.style.display = (mode === "manager") ? "block" : "none";
-      if (clientSummaryEl)  clientSummaryEl.style.display  = lastCalc ? "block" : "none";
-    }
-
-    function getCurrentModeLabel(){
-      return (currentMode === "manager") ? "менеджер" : "клієнт";
-    }
-
-    if (managerToggleBtn){
-      managerToggleBtn.addEventListener("click", () => {
-        if (!managerUnlocked){
-          const pwd = prompt("Введіть пароль менеджера");
-          if (pwd !== "603"){ alert("Невірний пароль"); return; }
-          managerUnlocked = true;
-        }
-        setMode("manager");
-      });
-    }
-
-    function collectCSVForTelegram(){
-      if (!lastCalc?.items) return "";
-      return lastCalc.items
-        .filter(it => (it.qtyPieces ?? it.qty ?? 0) > 0)
-        .map(it => {
-          const qty = (it.qtyPieces ?? it.qty ?? 0);
-          const price = (it.priceEur ?? it.price ?? 0);
-          const sum = (it.sumEur ?? it.sum ?? (qty * price));
-          const code = it.code || it.id || "";
-          const name = it.name || "";
-          return `${code}; ${name}; ${qty}; ${Number(price).toFixed(2)}; ${Number(sum).toFixed(2)}`;
-        })
-        .join("\n");
-    }
-
-    async function sendCalculationToTelegram(){
-      if (!lastCalc){ alert("Спочатку зробіть розрахунок"); return; }
-
-      const firstName = (contactFirstName?.value || "").trim();
-      const lastName  = (contactLastName?.value  || "").trim();
-      const phone     = (contactPhone?.value     || "").trim();
-
-      if (!firstName){ alert("Вкажіть імʼя"); return; }
-      if (!/^0\d{9}$/.test(phone)){ alert("Телефон у форматі 0XXXXXXXXX"); return; }
-
-      const H = document.getElementById("H")?.value || "-";
-      const W = document.getElementById("W")?.value || "-";
-      const D = document.getElementById("D")?.value || "-";
-
-      const textSummary = [
-        "📨 Нова заявка: ONLY",
-        "",
-        `👤 ${firstName} ${lastName}`.trim(),
-        `📞 ${phone}`,
-        "",
-        `🔁 Режим: *${getCurrentModeLabel()}*`,
-        "",
-        `Габарити: *${W}×${H}×${D} мм*`,
-        "",
-        `💰 Сума: *${lastCalc.totalEur.toFixed(2)} €* (~ *${Math.round(lastCalc.totalUah)} грн*)`
-      ].join("\n");
-
-      const csv = collectCSVForTelegram();
-      const textCsv = "```\nКод; Назва; Кількість; Ціна €/од; Сума €\n" + csv + "\n```";
-
-      await fetch("https://mt-volpato.vercel.app/api/telegram", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ secret: TELEGRAM_FORM_SECRET, text: textSummary })
-      });
-
-      await fetch("https://mt-volpato.vercel.app/api/telegram", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ secret: TELEGRAM_FORM_SECRET, text: textCsv })
-      });
-
-      alert("Заявку відправлено ✅");
-    }
-
-    if (sendToTelegramBtn){
-      sendToTelegramBtn.addEventListener("click", sendCalculationToTelegram);
-    }
-
-
     // initial
-    setMode('client');
     calculate().catch(e=>{ console.error(e); alert(e?.message || String(e)); });
+
+    // ===== Client / Manager mode + Telegram =====
+    let currentMode = localStorage.getItem("ONLY_MODE") || "client";
+
+    const elModeLabel = document.getElementById("currentModeLabel");
+    const elManagerBtn = document.getElementById("managerToggleBtn");
+    const elManagerDetails = document.getElementById("managerDetails");
+    const elClientSummary = document.getElementById("clientSummary");
+
+    function applyModeUI(){
+        const isManager = currentMode === "manager";
+        if (elModeLabel) elModeLabel.textContent = "Режим: " + (isManager ? "менеджер" : "клієнт");
+        if (elManagerBtn) elManagerBtn.textContent = isManager ? "Клієнт" : "Менеджер";
+        if (elManagerDetails) elManagerDetails.style.display = isManager ? "" : "none";
+        if (document.getElementById("btnCsv")) document.getElementById("btnCsv").style.display = isManager ? "" : "none";
+    }
+
+    if (elManagerBtn){
+        elManagerBtn.addEventListener("click", () => {
+            currentMode = (currentMode === "manager") ? "client" : "manager";
+            localStorage.setItem("ONLY_MODE", currentMode);
+            applyModeUI();
+        });
+    }
+
+    // Keep a lightweight summary for client
+    function updateClientSummary(spec){
+        if(!elClientSummary) return;
+        if(!spec){ elClientSummary.textContent = "Натисни «Розрахувати» — тут буде підсумок."; return; }
+        const eurRate = Number(document.getElementById("eurRateInput")?.value || 50);
+        const totalUah = Math.round((spec.totalEur || 0) * eurRate);
+        elClientSummary.innerHTML = `Разом: <b>${(spec.totalEur||0).toFixed(2)} €</b> (~ <b>${totalUah.toLocaleString('uk-UA')} грн</b>) · H=${spec.H} · W=${spec.W} · D=${spec.D}`;
+    }
+
+    // Telegram send
+    const TELEGRAM_API_URL = "https://mt-volpato.vercel.app/api/telegram";
+    const TELEGRAM_FORM_SECRET = "mtx-volpato-2025"; // <-- якщо у файлі вже є секрет — заміни на нього
+
+    async function sendToTelegram(){
+        const spec = window.__onlySpec;
+        if(!spec) return alert("Спочатку натисни «Розрахувати».");
+        const firstName = (document.getElementById("contactFirstName")?.value || "").trim();
+        const lastName  = (document.getElementById("contactLastName")?.value || "").trim();
+        const phone     = (document.getElementById("contactPhone")?.value || "").trim();
+        const eurRate   = Number(document.getElementById("eurRateInput")?.value || 50);
+
+        const totalUah = Math.round((spec.totalEur || 0) * eurRate);
+
+        const modeLine = (currentMode === "manager") ? "*менеджер*" : "*клієнт*";
+        const contactLine = `👤 ${firstName || "—"} ${lastName || ""}\n📞 ${phone || "—"}`;
+
+        const glassLine = `🪟 Скло: ${document.getElementById("glassSupplier")?.value || "—"}`;
+
+        let text = `📨 Нова заявка: ONLY\n\n${contactLine}\n\n🔁 Режим: ${modeLine}\n\nГабарити: *${spec.W}×${spec.H}×${spec.D} мм*\n${glassLine}\n\n💰 Сума: *${(spec.totalEur||0).toFixed(2)} €* (~ *${totalUah.toLocaleString('uk-UA')} грн*)\n\n`;
+
+        // CSV-like lines
+        text += "```\nКод; Назва; Кількість; Ціна €/од; Сума €\n";
+        for(const r of (spec.items||[])){
+            const code = (r.code||"").toString();
+            const name = (r.name||"").toString().replace(/\s+/g," ").trim();
+            const qty  = (r.qtyPieces ?? r.qty ?? "").toString();
+            const p    = (r.priceEur ?? "").toString();
+            const s    = (r.sumEur ?? "").toString();
+            text += `${code}; ${name}; ${qty}; ${p}; ${s}\n`;
+        }
+        text += "```";
+
+        const payload = { secret: TELEGRAM_FORM_SECRET, text };
+
+        const res = await fetch(TELEGRAM_API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        if(!res.ok){
+            const t = await res.text().catch(()=> "");
+            throw new Error("Telegram error: " + res.status + " " + t);
+        }
+        alert("Заявку надіслано ✅");
+    }
+
+    const sendBtn = document.getElementById("sendToTelegramBtn");
+    if(sendBtn){
+        sendBtn.addEventListener("click", () => {
+            sendToTelegram().catch(err => alert(err.message || String(err)));
+        });
+    }
+
+    // Hook into render to refresh client summary
+    const __renderOrig = render;
+    render = function(spec){
+        __renderOrig(spec);
+        updateClientSummary(spec);
+        applyModeUI();
+    };
+
+    applyModeUI();
+
 </script>
 </body>
 </html>

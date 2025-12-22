@@ -2401,14 +2401,36 @@
         if (summaryEl && summaryText) summaryEl.textContent = summaryText;
 
         // === handoff back to ONLY (ЗАВЖДИ ФІНАЛЬНІ ЦИФРИ) ===
-        localStorage.setItem("ONLY_LAIT_TOTAL_EUR", totalEur.toFixed(2));
-        localStorage.setItem("ONLY_LAIT_TOTAL_UAH", totalUah.toFixed(2));
-        localStorage.setItem("ONLY_LAIT_META", JSON.stringify({
+        // localStorage.setItem("ONLY_LAIT_TOTAL_EUR", totalEur.toFixed(2));
+        localStorage.setItem("ET_LAIT_TOTAL_EUR", totalEur.toFixed(2));
+        // localStorage.setItem("ONLY_LAIT_TOTAL_UAH", totalUah.toFixed(2));
+        localStorage.setItem("ET_LAIT_TOTAL_UAH", totalUah.toFixed(2));
+        // localStorage.setItem("ONLY_LAIT_META", JSON.stringify({
+        //     lenMm: Number(window.lengthMm),
+        //     depMm: Number(window.depthMm),
+        //     qty: Number(window.quantity),
+        //     ts: Date.now()
+        // }));
+
+        
+        localStorage.setItem("ET_LAIT_META", localStorage.getItem("ONLY_LAIT_META"));function getSrcNamespace(){
+            const p = new URLSearchParams(location.search);
+            const src = (p.get("src") || "only").toLowerCase();
+            if (src === "et") return "ET";
+            return "ONLY";
+        }
+
+        const NS = getSrcNamespace(); // "ET" або "ONLY"
+
+        localStorage.setItem(`${NS}_LAIT_TOTAL_EUR`, totalEur.toFixed(2));
+        localStorage.setItem(`${NS}_LAIT_TOTAL_UAH`, totalUah.toFixed(2));
+        localStorage.setItem(`${NS}_LAIT_META`, JSON.stringify({
             lenMm: Number(window.lengthMm),
             depMm: Number(window.depthMm),
             qty: Number(window.quantity),
             ts: Date.now()
         }));
+
     }
 
 

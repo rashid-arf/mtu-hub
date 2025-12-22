@@ -1218,7 +1218,7 @@ if (!H || !W || !D) throw new Error("Заповни H/W/D.");
         updateWRangeUI(W, shelfType, frameMode);
 
         const spec = buildSpec(db, { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, buselBackGlassId, buselSideGlassId, frameMode, topBottom25, busel });
-// + LAIT total (якщо є з lait-lite.html)
+// + LAIT total (якщо є з lait-lite.backup.html)
 try {
     const laitAdd = window.__addLaitTotalRowIfAny ? window.__addLaitTotalRowIfAny(spec.items) : 0;
     if (laitAdd) {

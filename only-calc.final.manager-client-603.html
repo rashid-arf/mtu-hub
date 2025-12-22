@@ -116,37 +116,9 @@
   background:#16a34a; color:#fff; font-weight:600; cursor:pointer; white-space:nowrap;
 }
 .client-contact button:hover{ box-shadow: 0 10px 25px rgba(22,163,74,0.45); transform: translateY(-1px); }
-        /* Таблиця не роздувається через довгий текст */
-        .spec-table {
-            table-layout: fixed;
-            width: 100%;
-        }
 
-        .spec-table th, .spec-table td {
-            vertical-align: top;
-        }
 
-        /* Колонка "Порізка / оплата" — перенос + адекватна ширина */
-        .spec-table th:nth-child(4),
-        .spec-table td:nth-child(4) {
-            width: 32%;
-            max-width: 520px;
-            white-space: normal;
-            overflow-wrap: anywhere;   /* ламає довгі шматки */
-            word-break: break-word;
-            line-height: 1.25;
-        }
-
-        /* Трохи підтиснемо на менших екранах */
-        @media (max-width: 1100px) {
-            .spec-table th:nth-child(4),
-            .spec-table td:nth-child(4) { width: 26%; max-width: 360px; }
-        }
-        @media (max-width: 900px) {
-            .spec-table th:nth-child(4),
-            .spec-table td:nth-child(4) { width: 22%; max-width: 280px; }
-        }
-
+.hidden{display:none !important;}
 </style>
 </head>
 
@@ -156,8 +128,8 @@
         <div class="brand">
             <div class="logo">MT</div>
             <div>
-                <h1>TRIAL ONLY — Калькулятор (MVP)</h1>
-                <div class="sub">Каркас / Вітрина / LED · без IKS (LAIT — лише як тип полиць для ліміту W)</div>
+                <h1>TRIAL ONLY — Калькулятор</h1>
+
             </div>
         </div>
         <div class="actions">
@@ -350,9 +322,9 @@
                     </div>
 
                     <!-- OUTPUT -->
-                    <div class="card">
-                        <div class="cardHead">
-                            <div class="cardTitle">Специфікація</div>
+                    <div class="card" id="specCard">
+            <div class="cardHead">
+                <div class="cardTitle">Специфікація</div>
                             <div class="cardSub">Порізка по палках + оплата 0.5/1 + сума €.</div>
                         </div>
                         <div class="cardBody">
@@ -360,7 +332,7 @@
                                 <div class="kpi" id="kpi"></div>
 
                                 <div style="overflow:auto;margin-top:10px;">
-                                    <table  class="spec-table" id="tbl">
+                                    <table id="tbl">
                                         <thead>
                                         <tr>
                                             <th>Код</th>
@@ -1234,7 +1206,7 @@ if (!H || !W || !D) throw new Error("Заповни H/W/D.");
         updateWRangeUI(W, shelfType, frameMode);
 
         const spec = buildSpec(db, { H, W, D, backPanelType, isLed, trimEachSide, colorCode, shelfType, shelvesCount, sideGlass, buselBackGlassId, buselSideGlassId, frameMode, topBottom25, busel });
-// + LAIT total (якщо є з lait-lite.backup.html)
+// + LAIT total (якщо є з lait-lite.html)
 try {
     const laitAdd = window.__addLaitTotalRowIfAny ? window.__addLaitTotalRowIfAny(spec.items) : 0;
     if (laitAdd) {

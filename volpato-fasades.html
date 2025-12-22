@@ -1714,7 +1714,11 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
                                 </div>
                                 <div id="clientTotalBox" class="client-total">
                                     <div class="client-total-label">Орієнтовна вартість</div>
-                                    <div class="client-total-value" id="clientTotalUAH">— грн</div>
+                                    
+<div id="polishDebugLine" style="margin-top:8px; font-size:12px; opacity:0.85; display:none;">
+    Полірування (Busel): —
+</div>
+<div class="client-total-value" id="clientTotalUAH">— грн</div>
                                 </div>
 
                                 <button type="button" id="sendToTelegramBtn" class="btn-primary-wide">
@@ -2162,8 +2166,6 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
         }
     };
 
-
-
     function pickAv4Module(width) {
         const sizes = [397, 447, 497, 547, 597];
         const s = sizes.reduce((b, c) => (c <= width && c > b ? c : b), 0) || sizes[0];
@@ -2367,7 +2369,16 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
 // Матеріал скла + поліровка + гартування → знижка Busel −15% → маржа MT +30%
             const material = areaFact * g.price;
             const edgeLenM = (2 * (wg + hg)) / 1000;
-            const polish = edgeLenM * (UAH.services.edge_polish_per_m || 0);
+            // BUSel: polish rate depends on total batch perimeter (>=75 lm = large batch) and thickness
+const thicknessMm = parseThicknessFromGlassKey(glassKey);
+const perimeterTotalLm = edgeLenM * qty;
+const polishRate = getBuselPolishRate(thicknessMm, perimeterTotalLm);
+const polishTotal = perimeterTotalLm * polishRate;
+const polish = polishTotal / qty; // add per-frame polish cost
+// debug for UI
+const polishDebug = { thicknessMm, perimeterTotalLm, polishRate, isLarge: perimeterTotalLm >= BUSEL_POLISH.THRESHOLD_LM };
+window.__polishDebugLast = polishDebug;
+
             const mtNet = (material + temperPerFrame + polish) * 0.85;
             const costGlass = mtNet * 1.30;
 
@@ -2471,6 +2482,16 @@ body.dark .btn-icon-x{background:rgba(255,255,255,.06);border-color:rgba(255,255
             if (clientTotalEl) {
                 clientTotalEl.textContent = fmt(total, 0) + " грн";
             }
+
+// --- BUSel polish debug (visible line under total)
+const dbgEl = document.getElementById("polishDebugLine");
+const dbg = window.__polishDebugLast;
+if (dbgEl && dbg) {
+    const batchLabel = dbg.isLarge ? "велика партія" : "мала партія";
+    dbgEl.textContent =
+        `Полірування (Busel): ${batchLabel}, ${dbg.polishRate.toFixed(2)} грн/м.п., P_total=${dbg.perimeterTotalLm.toFixed(2)} м.п. (товщ. ${dbg.thicknessMm} мм)`;
+    dbgEl.style.display = "";
+}
 
             qtyOutEl.textContent = String(qty);
             costPerTagEl.textContent = fmt(costPer, 0) + ' грн/шт';
@@ -2938,6 +2959,44 @@ window.saveLastCalcForTelegram = function(calc){
   recalcBatch();
   syncVisibility();
 };
+
+// =========================
+// BUSel polishing rules (Price #10)
+// Large batch threshold: >= 75 lm of perimeter (sum for whole batch).
+// =========================
+const BUSEL_POLISH = {
+  THRESHOLD_LM: 75,
+  rates_uah_per_lm: {
+    thk4:  { large: 35.10, small: 70.62 },  // 4 mm
+    thk356:{ large: 50.22, small: 99.66 }   // 5–6 mm group
+  }
+};
+
+function parseThicknessFromGlassKey(glassKey) {
+  // expects keys like "..._4" or "..._6"
+  const m = String(glassKey || "").match(/_(\d)\b/);
+  return m ? Number(m[1]) : 4;
+}
+
+function getBuselPolishRate(thicknessMm, perimeterTotalLm) {
+  const isLarge = perimeterTotalLm >= BUSEL_POLISH.THRESHOLD_LM;
+
+  if (Number(thicknessMm) === 4) {
+    return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk4.large
+                   : BUSEL_POLISH.rates_uah_per_lm.thk4.small;
+  }
+
+  // 5mm/6mm -> group 3/5/6
+  if (Number(thicknessMm) === 5 || Number(thicknessMm) === 6) {
+    return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk356.large
+                   : BUSEL_POLISH.rates_uah_per_lm.thk356.small;
+  }
+
+  // fallback
+  return isLarge ? BUSEL_POLISH.rates_uah_per_lm.thk356.large
+                 : BUSEL_POLISH.rates_uah_per_lm.thk356.small;
+}
+
 
 // ========= init =========
 document.addEventListener("DOMContentLoaded", () => {
