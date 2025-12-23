@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="mtu-hub.css" />
 
     <style>
-        /* =========================
+        /* ========================
            1. LAIT Lite — базовий (світлий) стиль
            ========================= */
 
@@ -634,7 +634,182 @@
             color: #d1d5db;
         }
 
-    </style>
+    
+/* ===== LAIT polish: consistent media + nav pills ===== */
+.section-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin:14px 0 0;
+}
+.nav-pill{
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(10,14,28,.35);
+  color:#e9edff;
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:13px;
+  cursor:pointer;
+  transition:transform .08s ease, background .2s ease, border-color .2s ease;
+}
+.nav-pill:hover{ background:rgba(10,14,28,.55); border-color:rgba(255,255,255,.22); }
+.nav-pill:active{ transform:translateY(1px); }
+
+.lait-adv-media img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:16px;
+}
+.lait-tech-figure{
+  width:100% !important;
+  max-width:560px;
+  margin-left:auto;
+}
+.lait-tech-figure img{
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  border-radius:16px;
+}
+.lait-tech-text li{ color:rgba(233,237,255,.86); }
+/* CTA button links should work in local html */
+.etse-cta .btn-outline, .etse-cta .btn-white{ text-decoration:none; }
+
+        /* ===== eTSecutive CTA ===== */
+
+        .etse-cta {
+            margin-top: 40px;
+        }
+
+        .etse-cta__inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: stretch;
+
+            padding: 26px 30px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, #16a34a, #22c55e);
+            box-shadow: 0 22px 40px rgba(22, 163, 74, 0.45);
+            color: #f9fafb;
+        }
+
+        .etse-cta__left {
+            flex: 1 1 260px;
+            min-width: 260px;
+            max-width: 520px;
+        }
+
+        .etse-cta__title {
+            margin: 0 0 8px;
+            font-size: 24px;
+            line-height: 1.25;
+        }
+
+        .etse-cta__text {
+            margin: 0 0 18px;
+            font-size: 14px;
+            opacity: 0.96;
+        }
+
+        .etse-cta__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .etse-cta__btn {
+            border-radius: 999px;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.15s ease, box-shadow 0.15s ease,
+            background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+
+        .etse-cta__btn--primary {
+            background: #f9fafb;
+            color: #15803d;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18);
+        }
+
+        .etse-cta__btn--primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 16px 35px rgba(15, 23, 42, 0.26);
+        }
+
+        .etse-cta__btn--ghost {
+            background: rgba(15, 23, 42, 0.08);
+            color: #ecfdf5;
+            border: 1px solid rgba(226, 232, 240, 0.6);
+        }
+
+        .etse-cta__btn--ghost:hover {
+            background: rgba(15, 23, 42, 0.16);
+        }
+
+        /* Контактна картка справа */
+
+        .etse-cta__contacts {
+            flex: 0 0 280px;
+            max-width: 320px;
+            padding: 18px 20px;
+            border-radius: 22px;
+
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            color: #0f172a;
+
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        .etse-cta__contacts-row + .etse-cta__contacts-row {
+            margin-top: 10px;
+        }
+
+        .etse-cta__contacts-label {
+            opacity: 0.7;
+            margin-bottom: 2px;
+        }
+
+        .etse-cta__contacts-value {
+            font-weight: 500;
+        }
+
+        /* Мобільна адаптація */
+
+        @media (max-width: 768px) {
+            .etse-cta__inner {
+                padding: 20px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .etse-cta__title {
+                font-size: 20px;
+            }
+
+            .etse-cta__contacts {
+                width: 100%;
+                max-width: none;
+            }
+
+            .etse-cta__actions {
+                justify-content: flex-start;
+            }
+        }
+
+
+</style>
 
 </head>
 <body>
@@ -674,6 +849,13 @@
                 <span>Скло</span>
                 <span>кронштейни LA-B</span>
                 <span>LED Domus APEX SHE</span>
+            </div>
+
+            <div class="section-nav">
+                <button class="nav-pill" type="button" data-scroll="#lait-lite-calculator">Калькулятор</button>
+                <button class="nav-pill" type="button" data-scroll="#lait-lite-showcase">Переваги</button>
+                <button class="nav-pill" type="button" data-scroll="#lait-tech">Техдані</button>
+                <button class="nav-pill" type="button" data-scroll="#contact">Контакти</button>
             </div>
 
             <button class="btn-green" onclick="document.getElementById('lait-lite-calculator').scrollIntoView({behavior:'smooth'})">
@@ -722,8 +904,8 @@
                 <div class="card-title">Скло / ДСП та обробка</div>
                 <div class="card-body">
                     <ul class="lait-bullets">
-                        <li>Скло гартоване за прайсом Busel (Float, Extra-clear, Dark Grey, Satin) з поліруванням кромок.</li>
-                        <li>Розрахунок площі та вартості — через методику Busel GLASS engine.</li>
+                        <li>Скло гартоване/не гартоване з поліруванням кромок.</li>
+                        <li>Розрахунок площі та вартості.</li>
                         <li>ДСП 18 мм без кромки, з чвертю під профіль LA-1048/1049.</li>
                     </ul>
                 </div>
@@ -764,7 +946,7 @@
     </section>
 
     <!-- КАЛЬКУЛЯТОР LAIT (Lite) -->
-    <section id="lait-lite-calculator" style="margin-top:40px;" id="lait-calc">
+    <section id="lait-lite-calculator" style="margin-top:40px;">
         <h2 class="section-headline">Калькулятор полиць LAIT (Lite)</h2>
         <p class="section-lead">
             Вкажіть параметри полиць. Калькулятор дає детальний розрахунок профілю, скла / ДСП, LED, конвертерів та послуг.
@@ -812,6 +994,17 @@
                             </select>
                         </div>
 
+
+                        <div class="field" id="glassSupplierField">
+                                                       <label for="glassSupplier">Постачальник скла</label>
+                                                       <select id="glassSupplier">
+                                                           <option value="busel" selected>Варіант B</option>
+                                                           <option value="abstract">Варіант A</option>
+
+                                                       </select>
+                                                        <small>Впливає на джерело ціни та на послуги по склу.</small>
+                                                  </div>
+
                         <div class="field" id="glassField">
                             <label for="glassId">Тип скла</label>
                             <select id="glassId">
@@ -830,6 +1023,16 @@
                                 <option value="satin_extra_clear_6">Скло Satin Extra Clear 6 мм (матове)</option>
                             </select>
                         </div>
+
+                        <div class="field" id="glassHeatField">
+                            <label for="glassHeat">Термообробка</label>
+                            <select id="glassHeat">
+                                <option value="tempered" selected>Загартоване</option>
+                                <option value="not_tempered">Не загартоване</option>
+                            </select>
+
+                        </div>
+
 
                         <div class="field">
                             <label for="ledType">LED-підсвітка</label>
@@ -1021,7 +1224,7 @@
                         профілю, товщина скла 4/5/6&nbsp;мм.
                     </p>
                     <div class="lait-adv-media">
-                        <img src="img25.jpg" alt="Полиця з підсвічуванням LAIT H30" loading="lazy">
+                        <img src="images/lait/img457.jpg" alt="Полиця з підсвічуванням LAIT H30" loading="lazy">
                     </div>
                 </article>
 
@@ -1035,7 +1238,7 @@
                         з кабелем виноситься в окрему нішу шафи, що полегшує сервіс.
                     </p>
                     <div class="lait-adv-media">
-                        <img src="img27.jpg" alt="Схема полиці LAIT H30 з блоком живлення" loading="lazy">
+                        <img src="images/lait/img43.jpg" alt="Схема полиці LAIT H30 з блоком живлення" loading="lazy">
                     </div>
                 </article>
 
@@ -1049,7 +1252,7 @@
                         блокується поворотом тримача — полиця фіксується та не вислизає зі стінки.
                     </p>
                     <div class="lait-adv-media">
-                        <img src="img43.jpg" alt="Монтаж та блокування полиці LAIT H30" loading="lazy">
+                        <img src="images/lait/img455.jpg" alt="Монтаж та блокування полиці LAIT H30" loading="lazy">
                     </div>
                 </article>
             </div>
@@ -1105,18 +1308,71 @@
 
                 <div class="lait-tech-media">
                     <figure class="lait-tech-figure">
-                        <img src="/images/img458.jpg" alt="Схема монтажу полиці LAIT H30 у шафі" loading="lazy">
+                        <img src="images/lait/img460.jpg" alt="Схема монтажу полиці LAIT H30 у шафі" loading="lazy">
                         <figcaption>Монтаж та блокування полиці H30 у боковій стінці шафи.</figcaption>
                     </figure>
 
                     <figure class="lait-tech-figure">
-                        <img src="/images/img459.jpg" alt="Збірка рами полиці LAIT H30" loading="lazy">
+                        <img src="images/lait/img51.jpg" alt="Збірка рами полиці LAIT H30" loading="lazy">
                         <figcaption>Збірка рами з профілів LA-1048/LA-1049 та монтажним кутником.</figcaption>
                     </figure>
                 </div>
             </div>
         </div>
     </section>
+    <!-- FINAL CTA (LAIT Lite) -->
+    <section id="contact" class="etse-cta">
+        <div class="etse-cta__inner">
+            <div class="etse-cta__left">
+                <h2 class="etse-cta__title">Готові протестувати LAIT на реальному проєкті?</h2>
+                <p class="etse-cta__text">
+                    Запустіть калькулятор полиць LAIT (Lite), додайте свій комплект і надішліть результат у MT × Systems.
+                    Ми допоможемо перевірити специфікацію, підберемо скло/LED та оптимальний формат співпраці.
+                </p>
+
+                <div class="etse-cta__actions">
+                    <a
+                            class="etse-cta__btn etse-cta__btn--primary"
+                            href="lait_catalog.pdf"
+                            target="_blank"
+                            rel="noopener"
+                    >
+                        Завантажити PDF про LAIT (Lite)
+                    </a>
+
+                    <a
+                            class="etse-cta__btn"
+                            href="index.html"
+                    >
+                        Повернутися до виробничого центру MT
+                    </a>
+                </div>
+            </div>
+
+            <div class="etse-cta__contacts">
+                <div class="etse-cta__contacts-row">
+                    <div class="etse-cta__contacts-label">Телефон</div>
+                    <div class="etse-cta__contacts-value">0-800-304-404</div>
+                </div>
+
+                <div class="etse-cta__contacts-row">
+                    <div class="etse-cta__contacts-label">Email</div>
+                    <div class="etse-cta__contacts-value">info@mt.ua</div>
+                </div>
+
+                <div class="etse-cta__contacts-row">
+                    <div class="etse-cta__contacts-label">Адреса виробництва</div>
+                    <div class="etse-cta__contacts-value">м. Київ, вул. Кирилівська, 102</div>
+                </div>
+
+                <div class="etse-cta__contacts-row">
+                    <div class="etse-cta__contacts-label">Звʼязок по LAIT</div>
+                    <div class="etse-cta__contacts-value">Telegram: @mt_systems</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 </div>
 
 <script>
@@ -1294,6 +1550,27 @@
             }
         ],
 
+        // AbstractGlass (етап 1: дубль структури LAIT, ціни можна замінити на свої)
+           glassLaitAbstract: [
+            // AbstractGlass (короткий прайс): ціна UAH/м² за скло (без гарт/матування).
+            // Гартування та матування (Satin) додаємо в розрахунку.
+            { id:'float_clear_4',  name:'Скло звичайне 4 мм', thicknessMm:4, pricePerM2:690.0, currency:'UAH', article:'AG-FLOAT_CLEAR_4' },
+            { id:'float_clear_5',  name:'Скло звичайне 5 мм', thicknessMm:5, pricePerM2:890.0, currency:'UAH', article:'AG-FLOAT_CLEAR_5' },
+            { id:'float_clear_6',  name:'Скло звичайне 6 мм', thicknessMm:6, pricePerM2:1100.0, currency:'UAH', article:'AG-FLOAT_CLEAR_6' },
+
+            { id:'extra_clear_4',  name:'Скло ДІАМАНТ 4 мм', thicknessMm:4, pricePerM2:980.0, currency:'UAH', article:'AG-EXTRA_CLEAR_4' },
+            { id:'extra_clear_5',  name:'Скло ДІАМАНТ 5 мм', thicknessMm:5, pricePerM2:1285.0, currency:'UAH', article:'AG-EXTRA_CLEAR_5' },
+            { id:'extra_clear_6',  name:'Скло ДІАМАНТ 6 мм', thicknessMm:6, pricePerM2:1590.0, currency:'UAH', article:'AG-EXTRA_CLEAR_6' },
+
+            { id:'dark_grey_4',    name:'Скло ГРАФІТ 4 мм', thicknessMm:4, pricePerM2:1180.0, currency:'UAH', article:'AG-DARK_GREY_4' },
+            { id:'dark_grey_5',    name:'Скло ГРАФІТ 5 мм', thicknessMm:5, pricePerM2:1500.0, currency:'UAH', article:'AG-DARK_GREY_5' },
+            { id:'dark_grey_6',    name:'Скло ГРАФІТ 6 мм', thicknessMm:6, pricePerM2:1795.0, currency:'UAH', article:'AG-DARK_GREY_6' },
+
+            { id:'satin_extra_clear_4', name:'Скло ДІАМАНТ 4 мм (матування полотна)', thicknessMm:4, pricePerM2:980.0, currency:'UAH', article:'AG-SATIN_EXTRA_CLEAR_4', isSatin:true },
+            { id:'satin_extra_clear_6', name:'Скло ДІАМАНТ 6 мм (матування полотна)', thicknessMm:6, pricePerM2:1590.0, currency:'UAH', article:'AG-SATIN_EXTRA_CLEAR_6', isSatin:true },
+        ],
+
+
         boardLait: [
             {
                 id: 'board_18mm_generic',
@@ -1454,12 +1731,27 @@
         return currency === 'EUR' ? value * eurRate : value;
     }
 
-    function calcBuselGlassForLait({widthMm, heightMm, pricePerM2, edgePolishPerM}) {
+    
+    // ===== Скло: Busel / Abstract (з термообробкою) =====
+    function calcGlassForLait({
+        supplierGlassId, // id зі списку (наприклад 'float_clear_4')
+        widthMm,
+        heightMm,
+        pricePerM2,
+        thicknessMm,
+        supplier,        // 'busel' | 'abstract' | 'client'
+        heat,            // 'tempered' | 'not_tempered'
+        isSatin,
+        edgePolishPerM,
+        batchAreaM2      // площа партії гартування (для Busel coef batch). якщо не передано — беремо billingArea
+    }) {
         const rawArea = (widthMm * heightMm) / 1_000_000;
         const billingArea = Math.max(rawArea, 0.25);
         const edgeLenM = (2 * (widthMm + heightMm)) / 1000;
 
-        function areaCoef(a) {
+        // Табл.2 (Busel): коеф. від площі виробу
+        function buselAreaCoef(a) {
+            if (a <= 0.25) return 2.0; // до 0.25 м²
             if (a >= 7.5) return 2.0;
             if (a >= 6.5) return 1.5;
             if (a >= 5.5) return 1.3;
@@ -1468,23 +1760,94 @@
             return 1.0;
         }
 
-        const coef = areaCoef(billingArea);
+        // Табл.3 (Busel): коеф. від площі партії гартування
+        function buselBatchCoef(a) {
+            if (a >= 2.5) return 1.0;
+            if (a >= 1.5) return 1.1;
+            return 1.3;
+        }
 
-        const materialBusel = billingArea * pricePerM2 * coef;
-        const polishBusel = edgeLenM * edgePolishPerM;
-        const buselNet = materialBusel + polishBusel;
+        // Табл.1 (Busel): тариф гартування, грн/м² (02.10.2024)
+        const BUSel_TEMPER_TARIFF = {
+            FLOAT: { 4: 237.20, 5: 247.32, 6: 270.67 },
+            ULTRA_TONED_SATIN: { 4: 282.96, 5: 282.96, 6: 282.96 },
+            TEXTURED: { 4: 315.54, 6: 315.54 }
+        };
 
-        const mtNet = buselNet * 0.85;
-        const mtRetail = mtNet * 1.30;
+        function buselMinTemperingUah(group) {
+            return (group === "FLOAT") ? 750 : 999;
+        }
+
+        function buselGroupById(id) {
+            const s = String(id || "");
+            if (s.startsWith("float_clear_")) return "FLOAT";
+            if (s.startsWith("fluted_")) return "TEXTURED";
+            return "ULTRA_TONED_SATIN";
+        }
+
+        // 1) матеріал скла (UAH)
+        const material = billingArea * pricePerM2;
+
+        // 2) полірування (UAH)
+        const polish = edgeLenM * (edgePolishPerM || 0);
+
+        // 3) термообробка
+        let tempering = 0;
+        let matting = 0;
+        let temperTariff = 0;
+        let coefArea = 1.0;
+        let coefBatch = 1.0;
+        let temperMin = 0;
+
+        const batchArea = (batchAreaM2 && batchAreaM2 > 0) ? batchAreaM2 : billingArea;
+
+        if (heat === "tempered") {
+            if (supplier === "busel") {
+                const group = buselGroupById(supplierGlassId);
+                temperTariff = (BUSel_TEMPER_TARIFF[group] && BUSel_TEMPER_TARIFF[group][thicknessMm]) ? BUSel_TEMPER_TARIFF[group][thicknessMm] : 0;
+                coefArea = buselAreaCoef(billingArea);
+                coefBatch = buselBatchCoef(batchArea);
+                temperMin = buselMinTemperingUah(group);
+
+                tempering = billingArea * temperTariff * coefArea * coefBatch;
+                tempering = Math.max(tempering, temperMin);
+            } else if (supplier === "abstract") {
+                // Abstract: гартування з прайсу (грн/м²), без коефіцієнтів
+                if (thicknessMm === 4) temperTariff = 265;
+                else if (thicknessMm === 5) temperTariff = 275;
+                else if (thicknessMm === 6) temperTariff = 290;
+                tempering = billingArea * temperTariff;
+            }
+        }
+
+        // Abstract: матування полотна (як окрема послуга у прайсі)
+        if (supplier === "abstract" && isSatin) {
+            matting = billingArea * 120;
+        }
+
+        const supplierNet = material + polish + tempering + matting;
+
+        // 4) MT правила ціноутворення
+        const mtRetail = (supplier === "busel")
+            ? (supplierNet * 0.85 * 1.30)
+            : (supplierNet * 1.15); // Abstract +15%
 
         return {
             rawArea,
             billingArea,
             edgeLenM,
-            coef,
+            material,
+            polish,
+            tempering,
+            matting,
+            temperTariff,
+            coefArea,
+            coefBatch,
+            temperMin,
             mtRetail
         };
     }
+
 
     function computeBillingBars(usedLengthMm, barLenMm) {
         if (usedLengthMm <= 0) return 0;
@@ -1525,6 +1888,18 @@
         function getGlass(id) {
             return ref.glassLait.find(g => g.id === id);
         }
+
+        function getGlassBySupplier(supplier, id) {
+            if (supplier === 'abstract') {
+              // якщо масив abstract порожній — використовуємо копію з glassLait (плавний старт)
+                       const arr = (ref.glassLaitAbstract && ref.glassLaitAbstract.length)
+              ? ref.glassLaitAbstract
+                   : ref.glassLait;
+                 return arr.find(g => g.id === id);
+                  }
+            // busel або дефолт
+                return ref.glassLait.find(g => g.id === id);
+             }
 
         function getBoard(id) {
             return ref.boardLait.find(b => b.id === id);
@@ -1575,7 +1950,8 @@
                 infillId,
                 profileFinishId,
                 ledId,
-                bracketId
+                bracketId,
+                glassSupplier
             } = shelf;
 
             const L_infill = lengthMm - c.glassOffsetMm;
@@ -1585,43 +1961,36 @@
 
             let infillName = '';
 
+            // ===== Наповнення =====
             if (infillType === 'glass') {
-                const gl = getGlass(infillId);
-                infillName = gl ? gl.name : 'Скло (не знайдено)';
+                const supplier = (glassSupplier || 'busel').toLowerCase();
 
-                if (gl) {
-                    const glassCalc = calcBuselGlassForLait({
-                        widthMm: L_infill,
-                        heightMm: D_infill,
-                        pricePerM2: gl.pricePerM2,
-                        edgePolishPerM: 100
-                    });
+                // 1) Скло клієнта (0 грн), але фіксуємо площу/шт
+                if (supplier === 'client') {
+                    infillName = 'Скло клієнта';
+                    const billingArea = Math.max(areaM2, 0.25);
+                    const key = 'client_glass_' + (L_infill + 'x' + D_infill);
 
-                    const costPerShelf = glassCalc.mtRetail;
-                    const subtotal = costPerShelf * quantity;
-
-                    const key = gl.id;
                     const existing = glassMap.get(key);
-
                     if (!existing) {
                         glassMap.set(key, {
-                            infillId: gl.id,
-                            name: gl.name,
-                            thicknessMm: gl.thicknessMm,
-                            areaM2: glassCalc.rawArea * quantity,
+                            infillId: 'CLIENT_GLASS',
+                            name: 'Скло клієнта (0)',
+                            thicknessMm: null,
+                            areaM2: billingArea * quantity,
                             quantitySheets: quantity,
-                            subtotal,
+                            subtotal: 0,
                             currency: 'UAH'
                         });
                     } else {
-                        existing.areaM2 += glassCalc.rawArea * quantity;
+                        existing.areaM2 += billingArea * quantity;
                         existing.quantitySheets += quantity;
-                        existing.subtotal += subtotal;
                     }
 
+                    // Робота по поклейці/монтажу скла (може бути актуально навіть при склі клієнта)
                     const srvGlass = getService('srv_install_glass_lait');
                     if (srvGlass) {
-                        const srvQty = glassCalc.billingArea * quantity;
+                        const srvQty = billingArea * quantity;
                         const srvSub = srvQty * srvGlass.pricePerUnit;
                         addService(srvGlass.id, {
                             serviceId: srvGlass.id,
@@ -1632,8 +2001,118 @@
                             currency: srvGlass.currency
                         });
                     }
+                } else {
+                    // 2) Busel або Abstract
+                    const gl = getGlassBySupplier(supplier, infillId);
+                    infillName = gl ? gl.name : 'Скло (не знайдено)';
+
+                    if (gl) {
+                        // Мінімальна площа та коефіцієнт площі (як у Busel моделі)
+                        const rawArea = areaM2;
+                        const billingArea = Math.max(rawArea, 0.25);
+
+                        function areaCoef(a) {
+                            if (a >= 7.5) return 2.0;
+                            if (a >= 6.5) return 1.5;
+                            if (a >= 5.5) return 1.3;
+                            if (a >= 4.5) return 1.2;
+                            if (a >= 3.5) return 1.1;
+                            return 1.0;
+                        }
+
+                        const glassHeat = shelf.glassHeat || 'tempered';
+                        const isTempered = (glassHeat === 'tempered');
+
+                        // Для Busel коеф. (areaCoef) застосовуємо лише коли гартування = ON.
+                        const coef = (supplier === 'busel' && isTempered) ? areaCoef(billingArea) : 1.0;
+                        const edgeLenM = (2 * (L_infill + D_infill)) / 1000;
+
+                        // Поліровка: Abstract = 55/65 грн/м.п (прайс), Busel = як було (100 грн/м.п)
+                        const edgePolishPerM = (supplier === 'abstract')
+                            ? (gl.thicknessMm >= 6 ? 65 : 55)
+                            : 100;
+
+                        // Abstract extras: гартування + матування (Satin) з прайсу
+                        let extraPerM2 = 0;
+
+if (supplier === 'abstract') {
+    // Abstract: базова ціна = матеріал з прайсу. Гартування додаємо тільки якщо обрано "загартоване".
+    if (isTempered) {
+        if (gl.thicknessMm === 4) extraPerM2 += 265;
+        else if (gl.thicknessMm === 5) extraPerM2 += 275;
+        else if (gl.thicknessMm === 6) extraPerM2 += 290;
+    }
+    // Матування полотна додаємо завжди для Satin (незалежно від гартування)
+    if (gl.isSatin) extraPerM2 += 120;
+}
+
+if (supplier === 'busel' && isTempered) {
+    // Busel: додаємо послугу гартування (без матеріалу та обробки), грн/м²
+    // групи з прайсу:
+    // 1) Float 4–10 мм → 217.68
+    // 2) Надпрозоре/тоноване/оптівайт/візерункове/фарбоване/триплекс → 282.96
+    // 3) Травлене/з малюнком → 303.36
+    const gid = String(gl.id || '').toLowerCase();
+    const isSatin = !!gl.isSatin || gid.startsWith('satin');
+    const isGroup2 = gid.startsWith('extra_') || gid.includes('extra_clear') || gid.includes('dark_') || gid.includes('grey') || gid.includes('graphite') || gid.includes('bronze');
+
+    if (isSatin) extraPerM2 += 303.36;
+    else if (isGroup2) extraPerM2 += 282.96;
+    else extraPerM2 += 217.68;
+}
+
+const materialNet = billingArea * (gl.pricePerM2 + extraPerM2) * coef;
+const polishNet = edgeLenM * edgePolishPerM;
+const supplierNet = materialNet + polishNet;
+
+// Busel: MT модель (−15% → +30%)
+// Abstract: +15% до прайсу
+const ABSTRACT_MARKUP = 1.15;
+
+const mtRetail = (supplier === 'busel')
+    ? (supplierNet * 0.85 * 1.30)
+    : (supplier === 'abstract' ? supplierNet * ABSTRACT_MARKUP : supplierNet);
+const costPerShelf = mtRetail;
+                        const subtotal = costPerShelf * quantity;
+
+                        const key = supplier + ':' + gl.id;
+                        const existing = glassMap.get(key);
+                        if (!existing) {
+                            glassMap.set(key, {
+                                infillId: gl.id,
+                                name: (supplier === 'abstract' ? ('Abstract: ' + gl.name) : gl.name),
+                                thicknessMm: gl.thicknessMm,
+                                isTempered: isTempered,
+                                glassHeat: glassHeat,
+                                areaM2: rawArea * quantity,
+                                quantitySheets: quantity,
+                                subtotal,
+                                currency: 'UAH'
+                            });
+                        } else {
+                            existing.areaM2 += rawArea * quantity;
+                            existing.quantitySheets += quantity;
+                            existing.subtotal += subtotal;
+                        }
+
+                        // Послуга поклейки скла (до 1 м²) — як і було
+                        const srvGlass = getService('srv_install_glass_lait');
+                        if (srvGlass) {
+                            const srvQty = billingArea * quantity;
+                            const srvSub = srvQty * srvGlass.pricePerUnit;
+                            addService(srvGlass.id, {
+                                serviceId: srvGlass.id,
+                                name: srvGlass.name,
+                                unit: srvGlass.unit,
+                                quantity: srvQty,
+                                subtotal: srvSub,
+                                currency: srvGlass.currency
+                            });
+                        }
+                    }
                 }
             } else {
+                // ДСП
                 const bd = getBoard(infillId);
                 infillName = bd ? bd.name : 'ДСП (не знайдено)';
 
@@ -1975,10 +2454,50 @@
         };
     }
 
+
+    function rebuildGlassOptionsBySupplier() {
+        const supplier = document.getElementById('glassSupplier')?.value || 'busel';
+        const glassSelect = document.getElementById('glassId');
+        if (!glassSelect) return;
+
+        // запамʼятали поточний вибір
+        const current = glassSelect.value;
+
+        // беремо масив для потрібного постачальника
+        const arr = (supplier === 'abstract')
+            ? (refData.glassLaitAbstract && refData.glassLaitAbstract.length ? refData.glassLaitAbstract : refData.glassLait)
+            : refData.glassLait;
+
+        // очистити select
+        glassSelect.innerHTML = '';
+
+        // зібрати опції
+        arr.forEach(g => {
+            const opt = document.createElement('option');
+            opt.value = g.id;
+
+            // Назва в селекті:
+            // 1) Для abstract — показуємо як у прайсі (name з glassLaitAbstract)
+            // 2) Для busel — як у тебе було (name з glassLait)
+            opt.textContent = g.name;
+
+            glassSelect.appendChild(opt);
+        });
+
+        // відновити вибір, якщо такий id існує в новому списку
+        const has = arr.some(g => g.id === current);
+        glassSelect.value = has ? current : (arr[0]?.id || '');
+
+        // якщо у тебе є логіка show/hide/перерахунку — можна тригернути тут (опційно)
+        // document.getElementById('calcBtn')?.click();
+    }
+
     // ===== UI binding =====
 
     const infillTypeEl = document.getElementById('infillType');
     const glassFieldEl = document.getElementById('glassField');
+    const glassSupplierFieldEl = document.getElementById('glassSupplierField');
+    const glassSupplierEl = document.getElementById('glassSupplier');
     const modeEl = document.getElementById('mode');
     const copyBtn = document.getElementById('copyTelegram');
 
@@ -2024,11 +2543,33 @@
     }
 
     function updateGlassFieldVisibility() {
-        glassFieldEl.style.display = infillTypeEl.value === 'glass' ? 'flex' : 'none';
+        const isGlass = infillTypeEl.value === 'glass';
+
+        glassFieldEl.style.display = isGlass ? 'flex' : 'none';
+        if (glassSupplierFieldEl) {
+            glassSupplierFieldEl.style.display = isGlass ? 'flex' : 'none';
+        }
+
+        // коли ввімкнули "Скло" — синхронізуємо список по постачальнику
+        if (isGlass) {
+            rebuildGlassOptionsBySupplier();
+        }
     }
 
+    // зміна типу наповнення
     infillTypeEl.addEventListener('change', updateGlassFieldVisibility);
-    updateGlassFieldVisibility();
+
+    // зміна постачальника скла
+    if (glassSupplierEl) {
+        glassSupplierEl.addEventListener('change', rebuildGlassOptionsBySupplier);
+    }
+
+    // стартова ініціалізація
+    document.addEventListener('DOMContentLoaded', () => {
+        updateGlassFieldVisibility();
+        rebuildGlassOptionsBySupplier();
+    });
+
 
     function applyPrefillFromQuery() {
         const p = new URLSearchParams(window.location.search);
@@ -2054,7 +2595,9 @@
         const finishId = document.getElementById('finishId').value;
         const infillRaw = document.getElementById('infillType').value;
         const glassId = document.getElementById('glassId').value;
-        const ledId = document.getElementById('ledType').value;
+        const glassSupplier = (document.getElementById('glassSupplier')?.value || 'busel');
+        const glassHeat = (document.getElementById('glassHeat')?.value || 'tempered');
+const ledId = document.getElementById('ledType').value;
 
         let infillType, infillId;
         if (infillRaw === 'glass') {
@@ -2076,6 +2619,8 @@
                     depthMm,
                     infillType,
                     infillId,
+                    glassSupplier,
+                    glassHeat,
                     profileFinishId: finishId,
                     ledId,
                     bracketId: 'holder_LA_B'
@@ -2494,6 +3039,20 @@
     if (sendBtn) {
         sendBtn.addEventListener("click", sendLaitToTelegram);
     }
+</script>
+
+
+<script>
+  // smooth-scroll pills
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-scroll]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sel = btn.getAttribute('data-scroll');
+        const el = sel ? document.querySelector(sel) : null;
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  });
 </script>
 
 </body>
