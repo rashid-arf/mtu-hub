@@ -196,17 +196,43 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
 @media (max-width: 980px){.topGrid{grid-template-columns:1fr;}}
 .card.requestCard{max-width:1090px;margin:0 auto;padding:28px 16px 44px}
 /*.card + .card{margin-top:18px;}*/
+
+.finalTotalCard{
+    margin-top: 14px;
+    padding: 18px 18px;
+    border-radius: 20px;
+    background: radial-gradient(1200px 400px at 10% 0%, rgba(34,197,94,.22), transparent 60%),
+    rgba(17,24,39,.55);
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 18px 60px rgba(0,0,0,.25);
+}
+.finalTotalCard .row{
+    display:flex; align-items:flex-end; justify-content:space-between; gap:16px;
+}
+.finalTotalCard .big{
+    font-size: 44px; font-weight: 800; letter-spacing: -0.02em;
+}
+.finalTotalCard .sub{
+    opacity:.85; font-size:14px;
+}
+
 </style>
+
+<script id="ONLY_DATA_INLINE" type="application/json">{&quot;meta&quot;: {&quot;system&quot;: &quot;TRIAL ONLY&quot;, &quot;version&quot;: &quot;2025-12-13&quot;, &quot;currency_default&quot;: &quot;EUR&quot;, &quot;notes&quot;: [&quot;Повний довідник ONLY з цінами (EUR): чорний мат + бронза Armani + бронза Cartier + оснащення.&quot;, &quot;UAH-конвертацію робимо в калькуляторі через курс.&quot;, &quot;IKS та LAIT — окремі сторінки/калькулятори.&quot;]}, &quot;defaults&quot;: {&quot;bar_length_mm&quot;: 6100, &quot;color_default&quot;: &quot;NS&quot;}, &quot;colors&quot;: [{&quot;code&quot;: &quot;NS&quot;, &quot;name_ua&quot;: &quot;чорний мат&quot;}, {&quot;code&quot;: &quot;BRA&quot;, &quot;name_ua&quot;: &quot;бронза Armani&quot;}, {&quot;code&quot;: &quot;BRC&quot;, &quot;name_ua&quot;: &quot;бронза Cartier&quot;}], &quot;items&quot;: [{&quot;id&quot;: &quot;OL-2545&quot;, &quot;code&quot;: &quot;трOL-2545-NS&quot;, &quot;vendor_code&quot;: &quot;092638&quot;, &quot;name_ua&quot;: &quot;Профіль вертикальний ONLY (глухий)&quot;, &quot;category&quot;: &quot;PROFILE_VERTICAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;NS&quot;], &quot;price&quot;: {&quot;eur&quot;: 233.02}, &quot;calc_tags&quot;: [&quot;BASE&quot;]}, {&quot;id&quot;: &quot;OL-2545L&quot;, &quot;code&quot;: &quot;трOL-2545L-NS&quot;, &quot;vendor_code&quot;: &quot;096020&quot;, &quot;name_ua&quot;: &quot;Профіль вертикальний ONLY (передній під LED)&quot;, &quot;category&quot;: &quot;PROFILE_VERTICAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;NS&quot;], &quot;price&quot;: {&quot;eur&quot;: 276.52}, &quot;calc_tags&quot;: [&quot;LED&quot;]}, {&quot;id&quot;: &quot;OL-2545RG&quot;, &quot;code&quot;: &quot;трOL-2545RG-NS&quot;, &quot;vendor_code&quot;: &quot;100456&quot;, &quot;name_ua&quot;: &quot;Профіль вертикальний ONLY (задній з пазом під скло)&quot;, &quot;category&quot;: &quot;PROFILE_VERTICAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;NS&quot;], &quot;price&quot;: {&quot;eur&quot;: 211.52}, &quot;calc_tags&quot;: [&quot;SHOWCASE&quot;, &quot;GLASS&quot;]}, {&quot;id&quot;: &quot;OL-965&quot;, &quot;code&quot;: &quot;трOL-965-NS&quot;, &quot;vendor_code&quot;: &quot;082757&quot;, &quot;name_ua&quot;: &quot;Профіль горизонтальний ONLY (верх / низ / перемички)&quot;, &quot;category&quot;: &quot;PROFILE_HORIZONTAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;NS&quot;], &quot;price&quot;: {&quot;eur&quot;: 161.64}, &quot;calc_tags&quot;: [&quot;BASE&quot;, &quot;SHOWCASE&quot;, &quot;LED&quot;]}, {&quot;id&quot;: &quot;OL-2545_BRA&quot;, &quot;code&quot;: &quot;трOL-2545-BRA&quot;, &quot;vendor_code&quot;: &quot;115581&quot;, &quot;name_ua&quot;: &quot;Профіль вертикальний ONLY, бронза Armani&quot;, &quot;category&quot;: &quot;PROFILE_VERTICAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;BRA&quot;], &quot;price&quot;: {&quot;eur&quot;: 223.97}, &quot;calc_tags&quot;: [&quot;BASE&quot;]}, {&quot;id&quot;: &quot;OL-965_BRA&quot;, &quot;code&quot;: &quot;трOL-965-BRA&quot;, &quot;vendor_code&quot;: &quot;115584&quot;, &quot;name_ua&quot;: &quot;Профіль горизонтальний ONLY (верх/низ/центр), бронза Armani&quot;, &quot;category&quot;: &quot;PROFILE_HORIZONTAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;BRA&quot;], &quot;price&quot;: {&quot;eur&quot;: 164.48}, &quot;calc_tags&quot;: [&quot;BASE&quot;, &quot;SHOWCASE&quot;, &quot;LED&quot;]}, {&quot;id&quot;: &quot;OL-2545_BRC&quot;, &quot;code&quot;: &quot;трOL-2545-BRC_св&quot;, &quot;vendor_code&quot;: &quot;094129&quot;, &quot;name_ua&quot;: &quot;Профіль вертикальний ONLY, бронза Cartier&quot;, &quot;category&quot;: &quot;PROFILE_VERTICAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;BRC&quot;], &quot;price&quot;: {&quot;eur&quot;: 243.98}, &quot;calc_tags&quot;: [&quot;BASE&quot;]}, {&quot;id&quot;: &quot;OL-965_BRC&quot;, &quot;code&quot;: &quot;трOL-965-BRC_св&quot;, &quot;vendor_code&quot;: &quot;094130&quot;, &quot;name_ua&quot;: &quot;Профіль горизонтальний ONLY (верх/низ/центр), бронза Cartier&quot;, &quot;category&quot;: &quot;PROFILE_HORIZONTAL&quot;, &quot;sell_type&quot;: &quot;BAR&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;bar_length_mm&quot;: 6100, &quot;color_codes&quot;: [&quot;BRC&quot;], &quot;price&quot;: {&quot;eur&quot;: 155.35}, &quot;calc_tags&quot;: [&quot;BASE&quot;, &quot;SHOWCASE&quot;, &quot;LED&quot;]}, {&quot;id&quot;: &quot;A11.024&quot;, &quot;code&quot;: &quot;трA11.024&quot;, &quot;vendor_code&quot;: &quot;096276&quot;, &quot;name_ua&quot;: &quot;Гвинт фіксуючий та опора для профілів ONLY&quot;, &quot;category&quot;: &quot;FASTENER&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;pack_qty&quot;: 1000, &quot;warehouse&quot;: &quot;MT&quot;, &quot;price&quot;: {&quot;eur&quot;: 4.85}, &quot;calc_tags&quot;: [&quot;BASE&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;GU-BAFFO-TR-PVC&quot;, &quot;code&quot;: &quot;трGU-BAFFO-TR-PVC&quot;, &quot;vendor_code&quot;: &quot;096274&quot;, &quot;name_ua&quot;: &quot;Ущільнювач для скла в профіль ONLY 2545 (PVC)&quot;, &quot;category&quot;: &quot;SEAL&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;length_mm&quot;: 3000, &quot;price&quot;: {&quot;eur&quot;: 4.59}, &quot;calc_tags&quot;: [&quot;SHOWCASE&quot;, &quot;GLASS&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;GU-C-RG-LISTA&quot;, &quot;code&quot;: &quot;трGU-C-RG-LISTA&quot;, &quot;vendor_code&quot;: &quot;100457&quot;, &quot;name_ua&quot;: &quot;Ущільнювач для скла 5–6 мм (ONLY 2545RG)&quot;, &quot;category&quot;: &quot;SEAL&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;length_mm&quot;: 3000, &quot;price&quot;: {&quot;eur&quot;: 6.5}, &quot;calc_tags&quot;: [&quot;SHOWCASE&quot;, &quot;GLASS&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;GU-O-F-LISTA&quot;, &quot;code&quot;: &quot;трGU-O-F-LISTA&quot;, &quot;vendor_code&quot;: &quot;096275&quot;, &quot;name_ua&quot;: &quot;Заглушка у весь профіль ONLY 2545 (3000 мм)&quot;, &quot;category&quot;: &quot;INSERT&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;length_mm&quot;: 3000, &quot;price&quot;: {&quot;eur&quot;: 4.39}, &quot;calc_tags&quot;: [&quot;BASE&quot;, &quot;SHOWCASE&quot;, &quot;LED&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;OL-GTSI&quot;, &quot;code&quot;: &quot;трOL-GTSI.new&quot;, &quot;vendor_code&quot;: &quot;089568&quot;, &quot;name_ua&quot;: &quot;З’єднувальний елемент для ONLY OL-965&quot;, &quot;category&quot;: &quot;CONNECTOR&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;pack_qty&quot;: 100, &quot;price&quot;: {&quot;eur&quot;: 14.0}, &quot;calc_tags&quot;: [&quot;BASE&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;OL-P&quot;, &quot;code&quot;: &quot;трOL-P-VN&quot;, &quot;vendor_code&quot;: &quot;094152&quot;, &quot;name_ua&quot;: &quot;Опора регульована ONLY, чорний&quot;, &quot;category&quot;: &quot;LEG&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;pack_qty&quot;: 100, &quot;price&quot;: {&quot;eur&quot;: 10.61}, &quot;calc_tags&quot;: [&quot;BASE&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;OL-V_A11.034&quot;, &quot;code&quot;: &quot;трOL-V (A11.034)&quot;, &quot;vendor_code&quot;: &quot;088098&quot;, &quot;name_ua&quot;: &quot;Гвинт для кріплення (боковини/задньої стінки) ONLY / IS-954 / OL-967&quot;, &quot;category&quot;: &quot;FASTENER&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;pack_qty&quot;: 50, &quot;price&quot;: {&quot;eur&quot;: 2.96}, &quot;calc_tags&quot;: [&quot;SHOWCASE&quot;], &quot;color_codes&quot;: []}, {&quot;id&quot;: &quot;VITE-TSP-M4X10&quot;, &quot;code&quot;: &quot;трVITE-TSP-M4X10&quot;, &quot;vendor_code&quot;: &quot;088887&quot;, &quot;name_ua&quot;: &quot;Гвинт M4×10 мм, чорний&quot;, &quot;category&quot;: &quot;FASTENER&quot;, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;pack_qty&quot;: 1000, &quot;warehouse&quot;: &quot;MT&quot;, &quot;color_codes&quot;: [&quot;NS&quot;], &quot;price&quot;: {&quot;eur&quot;: 0.05}, &quot;calc_tags&quot;: [&quot;BASE&quot;, &quot;SHOWCASE&quot;, &quot;LED&quot;]}, {&quot;id&quot;: &quot;B010ZZ0001409&quot;, &quot;code&quot;: &quot;B010ZZ0001409&quot;, &quot;name&quot;: &quot;Вставка/камера Permo&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;price_eur&quot;: 0.098, &quot;group&quot;: &quot;PERMO&quot;, &quot;note&quot;: &quot;ціна/пакування — уточнити&quot;, &quot;price&quot;: {&quot;eur&quot;: 0.098}, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;name_ua&quot;: &quot;Вставка/камера Permo&quot;}, {&quot;id&quot;: &quot;GR01ZZ00010M8&quot;, &quot;code&quot;: &quot;GR01ZZ00010M8&quot;, &quot;name&quot;: &quot;Гайка Permo M8&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;price_eur&quot;: 0.032, &quot;group&quot;: &quot;PERMO&quot;, &quot;note&quot;: &quot;ціна/пакування — уточнити&quot;, &quot;price&quot;: {&quot;eur&quot;: 0.032}, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;name_ua&quot;: &quot;Гайка Permo M8&quot;}, {&quot;id&quot;: &quot;TF02FZ0000736&quot;, &quot;code&quot;: &quot;TF02FZ0000736&quot;, &quot;name&quot;: &quot;Стяжка Permo (шпилька)&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;price_eur&quot;: 0.095, &quot;group&quot;: &quot;PERMO&quot;, &quot;note&quot;: &quot;ціна/пакування — уточнити&quot;, &quot;price&quot;: {&quot;eur&quot;: 0.095}, &quot;sell_type&quot;: &quot;PCS&quot;, &quot;name_ua&quot;: &quot;Стяжка Permo (шпилька)&quot;}, {&quot;id&quot;: &quot;PANEL_25_MM2&quot;, &quot;code&quot;: &quot;044531&quot;, &quot;name&quot;: &quot;ДСП FA42 25мм Penelope (м²)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;price_eur&quot;: 30.5, &quot;group&quot;: &quot;PANELS&quot;}, {&quot;id&quot;: &quot;PANEL_BACK_8_MM2&quot;, &quot;code&quot;: &quot;PANEL_BACK_8_MM2&quot;, &quot;name&quot;: &quot;Задня стінка 8 мм (MDF/HDF) (м²)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;price_eur&quot;: 0, &quot;group&quot;: &quot;PANELS&quot;, &quot;note&quot;: &quot;додайте актуальну ціну €/м²&quot;}, {&quot;id&quot;: &quot;GLASS_4_MM2&quot;, &quot;code&quot;: &quot;GLASS_4_MM2&quot;, &quot;name_ua&quot;: &quot;Скло 4 мм (м²)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;price_eur&quot;: 0, &quot;group&quot;: &quot;GLASS&quot;}, {&quot;id&quot;: &quot;GLASS_6_MM2&quot;, &quot;code&quot;: &quot;GLASS_6_MM2&quot;, &quot;name_ua&quot;: &quot;Скло 6 мм (м²)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;price_eur&quot;: 0, &quot;group&quot;: &quot;GLASS&quot;}, {&quot;id&quot;: &quot;PIATTO_25x2&quot;, &quot;code&quot;: &quot;PIATTO-25x2&quot;, &quot;name_ua&quot;: &quot;Пластина PIATTO-25x2&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;price_eur&quot;: 0, &quot;group&quot;: &quot;ONLY&quot;}, {&quot;id&quot;: &quot;PIATTO_25x10&quot;, &quot;code&quot;: &quot;PIATTO-25x10&quot;, &quot;name_ua&quot;: &quot;Пластина PIATTO-25x10&quot;, &quot;unit&quot;: &quot;шт&quot;, &quot;price_eur&quot;: 0, &quot;group&quot;: &quot;ONLY&quot;}, {&quot;id&quot;: &quot;PANEL_SIDE_MM2&quot;, &quot;code&quot;: &quot;PANEL_SIDE_MM2&quot;, &quot;name_ua&quot;: &quot;Боковина ДСП (в паз) (м²)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;price_eur&quot;: 0, &quot;group&quot;: &quot;PANELS&quot;}], &quot;ui_sections&quot;: [{&quot;id&quot;: &quot;only-base&quot;, &quot;label_ua&quot;: &quot;Каркас&quot;, &quot;tags&quot;: [&quot;BASE&quot;]}, {&quot;id&quot;: &quot;only-showcase&quot;, &quot;label_ua&quot;: &quot;Вітрина&quot;, &quot;tags&quot;: [&quot;SHOWCASE&quot;, &quot;GLASS&quot;]}, {&quot;id&quot;: &quot;only-led&quot;, &quot;label_ua&quot;: &quot;LED&quot;, &quot;tags&quot;: [&quot;LED&quot;]}, {&quot;id&quot;: &quot;only-iks&quot;, &quot;label_ua&quot;: &quot;ONLY + IKS&quot;, &quot;tags&quot;: [&quot;IKS_LINK&quot;]}]}</script>
+
+<script id="ONLY_ABSTRACT_GLASS_INLINE" type="application/json">{&quot;meta&quot;: {&quot;name&quot;: &quot;AbstractGlass list for ONLY (tempered) 4mm / 5mm / 6mm&quot;, &quot;version&quot;: &quot;only.abstract.glass.v1&quot;, &quot;generated_at&quot;: &quot;2025-12-15T19:40:10&quot;, &quot;notes&quot;: [&quot;pricePerM2_uah corresponds to AbstractGlass material price per m².&quot;, &quot;Tempering, edge polish and adhesion prep (art paint) are modeled as separate services.&quot;, &quot;All glass assumed China origin as per supplier clarification.&quot;]}, &quot;supplier&quot;: {&quot;id&quot;: &quot;ABSTRACT&quot;, &quot;name&quot;: &quot;AbstractGlass&quot;}, &quot;glass_items&quot;: [{&quot;id&quot;: &quot;ABS_FLOAT_4&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Float Clear&quot;, &quot;label&quot;: &quot;Скло звичайне (Float) 4 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 690, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_DIAMOND_4&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Diamond / Extra Clear&quot;, &quot;label&quot;: &quot;Скло Діамант (Extra Clear) 4 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 980, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_GRAPHITE_4&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Graphite&quot;, &quot;label&quot;: &quot;Скло Графіт 4 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1180, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_BRONZE_4&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Bronze&quot;, &quot;label&quot;: &quot;Скло Бронза 4 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1180, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_FLOAT_5&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 5, &quot;type&quot;: &quot;Float Clear&quot;, &quot;label&quot;: &quot;Скло звичайне (Float) 5 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 890, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_DIAMOND_5&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 5, &quot;type&quot;: &quot;Diamond / Extra Clear&quot;, &quot;label&quot;: &quot;Скло Діамант (Extra Clear) 5 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1285, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_GRAPHITE_5&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 5, &quot;type&quot;: &quot;Graphite&quot;, &quot;label&quot;: &quot;Скло Графіт 5 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1500, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_BRONZE_5&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 5, &quot;type&quot;: &quot;Bronze&quot;, &quot;label&quot;: &quot;Скло Бронза 5 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1500, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_FLOAT_6&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Float Clear&quot;, &quot;label&quot;: &quot;Скло звичайне (Float) 6 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1100, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_DIAMOND_6&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Diamond / Extra Clear&quot;, &quot;label&quot;: &quot;Скло Діамант (Extra Clear) 6 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1590, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_GRAPHITE_6&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Graphite&quot;, &quot;label&quot;: &quot;Скло Графіт 6 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1795, &quot;tempering_group&quot;: &quot;ALL&quot;}, {&quot;id&quot;: &quot;ABS_BRONZE_6&quot;, &quot;supplier&quot;: &quot;ABSTRACT&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Bronze&quot;, &quot;label&quot;: &quot;Скло Бронза 6 мм&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1795, &quot;tempering_group&quot;: &quot;ALL&quot;}], &quot;services&quot;: {&quot;tempering&quot;: {&quot;id&quot;: &quot;ABS_TEMPERING&quot;, &quot;label&quot;: &quot;Загартування (AbstractGlass)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;pricePerM2_uah&quot;: {&quot;THK_4&quot;: 265, &quot;THK_5&quot;: 275, &quot;THK_6&quot;: 290}}, &quot;edge_polish&quot;: {&quot;id&quot;: &quot;ABS_EDGE_POLISH&quot;, &quot;label&quot;: &quot;Полірування кромки (AbstractGlass)&quot;, &quot;unit&quot;: &quot;п.м.&quot;, &quot;sell_type&quot;: &quot;LM&quot;, &quot;pricePerLm_uah&quot;: {&quot;THK_3_4_5&quot;: 55, &quot;THK_6&quot;: 65}}, &quot;adhesion_prep&quot;: {&quot;id&quot;: &quot;ABS_ART_PAINT&quot;, &quot;label&quot;: &quot;Худ. фарбування / підготовка під профіль (1 колір)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;pricePerM2_uah&quot;: 485, &quot;notes&quot;: [&quot;Технологічна підготовка поверхні скла під приклейку профілю&quot;, &quot;Використовується для покращення адгезії&quot;]}}, &quot;commercial_rules&quot;: {&quot;abstract_markup_multiplier&quot;: 1.15}}</script>
+
+<script id="ONLY_BUSEL_GLASS_INLINE" type="application/json">{&quot;meta&quot;: {&quot;name&quot;: &quot;BUSel glass list for ONLY (tempered) 4mm &amp; 6mm&quot;, &quot;version&quot;: &quot;only.busel.glass.v1&quot;, &quot;generated_at&quot;: &quot;2025-12-15T19:21:42&quot;, &quot;notes&quot;: [&quot;pricePerM2_uah corresponds to BUSel &#x27;#Різка#&#x27; (material + standard cutting), without tempering or edge-polish.&quot;, &quot;Tempering and edge-polish are modeled as separate services.&quot;, &quot;origin=china is set only where BUSel price list explicitly shows CHINA GLASS.&quot;]}, &quot;supplier&quot;: {&quot;id&quot;: &quot;BUSEL&quot;, &quot;name&quot;: &quot;Busel&quot;}, &quot;glass_items&quot;: [{&quot;id&quot;: &quot;BUSEL_FLOAT_CLEAR_4_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;non-china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Float Clear&quot;, &quot;label&quot;: &quot;Скло флоат прозоре 4 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 507.9, &quot;tempering_group&quot;: &quot;FLOAT&quot;}, {&quot;id&quot;: &quot;BUSEL_ULTRACLEAR_4_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;non-china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Ultra Clear&quot;, &quot;label&quot;: &quot;Скло надпрозоре (Ultra Clear) 4 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 879.3, &quot;tempering_group&quot;: &quot;ULTRACLEAR_TINTED&quot;}, {&quot;id&quot;: &quot;BUSEL_CHINA_DARKGREY_4_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Dark Grey&quot;, &quot;label&quot;: &quot;CHINA GLASS Dark Grey 4 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 996.42, &quot;tempering_group&quot;: &quot;ULTRACLEAR_TINTED&quot;}, {&quot;id&quot;: &quot;BUSEL_PLANIBEL_BRONZE_GREY_4_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;non-china&quot;, &quot;thickness_mm&quot;: 4, &quot;type&quot;: &quot;Bronze/Grey&quot;, &quot;label&quot;: &quot;PLANIBEL Bronze/Grey 4 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1060.68, &quot;tempering_group&quot;: &quot;ULTRACLEAR_TINTED&quot;}, {&quot;id&quot;: &quot;BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Float Clear&quot;, &quot;label&quot;: &quot;CHINA GLASS Float 6 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 749.4, &quot;tempering_group&quot;: &quot;FLOAT&quot;}, {&quot;id&quot;: &quot;BUSEL_ULTRACLEAR_6_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;non-china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Ultra Clear&quot;, &quot;label&quot;: &quot;Скло надпрозоре (Ultra Clear) 6 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1403.4, &quot;tempering_group&quot;: &quot;ULTRACLEAR_TINTED&quot;}, {&quot;id&quot;: &quot;BUSEL_CHINA_DARKGREY_6_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Dark Grey&quot;, &quot;label&quot;: &quot;CHINA GLASS Dark Grey 6 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 1976.4, &quot;tempering_group&quot;: &quot;ULTRACLEAR_TINTED&quot;}, {&quot;id&quot;: &quot;BUSEL_CHINA_BRONZE_6_RIZKA&quot;, &quot;supplier&quot;: &quot;BUSEL&quot;, &quot;origin&quot;: &quot;china&quot;, &quot;thickness_mm&quot;: 6, &quot;type&quot;: &quot;Bronze&quot;, &quot;label&quot;: &quot;CHINA GLASS Bronze 6 мм (#Різка#)&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;pricePerM2_uah&quot;: 986.1, &quot;tempering_group&quot;: &quot;ULTRACLEAR_TINTED&quot;}], &quot;services&quot;: {&quot;tempering&quot;: {&quot;id&quot;: &quot;BUSEL_TEMPERING&quot;, &quot;label&quot;: &quot;Загартування (Busel)&quot;, &quot;unit&quot;: &quot;м²&quot;, &quot;sell_type&quot;: &quot;M2&quot;, &quot;base_pricePerM2_uah&quot;: {&quot;FLOAT&quot;: 217.68, &quot;ULTRACLEAR_TINTED&quot;: 282.96, &quot;PYROLYTIC_COATED&quot;: 326.46}, &quot;batch_coefficients&quot;: [{&quot;range_m2&quot;: [0.0, 0.25], &quot;multiplier&quot;: 2.0, &quot;note&quot;: &quot;If you enforce min billable area as per Busel rules for tiny parts.&quot;}, {&quot;range_m2&quot;: [0.25, 2.0], &quot;multiplier&quot;: 1.5, &quot;note&quot;: &quot;Batch 0.25–2 m² (+50%).&quot;}, {&quot;range_m2&quot;: [2.0, 10.0], &quot;multiplier&quot;: 1.3, &quot;note&quot;: &quot;Batch 2–10 m² (+30%).&quot;}]}, &quot;edge_polish&quot;: {&quot;id&quot;: &quot;BUSEL_EDGE_POLISH&quot;, &quot;label&quot;: &quot;Полірування кромки (Busel)&quot;, &quot;unit&quot;: &quot;п.м.&quot;, &quot;sell_type&quot;: &quot;LM&quot;, &quot;pricePerLm_uah&quot;: {&quot;THK_4&quot;: 70.62, &quot;THK_3_5_6&quot;: 99.66}, &quot;notes&quot;: [&quot;THK_4 for 4 mm.&quot;, &quot;THK_3_5_6 for 5–6 mm.&quot;]}}, &quot;commercial_rules&quot;: {&quot;busel_discount_multiplier&quot;: 0.85, &quot;busel_markup_multiplier&quot;: 1.3, &quot;busel_total_multiplier&quot;: 1.105, &quot;abstract_markup_multiplier_reference&quot;: 1.15}}</script>
 </head>
 
 <body>
 <div class="page">
     <div class="topbar">
         <div class="brand">
-            <div class="logo">MT</div>
+
             <div>
-                <h1>TRIAL ONLY — Калькулятор (MVP)</h1>
-                <div class="sub">Каркас / Вітрина / LED · без IKS (LAIT — лише як тип полиць для ліміту W)</div>
+                <h1>TRIAL ONLY — Калькулятор</h1>
+
             </div>
         </div>
         <div class="actions">
@@ -286,7 +312,28 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
                     <div class="small muted" style="margin-top:6px;">
                         Горизонталі OL-965 = 2 (верх/низ) + N полиць. Зʼєднувачі OL-GTSI = 2 шт.
                     </div>
+                
+                <div class="divider" style="margin:14px 0;"></div>
+
+                <div class="field">
+                    <div class="cardTitle" style="font-size:15px;margin-bottom:6px;">Додати двері IKS до розрахунку ONLY</div>
+                    <label class="toggle">
+                        <input id="iksAddonEnabled" type="checkbox">
+                        Увімкнути IKS add-on
+                    </label>
+                    <div class="small muted" style="margin-top:6px;">
+                        IKS рахується окремо (скло Abstract/Busel + фурнітура IKS). Після розрахунку в IKS натисни
+                        <b>«Застосувати до ONLY»</b> — підсумок і специфікація підтягнуться сюди.
+                    </div>
+
+                    <div style="margin-top:10px; display:flex; gap:10px; flex-wrap:wrap;">
+                        <button type="button" id="btnGoIks" class="btn">Перейти до IKS</button>
+                        <button type="button" id="btnClearIks" class="btn">Очистити IKS</button>
+                        <div class="small muted" id="iksHint" style="align-self:center;"></div>
+                    </div>
                 </div>
+
+</div>
 
                 
             </div>
@@ -405,7 +452,10 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
   <button class="btn primary" id="btnCalc">Розрахувати</button>
   <button class="btn" id="btnCsv">Завантажити CSV</button>
 </div>
-            </div>
+
+                    <div id="finalTotalCard" class="finalTotalCard" style="display:none;"></div>
+
+                </div>
         </div>
 
         
@@ -618,7 +668,8 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
         if (DB) return DB;
 
         const candidates = [
-            './only.data.json',      // основний файл у проєкті
+
+            './only.data.json',      // fallback
 
         ];
 
@@ -634,6 +685,42 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
             } catch (e) {
                 lastErr = e;
             }
+        }
+
+        // Fallback for local file:// запуск (fetch може блокуватись браузером)
+        const inlineDataEl = document.getElementById('ONLY_DATA_INLINE');
+        if (inlineDataEl) {
+            try {
+                const data = JSON.parse(inlineDataEl.textContent || inlineDataEl.innerText || '');
+                if (data) {
+                    DB = data;
+                    return DB;
+                }
+            } catch(e) {}
+        }
+
+        // Fallback for local file:// запуск (fetch може блокуватись браузером)
+        const inlineBuselEl = document.getElementById('ONLY_BUSEL_GLASS_INLINE');
+        if (inlineBuselEl) {
+            try {
+                const data = JSON.parse(inlineBuselEl.textContent || inlineBuselEl.innerText || '');
+                if (data) {
+                    BUSEL = data;
+                    return BUSEL;
+                }
+            } catch(e) {}
+        }
+
+        // Fallback for local file:// запуск (fetch може блокуватись браузером)
+        const inlineAbsEl = document.getElementById('ONLY_ABSTRACT_GLASS_INLINE');
+        if (inlineAbsEl) {
+            try {
+                const data = JSON.parse(inlineAbsEl.textContent || inlineAbsEl.innerText || '');
+                if (data) {
+                    ABSTRACT = data;
+                    return ABSTRACT;
+                }
+            } catch(e) {}
         }
         throw new Error('Не можу завантажити прайс ONLY (only.data.json). Перевір: 1) файл поруч з HTML, 2) валідний JSON, 3) назва без помилок. ' + (lastErr ? ('(' + lastErr.message + ')') : ''));
     }
@@ -1227,6 +1314,30 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
       `;
             tbody.appendChild(tr);
         });
+
+
+        // --- Final total card (compact) ---
+        const card = document.getElementById("finalTotalCard");
+        if(card){
+            const eurTotal = Number(spec.totalEur || 0);
+            const eurRate  = Number(document.getElementById("eurRateInput")?.value || 0);
+            const uahTotal = (eurRate > 0) ? (eurTotal * eurRate) : 0;
+
+            card.style.display = "block";
+            card.innerHTML = `
+    <div class="row">
+      <div>
+        <div class="sub">Орієнтовна вартість комплекту</div>
+        <div class="big">${eurTotal.toFixed(2)} €</div>
+      </div>
+      <div style="text-align:right">
+        <div class="sub">або</div>
+        <div class="big" style="font-size:22px">${uahTotal.toLocaleString("uk-UA",{maximumFractionDigits:2})} грн</div>
+      </div>
+    </div>
+  `;
+        }
+
     }
 
 
@@ -1246,7 +1357,42 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
                 (r.cutInfo || "").replaceAll(";", ",")
             ].join(";"));
         });
-        return lines.join("\n");
+
+        // --- IKS details (mixed currency) ---
+        if (spec.iksPayload) {
+            lines.push("");
+            lines.push("IKS (деталізація з IKS калькулятора)".replaceAll(";", ","));
+            // EUR part
+            if (Array.isArray(spec.iksPayload.rowsEUR) && spec.iksPayload.rowsEUR.length){
+                lines.push(["Артикул","Номенклатура","К-сть","Ціна EUR","Сума EUR","Валюта"].join(";"));
+                spec.iksPayload.rowsEUR.forEach(r=>{
+                    lines.push([
+                        (r.code||r.id||""),
+                        (r.label||r.name||"").replaceAll(";", ","),
+                        (r.qty||r.qtyStr||""),
+                        eur(Number(r.priceEur||0)),
+                        eur(Number(r.sumEur||0)),
+                        "EUR"
+                    ].join(";"));
+                });
+            }
+            // UAH part
+            if (Array.isArray(spec.iksPayload.rowsUAH) && spec.iksPayload.rowsUAH.length){
+                lines.push(["Артикул","Номенклатура","К-сть","Ціна UAH","Сума UAH","Валюта"].join(";"));
+                spec.iksPayload.rowsUAH.forEach(r=>{
+                    lines.push([
+                        (r.code||r.id||""),
+                        (r.label||r.name||"").replaceAll(";", ","),
+                        (r.qty||r.qtyStr||""),
+                        (Number(r.priceUah||r.priceUAH||0)).toFixed(2),
+                        (Number(r.sumUah||r.sumUAH||0)).toFixed(2),
+                        "UAH"
+                    ].join(";"));
+                });
+            }
+        }
+
+        return lines.join("");
     }
     function download(filename, text) {
         const a = document.createElement('a');
@@ -1336,13 +1482,14 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
         const Lv = getSectionClearWidthMm(W, spansCount);
         const eurRate = getEurRateSafe();
          const url =
-            `lait-lite.backup.html` +
+            `lait-lite.html` +
             `?eur=${encodeURIComponent(eurRate.toFixed(2))}` +
             `&len=${encodeURIComponent(Math.round(Lv))}` +
             `&dep=${encodeURIComponent(Math.round(D))}` +
             `&qty=${encodeURIComponent(shelvesCount)}`;
          window.open(url, '_blank');
     }
+
      function updateLaitUI(){
         const shelfType    = document.getElementById('shelfType')?.value;
         const shelvesCount = parseInt(document.getElementById('shelvesCount')?.value || '0', 10);
@@ -1394,6 +1541,116 @@ th{text-align:left;color:var(--muted);font-size:12px;font-weight:900;letter-spac
     document.getElementById('glassSupplier')?.addEventListener('change', updateGlassSupplierUI);
     updateGlassSupplierUI();
 })();
+
+
+
+    // ===== IKS handoff (ONLY -> IKS page) =====
+    (function initIksHandoffOnce(){
+        const ENABLE_KEY  = "ONLY_IKS_ADDON_ENABLED";
+        const PREFILL_KEY = "ONLY_IKS_PREFILL";
+        const PAYLOAD_KEY = "ONLY_IKS_PAYLOAD";
+
+        const cb       = document.getElementById("iksAddonEnabled");
+        const hint     = document.getElementById("iksHint");
+        const goBtn    = document.getElementById("btnGoIks");
+        const clearBtn = document.getElementById("btnClearIks");
+
+        if(!cb) return;
+
+        // ---- restore checkbox ----
+        try{
+            cb.checked = (localStorage.getItem(ENABLE_KEY) === "1");
+        }catch(e){}
+
+        function refreshHint(){
+            try{
+                const raw = localStorage.getItem(PAYLOAD_KEY);
+                if(!raw){
+                    if(hint) hint.textContent = "IKS: немає розрахунку (порожньо).";
+                    return;
+                }
+                const p = JSON.parse(raw || "{}");
+                const eurRate = Number(document.getElementById("eurRateInput")?.value || 50);
+
+                const totalUah = Number(p.totalUAH || p.totalUah || 0);
+
+                const rowsEurRaw = Array.isArray(p.rowsEUR) ? p.rowsEUR : [];
+                const sumEur = rowsEurRaw.reduce((s,r)=>{
+                    // rows можуть бути як масив: [id,label,qty,unitPrice,sum]
+                    if(Array.isArray(r)){
+                        const val = Number(String(r[4]||"").replace(/[^0-9.\-]/g,"") || 0);
+                        return s + val;
+                    }
+                    // або як обʼєкт
+                    return s + Number(r.sumEur || 0);
+                },0);
+
+                const addEur = sumEur + (eurRate>0 ? totalUah/eurRate : 0);
+
+                if(hint){
+                    hint.textContent =
+                        `IKS: збережено · +${addEur.toFixed(2)} € (в т.ч. ${totalUah.toLocaleString('uk-UA')} грн скла)`;
+                }
+            }catch(e){
+                if(hint) hint.textContent = "IKS: дані пошкоджені (перерахуй IKS).";
+            }
+        }
+
+        cb.addEventListener("change", ()=>{
+            try{ localStorage.setItem(ENABLE_KEY, cb.checked ? "1" : "0"); }catch(e){}
+            refreshHint();
+        });
+
+        if(clearBtn){
+            clearBtn.addEventListener("click", ()=>{
+                try{ localStorage.removeItem(PAYLOAD_KEY); }catch(e){}
+                refreshHint();
+                try{ calculateAndRender(); }catch(e){}
+            });
+        }
+
+        if(goBtn){
+            goBtn.addEventListener("click", ()=>{
+                // 1) зберігаємо prefill у localStorage (на випадок якщо URL-параметри не прочитаються)
+                try{
+                    const H = Number(document.getElementById("H")?.value || 0);
+                    const W = Number(document.getElementById("W")?.value || 0);
+                    const eurRate = Number(document.getElementById("eurRateInput")?.value || 50);
+
+                    localStorage.setItem(PREFILL_KEY, JSON.stringify({
+                        eurRate,
+                        suggestedDoorW: W,
+                        suggestedDoorH: H,
+                        qty: 1
+                    }));
+                }catch(e){}
+
+                // 2) формуємо URL і відкриваємо IKS в новій вкладці
+                const iksW   = Number(document.getElementById("W")?.value || 0) || 500;
+                const iksH   = Number(document.getElementById("H")?.value || 0) || 700;
+                const iksQty = 1;
+                const eurRate = Number(document.getElementById("eurRateInput")?.value || 50);
+
+                // IMPORTANT: шлях/назва IKS-сторінки. За замовчуванням — файл з поточної збірки.
+                // Тут можна міняти на iks.final.fixed3.html або інший актуальний файл.
+                const IKS_PAGE = "iks.html";
+
+                // returnTo — файл ONLY (поточна сторінка), щоб кнопка "назад" в IKS повертала сюди
+                const RETURN_TO = "only-calc.html";
+
+                const url =
+                    `${IKS_PAGE}?returnTo=${encodeURIComponent(RETURN_TO)}` +
+                    `&eurRate=${encodeURIComponent(String(eurRate))}` +
+                    `&doorW=${encodeURIComponent(String(iksW))}` +
+                    `&doorH=${encodeURIComponent(String(iksH))}` +
+                    `&qty=${encodeURIComponent(String(iksQty))}`;
+
+                window.open(url, "_blank"); // ✅ як LAIT — у новій вкладці
+            });
+        }
+
+        refreshHint();
+    })();
 
 
 // ====== events ======
@@ -1451,7 +1708,48 @@ try {
     console.warn("LAIT total handoff skipped:", e);
 }
 
-        window.__onlySpec = spec;
+        
+// + IKS add-on (якщо увімкнено і є payload з IKS сторінки)
+try{
+  const iksEnabled = (document.getElementById("iksAddonEnabled")?.checked);
+  try{ localStorage.setItem("ONLY_IKS_ADDON_ENABLED", iksEnabled ? "1" : "0"); }catch(e){}
+  if(iksEnabled){
+    const raw = localStorage.getItem("ONLY_IKS_PAYLOAD");
+    if(raw){
+      const p = JSON.parse(raw || "{}");
+      const eurRate = Number(document.getElementById("eurRateInput")?.value || 50);
+      const uah = Number(p.totalUAH || p.totalUah || 0);
+      const rowsEur = Array.isArray(p.rowsEUR) ? p.rowsEUR : [];
+      const sumEur = rowsEur.reduce((s,r)=>s+Number(r.sumEur||0),0);
+      const addEur = sumEur + (eurRate>0 ? (uah/eurRate) : 0);
+
+      spec.iksPayload = p;
+      spec.iksAddEur = addEur;
+
+      // показуємо в EUR-списку як окремий рядок (для клієнта)
+      spec.items.push({
+        id: "IKS_ADDON",
+        code: "IKS_ADDON",
+        name: "IKS двері (add-on з окремого калькулятора)",
+        unit: "компл.",
+        qtyPieces: 1,
+        sell_type: "PCS",
+        priceEur: addEur,
+        sumEur: addEur,
+        cutInfo: "Позиції IKS/скло — у деталізації менеджера"
+      });
+
+      spec.totalEur = (spec.totalEur || 0) + addEur;
+    }
+  }else{
+    spec.iksPayload = null;
+    spec.iksAddEur = 0;
+  }
+}catch(e){
+  console.warn("IKS add-on skipped:", e);
+}
+
+window.__onlySpec = spec;
         render(spec);
     }
 
@@ -1472,7 +1770,8 @@ try {
         "sideGlass","buselSideGlassId",
         "isLed","colorCode",
         "shelfType","shelvesCount",
-        "frameMode","topBottom25"
+        "frameMode","topBottom25",
+        "iksAddonEnabled"
     ].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
@@ -1496,17 +1795,22 @@ try {
     const elClientSummary = document.getElementById("clientSummary");
 
     function ensureManagerAccess(){
-        // Cached OK flag so manager doesn't need to re-enter each refresh
-        if (localStorage.getItem("ONLY_MANAGER_OK") === "1") return true;
-        const code = (prompt("Код менеджера:", "") || "").trim();
-        if (code === "603"){
-            localStorage.setItem("ONLY_MANAGER_OK", "1");
-            return true;
-        }
-        alert("Невірний код.");
-        return false;
-    }
+  // Cached OK flag so manager doesn't need to re-enter each refresh
+  if (localStorage.getItem("ONLY_MANAGER_OK") === "1") return true;
 
+  const MANAGER_CODE = "603"; // ✅ пароль менеджера
+  const codeRaw = prompt("Код менеджера:", "") ;
+  if (codeRaw === null) return false; // cancel
+
+  const code = String(codeRaw).trim();
+  // allow minor variations like leading zeros/spaces
+  if (code === MANAGER_CODE || code.replace(/^0+/, "") === MANAGER_CODE){
+    localStorage.setItem("ONLY_MANAGER_OK", "1");
+    return true;
+  }
+  alert("Невірний код.");
+  return false;
+}
     function applyModeUI(){
         const isManager = currentMode === "manager";
         if (elModeLabel) elModeLabel.textContent = "Режим: " + (isManager ? "менеджер" : "клієнт");
@@ -1521,21 +1825,31 @@ try {
 
         const btnCsv = document.getElementById("btnCsv");
         if (btnCsv) btnCsv.style.display = isManager ? "" : "none";
-    }
+
+// generic visibility by data-mode="manager|client"
+document.querySelectorAll('[data-mode]').forEach(el=>{
+  const m = el.getAttribute('data-mode');
+  if(m === 'manager') el.style.display = isManager ? '' : 'none';
+  if(m === 'client')  el.style.display = isManager ? 'none' : '';
+});
+}
+
 
     if (elManagerBtn){
-        elManagerBtn.addEventListener("click", () => {
-            if (currentMode !== "manager"){
-                // switching to manager
-                if (!ensureManagerAccess()) return;
-                currentMode = "manager";
-            } else {
-                currentMode = "client";
-            }
-            localStorage.setItem("ONLY_MODE", currentMode);
-            applyModeUI();
-        });
+  elManagerBtn.addEventListener("click", () => {
+    if (currentMode !== "manager"){
+      // switching to manager
+      if (!ensureManagerAccess()) return;
+      currentMode = "manager";
+    } else {
+      // switching back to client: drop auth flag so code is required next time
+      currentMode = "client";
+      try{ localStorage.removeItem("ONLY_MANAGER_OK"); }catch(e){}
     }
+    localStorage.setItem("ONLY_MODE", currentMode);
+    applyModeUI();
+  });
+}
 
     // Apply on load
     applyModeUI();
@@ -1580,6 +1894,24 @@ try {
             const s    = (r.sumEur ?? "").toString();
             text += `${code}; ${name}; ${qty}; ${p}; ${s}\n`;
         }
+
+        // IKS details (manager only)
+        if(currentMode === "manager" && spec.iksPayload){
+            text += "\n\nIKS (додатково):\n";
+            if(Array.isArray(spec.iksPayload.rowsEUR) && spec.iksPayload.rowsEUR.length){
+                text += "— EUR:\n";
+                for(const r of spec.iksPayload.rowsEUR){
+                    text += `${(r.code||r.id)}; ${(r.label||r.name||"").toString().replace(/\s+/g," ").trim()}; ${(r.qty||r.qtyStr||"")}; ${(r.priceEur||0)}; ${(r.sumEur||0)}\n`;
+                }
+            }
+            if(Array.isArray(spec.iksPayload.rowsUAH) && spec.iksPayload.rowsUAH.length){
+                text += "— UAH:\n";
+                for(const r of spec.iksPayload.rowsUAH){
+                    text += `${(r.code||r.id)}; ${(r.label||r.name||"").toString().replace(/\s+/g," ").trim()}; ${(r.qty||r.qtyStr||"")}; ${(r.priceUah||r.priceUAH||0)}; ${(r.sumUah||r.sumUAH||0)}\n`;
+                }
+            }
+        }
+
         text += "```";
 
         const payload = { secret: TELEGRAM_FORM_SECRET, text };

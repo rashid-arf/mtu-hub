@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MT Hub · IKS (скляні фасади)</title>
+
+  <style>
+    :root {
+      --bg: #f4f5fb;
+      --bg-elevated: #ffffff;
+      --bg-hero: #f9fafb;
+      --text: #020617;
+      --text-main: #141414;
+      --text-muted: #555;
+      --accent: #16a34a;
+      --accent-soft: rgba(22, 163, 74, 0.08);
+      --border: rgba(148, 163, 184, 0.40);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.12);
+      --radius-lg: 22px;
+      --radius-md: 18px;
+    }
+
+    .dark-theme {
+      --bg: #020617;
+      --bg-elevated: #020617;
+      --bg-hero: #020617;
+      --text: #e5e7eb;
+      --text-main: #ffffff;
+      --text-muted: #cfcfcf;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.12);
+      --border: rgba(148, 163, 184, 0.25);
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.90);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, #e0f2fe 0, transparent 40%),
+        radial-gradient(circle at bottom right, #dcfce7 0, transparent 45%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 32px 16px 56px;
+    }
+
+    /* TOPBAR */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.90);
+      box-shadow: 0 12px 35px rgba(15, 23, 42, 0.12);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(10px);
+      margin-bottom: 22px;
+      gap: 14px;
+    }
+    .dark-theme .topbar {
+      background: rgba(15, 23, 42, 0.92);
+      border-color: rgba(148, 163, 184, 0.35);
+    }
+
+    .topbar-left{
+      display:flex;
+      align-items:center;
+      gap: 14px;
+      min-width: 260px;
+    }
+
+    .brand {
+      display:flex;
+      flex-direction: column;
+      line-height: 1.05;
+    }
+    .brand b {
+      font-size: 13px;
+      letter-spacing: 0.2px;
+      color: var(--text-main);
+    }
+    .brand span {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .nav {
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0 6px;
+      flex: 1;
+    }
+
+    .nav a{
+      text-decoration: none;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(255, 255, 255, 0.70);
+      color: var(--text-main);
+      transition: transform .15s ease, background .15s ease;
+    }
+    .dark-theme .nav a{
+      background: rgba(2, 6, 23, 0.35);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: var(--text);
+    }
+    .nav a:hover { transform: translateY(-1px); }
+    .nav a.active{
+      background: var(--accent-soft);
+      border-color: rgba(22,163,74,0.35);
+    }
+    .dark-theme .nav a.active{
+      border-color: rgba(34,197,94,0.35);
+    }
+
+    .topbar-actions{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 220px;
+      justify-content: flex-end;
+    }
+
+    .pill{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 8px 12px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(255, 255, 255, 0.70);
+      font-size: 12px;
+      color: var(--text-main);
+      cursor: pointer;
+      user-select: none;
+    }
+    .dark-theme .pill{
+      background: rgba(2, 6, 23, 0.35);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: var(--text);
+    }
+
+    /* SECTIONS / CARDS */
+    .hero {
+      padding: 24px 24px 26px;
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+      margin-bottom: 18px;
+    }
+    .dark-theme .hero{
+      background: rgba(15, 23, 42, 0.62);
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+
+    .hero h1{
+      margin: 0 0 10px;
+      font-size: 24px;
+      color: var(--text-main);
+      letter-spacing: -0.2px;
+    }
+    .hero p{
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.55;
+      max-width: 78ch;
+    }
+    .dark-theme .hero p{ color: rgba(229,231,235,0.78); }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 980px){
+      .grid2{ grid-template-columns: 1fr; }
+      .topbar{ flex-wrap: wrap; border-radius: 26px; }
+      .topbar-left, .topbar-actions{ min-width: unset; width: 100%; justify-content: space-between; }
+      .nav{ width: 100%; justify-content: flex-start; }
+    }
+
+    .card{
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+      padding: 18px 18px 18px;
+    }
+    .dark-theme .card{
+      background: rgba(15, 23, 42, 0.62);
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+
+    .card h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: var(--text-main);
+    }
+    .card .lead{
+      margin: 0 0 12px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .dark-theme .card .lead{ color: rgba(229,231,235,0.78); }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+    .dark-theme .list{ color: rgba(229,231,235,0.78); }
+    .list li + li{ margin-top: 6px; }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(255,255,255,0.72);
+      color: var(--text-main);
+      text-decoration:none;
+      font-size: 12px;
+      cursor:pointer;
+      transition: transform .15s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); }
+    .btn.primary{
+      background: var(--accent-soft);
+      border-color: rgba(22,163,74,0.35);
+    }
+    .dark-theme .btn{ background: rgba(2, 6, 23, 0.35); color: var(--text); border-color: rgba(148, 163, 184, 0.25); }
+    .dark-theme .btn.primary{ border-color: rgba(34,197,94,0.35); background: rgba(34,197,94,0.12); }
+
+    /* MEDIA GRID */
+    .mediaGrid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+    @media (max-width: 980px){
+      .mediaGrid{ grid-template-columns: 1fr; }
+    }
+
+    .mediaCard{
+      grid-column: span 4;
+      border-radius: var(--radius-md);
+      overflow:hidden;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: rgba(255,255,255,0.80);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.08);
+    }
+    .dark-theme .mediaCard{
+      background: rgba(15,23,42,0.55);
+      border-color: rgba(148,163,184,0.22);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+    }
+    @media (max-width: 980px){
+      .mediaCard{ grid-column: span 12; }
+    }
+
+    .mediaThumb{
+      aspect-ratio: 16 / 10;
+      width: 100%;
+      background: rgba(2,6,23,0.15);
+    }
+    .mediaThumb img{
+      
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display:block;
+    }
+
+    .mediaThumb.contain img{
+      object-fit: contain;
+      padding: 10px;
+      background: rgba(2,6,23,0.10);
+    }
+
+
+    .mediaBody{
+      padding: 12px 14px 14px;
+    }
+    .mediaTitle{
+      margin: 0 0 4px 0;
+      font-weight: 800;
+      font-size: 13px;
+      color: var(--text-main);
+    }
+    .dark-theme .mediaTitle{ color: #fff; }
+
+    .mediaText{
+      margin: 0;
+      font-size: 12.5px;
+      color: rgba(51,65,85,0.85);
+      line-height: 1.35;
+    }
+    .dark-theme .mediaText{ color: rgba(229,231,235,0.72); }
+
+    
+    /* ===== Calculator (IKS) — same vibe as ONLY/LAIT ===== */
+    .section-headline{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+      color: var(--text-main);
+    }
+    .section-lead{
+      margin: 0 0 16px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.55;
+      max-width: 86ch;
+    }
+    .dark-theme .section-lead{ color: rgba(229,231,235,0.78); }
+
+    .calcRoot{
+      border-radius: var(--radius-lg);
+      background: rgba(255,255,255,0.86);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(10px);
+      padding: 18px;
+    }
+    .dark-theme .calcRoot{
+      background: rgba(15, 23, 42, 0.62);
+      border-color: rgba(148, 163, 184, 0.25);
+    }
+
+    .calcGrid{
+      display:grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    @media (max-width: 980px){
+      .calcGrid{ grid-template-columns: 1fr; }
+    }
+
+    .panel{
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: rgba(255,255,255,0.75);
+      padding: 14px;
+    }
+    .dark-theme .panel{
+      background: rgba(2, 6, 23, 0.35);
+      border-color: rgba(148, 163, 184, 0.22);
+    }
+
+    .panelTitle{
+      margin: 0 0 10px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .dark-theme .panelTitle{ color: #fff; }
+
+    .formGrid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 10px;
+    }
+    .field{ grid-column: span 6; display:flex; flex-direction:column; gap: 6px; }
+    .field.full{ grid-column: span 12; }
+    @media (max-width: 680px){
+      .field{ grid-column: span 12; }
+    }
+    .field label{
+      font-size: 12px;
+      color: rgba(71,85,105,0.92);
+    }
+    .dark-theme .field label{ color: rgba(229,231,235,0.70); }
+
+    .field input, .field select, .field textarea{
+      width: 100%;
+      padding: 10px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.40);
+      background: rgba(255,255,255,0.88);
+      color: var(--text-main);
+      outline: none;
+      font-size: 13px;
+    }
+    .dark-theme .field input,
+    .dark-theme .field select,
+    .dark-theme .field textarea{
+      background: rgba(15, 23, 42, 0.65);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: var(--text);
+    }
+    .field textarea{ min-height: 86px; resize: vertical; }
+
+    .rowActions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      align-items:center;
+    }
+
+    .hint{
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(71,85,105,0.85);
+      line-height: 1.45;
+    }
+    .dark-theme .hint{ color: rgba(229,231,235,0.65); }
+
+    .sumGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .sumBox{
+      border-radius: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      background: rgba(255,255,255,0.70);
+      padding: 12px;
+    }
+    .dark-theme .sumBox{
+      background: rgba(2, 6, 23, 0.30);
+      border-color: rgba(148, 163, 184, 0.20);
+    }
+    .sumBox h4{
+      margin: 0 0 8px;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+    .dark-theme .sumBox h4{ color: #fff; }
+
+    .kv{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 12.5px;
+      padding: 6px 0;
+      border-bottom: 1px dashed rgba(148,163,184,0.25);
+    }
+    .kv:last-child{ border-bottom: none; }
+    .kv b{ color: var(--text-main); }
+    .dark-theme .kv b{ color: #fff; }
+    .kv span{ color: rgba(71,85,105,0.92); }
+    .dark-theme .kv span{ color: rgba(229,231,235,0.72); }
+
+    .warn{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      background: rgba(245, 158, 11, 0.08);
+      color: rgba(92, 56, 0, 0.9);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .dark-theme .warn{
+      color: rgba(255, 237, 213, 0.92);
+      background: rgba(245, 158, 11, 0.10);
+      border-color: rgba(245, 158, 11, 0.28);
+    }
+
+    .modeRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      margin-bottom: 10px;
+    }
+    .modeBadge{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-size: 12px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(255,255,255,0.72);
+      color: var(--text-main);
+    }
+    .dark-theme .modeBadge{
+      background: rgba(2, 6, 23, 0.35);
+      border-color: rgba(148, 163, 184, 0.25);
+      color: var(--text);
+    }
+
+    footer{
+      margin-top: 22px;
+      color: rgba(71,85,105,0.85);
+      font-size: 12px;
+      text-align: center;
+    }
+    .dark-theme footer{ color: rgba(229,231,235,0.65); }
+  
+/* ONLY handoff button */
+#applyToOnlyBtn{border-color: rgba(46, 204, 113, .55);} 
+#applyToOnlyBtn:hover{box-shadow: 0 0 0 3px rgba(46, 204, 113, .10);} 
+
+</style>
+</head>
+
+<body>
+  <div class="page" id="pageRoot">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="brand">
+
+
+        </div>
+      </div>
+
+      <nav class="nav" aria-label="Навігація">
+        <a href="index.html">MT Hub</a>
+        <a href="only.html">ONLY</a>
+        <a href="lait-lite.html">LAIT</a>
+        <a href="iks.html" class="active">IKS</a>
+      </nav>
+
+      <div class="topbar-actions">
+        <button id="themeToggle" class="pill" type="button" title="Перемкнути тему">
+          🌗 <span id="themeLabel">Тема</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>IKS — скляні фасади</h1>
+      <p>
+        Алюмінієва система розпашних скляних дверей для преміальних шаф, вітрин та гардеробів.
+      </p>
+    </section>
+
+    <section class="grid2">
+      <article class="card">
+        <h2>Система IKS</h2>
+        <p class="lead">
+          Повнорозмірна система скляних фасадів із прихованими петлями. Орієнтовно до 33 кг на пару петель
+          (залежить від конфігурації).
+        </p>
+        <ul class="list">
+          <li><b>Профіль:</b> IS-954 (вклейка) / IS-955 (скло в паз)</li>
+          <li><b>Скло:</b> 4–6 мм</li>
+          <li><b>Кут відкривання:</b> 95° / 180°</li>
+          <li><b>Регулювання:</b> висота / ширина / глибина</li>
+        </ul>
+      </article>
+
+      <aside class="card">
+        <h2>Документація</h2>
+              <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn primary" href="IKS-mini_IKS_Only-IKS.pdf" target="_blank"
+             rel="noopener">📄 Скачати каталог IKS (PDF)</a>
+          <a class="btn" href="#gallery">🖼️ Вузли (галерея)</a>
+        </div>
+             </aside>
+    </section>
+
+
+    
+    <!-- CALCULATOR -->
+    <section id="calculator" style="margin-bottom: 18px;">
+      <h2 class="section-headline">Калькулятор IKS (скло + IKS/IKS mini)</h2>
+      <p class="section-lead">
+        Вкажіть габарит фасаду та параметри системи. Доступні 2 постачальники скла: <b>Варіант A</b> та <b>Варіант B</b>,
+        з перемикачем <b>загартоване / не загартоване</b>. Результат можна скопіювати або відправити в Telegram, а також скачати CSV для 1С.
+      </p>
+
+      <div class="calcRoot">
+        <div class="modeRow">
+          <span class="modeBadge">🔁 Режим: <b id="modeLabel">клієнт</b></span>
+          <button class="btn" id="modeToggleBtn" type="button">Клієнт / Менеджер</button>
+          <button class="btn primary" id="calcBtn" type="button">Розрахувати</button>
+          <button class="btn" id="applyToOnlyBtn" type="button" title="Зберегти IKS як add-on для калькулятора ONLY">Застосувати до ONLY</button>
+        </div>
+
+        <div class="calcGrid">
+          <!-- Inputs -->
+          <div class="panel">
+            <h3 class="panelTitle">Вхідні дані</h3>
+
+            <div class="formGrid">
+              <div class="field">
+                <label for="eurRate">Курс EUR, грн</label>
+                <input id="eurRate" type="number" value="49.5" step="0.01" />
+              </div>
+
+              <div class="field">
+                <label for="qty">Кількість фасадів, шт</label>
+                <input id="qty" type="number" value="1" min="1" step="1" />
+              </div>
+
+              <div class="field">
+                <label for="doorW">Ширина фасаду, мм</label>
+                <input id="doorW" type="number" value="500" min="120" step="1" />
+              </div>
+
+              <div class="field">
+                <label for="doorH">Висота фасаду, мм</label>
+                <input id="doorH" type="number" value="700" min="200" step="1" />
+              </div>
+
+              <div class="field">
+                <label for="systemType">Система</label>
+                <select id="systemType">
+                  <option value="IKS">IKS (33 кг)</option>
+                  <option value="IKS_MINI">IKS mini (20 кг)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="profileType">Профіль</label>
+                <select id="profileType">
+                  <!-- IKS -->
+                  <option value="IS954" data-sys="IKS">IS-954 (скло приклеюється)</option>
+                  <option value="IS955" data-sys="IKS">IS-955 (скло в паз + ущільнювач)</option>
+                  <!-- IKS mini -->
+                  <option value="ISM956" data-sys="IKS_MINI">ISM-956 (вклейка скла)</option>
+                  <option value="ISM955" data-sys="IKS_MINI">ISM-955 (скло в паз 4 мм + ущільнювач)</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="finish">Колір</label>
+                <select id="finish">
+                  <option value="NS">Чорний мат (NS)</option>
+                  <option value="DE">Під фарбування (DE)</option>
+                  <option value="BRA">Бронза Armani</option>
+                  <option value="BRC">Бронза Cartier</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="angle">Кут відкривання</label>
+                <select id="angle">
+                  <option value="95">95°</option>
+                  <option value="180">180°</option>
+                </select>
+              </div>
+              <div class="field" id="hingeField">
+                <label for="hingeMode">Петлі (за замовчуванням — з доводчиком)</label>
+                <select id="hingeMode">
+                  <option value="PI">З доводчиком (PI) — default MT</option>
+                  <option value="NO_CLOSER">Без доводчика</option>
+                  <option value="TIPON">Tip-On</option>
+                </select>
+                <div class="hint" id="hingeHint" style="margin-top:6px; opacity:.8; font-size:12px;">
+                  Для 180° петлі підбираються автоматично (окремий комплект).
+                </div>
+              </div>
+
+
+              <div class="field">
+                <label for="supplier">Постачальник скла</label>
+                <select id="supplier">
+                  <option value="ABSTRACT">Варіант A</option>
+                  <option value="BUSEL">Варіант B</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label for="glassItem">Скло (з бази)</label>
+                <select id="glassItem"></select>
+              </div>
+
+              <div class="field">
+                <label for="tempered">Загартоване</label>
+                <select id="tempered">
+                  <option value="1">Так</option>
+                  <option value="0">Ні</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="edgePolish">Полірування кромки</label>
+                <select id="edgePolish">
+                  <option value="1">Так</option>
+                  <option value="0">Ні</option>
+                </select>
+              </div>
+
+              <div class="field full">
+                <label>
+                  <input type="checkbox" id="adhesionPrep" checked />
+                  Варіант A: “підготовка під профіль / фарбування” (лише для вклейки)
+                </label>
+              </div>
+
+
+              <div class="field full" id="buselPaintBlock" style="display:none;">
+                <label class="checkbox">
+                  <input type="checkbox" id="buselPaint" />
+                  Варіант B: фарбування / емалювання (непрозоре RAL або NCS, <b>мала партія</b>)
+                </label>
+                <label class="checkbox" style="margin-top:6px;">
+                  <input type="checkbox" id="buselPaintEdgeClean" />
+                  Варіант B: зачистка торців від фарби (+50% до фарбування, тільки товщина ≥ 6 мм)
+                </label>
+                <div class="help" style="margin-top:6px; opacity:.85;">
+                  Примітка: виріб <b>&lt; 0.25 м²</b> тарифікується як <b>0.25 м²</b>.
+                </div>
+              </div>
+
+              <!-- Manager details -->
+              <div class="field full" id="managerBlock" style="display:none;">
+                <label for="clientName">Клієнт / Контакт (для Telegram)</label>
+                <input id="clientName" type="text" placeholder="Імʼя або компанія" />
+                <div style="height:10px"></div>
+                <label for="clientPhone">Телефон</label>
+                <input id="clientPhone" type="text" placeholder="067..." />
+                <div style="height:10px"></div>
+                <label for="comment">Коментар</label>
+                <textarea id="comment" placeholder="Напр.: фасади у вітрину, потрібні 180° петлі"></textarea>
+              </div>
+            </div>
+
+            <div class="hint">
+              <b>Формула скла (точні допуски):</b> <span id="glassRuleText">—</span>
+            </div>
+          </div>
+
+          <!-- Results -->
+          <div class="panel">
+            <h3 class="panelTitle">Результат</h3>
+
+            <div class="sumGrid">
+              <div class="sumBox managerOnly">
+                <h4>Скло</h4>
+                <div class="kv"><b>Розмір скла (мм)</b><span id="outGlassSize">—</span></div>
+                <div class="kv"><b>Площа raw 1 шт (м²)</b><span id="outGlassAreaRaw">—</span></div>
+                <div class="kv"><b>Площа bill 1 шт (м²)</b><span id="outGlassAreaBill">—</span></div>
+                <div class="kv"><b>Площа bill разом (м²)</b><span id="outGlassAreaTotal">—</span></div>
+              </div>
+
+              <div class="sumBox managerOnly">
+                <h4>Профіль</h4>
+                <div class="kv"><b>Периметр фасаду 1 шт (м)</b><span id="outPerim">—</span></div>
+                <div class="kv"><b>Периметр разом (м)</b><span id="outPerimTotal">—</span></div>
+                <div class="kv"><b>Палок 6100 (шт)</b><span id="outBars">—</span></div>
+              </div>
+
+              <div class="sumBox">
+                <h4>Суми</h4>
+                <div class="kv managerOnly" id="rowGlassUah"><b>Скло (грн)</b><span id="outGlassUah">—</span></div>
+                <div class="kv managerOnly" id="rowIksEur"><b>IKS (€)</b><span id="outIksEur">—</span></div>
+                <div class="kv"><b>Разом (грн)</b><span id="outTotalUah">—</span></div>
+                <div class="kv"><b>Разом (~€)</b><span id="outTotalEur">—</span></div>
+              </div>
+
+              <div class="warn" id="warnBox" style="display:none;"></div>
+
+              <div class="sumBox managerOnly">
+                <h4>Розшифровка</h4>
+                <div class="hint" style="margin-top:0;">Скло:</div>
+                <pre id="outGlassBreakdown" style="margin:8px 0 0; white-space:pre-wrap; font-size:12px; color:inherit;"></pre>
+                <div class="hint">IKS:</div>
+                <pre id="outIksBreakdown" style="margin:8px 0 0; white-space:pre-wrap; font-size:12px; color:inherit;"></pre>
+              </div>
+              <div class="sumBox managerOnly" id="specBox">
+                <h4>Специфікація (для рахунку)</h4>
+                <div class="hint" style="margin-top:0;">Повний список позицій згідно прайсу: артикул, назва, кількість, ціна, сума.</div>
+
+                <div style="overflow:auto; margin-top:10px;">
+                  <table class="specTable" id="specTable" style="width:100%; border-collapse:collapse; min-width:720px;">
+                    <thead>
+                      <tr>
+                        <th style="text-align:left; padding:10px 12px; border-bottom:1px solid var(--border);">Артикул</th>
+                        <th style="text-align:left; padding:10px 12px; border-bottom:1px solid var(--border);">Номенклатура</th>
+                        <th style="text-align:right; padding:10px 12px; border-bottom:1px solid var(--border);">К-сть</th>
+                        <th style="text-align:right; padding:10px 12px; border-bottom:1px solid var(--border);">Ціна</th>
+                        <th style="text-align:right; padding:10px 12px; border-bottom:1px solid var(--border);">Сума</th>
+                        <th style="text-align:left; padding:10px 12px; border-bottom:1px solid var(--border);">Валюта</th>
+                      </tr>
+                    </thead>
+                    <tbody id="specTableBody"></tbody>
+                  </table>
+                </div>
+
+                <div class="rowActions" style="margin-top:12px;">
+                  <button class="btn" id="copySpecBtn" type="button">📋 Скопіювати (таблично)</button>
+                  <button class="btn" id="downloadCsvBtn2" type="button">📎 CSV (1С)</button>
+                </div>
+                <div class="hint" id="specHint" style="margin-top:10px;">—</div>
+              </div>
+
+
+              <div class="sumBox managerOnly">
+                <h4>Текст для Telegram</h4>
+                <textarea id="telegramText" style="width:100%; min-height:160px; resize:vertical; border-radius:12px; padding:10px; border:1px solid rgba(148,163,184,0.40); background: rgba(255,255,255,0.88); font-size:12.5px;"></textarea>
+                <div class="rowActions">
+                  <button class="btn primary" id="sendTelegramBtn" type="button">📨 Відправити в Telegram</button>
+                  <button class="btn" id="copySummaryBtn" type="button">📋 Скопіювати</button>
+                  <button class="btn" id="downloadCsvBtn" type="button">📎 CSV (1С)</button>
+                </div>
+                <div class="hint" id="telegramStatus"></div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- GALLERY -->
+    <section class="card" id="gallery">
+      <h2>Візуалізації та вузли IKS</h2>
+      <p class="lead">Однаковий розмір прев’ю, акуратні відступи, адаптивна сітка.</p>
+
+      <div class="mediaGrid">
+        <article class="mediaCard">
+          <div class="mediaThumb">
+            <img src="images/iks/iks-hinge-red.jpg" alt="ONLY + IKS — загальний вигляд" loading="lazy">
+          </div>
+          <div class="mediaBody">
+            <h3 class="mediaTitle">ONLY + IKS (приклад)</h3>
+            <p class="mediaText">Готове рішення: каркас ONLY + двері IKS.</p>
+          </div>
+        </article>
+
+        <article class="mediaCard">
+          <div class="mediaThumb">
+            <img src="images/iks/iks-cabinet-open.jpg" alt="IKS — фасади у шафі" loading="lazy">
+          </div>
+          <div class="mediaBody">
+            <h3 class="mediaTitle">Фасади у модулі</h3>
+            <p class="mediaText">Приклад модуля з розпашним відкриванням.</p>
+          </div>
+        </article>
+
+        <article class="mediaCard">
+          <div class="mediaThumb contain">
+            <img src="images/iks/iks-explode-door.jpg" alt="IKS — комплектація фасаду (exploded view)" loading="lazy">
+          </div>
+          <div class="mediaBody">
+            <h3 class="mediaTitle">Комплектація фасаду</h3>
+            <p class="mediaText">Профілі + куточки + скло (exploded view).</p>
+          </div>
+        </article>
+
+        <article class="mediaCard">
+          <div class="mediaThumb contain">
+            <img src="images/iks/iks-hinge-close.jpg" alt="Петля IKS крупним планом" loading="lazy">
+          </div>
+          <div class="mediaBody">
+            <h3 class="mediaTitle">Петля (вузол)</h3>
+            <p class="mediaText">Посадка на профіль, кріплення, геометрія.</p>
+          </div>
+        </article>
+
+        <article class="mediaCard">
+          <div class="mediaThumb contain">
+            <img src="images/iks/iks-only-hero.jpg" alt="Регулювання петлі IKS" loading="lazy">
+          </div>
+          <div class="mediaBody">
+            <h3 class="mediaTitle">Регулювання</h3>
+            <p class="mediaText">Підстроювання фасаду (висота/ширина/глибина).</p>
+          </div>
+        </article>
+
+        <article class="mediaCard">
+          <div class="mediaThumb contain">
+            <img src="images/iks/iks-hinge-on-wood.jpg" alt="Монтаж у куті" loading="lazy">
+          </div>
+          <div class="mediaBody">
+            <h3 class="mediaTitle">Монтаж у куті</h3>
+            <p class="mediaText">Візуалізація розміщення механізму.</p>
+          </div>
+        </article>
+
+      </div>
+
+      <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">⬆️ Вгору</a>
+        <a class="btn primary" href="lait-lite.html">Перейти до LAIT</a>
+        <a class="btn" href="only.html">Перейти до ONLY</a>
+      </div>
+    </section>
+
+    <footer>
+      © MT Hub · IKS / ONLY / LAIT
+    </footer>
+  </div>
+
+  
+  
+  <script>
+    // ===== Theme =====
+    (function initTheme(){
+      const root = document.documentElement;
+      const btn  = document.getElementById('themeToggle');
+      const label = document.getElementById('themeLabel');
+
+      function apply(mode){
+        if(mode === 'dark'){
+          root.classList.add('dark-theme');
+          label.textContent = 'Світла тема';
+        } else {
+          root.classList.remove('dark-theme');
+          label.textContent = 'Темна тема';
+        }
+        localStorage.setItem('mtHubTheme', mode);
+      }
+
+      const saved = localStorage.getItem('mtHubTheme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      apply(saved ? saved : (prefersDark ? 'dark' : 'light'));
+
+      btn.addEventListener('click', function(){
+        const isDark = root.classList.contains('dark-theme');
+        apply(isDark ? 'light' : 'dark');
+      });
+    })();
+
+    // ========= Data (embedded) =========
+    const GLASS_MASTER = {"meta": {"name": "ONLY master glass catalog (Busel + AbstractGlass)", "version": "only.glass.master.v1", "generated_at": "2025-12-15T19:45:20", "timezone": "Europe/Kyiv", "notes": ["This file merges supplier catalogs for ONLY and adds default supplier and auto-selection rules.", "All prices are UAH; material prices are per m²; services have their own units.", "Commercial multipliers are included as references; apply in your ONLY pricing pipeline as needed."]}, "suppliers": [{"id": "BUSEL", "name": "Busel"}, {"id": "ABSTRACT", "name": "AbstractGlass"}], "catalogs": {"BUSEL": {"glass_items": [{"id": "BUSEL_FLOAT_CLEAR_4_RIZKA", "supplier": "BUSEL", "origin": "non-china", "thickness_mm": 4, "type": "Float Clear", "label": "Скло флоат прозоре 4 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 507.9, "tempering_group": "FLOAT"}, {"id": "BUSEL_ULTRACLEAR_4_RIZKA", "supplier": "BUSEL", "origin": "non-china", "thickness_mm": 4, "type": "Ultra Clear", "label": "Скло надпрозоре (Ultra Clear) 4 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 879.3, "tempering_group": "ULTRACLEAR_TINTED"}, {"id": "BUSEL_CHINA_DARKGREY_4_RIZKA", "supplier": "BUSEL", "origin": "china", "thickness_mm": 4, "type": "Dark Grey", "label": "CHINA GLASS Dark Grey 4 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 996.42, "tempering_group": "ULTRACLEAR_TINTED"}, {"id": "BUSEL_PLANIBEL_BRONZE_GREY_4_RIZKA", "supplier": "BUSEL", "origin": "non-china", "thickness_mm": 4, "type": "Bronze/Grey", "label": "PLANIBEL Bronze/Grey 4 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1060.68, "tempering_group": "ULTRACLEAR_TINTED"}, {"id": "BUSEL_CHINA_FLOAT_CLEAR_6_RIZKA", "supplier": "BUSEL", "origin": "china", "thickness_mm": 6, "type": "Float Clear", "label": "CHINA GLASS Float 6 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 749.4, "tempering_group": "FLOAT"}, {"id": "BUSEL_ULTRACLEAR_6_RIZKA", "supplier": "BUSEL", "origin": "non-china", "thickness_mm": 6, "type": "Ultra Clear", "label": "Скло надпрозоре (Ultra Clear) 6 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1403.4, "tempering_group": "ULTRACLEAR_TINTED"}, {"id": "BUSEL_CHINA_DARKGREY_6_RIZKA", "supplier": "BUSEL", "origin": "china", "thickness_mm": 6, "type": "Dark Grey", "label": "CHINA GLASS Dark Grey 6 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1976.4, "tempering_group": "ULTRACLEAR_TINTED"}, {"id": "BUSEL_CHINA_BRONZE_6_RIZKA", "supplier": "BUSEL", "origin": "china", "thickness_mm": 6, "type": "Bronze", "label": "CHINA GLASS Bronze 6 мм (#Різка#)", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 986.1, "tempering_group": "ULTRACLEAR_TINTED"}], "services": {"tempering": {"id": "BUSEL_TEMPERING", "label": "Загартування (Busel)", "unit": "м²", "sell_type": "M2", "base_pricePerM2_uah": {"FLOAT": 217.68, "ULTRACLEAR_TINTED": 282.96, "PYROLYTIC_COATED": 326.46}, "batch_coefficients": [{"range_m2": [0.0, 0.25], "multiplier": 2.0, "note": "If you enforce min billable area as per Busel rules for tiny parts."}, {"range_m2": [0.25, 2.0], "multiplier": 1.5, "note": "Batch 0.25–2 m² (+50%)."}, {"range_m2": [2.0, 10.0], "multiplier": 1.3, "note": "Batch 2–10 m² (+30%)."}]}, "edge_polish": {"id": "BUSEL_EDGE_POLISH", "label": "Полірування кромки (Busel)", "unit": "п.м.", "sell_type": "LM", "pricePerLm_uah": {"THK_4": 70.62, "THK_3_5_6": 99.66}, "notes": ["THK_4 for 4 mm.", "THK_3_5_6 for 5–6 mm."]}}, "commercial_rules": {"busel_discount_multiplier": 0.85, "busel_markup_multiplier": 1.3, "busel_total_multiplier": 1.105, "abstract_markup_multiplier_reference": 1.15}}, "ABSTRACT": {"glass_items": [{"id": "ABS_FLOAT_4", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 4, "type": "Float Clear", "label": "Скло звичайне (Float) 4 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 690, "tempering_group": "ALL"}, {"id": "ABS_DIAMOND_4", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 4, "type": "Diamond / Extra Clear", "label": "Скло Діамант (Extra Clear) 4 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 980, "tempering_group": "ALL"}, {"id": "ABS_GRAPHITE_4", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 4, "type": "Graphite", "label": "Скло Графіт 4 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1180, "tempering_group": "ALL"}, {"id": "ABS_BRONZE_4", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 4, "type": "Bronze", "label": "Скло Бронза 4 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1180, "tempering_group": "ALL"}, {"id": "ABS_FLOAT_5", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 5, "type": "Float Clear", "label": "Скло звичайне (Float) 5 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 890, "tempering_group": "ALL"}, {"id": "ABS_DIAMOND_5", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 5, "type": "Diamond / Extra Clear", "label": "Скло Діамант (Extra Clear) 5 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1285, "tempering_group": "ALL"}, {"id": "ABS_GRAPHITE_5", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 5, "type": "Graphite", "label": "Скло Графіт 5 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1500, "tempering_group": "ALL"}, {"id": "ABS_BRONZE_5", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 5, "type": "Bronze", "label": "Скло Бронза 5 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1500, "tempering_group": "ALL"}, {"id": "ABS_FLOAT_6", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 6, "type": "Float Clear", "label": "Скло звичайне (Float) 6 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1100, "tempering_group": "ALL"}, {"id": "ABS_DIAMOND_6", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 6, "type": "Diamond / Extra Clear", "label": "Скло Діамант (Extra Clear) 6 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1590, "tempering_group": "ALL"}, {"id": "ABS_GRAPHITE_6", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 6, "type": "Graphite", "label": "Скло Графіт 6 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1795, "tempering_group": "ALL"}, {"id": "ABS_BRONZE_6", "supplier": "ABSTRACT", "origin": "china", "thickness_mm": 6, "type": "Bronze", "label": "Скло Бронза 6 мм", "sell_type": "M2", "unit": "м²", "pricePerM2_uah": 1795, "tempering_group": "ALL"}], "services": {"tempering": {"id": "ABS_TEMPERING", "label": "Загартування (AbstractGlass)", "unit": "м²", "sell_type": "M2", "pricePerM2_uah": {"THK_4": 265, "THK_5": 275, "THK_6": 290}}, "edge_polish": {"id": "ABS_EDGE_POLISH", "label": "Полірування кромки (AbstractGlass)", "unit": "п.м.", "sell_type": "LM", "pricePerLm_uah": {"THK_3_4_5": 55, "THK_6": 65}}, "adhesion_prep": {"id": "ABS_ART_PAINT", "label": "Худ. фарбування / підготовка під профіль (1 колір)", "unit": "м²", "sell_type": "M2", "pricePerM2_uah": 485, "notes": ["Технологічна підготовка поверхні скла під приклейку профілю", "Використовується для покращення адгезії"]}}, "commercial_rules": {"abstract_markup_multiplier": 1.15}}}, "defaults": {"default_supplier": "ABSTRACT", "default_policy": {"kitchen_upper": "ABSTRACT", "wardrobe_large": "BUSEL"}, "assumptions": {"edge_polish_always_on": true, "tempering_for_large_wardrobe": true}}, "selector_rules": {"description": "Rule-based supplier selector for glass in ONLY", "rules_ordered": [{"id": "R1_CHINA_6MM_PREFERRED_BUSEL", "when": {"thickness_mm_in": [6], "origin_preference": "china", "glass_type_in": ["Float Clear", "Bronze", "Dark Grey"]}, "pick_supplier": "BUSEL", "reason": "China 6 mm is typically cheaper and present as explicit CHINA GLASS in Busel price lists."}, {"id": "R2_4_5MM_DEFAULT_ABSTRACT", "when": {"thickness_mm_in": [4, 5]}, "pick_supplier": "ABSTRACT", "reason": "Default mass supplier for 4–5 mm."}, {"id": "R3_ULTRACLEAR_PREMIUM_BUSEL_OPTION", "when": {"glass_type_in": ["Ultra Clear", "Diamond / Extra Clear", "Скло надпрозоре (Ultra Clear) 4 мм (#Різка#)", "Скло надпрозоре (Ultra Clear) 6 мм (#Різка#)"], "premium_client": true}, "pick_supplier": "BUSEL", "reason": "Premium client path may prefer Busel ultraclear control and assortment."}, {"id": "R4_FALLBACK_DEFAULT", "when": {}, "pick_supplier": "ABSTRACT", "reason": "Fallback to default supplier."}], "service_policy": {"edge_polish": {"enabled": true, "default": {"BUSEL": "BUSEL_EDGE_POLISH", "ABSTRACT": "ABS_EDGE_POLISH"}}, "tempering": {"enabled": "conditional", "default": {"BUSEL": "BUSEL_TEMPERING", "ABSTRACT": "ABS_TEMPERING"}, "enable_when": {"is_wardrobe_large": true}}, "adhesion_prep": {"enabled": "conditional", "supplier": "ABSTRACT", "service_id": "ABS_ART_PAINT", "enable_when": {"needs_profile_adhesion_prep": true}}}}};
+    const IKS_PRICE_EUR = {"IKS": {"barLenMm": 6100, "IS_954_bar": {"id": "trIS-954-NS", "label": "Профіль IKS (IS-954) L=6100", "priceEur": 188.16}, "IS_955_bar": {"id": "trIS-955-NS", "label": "Профіль IKS (IS-955) L=6100", "priceEur": 194.54}, "HANDLE_200": {"id": "trIS-986-200-NS", "label": "Ручка IKS L=200", "priceEur": 22.55}, "CORNER_DX": {"id": "trIS-G-DX", "label": "Куточок IKS (правий)", "priceEur": 7.45}, "CORNER_SX": {"id": "trIS-G-SX", "label": "Куточок IKS (лівий)", "priceEur": 7.45}, "GASKET": {"id": "trGU-BATTUTA-FUME", "label": "Ущільнювач дверей IKS L=3000", "priceEur": 4.34}, "HINGE_SET": {"id": "trIS-CE33-180", "label": "Петля IKS-33 180° з доводчиком (компл)", "priceEur": 71.73}}, "IKS_MINI": {"barLenMm": 6100, "ISM_956_bar": {"id": "trISM-956-NS", "label": "Профіль IKS mini (ISM-956) L=6100", "priceEur": 105.0}, "ISM_955_bar": {"id": "trISM-955-NS", "label": "Профіль IKS mini (ISM-955) L=6100", "priceEur": 108.57}, "HANDLE_120": {"id": "trISM-986-NS", "label": "Ручка IKS mini L=120", "priceEur": 16.42}, "CORNER_DX": {"id": "trISM-G-DX", "label": "Куточок IKS mini (правий)", "priceEur": 3.4}, "CORNER_SX": {"id": "trISM-G-SX", "label": "Куточок IKS mini (лівий)", "priceEur": 3.4}, "GASKET": {"id": "trA10.232-3000", "label": "Ущільнювач IKS mini L=3000", "priceEur": 8.86}, "HINGE_SET": {"id": "HH148.001.003", "label": "Комплект петель IKS mini з доводчиком", "priceEur": 37.87}}};
+
+    // === IKS finish variants (from Trial_price.pdf 04.11.2025) ===
+    // Якщо для вибраного кольору немає позиції — робимо fallback на NS і показуємо warning.
+    const IKS_FINISH_VARIANTS = {
+      IKS: {
+        IS_954_bar: {
+          NS:  { id:"trIS-954-NS",     label:"Профіль IKS (IS-954) L=6100", priceEur:188.16 },
+          BRA: { id:"trIS-954-BRA",    label:"Профіль IKS (IS-954) L=6100", priceEur:166.02 },
+          BRC: { id:"trIS-954-BRC_св", label:"Профіль IKS (IS-954) L=6100", priceEur:156.83 },
+          DE:  null
+        },
+        IS_955_bar: {
+          NS:  { id:"trIS-955-NS",     label:"Профіль IKS (IS-955) L=6100", priceEur:194.54 },
+          BRA: { id:"trIS-955-BRA",    label:"Профіль IKS (IS-955) L=6100", priceEur:166.02 },
+          BRC: { id:"trIS-955-BRC_св", label:"Профіль IKS (IS-955) L=6100", priceEur:156.80 },
+          DE:  { id:"trIS-955-DE",     label:"Профіль IKS (IS-955) L=6100", priceEur:120.74 }
+        },
+        HANDLE_200: {
+          NS:  { id:"trIS-986-200-NS", label:"Ручка IKS L=200", priceEur:22.55 },
+          BRA: { id:"trIS-986-BRA",    label:"Ручка IKS L=200", priceEur:22.55 },
+          BRC: { id:"trIS-986-BRC",    label:"Ручка IKS L=200", priceEur:22.55 },
+          DE:  { id:"trIS-986-DE",     label:"Ручка IKS L=200", priceEur:17.28 }
+        }
+      },
+      IKS_MINI: {
+        ISM_956_bar: {
+          NS:  { id:"trISM-956-NS",     label:"Профіль IKS mini (ISM-956) L=6100", priceEur:105.00 },
+          BRA: { id:"trISM-956-BRA",    label:"Профіль IKS mini (ISM-956) L=6100", priceEur:105.00 },
+          BRC: { id:"trISM-956-BRC_св", label:"Профіль IKS mini (ISM-956) L=6100", priceEur:105.00 },
+          DE:  null
+        },
+        ISM_955_bar: {
+          NS:  { id:"trISM-955-NS", label:"Профіль IKS mini (ISM-955) L=6100", priceEur:108.57 },
+          BRA: null,
+          BRC: null,
+          DE:  null
+        },
+        HANDLE_120: {
+          NS:  { id:"trISM-986-NS",  label:"Ручка IKS mini L=120", priceEur:16.42 }, // fallback
+          BRA: { id:"trISM-986-BRA", label:"Ручка IKS mini L=120", priceEur:16.42 },
+          BRC: { id:"trISM-986-BRC", label:"Ручка IKS mini L=120", priceEur:16.42 },
+          DE:  null
+        }
+      }
+    };
+
+    function pickFinishItem(systemType, key, finish){
+      const base = IKS_PRICE_EUR[systemType] && IKS_PRICE_EUR[systemType][key];
+      const map = IKS_FINISH_VARIANTS[systemType] && IKS_FINISH_VARIANTS[systemType][key];
+      if(!map) return { item: base, warn: "" };
+
+      const chosen = map[finish];
+      if(chosen) return { item: chosen, warn: "" };
+
+      // fallback to NS
+      const fallback = map.NS || base;
+      const warn = `⚠️ Для ${key} немає ціни в кольорі ${finish}. Використано NS.`;
+      return { item: fallback, warn };
+    }
+
+
+    // ========= Busel engine (embedded) =========
+    (function (root, factory) {
+  if (typeof module === "object" && typeof module.exports === "object") {
+    module.exports = factory();
+  } else {
+    root.GlassEngine = factory();
+  }
+})(typeof self !== "undefined" ? self : this, function () {
+  "use strict";
+
+// =========================
+// MT Busel v3 defaults (global config)
+// =========================
+// You can override per-call by passing fields into calcBuselV3Piece(p),
+// or globally via GlassEngine.setBuselConfig({...}).
+let BUSEL_CFG = {
+  // Business rule: MT glass is tempered by default
+  tempered: true,
+
+  // Billing area minimum per piece (m²)
+  minAreaM2: 0.25,
+
+  // Temper minimums (UAH) per ONE glass type/thickness in the order
+  temperMinFloatUAH: 750,
+  temperMinOtherUAH: 999,
+
+  // MT pricing modifiers
+  mtDiscount: 0.85, // -15%
+  mtMarkup: 1.30,   // +30%
+
+  // Optional size surcharge application
+  applySizeSurcharge: false
+};
+
+function setBuselConfig(patch) {
+  if (!patch || typeof patch !== "object") return BUSEL_CFG;
+  BUSEL_CFG = { ...BUSEL_CFG, ...patch };
+  return BUSEL_CFG;
+}
+
+
+  // -------------------------
+  // utils
+  // -------------------------
+  function clamp0(x) {
+    x = Number(x);
+    return Number.isFinite(x) ? Math.max(0, x) : 0;
+  }
+
+  function mm2_to_m2(wMm, hMm) {
+    return (clamp0(wMm) * clamp0(hMm)) / 1_000_000;
+  }
+
+  function perimeter_m(wMm, hMm) {
+    return (2 * (clamp0(wMm) + clamp0(hMm))) / 1000;
+  }
+
+  function round2(x) {
+    return Math.round((Number(x) + Number.EPSILON) * 100) / 100;
+  }
+
+  // -------------------------
+  // Busel coefficients
+  // -------------------------
+  function areaCoef(billingAreaM2) {
+    const a = clamp0(billingAreaM2);
+    if (a >= 7.5) return 2.0;
+    if (a >= 6.5) return 1.5;
+    if (a >= 5.5) return 1.3;
+    if (a >= 4.5) return 1.2;
+    if (a >= 3.5) return 1.1;
+    return 1.0;
+  }
+
+  /**
+   * Batch coefficient for tempering party.
+   * (Keep same logic as Volpato calculator. Adjust later if you confirm exact table.)
+   */
+  function batchCoefTempered(totalAreaM2) {
+    const a = clamp0(totalAreaM2);
+    if (a < 0.25) return 2.0;
+    if (a < 2.0) return 1.5;
+    if (a < 10.0) return 1.3;
+    if (a < 50.0) return 1.1;
+    if (a <= 100.0) return 1.05;
+    return 1.0;
+  }
+
+  /**
+   * Size surcharge for pre-processing (optional, based on one side length).
+   * If you don't need it now — keep enabled=false in options.
+   */
+  function sizeSurchargeCoef(p) {
+    const wMm = clamp0(p && p.wMm);
+    const hMm = clamp0(p && p.hMm);
+    const maxSide = Math.max(wMm, hMm);
+    if (maxSide >= 3200) return 1.50;
+    if (maxSide >= 2800) return 1.35;
+    if (maxSide >= 2200) return 1.20;
+    return 1.00;
+  }
+
+  // -------------------------
+  // Core pricing
+  // -------------------------
+
+  /**
+   * Calculate Busel-based glass cost for given piece geometry.
+   *
+   * @param {object} p
+   * @param {number} p.widthMm
+   * @param {number} p.heightMm
+   * @param {number} p.qty
+   * @param {number} p.materialPricePerM2UAH     - Busel base material price, UAH/m²
+   * @param {number} p.edgePolishPerMUAH         - polishing price, UAH/m (can be 0)
+   * @param {boolean} [p.tempered=true]          - we treat ALL glass as tempered in MT projects
+   * @param {number} [p.temperTariffPerM2UAH=0]  - Busel tempering tariff, UAH/m² for this glass type/thickness
+   * @param {"float"|"other"} [p.temperMinType="other"] - which min order to use
+   * @param {number} [p.temperMinFloatUAH=750]
+   * @param {number} [p.temperMinOtherUAH=999]
+   * @param {boolean} [p.applySizeSurcharge=false]
+   * @returns {object} breakdown
+   */
+  function calcBuselV3Piece(p) {
+    const widthMm = clamp0(p && p.widthMm);
+    const heightMm = clamp0(p && p.heightMm);
+    const qty = Math.max(1, Math.floor(clamp0((p && p.qty) || 1)));
+
+    const materialPricePerM2UAH = clamp0(p && p.materialPricePerM2UAH);
+    const edgePolishPerMUAH = clamp0(p && p.edgePolishPerMUAH);
+
+    const rawArea = mm2_to_m2(widthMm, heightMm);
+    const billingArea = Math.max(rawArea, (BUSEL_CFG && BUSEL_CFG.minAreaM2) ? BUSEL_CFG.minAreaM2 : 0.25);
+
+    const kArea = areaCoef(billingArea);
+
+    // material + polish (Busel base)
+    const materialUAH = billingArea * materialPricePerM2UAH;
+    const edgeLenM = perimeter_m(widthMm, heightMm);
+    const polishUAH = edgeLenM * edgePolishPerMUAH;
+
+    // optional size surcharge (for pre-processing). Apply to (material+polish) only (safe default).
+    const kSize = ((p && typeof p.applySizeSurcharge === "boolean") ? p.applySizeSurcharge : (BUSEL_CFG ? !!BUSEL_CFG.applySizeSurcharge : false))
+      ? sizeSurchargeCoef({ wMm: widthMm, hMm: heightMm }) : 1.0;
+    const buselBaseUAH = (materialUAH + polishUAH) * kSize;
+
+    // tempering
+    const tempered = (p && p.tempered === false) ? false : ((p && typeof p.tempered === "boolean") ? p.tempered : (BUSEL_CFG ? !!BUSEL_CFG.tempered : true));
+    const temperTariffPerM2UAH = clamp0((p && p.temperTariffPerM2UAH) || 0);
+
+    let temperTotalUAH = 0;
+    let kBatch = 1.0;
+    let temperMinUAH = 0;
+
+    if (tempered && temperTariffPerM2UAH > 0) {
+      const partyArea = billingArea * qty;
+      kBatch = batchCoefTempered(partyArea);
+
+      temperTotalUAH = temperTariffPerM2UAH * billingArea * kArea * qty * kBatch;
+
+      const minFloat = clamp0((p && p.temperMinFloatUAH) != null ? p.temperMinFloatUAH : (BUSEL_CFG && BUSEL_CFG.temperMinFloatUAH != null ? BUSEL_CFG.temperMinFloatUAH : 750));
+      const minOther = clamp0((p && p.temperMinOtherUAH) != null ? p.temperMinOtherUAH : (BUSEL_CFG && BUSEL_CFG.temperMinOtherUAH != null ? BUSEL_CFG.temperMinOtherUAH : 999));
+      temperMinUAH = ((p && p.temperMinType) === "float") ? minFloat : minOther;
+
+      if (temperTotalUAH < temperMinUAH) temperTotalUAH = temperMinUAH;
+    }
+
+    const buselNetUAH = buselBaseUAH + temperTotalUAH;
+
+    // MT pricing: -15% then +30%
+    const mtNetUAH = buselNetUAH * (BUSEL_CFG && BUSEL_CFG.mtDiscount ? BUSEL_CFG.mtDiscount : 0.85);
+    const mtRetailUAH = mtNetUAH * (BUSEL_CFG && BUSEL_CFG.mtMarkup ? BUSEL_CFG.mtMarkup : 1.30);
+
+    // per-piece for UI/debug
+    const mtRetailPerPieceUAH = mtRetailUAH / qty;
+
+    return {
+      widthMm: widthMm,
+      heightMm: heightMm,
+      qty: qty,
+      rawArea: rawArea,
+      billingArea: billingArea,
+      edgeLenM: edgeLenM,
+      kArea: kArea,
+      kBatch: kBatch,
+      kSize: kSize,
+      materialUAH: materialUAH,
+      polishUAH: polishUAH,
+      temperTariffPerM2UAH: temperTariffPerM2UAH,
+      temperMinUAH: temperMinUAH,
+      temperTotalUAH: temperTotalUAH,
+      buselNetUAH: buselNetUAH,
+      mtRetailUAH: mtRetailUAH,
+      mtRetailPerPieceUAH: mtRetailPerPieceUAH
+    };
+  }
+
+  // -------------------------
+  // ONLY sizing helpers
+  // -------------------------
+
+  /**
+   * ONLY side glass (4 mm) per section:
+   *   Hglass = Hmont
+   *   Lglass = D - 3.5
+   */
+  function onlySideGlass4mm(p) {
+    const H = clamp0(p && p.HmontMm);
+    const D = clamp0(p && p.depthMm);
+    const sections = Math.max(1, Math.floor(clamp0((p && p.sectionsCount) || 1)));
+
+    const sideMode = (p && p.sideMode) || "none";
+    const sidesCount =
+      (sideMode === "both") ? 2 :
+      (sideMode === "left" || sideMode === "right") ? 1 : 0;
+
+    const wMm = Math.max(0, D - 3.5);
+    const hMm = H;
+
+    const oneArea = mm2_to_m2(wMm, hMm);
+    const totalPieces = sections * sidesCount;
+    const totalArea = oneArea * totalPieces;
+
+    return {
+      thicknessMm: 4,
+      perPiece: { wMm: wMm, hMm: hMm, areaM2: oneArea },
+      total: { pieces: totalPieces, areaM2: totalArea },
+      text: "Бокове скло 4 мм: " + sections + "×" + sidesCount +
+        "×(" + wMm + "×" + hMm + " мм) = " + round2(totalArea) + " м²"
+    };
+  }
+
+  /**
+   * ONLY back panel per section:
+   *  glass 6mm:  Wback = Lvano + 11; Hback = Hmont - 38
+   *  board 8mm:  Wback = Lvano + 16; Hback = Hmont - 38
+   *
+   * Lvano is the clear section width (span).
+   */
+  function onlyBackPanel(p) {
+    const Lvano = clamp0(p && p.spanMm);
+    const Hmont = clamp0(p && p.HmontMm);
+
+    const material = (p && p.material) || "";
+    const isGlass6 = (material === "glass6");
+    const isBoard8 = (material === "board8");
+
+    if (!isGlass6 && !isBoard8) return null;
+
+    const addW = isGlass6 ? 11 : 16;
+    const wMm = Math.max(0, Lvano + addW);
+    const hMm = Math.max(0, Hmont - 38);
+    const tMm = isGlass6 ? 6 : 8;
+
+    const area = mm2_to_m2(wMm, hMm);
+
+    return {
+      thicknessMm: tMm,
+      perPiece: { wMm: wMm, hMm: hMm, areaM2: area },
+      text: (isGlass6 ? "Спинка скло 6 мм" : "Спинка ДСП/МДФ 8 мм") +
+        ": 1×(" + wMm + "×" + hMm + " мм) = " + round2(area) + " м²"
+    };
+  }
+
+  // -------------------------
+  // Public API
+  // -------------------------
+  return {
+    calcBuselV3Piece: calcBuselV3Piece,
+    areaCoef: areaCoef,
+    batchCoefTempered: batchCoefTempered,
+    sizeSurchargeCoef: sizeSurchargeCoef,
+    onlySideGlass4mm: onlySideGlass4mm,
+    onlyBackPanel: onlyBackPanel,
+    mm2_to_m2: mm2_to_m2,
+    perimeter_m: perimeter_m,
+    BUSEL_CFG: BUSEL_CFG,
+    setBuselConfig: setBuselConfig
+  };
+});
+
+    // ========= Константи режиму / Telegram =========
+    const MANAGER_PASSWORD = "603";
+    const TELEGRAM_ENDPOINT = "https://mt-volpato.vercel.app/api/telegram";
+    const TELEGRAM_FORM_SECRET = "mtx-volpato-2025";
+
+    let currentMode = "client"; // client | manager
+    let last = null;
+
+    const $ = (id)=>document.getElementById(id);
+
+    function fmt(n, d=2){
+      if(!isFinite(n)) return "—";
+      return Number(n).toFixed(d);
+    }
+    function fmtUAH(n){
+      if(!isFinite(n)) return "—";
+      return new Intl.NumberFormat("uk-UA",{maximumFractionDigits:2}).format(Number(n));
+    }
+    function fmtEUR(n){
+      if(!isFinite(n)) return "—";
+      return new Intl.NumberFormat("uk-UA",{maximumFractionDigits:2}).format(Number(n));
+    }
+
+    function setWarn(msg){
+      const box = $('warnBox');
+      if(!msg){ box.style.display="none"; box.textContent=""; }
+      else{ box.style.display="block"; box.textContent=msg; }
+    }
+
+    function setMode(mode){
+      currentMode = mode;
+      $('modeLabel').textContent = mode === "manager" ? "менеджер" : "клієнт";
+
+      // Показ/приховування менеджерських блоків (специфікація, Telegram, деталі)
+      const showManager = (mode === "manager");
+      $('managerBlock').style.display = showManager ? "block" : "none";
+
+      // Додатково: все, що позначено як managerOnly, ховаємо в режимі клієнта
+      document.querySelectorAll('.managerOnly').forEach(el=>{
+        el.style.display = showManager ? "" : "none";
+      });
+
+      // У режимі клієнта залишаємо лише підсумок (без розшифровок)
+      if(!showManager){
+        $('outGlassBreakdown').textContent = "";
+        $('outIksBreakdown').textContent = "";
+      }
+    }
+
+    function getCatalog(supplier){
+      return (GLASS_MASTER && GLASS_MASTER.catalogs && GLASS_MASTER.catalogs[supplier]) ? GLASS_MASTER.catalogs[supplier] : null;
+    }
+
+    function populateGlassList(){
+      const supplier = $('supplier').value;
+      const cat = getCatalog(supplier);
+      const sel = $('glassItem');
+      sel.innerHTML = "";
+      if(!cat) return;
+
+      const items = (cat.glass_items || []).slice().sort((a,b)=> (a.thickness_mm - b.thickness_mm) || String(a.label).localeCompare(String(b.label)));
+      for(const it of items){
+        const opt = document.createElement('option');
+        opt.value = it.id;
+        opt.textContent = `${it.label} — ${it.pricePerM2_uah} грн/м²`;
+        sel.appendChild(opt);
+      }
+      sel.selectedIndex = 0;
+    }
+
+    function getGlassItem(supplier, id){
+      const cat = getCatalog(supplier);
+      return (cat && cat.glass_items) ? cat.glass_items.find(x=>x.id===id) : null;
+    }
+
+    function mm2_to_m2(wMm,hMm){ return (Number(wMm)*Number(hMm))/1_000_000; }
+    function perimeter_m(wMm,hMm){ return (2*(Number(wMm)+Number(hMm)))/1000; }
+
+    // ===== Tolerances (from TRIAL catalog rules) =====
+    function glassSizeByTolerance(systemType, profileType, doorW, doorH){
+      let sub = 0;
+      let text = "";
+      if(systemType === "IKS"){
+        if(profileType === "IS954"){ sub = 5.5; text = "IKS / IS-954: скло = фасад − 5,5 мм (по W і H)"; }
+        else { sub = 10; text = "IKS / IS-955: скло = фасад − 10 мм (по W і H)"; }
+      } else {
+        if(profileType === "ISM956"){ sub = 4; text = "IKS mini / ISM-956: скло = фасад − 4 мм (по W і H)"; }
+        else { sub = 40; text = "IKS mini / ISM-955: скло = фасад − 40 мм (по W і H)"; }
+      }
+      const glassW = Math.max(1, Math.round((doorW - sub) * 10) / 10);
+      const glassH = Math.max(1, Math.round((doorH - sub) * 10) / 10);
+      return { glassW, glassH, sub, ruleText: text };
+    }
+
+    // ===== Hinges UI sync (safe fallback) =====
+    // In earlier versions hinge UI could depend on system/finish/angle.
+    // If hinge controls are not present in the layout, this function safely no-ops.
+    function syncHingeUI(){
+      const wrap = document.getElementById('hingeWrap');
+      const sel  = document.getElementById('hingeType');
+      if(!wrap || !sel) return;
+      // For now: always keep visible and enabled (MT default: hinges with closer).
+      wrap.style.display = '';
+      sel.disabled = false;
+    }
+
+    function syncProfileOptions(){
+      const sys = $('systemType').value;
+      const sel = $('profileType');
+      const opts = Array.from(sel.options);
+      let firstVisible = null;
+      opts.forEach(o => {
+        const ok = (o.dataset && o.dataset.sys) ? (o.dataset.sys === sys) : true;
+        o.hidden = !ok;
+        o.disabled = !ok;
+        if(ok && !firstVisible) firstVisible = o.value;
+      });
+      if(sel.selectedOptions.length && (sel.selectedOptions[0].disabled || sel.selectedOptions[0].hidden)){
+        sel.value = firstVisible || sel.value;
+      }
+      // update rule line
+      const tmp = glassSizeByTolerance($('systemType').value, $('profileType').value,
+        Number($('doorW').value||0), Number($('doorH').value||0));
+      $('glassRuleText').textContent = tmp.ruleText || "—";
+      autoAdhesionPrep();
+      autoBuselPaint();
+      syncHingeUI();
+    }
+
+    function autoAdhesionPrep(){
+      const supplier = $('supplier').value;
+      const profile = $('profileType').value;
+      const isAdhesive = (profile === "IS954" || profile === "ISM956");
+      const cb = $('adhesionPrep');
+      cb.disabled = !(supplier === "ABSTRACT" && isAdhesive);
+      if(cb.disabled) cb.checked = false;
+      if(!cb.disabled) cb.checked = true;
+    }
+
+
+    function autoBuselPaint(){
+      const supplier = $('supplier').value;
+      const profile = $('profileType').value;
+      const isAdhesive = (profile === "IS954" || profile === "ISM956");
+
+      const block = $('buselPaintBlock');
+      const cbPaint = $('buselPaint');
+      const cbEdge = $('buselPaintEdgeClean');
+
+      const enabled = (supplier === "BUSEL" && isAdhesive);
+      block.style.display = enabled ? "block" : "none";
+
+      if(!enabled){
+        cbPaint.checked = false;
+        cbEdge.checked = false;
+        cbEdge.disabled = true;
+        return;
+      }
+
+      // default ON for Busel + adhesive
+      if(cbPaint.checked === false) cbPaint.checked = true;
+
+      // edge clean only for thickness >= 6 and only if paint is on
+      const thk = Number(getGlassItem("BUSEL", $('glassItem').value)?.thickness_mm || 0);
+      cbEdge.disabled = !(cbPaint.checked && thk >= 6);
+      if(cbEdge.disabled) cbEdge.checked = false;
+    }
+
+    function buselEdgeTariff(thkMm){
+      const srv = getCatalog("BUSEL")?.services?.edge_polish;
+      if(!srv) return 0;
+      const key = (Number(thkMm) === 4) ? "THK_4" : "THK_3_5_6";
+      return Number(srv.pricePerLm_uah?.[key] || 0);
+    }
+    function buselTemperTariff(group){
+      const srv = getCatalog("BUSEL")?.services?.tempering;
+      if(!srv) return 0;
+      return Number(srv.base_pricePerM2_uah?.[group] || 0);
+    }
+    function abstractEdgeTariff(thkMm){
+      const srv = getCatalog("ABSTRACT")?.services?.edge_polish;
+      if(!srv) return 0;
+      const key = (Number(thkMm) >= 6) ? "THK_6" : "THK_3_4_5";
+      return Number(srv.pricePerLm_uah?.[key] || 0);
+    }
+    function abstractTemperTariff(thkMm){
+      const srv = getCatalog("ABSTRACT")?.services?.tempering;
+      if(!srv) return 0;
+      const t = Number(thkMm);
+      const key = (t === 4) ? "THK_4" : (t === 5) ? "THK_5" : "THK_6";
+      return Number(srv.pricePerM2_uah?.[key] || 0);
+    }
+    function abstractPrepTariff(){
+      const srv = getCatalog("ABSTRACT")?.services?.adhesion_prep;
+      return Number(srv?.pricePerM2_uah || 0);
+    }
+
+    function calcGlassUAH({supplier, glassItem, glassW, glassH, qty, tempered, edgePolish, adhesionPrep, isAdhesive, buselPaint, buselPaintEdgeClean}){
+      const w = Number(glassW), h = Number(glassH);
+      const q = Math.max(1, Math.floor(Number(qty)||1));
+
+      const areaRaw = mm2_to_m2(w,h);
+      const areaBill = Math.max(areaRaw, 0.25);
+      const edgeM = perimeter_m(w,h);
+
+      const materialPrice = Number(glassItem.pricePerM2_uah || 0);
+      const thk = Number(glassItem.thickness_mm || 4);
+
+      if(supplier === "BUSEL"){
+        const edgeTariff = edgePolish ? buselEdgeTariff(thk) : 0;
+        const temperTariff = tempered ? buselTemperTariff(glassItem.tempering_group || "FLOAT") : 0;
+
+        const res = GlassEngine.calcBuselV3Piece({
+          widthMm: w,
+          heightMm: h,
+          qty: q,
+          tempered: !!tempered,
+          materialPricePerM2UAH: materialPrice,
+          edgePolishPerMUAH: edgeTariff,
+          temperTariffPerM2UAH: temperTariff,
+          temperMinType: (glassItem.tempering_group === "FLOAT") ? "float" : "other"
+        });
+
+        // Busel: фарбування/емалювання (аналог "підготовки під профіль" для вклейки)
+        // Default: Непрозорі по RAL або NCS, МАЛА партія (грн/м²), мін. площа 0.25 м² вже врахована як areaBill.
+        const buselPaintTariff = 561.42; // грн/м² (мала партія) — прайс Busel "Фарбування скла"
+        const paintUAH = (buselPaint && isAdhesive) ? (areaBill * buselPaintTariff * q) : 0;
+
+        // Busel: зачистка торців від фарби (тільки товщина ≥ 6 мм) = 50% від вартості фарбування
+        const edgeCleanUAH = (buselPaintEdgeClean && paintUAH > 0 && thk >= 6) ? (paintUAH * 0.50) : 0;
+
+        const totalUAH = res.mtRetailUAH + paintUAH + edgeCleanUAH;
+
+        const breakdown =
+`Постачальник: Busel (v3)
+Площа raw: ${areaRaw.toFixed(3)} м²
+Площа bill: ${areaBill.toFixed(3)} м² × ${q} шт
+Скло: ${materialPrice} грн/м²
+Полірування: ${edgePolish ? (edgeTariff + " грн/п.м. (периметр " + edgeM.toFixed(2) + " м)") : "—"}
+Загартування: ${tempered ? (temperTariff + " грн/м² (мін " + res.temperMinUAH.toFixed(0) + " грн)") : "—"}
+Фарбування (RAL/NCS): ${ (buselPaint && isAdhesive) ? (buselPaintTariff + " грн/м²") : "—" }
+Зачистка торців: ${ (buselPaintEdgeClean && paintUAH>0 && thk>=6) ? "+50%" : "—" }
+Разом (MT retail): ${fmtUAH(totalUAH)} грн`;
+
+        const specRows = [];
+        specRows.push(["BUSEL_GLASS", glassItem.label, (areaBill*q).toFixed(3), (materialPrice).toFixed(2) + " грн", (areaBill*q*materialPrice).toFixed(2) + " грн"]);
+        if(edgePolish) specRows.push(["BUSEL_EDGE", "Полірування кромки (Busel)", (edgeM*q).toFixed(3), edgeTariff.toFixed(2) + " грн", (edgeM*q*edgeTariff).toFixed(2) + " грн"]);
+        if(tempered) specRows.push(["BUSEL_TEMP", "Загартування (Busel)", (areaBill*q).toFixed(3), temperTariff.toFixed(2) + " грн", (res.temperTotalUAH).toFixed(2) + " грн"]);
+
+        if(buselPaint && isAdhesive) specRows.push(["BUSEL_PAINT","Фарбування/емалювання (RAL або NCS, мала партія)",(areaBill*q).toFixed(3)+" м²", buselPaintTariff.toFixed(2)+" грн", paintUAH.toFixed(2)+" грн"]);
+        if(buselPaintEdgeClean && paintUAH>0 && thk>=6) specRows.push(["BUSEL_EDGE_CLEAN","Зачистка торців від фарби (+50%)","", "", edgeCleanUAH.toFixed(2)+" грн"]);
+        return { totalUAH, areaRaw, areaBill, areaBillTotal: areaBill*q, breakdown, specRows };
+      }
+
+      // ABSTRACT
+      const edgeTariff = edgePolish ? abstractEdgeTariff(thk) : 0;
+      const temperTariff = tempered ? abstractTemperTariff(thk) : 0;
+      const prepTariff = (adhesionPrep && isAdhesive) ? abstractPrepTariff() : 0;
+
+      const material = areaBill * materialPrice * q;
+      const edge = edgePolish ? (edgeM * edgeTariff * q) : 0;
+      const temp = tempered ? (areaBill * temperTariff * q) : 0;
+      const prep = (adhesionPrep && isAdhesive) ? (areaBill * prepTariff * q) : 0;
+      const total = material + edge + temp + prep;
+
+      const breakdown =
+`Постачальник: AbstractGlass
+Площа raw: ${areaRaw.toFixed(3)} м²
+Площа bill: ${areaBill.toFixed(3)} м² × ${q} шт
+Скло: ${materialPrice} грн/м² → ${fmtUAH(material)} грн
+Полірування: ${edgePolish ? (edgeTariff + " грн/п.м. (периметр " + edgeM.toFixed(2) + " м) → " + fmtUAH(edge) + " грн") : "—"}
+Загартування: ${tempered ? (temperTariff + " грн/м² → " + fmtUAH(temp) + " грн") : "—"}
+Підготовка під профіль: ${(adhesionPrep && isAdhesive) ? (prepTariff + " грн/м² → " + fmtUAH(prep) + " грн") : "—"}
+Разом: ${fmtUAH(total)} грн`;
+
+      const specRows = [];
+      specRows.push(["ABS_GLASS", glassItem.label, (areaBill*q).toFixed(3), materialPrice.toFixed(2) + " грн", material.toFixed(2) + " грн"]);
+      if(edgePolish) specRows.push(["ABS_EDGE", "Полірування кромки (AbstractGlass)", (edgeM*q).toFixed(3), edgeTariff.toFixed(2) + " грн", edge.toFixed(2) + " грн"]);
+      if(tempered) specRows.push(["ABS_TEMP", "Загартування (AbstractGlass)", (areaBill*q).toFixed(3), temperTariff.toFixed(2) + " грн", temp.toFixed(2) + " грн"]);
+      if(adhesionPrep && isAdhesive) specRows.push(["ABS_PREP", "Підготовка під профіль (AbstractGlass)", (areaBill*q).toFixed(3), prepTariff.toFixed(2) + " грн", prep.toFixed(2) + " грн"]);
+
+      return { totalUAH: total, areaRaw, areaBill, areaBillTotal: areaBill*q, breakdown, specRows };
+    }
+
+    
+    // ===== Петлі IKS (прайс TRIAL), ціни за 1 шт (DX або SX) =====
+    const IKS_HINGES = {
+      PI:        { dx:{id:"trIS-CE33-PI-DX",  label:"Петля IKS 33 кг з доводчиком (DX)", priceEur:55.26},
+                   sx:{id:"trIS-CE33-PI-SX",  label:"Петля IKS 33 кг з доводчиком (SX)", priceEur:55.26} },
+      NO_CLOSER: { dx:{id:"trIS-CE33-DX",     label:"Петля IKS 33 кг без доводчика (DX)", priceEur:54.01},
+                   sx:{id:"trIS-CE33-SX",     label:"Петля IKS 33 кг без доводчика (SX)", priceEur:54.01} },
+      TIPON:     { dx:{id:"trIS-CE33LIB-DX",  label:"Петля IKS 33 кг Tip-On (DX)", priceEur:48.45},
+                   sx:{id:"trIS-CE33LIB-SX",  label:"Петля IKS 33 кг Tip-On (SX)", priceEur:48.45} },
+      DEG180:    { dx:{id:"trIS-102001-DX",   label:"Петля IKS 180° з доводчиком (DX)", priceEur:71.73},
+                   sx:{id:"trIS-102001-SX",   label:"Петля IKS 180° з доводчиком (SX)", priceEur:71.73} }
+    };
+function calcIksHardwareEur(systemType, profileType, doorW, doorH, qty, finish, angleDeg, hingeMode){
+      const cfg = IKS_PRICE_EUR[systemType];
+      const barLenMm = cfg.barLenMm;
+
+      const perimMm = 2*(Number(doorW)+Number(doorH));
+      const needLmPerDoor = perimMm/1000;
+      const needLmTotal = needLmPerDoor * qty;
+
+      const isAdhesive = (profileType === "IS954" || profileType === "ISM956");
+      const barKey = (systemType === "IKS")
+        ? (isAdhesive ? "IS_954_bar" : "IS_955_bar")
+        : (isAdhesive ? "ISM_956_bar" : "ISM_955_bar");
+
+      const pickBar = pickFinishItem(systemType, barKey, finish);
+      const bar = pickBar.item;
+
+      // collect warnings
+      const warns = [];
+      if(pickBar.warn) warns.push(pickBar.warn);
+
+      const pricePerM = bar.priceEur / (barLenMm/1000);
+      const profileEur = needLmTotal * pricePerM;
+
+      // Куточки: стандартні (DX/SX) або 180° чорний (NS) для IKS
+
+
+              let cornersEur = 0;           // ← ДОДАТИ ЦЕ
+              let cornersLabel = "Куточки: 4 шт/двері";
+  let cornersCsvRows = [];
+  if(systemType==="IKS" && Number(angleDeg)===180 && String(finish)==="NS"){
+    // 180° куточки (за прайсом TRIAL): GIUNTO180 DX/SX по 9.44 €, по 2 шт кожного на двері
+    const CORNER_180_DX = { id:"trIS-G-GIUNTO180-DX-CV", label:"Куточок IKS 180° (DX)", priceEur: 9.44 };
+    const CORNER_180_SX = { id:"trIS-G-GIUNTO180-SX-CV", label:"Куточок IKS 180° (SX)", priceEur: 9.44 };
+
+    cornersEur = (2*CORNER_180_DX.priceEur + 2*CORNER_180_SX.priceEur) * qty;
+    cornersLabel = "Куточки 180° (NS): 4 шт/двері (DX×2 + SX×2)";
+    cornersCsvRows = [
+      [CORNER_180_DX.id, CORNER_180_DX.label, String(2*qty), CORNER_180_DX.priceEur.toFixed(2) + " €", (2*qty*CORNER_180_DX.priceEur).toFixed(2) + " €"],
+      [CORNER_180_SX.id, CORNER_180_SX.label, String(2*qty), CORNER_180_SX.priceEur.toFixed(2) + " €", (2*qty*CORNER_180_SX.priceEur).toFixed(2) + " €"]
+    ];
+  } else {
+    cornersEur = (2*cfg.CORNER_DX.priceEur + 2*cfg.CORNER_SX.priceEur) * qty;
+    cornersCsvRows = [
+      [cfg.CORNER_DX.id, cfg.CORNER_DX.label, String(2*qty), cfg.CORNER_DX.priceEur.toFixed(2) + " €", (2*qty*cfg.CORNER_DX.priceEur).toFixed(2) + " €"],
+      [cfg.CORNER_SX.id, cfg.CORNER_SX.label, String(2*qty), cfg.CORNER_SX.priceEur.toFixed(2) + " €", (2*qty*cfg.CORNER_SX.priceEur).toFixed(2) + " €"]
+    ];
+  }
+      const handleKey = (systemType === "IKS") ? "HANDLE_200" : "HANDLE_120";
+      const pickHandle = pickFinishItem(systemType, handleKey, finish);
+      const handle = pickHandle.item;
+      if(pickHandle.warn) warns.push(pickHandle.warn);
+
+      const handleEur = (handle ? handle.priceEur : 0) * qty;
+
+      const isGroove = !isAdhesive;
+      const gasketEur = isGroove ? (cfg.GASKET.priceEur * qty) : 0;
+      let hingeEur = 0;
+      let hingeLabel = "";
+      let hingeCsvRows = [];
+
+      if(systemType==="IKS"){
+        const hm = String(hingeMode || "PI");
+        if(Number(angleDeg)===180){
+          const h = IKS_HINGES.DEG180;
+          hingeEur = (h.dx.priceEur + h.sx.priceEur) * qty;
+          hingeLabel = "Петлі 180°: 1×DX + 1×SX / двері";
+          hingeCsvRows = [
+            [h.dx.id, h.dx.label, String(qty), h.dx.priceEur.toFixed(2) + " €", (qty*h.dx.priceEur).toFixed(2) + " €"],
+            [h.sx.id, h.sx.label, String(qty), h.sx.priceEur.toFixed(2) + " €", (qty*h.sx.priceEur).toFixed(2) + " €"]
+          ];
+        }else{
+          const h = IKS_HINGES[hm] || IKS_HINGES.PI;
+          hingeEur = (h.dx.priceEur + h.sx.priceEur) * qty;
+          hingeLabel = "Петлі: 1×DX + 1×SX / двері";
+          hingeCsvRows = [
+            [h.dx.id, h.dx.label, String(qty), h.dx.priceEur.toFixed(2) + " €", (qty*h.dx.priceEur).toFixed(2) + " €"],
+            [h.sx.id, h.sx.label, String(qty), h.sx.priceEur.toFixed(2) + " €", (qty*h.sx.priceEur).toFixed(2) + " €"]
+          ];
+        }
+      }else{
+        // IKS mini: поки як було (один комплект)
+        hingeEur = cfg.HINGE_SET.priceEur * qty;
+        hingeLabel = cfg.HINGE_SET.label;
+        hingeCsvRows = [[cfg.HINGE_SET.id, cfg.HINGE_SET.label, String(qty), cfg.HINGE_SET.priceEur.toFixed(2) + " €", (qty*cfg.HINGE_SET.priceEur).toFixed(2) + " €"]];
+      }
+
+      const totalEur = profileEur + cornersEur + handleEur + gasketEur + hingeEur;
+
+      const bars = Math.max(1, Math.ceil(needLmTotal / (barLenMm/1000)));
+
+      const breakdown =
+`• Профіль: ${bar.label} → ${fmtEUR(profileEur)} €
+• ${cornersLabel} → ${fmtEUR(cornersEur)} €
+• Ручка: ${handle.label} → ${fmtEUR(handleEur)} €
+• Ущільнювач: ${isGroove ? (cfg.GASKET.label + " → " + fmtEUR(gasketEur) + " €") : "—"}
+• Петлі: ${hingeLabel} → ${fmtEUR(hingeEur)} €`;
+
+      const csvRows = [];
+      csvRows.push([bar.id, bar.label, needLmTotal.toFixed(3) + " м", pricePerM.toFixed(2) + " €", profileEur.toFixed(2) + " €"]);
+      cornersCsvRows.forEach(r=>csvRows.push(r));
+      csvRows.push([handle.id, handle.label, String(qty), handle.priceEur.toFixed(2) + " €", handleEur.toFixed(2) + " €"]);
+      if(isGroove) csvRows.push([cfg.GASKET.id, cfg.GASKET.label, String(qty), cfg.GASKET.priceEur.toFixed(2) + " €", gasketEur.toFixed(2) + " €"]);
+            hingeCsvRows.forEach(r=>csvRows.push(r));
+
+      return { totalEur, bars, needLmPerDoor, needLmTotal, breakdown, csvRows, warns };
+    }
+
+    function buildTelegramText(ctx){
+      const modeUa = currentMode === "manager" ? "менеджер" : "клієнт";
+      const clientName = (ctx.clientName || "").trim();
+      const clientPhone = (ctx.clientPhone || "").trim();
+      const comment = (ctx.comment || "").trim();
+
+      const sysLabel = $('systemType').selectedOptions[0].textContent;
+      const profLabel = $('profileType').selectedOptions[0].textContent;
+      const finLabel = $('finish').selectedOptions[0].textContent;
+      const angleLabel = $('angle').selectedOptions[0].textContent;
+      const supplierLabel = $('supplier').selectedOptions[0].textContent;
+      const glassLabel = ctx.glassItem.label;
+      const temperedLabel = ctx.tempered ? "загартоване" : "не загартоване";
+      const edgeLabel = ctx.edgePolish ? "полірування: так" : "полірування: ні";
+
+      let lines = [];
+      lines.push("📨 Нова заявка: IKS");
+      lines.push("");
+      if(currentMode === "manager"){
+        lines.push("👤 Клієнт: *" + (clientName || "—") + "*");
+        lines.push("📞 Телефон: *" + (clientPhone || "—") + "*");
+        lines.push("");
+      }
+      lines.push("🔁 Режим: *" + modeUa + "*");
+      lines.push("");
+      lines.push("Курс EUR: *" + fmt(ctx.eurRate,2) + "*");
+      lines.push("Система: *" + sysLabel + "*");
+      lines.push("Профіль: *" + profLabel + "*");
+      lines.push("Колір: *" + finLabel + "*");
+      lines.push("Кут: *" + angleLabel + "*");
+      lines.push("");
+      lines.push("Скло: *" + supplierLabel + "*");
+      lines.push("Матеріал: *" + glassLabel + "*");
+      lines.push("Опції: *" + temperedLabel + "*, *" + edgeLabel + "*");
+      if(ctx.supplier === "ABSTRACT" && ctx.isAdhesive && ctx.adhesionPrep){
+        lines.push("Підготовка під профіль: *так*");
+      }
+      lines.push("");
+      lines.push("Габарит фасаду: *" + ctx.doorW + "×" + ctx.doorH + " мм* × *" + ctx.qty + " шт*");
+      lines.push("Розмір скла: *" + ctx.glassW + "×" + ctx.glassH + " мм*");
+      lines.push("Площа bill: *" + ctx.glassAreaBillTotal.toFixed(3) + " м²*");
+      lines.push("");
+      lines.push("Скло (грн): *" + fmtUAH(ctx.glassUAH) + " грн*");
+      lines.push("IKS (€): *" + fmtEUR(ctx.iksEur) + " €* (~ *" + fmtUAH(ctx.iksUah) + " грн*)");
+      lines.push("");
+      lines.push("Разом: *" + fmtUAH(ctx.totalUah) + " грн* (~ *" + fmtEUR(ctx.totalEur) + " €*)");
+      if(comment){
+        lines.push("");
+        lines.push("💬 Коментар: " + comment);
+      }
+      return lines.join("\n");
+    }
+
+    function makeCSV(allRows){
+      const header = ["Артикул","Назва","Кількість","Ціна","Сума"].join(";");
+      const lines = allRows.map(r => r.map(x => String(x).replaceAll(";"," ")).join(";"));
+      return [header, ...lines].join("\n");
+    }
+
+    async function sendTelegram(text){
+      const resp = await fetch(TELEGRAM_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          secret: TELEGRAM_FORM_SECRET,
+          text
+        })
+      });
+      if(!resp.ok){
+        const t = await resp.text();
+        throw new Error("HTTP " + resp.status + ": " + t);
+      }
+      return true;
+    }
+
+
+    function parseMoneyCell(cell){
+      const s = String(cell||"").trim();
+      if(s.includes("€")) return { value: s.replace("€","").trim(), cur: "EUR" };
+      if(s.includes("грн")) return { value: s.replace("грн","").trim(), cur: "UAH" };
+      return { value: s, cur: "" };
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderSpecTable(res){
+      const tb = document.getElementById("specTableBody");
+      const hint = document.getElementById("specHint");
+      if(!tb) return;
+
+      const rows = [];
+      // section headers
+      rows.push({section:true, title:"СКЛО (UAH)"});
+      for(const r of (res.csv?.glassRows || [])){
+        rows.push({data:r, forceCur:"UAH"});
+      }
+      rows.push({section:true, title:"IKS (EUR)"});
+      for(const r of (res.csv?.iksRows || [])){
+        rows.push({data:r, forceCur:"EUR"});
+      }
+
+      // render
+      let html = "";
+      for(const it of rows){
+        if(it.section){
+          html += `<tr><td colspan="6" style="padding:10px 12px; font-weight:700; color:var(--text-main); border-bottom:1px solid var(--border); background: rgba(22,163,74,0.06);">${it.title}</td></tr>`;
+          continue;
+        }
+        const r = it.data;
+        const art = r[0] ?? "";
+        const name = r[1] ?? "";
+        const qty  = r[2] ?? "";
+        const price = r[3] ?? "";
+        const sum   = r[4] ?? "";
+        const p = parseMoneyCell(price);
+        const s = parseMoneyCell(sum);
+        const cur = it.forceCur || p.cur || s.cur || "";
+        html += `<tr>
+          <td style="padding:10px 12px; border-bottom:1px solid var(--border); white-space:nowrap;">${escapeHtml(String(art))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid var(--border);">${escapeHtml(String(name))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid var(--border); text-align:right; white-space:nowrap;">${escapeHtml(String(qty))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid var(--border); text-align:right; white-space:nowrap;">${escapeHtml(String(price))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid var(--border); text-align:right; white-space:nowrap;">${escapeHtml(String(sum))}</td>
+          <td style="padding:10px 12px; border-bottom:1px solid var(--border); white-space:nowrap;">${cur}</td>
+        </tr>`;
+      }
+      tb.innerHTML = html;
+
+      if(hint){
+        hint.textContent = "Порада: CSV (1С) містить ті самі рядки у форматі «Артикул;Назва;Кількість;Ціна;Сума».";
+      }
+    }
+
+    function specToTSV(res){
+      const rows = [];
+      rows.push(["Артикул","Номенклатура","К-сть","Ціна","Сума","Валюта"]);
+      rows.push(["СКЛО (UAH)","","","","","UAH"]);
+      for(const r of (res.csv?.glassRows || [])) rows.push([r[0],r[1],r[2],r[3],r[4],"UAH"]);
+      rows.push(["IKS (EUR)","","","","","EUR"]);
+      for(const r of (res.csv?.iksRows || [])) rows.push([r[0],r[1],r[2],r[3],r[4],"EUR"]);
+      return rows.map(x=>x.map(v=>String(v??"")).join("\t")).join("\n");
+    }
+
+    function render(res){
+      $('outGlassSize').textContent = res.glassW + "×" + res.glassH;
+      $('outGlassAreaRaw').textContent = fmt(res.glassAreaRaw,3);
+      $('outGlassAreaBill').textContent = fmt(res.glassAreaBill,3);
+      $('outGlassAreaTotal').textContent = fmt(res.glassAreaBillTotal,3);
+
+      $('outPerim').textContent = fmt(res.perimM,2);
+      $('outPerimTotal').textContent = fmt(res.perimTotalM,2);
+      $('outBars').textContent = String(res.bars);
+
+      $('outGlassUah').textContent = fmtUAH(res.glassUAH) + " грн";
+      $('outIksEur').textContent = fmtEUR(res.iksEur) + " €";
+      $('outTotalUah').textContent = fmtUAH(res.totalUah) + " грн";
+      $('outTotalEur').textContent = fmtEUR(res.totalEur) + " €";
+
+      $('outGlassBreakdown').textContent = res.glassBreakdown || "";
+      $('outIksBreakdown').textContent = res.iksBreakdown || "";
+
+      // === Spec table (manager) ===
+      if(currentMode === "manager"){
+        renderSpecTable(res);
+      } else {
+        const tb = document.getElementById("specTableBody");
+        if(tb) tb.innerHTML = "";
+        const sh = document.getElementById("specHint");
+        if(sh) sh.textContent = "—";
+      }
+
+      $('telegramText').value = res.telegramText || "";
+      $('telegramStatus').textContent = "Готово. Можна копіювати / CSV / Telegram.";
+    }
+
+    function calculate(){
+      setWarn("");
+
+      const eurRate = Number($('eurRate').value || 0);
+      const qty = Math.max(1, Math.floor(Number($('qty').value || 1)));
+      const doorW = Math.max(1, Number($('doorW').value || 0));
+      const doorH = Math.max(1, Number($('doorH').value || 0));
+
+      const systemType = $('systemType').value;
+      const profileType = $('profileType').value;
+      const angleDeg = Number($('angle').value || 95);
+      const hingeMode = ($('hingeMode') ? $('hingeMode').value : 'PI');
+      const isAdhesive = (profileType === "IS954" || profileType === "ISM956");
+
+      const supplier = $('supplier').value;
+      const glassItem = getGlassItem(supplier, $('glassItem').value);
+      if(!glassItem){
+        setWarn("Не знайдено скло в базі. Перевір selector / JSON.");
+        return null;
+      }
+
+      const tempered = $('tempered').value === "1";
+      const edgePolish = $('edgePolish').value === "1";
+      const adhesionPrep = $('adhesionPrep').checked;
+
+      const tol = glassSizeByTolerance(systemType, profileType, doorW, doorH);
+      $('glassRuleText').textContent = tol.ruleText || "—";
+
+      const glassW = tol.glassW;
+      const glassH = tol.glassH;
+
+      const glassAreaRaw = mm2_to_m2(glassW, glassH);
+      const glassAreaBill = Math.max(glassAreaRaw, 0.25);
+      const glassAreaBillTotal = glassAreaBill * qty;
+
+      const perimM = perimeter_m(doorW, doorH);
+      const perimTotalM = perimM * qty;
+      const bars = Math.max(1, Math.ceil(perimTotalM / 6.1));
+
+      const glassRes = calcGlassUAH({
+        supplier, glassItem, glassW, glassH, qty,
+        tempered, edgePolish, adhesionPrep,
+        isAdhesive
+      });
+
+      const finish = $("finish").value;
+      const iksRes = calcIksHardwareEur(systemType, profileType, doorW, doorH, qty, finish, angleDeg, hingeMode);
+      const iksEur = iksRes.totalEur;
+      const iksUah = iksEur * eurRate;
+      if(iksRes.warns && iksRes.warns.length){ setWarn(iksRes.warns.join(" ")); }
+      const totalUah = glassRes.totalUAH + iksUah;
+      const totalEur = eurRate > 0 ? (totalUah / eurRate) : 0;
+
+      // Telegram text
+      const telegramText = buildTelegramText({
+        eurRate, qty, doorW, doorH,
+        systemType, profileType,
+        supplier, glassItem,
+        tempered, edgePolish, adhesionPrep, isAdhesive,
+        glassW, glassH,
+        glassAreaBillTotal,
+        glassUAH: glassRes.totalUAH,
+        iksEur,
+        iksUah,
+        totalUah,
+        totalEur,
+        clientName: ($('clientName')?.value || ""),
+        clientPhone: ($('clientPhone')?.value || ""),
+        comment: ($('comment')?.value || "")
+      });
+
+      // warnings
+      if(supplier === "BUSEL" && !tempered){
+        setWarn("Busel: перевір «Загартоване». У Busel часто рахують загартування в замовленнях як стандарт (але залишили перемикач).");
+      }
+
+      const res = {
+        eurRate, qty, doorW, doorH,
+        systemType, profileType, supplier, glassItem,
+        tempered, edgePolish, adhesionPrep, isAdhesive,
+        glassW, glassH,
+        glassAreaRaw, glassAreaBill, glassAreaBillTotal,
+        perimM, perimTotalM, bars,
+        glassUAH: glassRes.totalUAH,
+        glassBreakdown: glassRes.breakdown,
+        iksEur, iksUah,
+        iksBreakdown: iksRes.breakdown,
+        totalUah, totalEur,
+        telegramText,
+        csv: {
+          glassRows: glassRes.specRows,
+          iksRows: iksRes.csvRows
+        }
+      };
+
+      return res;
+    }
+
+    // ===== Events =====
+    $('modeToggleBtn').addEventListener('click', () => {
+      if(currentMode === "client"){
+        const pass = prompt("Пароль менеджера:");
+        if(String(pass||"").trim() === MANAGER_PASSWORD){
+          setMode("manager");
+          setWarn("");
+        } else {
+          setWarn("Невірний пароль менеджера.");
+        }
+      } else {
+        setMode("client");
+        setWarn("");
+      }
+    });
+
+    $('calcBtn').addEventListener('click', () => {
+      const res = calculate();
+      if(!res) return;
+      last = res;
+      render(res);
+    });
+
+    // $('applyToOnlyBtn').addEventListener('click', () => {
+    //   if(!last){ setWarn("Спочатку натисни «Розрахувати»."); return; }
+    //   // Формуємо payload для ONLY (add-on)
+    //   const rowsUAH = (last.csv?.glassRows||[]).map(r => ({
+    //     code: r[0], name: r[1], qty: r[2], price: r[3], sum: r[4], currency: 'UAH'
+    //   }));
+    //   const rowsEUR = (last.csv?.iksRows||[]).map(r => ({
+    //     code: r[0], name: r[1], qty: r[2], priceEur: Number(String(r[3]).replace(/[^0-9.\-]/g,'')) || 0,
+    //     sumEur: Number(String(r[4]).replace(/[^0-9.\-]/g,'')) || 0, unit: 'шт'
+    //   }));
+    //   const payload = {
+    //     createdAt: new Date().toISOString(),
+    //     eurRate: Number(last.eurRate||0),
+    //     totalUAH: Number(last.glassUAH||0), // тільки UAH-частина скла/послуг
+    //     rowsUAH,
+    //     rowsEUR,
+    //     meta: {
+    //       doorW: last.doorW, doorH: last.doorH, qty: last.qty,
+    //       systemType: last.systemType, profileType: last.profileType,
+    //       supplier: last.supplier,
+    //       glassItem: (last.glassItem && (last.glassItem.label||last.glassItem.name)) ? (last.glassItem.label||last.glassItem.name) : '',
+    //       tempered: !!last.tempered, edgePolish: !!last.edgePolish,
+    //       adhesionPrep: !!last.adhesionPrep, isAdhesive: !!last.isAdhesive
+    //     }
+    //   };
+    //   try{ localStorage.setItem('ONLY_IKS_PAYLOAD', JSON.stringify(payload)); }catch(e){}
+    //   setWarn('');
+    //   try{
+    //     const p=new URLSearchParams(location.search);
+    //     const rt=p.get('returnTo');
+    //     const target = rt ? decodeURIComponent(rt) : 'only.final.html';
+    //     location.href = target + '#iksAddon'; return;
+    //   }catch(e){}
+    //   alert('IKS збережено для ONLY. Повернись в ONLY і натисни «Розрахувати».');
+    // });
+
+    $('applyToOnlyBtn').addEventListener('click', () => {
+      if (!last) {
+        setWarn("Спочатку натисни «Розрахувати».");
+        return;
+      }
+
+      // ===== формуємо payload для ONLY =====
+      const rowsUAH = (last.csv?.glassRows || []).map(r => ({
+        code: r[0],
+        name: r[1],
+        qty: r[2],
+        price: r[3],
+        sum: r[4],
+        currency: 'UAH'
+      }));
+
+      const rowsEUR = (last.csv?.iksRows || []).map(r => ({
+        code: r[0],
+        name: r[1],
+        qty: r[2],
+        priceEur: Number(String(r[3]).replace(/[^0-9.\-]/g, '')) || 0,
+        sumEur: Number(String(r[4]).replace(/[^0-9.\-]/g, '')) || 0,
+        unit: 'шт'
+      }));
+
+      const payload = {
+        createdAt: new Date().toISOString(),
+        eurRate: Number(last.eurRate || 0),
+        totalUAH: Number(last.glassUAH || 0), // тільки UAH-частина скла/послуг
+        rowsUAH,
+        rowsEUR,
+        meta: {
+          doorW: last.doorW,
+          doorH: last.doorH,
+          qty: last.qty,
+          systemType: last.systemType,
+          profileType: last.profileType,
+          supplier: last.supplier,
+          glassItem:
+                  last.glassItem && (last.glassItem.label || last.glassItem.name)
+                          ? (last.glassItem.label || last.glassItem.name)
+                          : '',
+          tempered: !!last.tempered,
+          edgePolish: !!last.edgePolish,
+          adhesionPrep: !!last.adhesionPrep,
+          isAdhesive: !!last.isAdhesive
+        }
+      };
+
+      try {
+        localStorage.setItem('ONLY_IKS_PAYLOAD', JSON.stringify(payload));
+      } catch (e) {}
+
+      setWarn('');
+
+      // ===== відкриваємо ONLY в новій вкладці =====
+      try {
+        const p = new URLSearchParams(location.search);
+        const rt = p.get('returnTo');
+        const target = rt ? decodeURIComponent(rt) : 'only.final.html';
+
+        // 🔥 КЛЮЧОВА ЗМІНА
+        window.open(target + '#iksAddon', '_blank');
+        return;
+      } catch (e) {}
+
+      alert('IKS збережено для ONLY. Відкрий ONLY і натисни «Розрахувати».');
+    });
+
+
+    $('copySummaryBtn').addEventListener('click', async () => {
+      const txt = $('telegramText').value || "";
+      if(!txt){ setWarn("Спочатку натисни «Розрахувати»."); return; }
+      await navigator.clipboard.writeText(txt);
+      $('telegramStatus').textContent = "Скопійовано в буфер.";
+    });
+
+    $('downloadCsvBtn').addEventListener('click', () => {
+      if(!last){ setWarn("Спочатку натисни «Розрахувати»."); return; }
+      const rows = [];
+      rows.push(["---","СКЛО (UAH)","","",""]);
+      for(const r of last.csv.glassRows) rows.push(r);
+      rows.push(["---","IKS (EUR)","","",""]);
+      for(const r of last.csv.iksRows) rows.push(r);
+      const csv = makeCSV(rows);
+      const blob = new Blob([csv], {type:"text/csv;charset=utf-8"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "IKS_spec.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+
+    const IKS_STORAGE_KEY = "ONLY_IKS_PAYLOAD";
+
+    function pushIksToOnly(payload){
+      localStorage.setItem(IKS_STORAGE_KEY, JSON.stringify(payload));
+      alert("IKS збережено для ONLY. Повернись в ONLY і натисни «Розрахувати». ");
+      try{
+        const p=new URLSearchParams(location.search);
+        const rt=p.get("returnTo");
+        if(rt){ location.href = decodeURIComponent(rt) + "#iksAddon"; }
+      }catch(e){}
+    }
+
+    // приклад: виклик після твого calculate()
+    function buildIksPayload(){
+      // Беремо останній розрахунок IKS і пакуємо для ONLY
+      if(!last) return null;
+
+      const eurRate = Number(document.getElementById("eurRate")?.value || 50);
+
+      // helpers
+      const parseMoney = (s) => {
+        if(s==null) return 0;
+        const n = String(s).replace(",", ".").replace(/[^0-9.\-]/g, "");
+        const v = Number(n);
+        return isFinite(v) ? v : 0;
+      };
+      const splitQty = (s) => {
+        const str = String(s ?? "").trim();
+        const m = str.match(/^([0-9]+(?:[\.,][0-9]+)?)\s*(.*)$/);
+        if(!m) return { qty: str || "1", unit: "" };
+        return { qty: m[1].replace(",", "."), unit: (m[2] || "").trim() };
+      };
+
+      const glassRows = (last.csv?.glassRows || []).map(r=>{
+        const q = splitQty(r[2]);
+        return {
+          id: String(r[0]||""),
+          label: String(r[1]||""),
+          qty: q.qty,
+          unit: q.unit || "м²",
+          priceUah: parseMoney(r[3]),
+          sumUah: parseMoney(r[4]),
+          currency: "UAH"
+        };
+      });
+
+      const iksRows = (last.csv?.iksRows || []).map(r=>{
+        const q = splitQty(r[2]);
+        return {
+          id: String(r[0]||""),
+          label: String(r[1]||""),
+          qty: q.qty,
+          unit: q.unit || "шт",
+          priceEur: parseMoney(r[3]),
+          sumEur: parseMoney(r[4]),
+          currency: "EUR"
+        };
+      });
+
+      const payload = {
+        eurRate,
+        totalUAH: Number(last.totalUah || 0),
+        meta: {
+          system: document.getElementById("system")?.value || "IKS",
+          profile: document.getElementById("profile")?.value || "IS-954",
+          finish: document.getElementById("finish")?.value || "NS",
+          qty: Number(document.getElementById("qty")?.value || 1),
+          glassSupplier: document.getElementById("glassSupplier")?.value || ""
+        },
+        rowsEUR: iksRows,
+        rowsUAH: glassRows
+      };
+      return payload;
+    }
+
+    document.getElementById("applyToOnlyBtn").addEventListener("click", ()=>{
+      const payload = buildIksPayload();
+      if(!payload){ alert('Спочатку натисни «Розрахувати».'); return; }
+      pushIksToOnly(payload);
+    });
+
+
+    // mirror CSV button inside spec box
+    const dl2 = document.getElementById('downloadCsvBtn2');
+    if(dl2){
+      dl2.addEventListener('click', () => {
+        const b = document.getElementById('downloadCsvBtn');
+        if(b) b.click();
+      });
+    }
+
+    const copySpecBtn = document.getElementById('copySpecBtn');
+    if(copySpecBtn){
+      copySpecBtn.addEventListener('click', async () => {
+        if(!last){ setWarn("Спочатку натисни «Розрахувати»."); return; }
+        const tsv = specToTSV(last);
+        await navigator.clipboard.writeText(tsv);
+        const sh = document.getElementById("specHint");
+        if(sh) sh.textContent = "✅ Специфікацію скопійовано (TSV). Вставляй у Excel / Google Sheets.";
+      });
+    }
+
+    $('sendTelegramBtn').addEventListener('click', async () => {
+      const txt = $('telegramText').value || "";
+      if(!txt){ setWarn("Спочатку натисни «Розрахувати»."); return; }
+      const status = $('telegramStatus');
+      status.textContent = "Відправляю…";
+      try{
+        await sendTelegram(txt);
+        status.textContent = "✅ Відправлено в Telegram.";
+      }catch(err){
+        status.textContent = "❌ Помилка Telegram: " + (err?.message || err);
+      }
+    });
+
+    $('supplier').addEventListener('change', () => {
+      populateGlassList();
+      autoAdhesionPrep();
+      autoBuselPaint();
+    });
+    $('systemType').addEventListener('change', syncProfileOptions);
+    $('profileType').addEventListener('change', syncProfileOptions);
+    $('angle').addEventListener('change', () => { syncHingeUI(); autoAdhesionPrep(); autoBuselPaint(); });
+    $('hingeMode').addEventListener('change', () => { /* recalculation on demand */ });
+    $('finish').addEventListener('change', () => { /* affects IKS price */ });
+
+    $('glassItem').addEventListener('change', () => {
+      autoBuselPaint();
+    });
+    $('buselPaint').addEventListener('change', () => {
+      autoBuselPaint();
+    });
+
+    // init
+    setMode("client");
+    populateGlassList();
+    syncProfileOptions();
+    autoBuselPaint();
+    syncHingeUI();
+
+    // first calc
+    (function(){
+      const res = calculate();
+      if(res){ last = res; render(res); }
+    })();
+  
+
+    // ===== Handoff from ONLY (prefill размеров) =====
+    (function applyOnlyPrefill(){
+      try{
+        const url = new URL(location.href);
+        const p = url.searchParams;
+
+        let changed = false;
+
+        // 1) query params
+        const qDoorW = Number(p.get("doorW") || "");
+        const qDoorH = Number(p.get("doorH") || "");
+        const qQty   = Number(p.get("qty") || "");
+        const qRate  = Number(p.get("eurRate") || "");
+
+        if(isFinite(qRate) && qRate>0){ document.getElementById("eurRate").value = qRate; changed = true; }
+        if(isFinite(qQty)  && qQty>0){  document.getElementById("qty").value    = qQty;  changed = true; }
+        if(isFinite(qDoorW) && qDoorW>0){ document.getElementById("doorW").value = qDoorW; changed = true; }
+        if(isFinite(qDoorH) && qDoorH>0){ document.getElementById("doorH").value = qDoorH; changed = true; }
+
+        // 2) localStorage overrides (more reliable)
+        const raw = localStorage.getItem("ONLY_IKS_PREFILL");
+        if(raw){
+          const pre = JSON.parse(raw);
+          if(pre && typeof pre === "object"){
+            if(pre.eurRate){ document.getElementById("eurRate").value = pre.eurRate; changed = true; }
+            if(pre.qty){ document.getElementById("qty").value = pre.qty; changed = true; }
+            const dw = (pre.doorW || pre.suggestedDoorW);
+            const dh = (pre.doorH || pre.suggestedDoorH);
+            if(dw){ document.getElementById("doorW").value = dw; changed = true; }
+            if(dh){ document.getElementById("doorH").value = dh; changed = true; }
+
+            // optional defaults
+            if(pre.system){ document.getElementById("system").value = pre.system; changed = true; }
+            if(pre.profile){ document.getElementById("profile").value = pre.profile; changed = true; }
+            if(pre.finish){ document.getElementById("finish").value = pre.finish; changed = true; }
+            if(pre.angleDeg){ document.getElementById("angleDeg").value = pre.angleDeg; changed = true; }
+
+            // trigger dependent UI
+            try{ document.getElementById("system").dispatchEvent(new Event("change", { bubbles:true })); }catch(e){}
+            try{ document.getElementById("profile").dispatchEvent(new Event("change", { bubbles:true })); }catch(e){}
+            try{ document.getElementById("finish").dispatchEvent(new Event("change", { bubbles:true })); }catch(e){}
+          }
+        }
+
+        // 3) if anything changed — recalc immediately so user sees the new sizes
+        if(changed){
+          try{
+            const res = calculate();
+            if(res){ last = res; render(res); }
+          }catch(e){}
+        }
+      }catch(e){}
+    })();
+</script>
+
+</body>
+</html>
+
+
+
+
