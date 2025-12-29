@@ -808,8 +808,75 @@
             }
         }
 
+        /* ===== MT Accordion (LAIT guide) ===== */
+        .mt-acc-card{
+            margin: 18px 0 26px;
+            padding: 18px 18px 10px;
+            border-radius: 18px;
+            background: rgba(10,14,24,.48);
+            border: 1px solid rgba(255,255,255,.10);
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+            color: rgba(233,237,255,.92);
+        }
 
-</style>
+        .mt-acc-title{
+            margin: 2px 0 12px;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: .2px;
+        }
+
+        .mt-acc-item{
+            border-top: 1px solid rgba(255,255,255,.10);
+        }
+        .mt-acc-item:first-child{ border-top: 0; }
+
+        .mt-acc-btn{
+            width: 100%;
+            appearance: none;
+            border: 0;
+            background: transparent;
+            color: inherit;
+            padding: 14px 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .mt-acc-btn:hover{ opacity: .95; }
+        .mt-acc-ico{
+            min-width: 18px;
+            text-align: center;
+            opacity: .75;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .mt-acc-panel{
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .28s ease;
+        }
+
+        .mt-acc-body{
+            padding: 0 2px 14px;
+            font-size: 14px;
+            line-height: 1.55;
+            opacity: .92;
+        }
+
+        .mt-acc-note{
+            margin-top: 8px;
+            font-size: 12.5px;
+            opacity: .75;
+        }
+
+
+    </style>
 
 </head>
 <body>
@@ -944,6 +1011,102 @@
             </div>
         </section>
     </section>
+    <section class="mt-acc-card card lait-note-card" id="lait-guide">
+        <h2 class="mt-acc-title">Як користуватись калькулятором LAIT (Lite)</h2>
+
+        <div class="mt-acc" data-acc="single">
+            <div class="mt-acc-item is-open">
+                <button class="mt-acc-btn" type="button" aria-expanded="true">
+                    <span>Крок 1. Вкажіть габарити полиці</span>
+                    <span class="mt-acc-ico" aria-hidden="true">−</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Введіть <strong>ширину</strong> та <strong>глибину</strong> полиці. Вказуйте чисті розміри —
+                        усі технічні відступи калькулятор враховує автоматично.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-acc-item">
+                <button class="mt-acc-btn" type="button" aria-expanded="false">
+                    <span>Крок 2. Оберіть тип полиці</span>
+                    <span class="mt-acc-ico" aria-hidden="true">+</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Оберіть тип полиці LAIT (Lite) відповідно до задачі. Калькулятор автоматично перевіряє обмеження
+                        по робочій ширині.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-acc-item">
+                <button class="mt-acc-btn" type="button" aria-expanded="false">
+                    <span>Крок 3. Оберіть матеріал та скло</span>
+                    <span class="mt-acc-ico" aria-hidden="true">+</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Вкажіть тип скла та товщину. Скло рахується окремо як матеріал, без змішування з профілем.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-acc-item">
+                <button class="mt-acc-btn" type="button" aria-expanded="false">
+                    <span>Крок 4. LED (за потреби)</span>
+                    <span class="mt-acc-ico" aria-hidden="true">+</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Якщо потрібне підсвічування — увімкніть LED. Калькулятор додасть відповідні профілі та комплектуючі.
+                        <div class="mt-acc-note">Електрика LED рахується окремо та не входить у вартість полиці.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-acc-item">
+                <button class="mt-acc-btn" type="button" aria-expanded="false">
+                    <span>Крок 5. Вкажіть кількість полиць</span>
+                    <span class="mt-acc-ico" aria-hidden="true">+</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Задайте кількість однакових полиць — вартість буде перерахована автоматично.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-acc-item">
+                <button class="mt-acc-btn" type="button" aria-expanded="false">
+                    <span>Крок 6. Натисніть «Розрахувати»</span>
+                    <span class="mt-acc-ico" aria-hidden="true">+</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Натисніть кнопку <strong>«Розрахувати»</strong>. Калькулятор сформує перелік матеріалів, послуг та підсумкову вартість.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-acc-item">
+                <button class="mt-acc-btn" type="button" aria-expanded="false">
+                    <span>Крок 7. Передача результату в ONLY</span>
+                    <span class="mt-acc-ico" aria-hidden="true">+</span>
+                </button>
+                <div class="mt-acc-panel">
+                    <div class="mt-acc-body">
+                        Якщо LAIT відкрито з ONLY — підсумок збережеться автоматично.
+                        Поверніться у вкладку ONLY — результат підтягнеться одним рядком.
+                        <div class="mt-acc-note">Полиці LAIT не змінюють математику корпусу — вони додаються як окремий модуль.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 
     <!-- КАЛЬКУЛЯТОР LAIT (Lite) -->
     <section id="lait-lite-calculator" style="margin-top:40px;">
@@ -3053,6 +3216,85 @@ const ledId = document.getElementById('ledType').value;
       });
     });
   });
+</script>
+<script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.closest('.accordion-item');
+            const isActive = item.classList.contains('active');
+
+            document.querySelectorAll('.accordion-item').forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-icon').textContent = '+';
+            });
+
+            if (!isActive) {
+                item.classList.add('active');
+                item.querySelector('.accordion-icon').textContent = '−';
+            }
+        });
+    });
+</script>
+
+<script>
+    (function(){
+        const root = document.querySelector('.mt-acc');
+        if(!root) return;
+
+        const items = Array.from(root.querySelectorAll('.mt-acc-item'));
+
+        function closeItem(item){
+            item.classList.remove('is-open');
+            const btn = item.querySelector('.mt-acc-btn');
+            const panel = item.querySelector('.mt-acc-panel');
+            const ico = item.querySelector('.mt-acc-ico');
+            if(btn) btn.setAttribute('aria-expanded','false');
+            if(ico) ico.textContent = '+';
+            if(panel) panel.style.maxHeight = '0px';
+        }
+
+        function openItem(item){
+            item.classList.add('is-open');
+            const btn = item.querySelector('.mt-acc-btn');
+            const panel = item.querySelector('.mt-acc-panel');
+            const ico = item.querySelector('.mt-acc-ico');
+            if(btn) btn.setAttribute('aria-expanded','true');
+            if(ico) ico.textContent = '−';
+            if(panel) panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+
+        // init: відкриті елементи привести до правильного max-height
+        items.forEach(item => {
+            const isOpen = item.classList.contains('is-open');
+            if(isOpen) openItem(item); else closeItem(item);
+        });
+
+        root.addEventListener('click', (e) => {
+            const btn = e.target.closest('.mt-acc-btn');
+            if(!btn) return;
+            const item = btn.closest('.mt-acc-item');
+            if(!item) return;
+
+            const single = root.dataset.acc === 'single';
+            const willOpen = !item.classList.contains('is-open');
+
+            if(single){
+                items.forEach(i => closeItem(i));
+            }
+            if(willOpen) openItem(item);
+            else closeItem(item);
+        });
+
+        // щоб після зміни шрифтів/розміру не ламалось
+        window.addEventListener('resize', () => {
+            items.forEach(item => {
+                if(item.classList.contains('is-open')){
+                    const panel = item.querySelector('.mt-acc-panel');
+                    if(panel) panel.style.maxHeight = panel.scrollHeight + 'px';
+                }
+            });
+        });
+    })();
 </script>
 
 </body>
